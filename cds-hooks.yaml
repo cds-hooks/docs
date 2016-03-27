@@ -1,0 +1,174 @@
+swagger: '2.0'
+
+################################################################################
+#                              API Information                                 #
+################################################################################
+info:
+  version: '1.0'
+  title: CDS Hooks REST API
+host: cdshooks.example.org
+schemes:
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+
+################################################################################
+#                                           Paths                              #
+################################################################################
+paths:
+  /cds-services:
+    get:
+      description: Returns information on all CDS services offered by this CDS Provider
+      responses:
+        200:
+          description: Information for all CDS services offered by this CDS Provider
+          schema:
+            $ref: '#/definitions/CDS Service Information'
+
+  /cds-services/service-name:
+    post:
+      description: Invokes a CDS service
+      parameters:
+        - name: request
+          in: body
+          description: Pet to add to the store
+          required: true
+          schema:
+            $ref: '#/definitions/CDS Request'
+      responses:
+        200:
+          description: An array of cards
+          schema:
+            $ref: '#/definitions/CDS Response'
+
+
+################################################################################
+#                                 Definitions                                  #
+################################################################################
+definitions:
+  CDS Service Information:
+    type: object
+    properties:
+      services:
+        type: array
+        items:
+           $ref: '#/definitions/CDS Service'
+
+  CDS Service:
+    type: object
+    properties:
+      hook:
+        type: string
+        enum:
+          - patient-view
+          - medication-prescribe
+          - order-review
+      name:
+        type: string
+      description:
+        type: string
+      url:
+        type: string
+        format: url
+      prefetch:
+        type: array
+        items:
+          type: object
+
+  CDS Request:
+    type: object
+    properties:
+      hook:
+        $ref: '#/definitions/Hook'
+      hookInstance:
+        type: string
+        format: uuid
+      fhirServer:
+        type: string
+        format: url
+      oauth:
+        type: object
+      rediect:
+        type: sring
+      user:
+        type: object
+      patient:
+        type: object
+      encounter:
+        type: object
+
+  CDS Response:
+    type: object
+    properties:
+      cards:
+        type: array
+        items:
+          $ref: '#/definitions/Card'
+      decisions:
+        type: object
+
+  Card:
+    type: object
+    properties:
+      summary:
+        type: string
+      detail:
+        type: string
+      indicator:
+        type: string
+        enum:
+          - success
+          - info
+          - warning
+          - hard-stop
+      source:
+        $ref: '#/definitions/Source'
+      suggestions:
+        type: array
+        items:
+          $ref: '#/definitions/Suggestion'
+      links:
+        type: array
+        items:
+          $ref: '#/definitions/Link'
+
+  Hook:
+    type: string
+    enum:
+      - patient-view
+      - medication-prescribe
+      - order-review
+
+  Source:
+    type: object
+    properties:
+      name:
+        type: string
+      url:
+        type: string
+        format: url
+
+  Link:
+    type: object
+    properties:
+      label:
+        type: string
+      url:
+        type: string
+        format: url
+
+  Suggestion:
+    type: object
+    properties:
+      label:
+        type: string
+      create:
+        type: array
+        items:
+          type: object
+      delete:
+        type: array
+        items:
+          type: object
