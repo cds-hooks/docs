@@ -27,13 +27,18 @@ paths:
           schema:
             $ref: '#/definitions/CDS Service Information'
 
-  /cds-services/service-name:
+  /cds-services/{service-name}:
     post:
       description: Invokes a CDS service
       parameters:
+        - name: service-name
+          in: path
+          description: Name of the CDS service
+          required: true
+          type: string
         - name: request
           in: body
-          description: Pet to add to the store
+          description: The body of CDS service request
           required: true
           schema:
             $ref: '#/definitions/CDS Request'
@@ -90,8 +95,8 @@ definitions:
         format: url
       oauth:
         type: object
-      rediect:
-        type: sring
+      redirect:
+        type: string
       user:
         type: object
       patient:
