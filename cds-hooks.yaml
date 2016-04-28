@@ -70,9 +70,8 @@ definitions:
         type: string
       description:
         type: string
-      url:
+      id:
         type: string
-        format: url
       preFetch:
         type: array
         items:
