@@ -99,6 +99,10 @@ definitions:
         type: object
       encounter:
         type: object
+      context:
+        type: array
+      preFetchData:
+        type: object
 
   HookCoding:
     type: object
