@@ -6,7 +6,7 @@ swagger: '2.0'
 info:
   version: '1.0'
   title: CDS Hooks REST API
-host: cdshooks.example.org
+host: cds-service-example.herokuapp.com
 schemes:
   - https
 consumes:
