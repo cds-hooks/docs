@@ -20,16 +20,16 @@ produces:
 paths:
   /.well-known/cds-services:
     get:
-      description: Returns information on all CDS services offered by this CDS Provider
+      description: Get a description of all CDS services offered by this CDS Provider
       responses:
         200:
-          description: Information for all CDS services offered by this CDS Provider
+          description: Success (includes CDS service metadata)
           schema:
             $ref: '#/definitions/CDS Service Information'
 
   /cds-services/{service-name}:
     post:
-      description: Invokes a CDS service
+      description: Invoke a CDS service offered by this CDS Provider
       parameters:
         - name: service-name
           in: path
@@ -38,13 +38,13 @@ paths:
           type: string
         - name: request
           in: body
-          description: The body of CDS service request
+          description: Body of CDS service request
           required: true
           schema:
             $ref: '#/definitions/CDS Request'
       responses:
         200:
-          description: An array of cards
+          description: Success (includes CDS Cards and Decisions)
           schema:
             $ref: '#/definitions/CDS Response'
 
