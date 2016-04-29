@@ -100,6 +100,8 @@ definitions:
         type: object
       context:
         type: array
+        items:
+          type: object
       preFetchData:
         type: object
 
@@ -107,7 +109,7 @@ definitions:
     type: object
     properties:
       system:
-        type: array
+        type: string
       code:
         type: string
 
