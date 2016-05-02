@@ -64,18 +64,16 @@ definitions:
   CDS Service:
     type: object
     properties:
+      id:
+        type: string
       hook:
         $ref: '#/definitions/HookCoding'
       name:
         type: string
       description:
         type: string
-      id:
-        type: string
       prefetch:
-        type: array
-        items:
-          type: object
+        $ref: '#/definitions/Prefetch'
 
   CDS Request:
     type: object
@@ -186,3 +184,8 @@ definitions:
         type: array
         items:
           type: object
+
+  Prefetch:
+    type: object
+    additionalProperties:
+      type: string
