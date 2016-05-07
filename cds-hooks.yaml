@@ -27,13 +27,13 @@ paths:
           schema:
             $ref: '#/definitions/CDS Service Information'
 
-  /cds-services/{service-name}:
+  /cds-services/{id}:
     post:
       description: Invoke a CDS service offered by this CDS Provider
       parameters:
-        - name: service-name
+        - name: id
           in: path
-          description: Name of the CDS service
+          description: The id of this CDS service
           required: true
           type: string
         - name: request
