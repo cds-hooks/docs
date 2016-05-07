@@ -56,6 +56,9 @@ An EHR calls a CSD service by POSTing a JSON document to the service endpoint. S
    "fhirServer" : "http://hooks.smarthealthit.org:9080",
    "hook" : "patient-view",
    "redirect" : "http://hooks2.smarthealthit.org/service-done.html",
+   "user" : "Practitioner/example",
+   "context" : [],
+   "patient" : "1288992",
    "prefetch" : {
       "patientToGreet" : {
          "response" : {
@@ -69,10 +72,7 @@ An EHR calls a CSD service by POSTing a JSON document to the service endpoint. S
             "active" : true
          }
       }
-   },
-   "user" : "Practitioner/example",
-   "context" : [],
-   "patient" : "1288992"
+   }
 }
 
 ```
