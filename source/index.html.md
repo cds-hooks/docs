@@ -41,7 +41,7 @@ User activity inside the EHR triggers **CDS hooks** in real-time.  For example:
 * `medication-prescribe` on authoring a new prescription
 * `order-review` on viewing pending orders for approval
 
-When a triggering activity occurs, the EHR notifies each CDS service registered for the activity (see [`$cds-hook` operation](./CDS Hook Operation)). These services must then provide near-real-time feedback about the triggering event. Each service gets basic details about the EHR
+When a triggering activity occurs, the EHR notifies each CDS service registered for the activity. These services must then provide near-real-time feedback about the triggering event. Each service gets basic details about the EHR
 context (via the `context` parameter of the hook) plus whatever
 service-specific data are required (via the `pre-fetch-template` parameter).
 
@@ -71,6 +71,6 @@ returning to the EHR's prescription page she expects her new blood pressure
 prescription to "just be there". By returning a decision *instead of a card*,
 the CDS service achieves this expected behavior. (*Note:* To return a
 decision after a user interaction, the CDS service must maintain state
-associated with the request's [`activityId`](./CDS Hook Operation);
+associated with the request's `hookInstance`;
 when the EHR invokes the `$cds-hook` operation for a second time with the same
-`activityId`, the service can respond with decisions on as well as cards.)
+`hookInstance`, the service can respond with decisions on as well as cards.)
