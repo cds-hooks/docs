@@ -177,6 +177,105 @@ swagger](http://editor.swagger.io/#/?import=https://raw.githubusercontent.com/cd
 
 ## CDS Service Response
 
+```
+{
+  card:                   0..* {
+    summary:              1..1,
+    detail:               0..1,
+    indicator:            1..1,
+    source:               1..1 {
+      label:              1..1,
+      url:                0..1
+    },
+    suggestion:           0..* {
+      label:              0..1,
+      create:             0..*,
+      delete:             0..*
+    },
+    link:                 0..* {
+      label:              0..1,
+      url:                0..1
+    }
+  },
+  decision:               0..* {
+    create:               0..*,
+    delete:               0..*
+  }
+}
+```
+
+**`card`** one CDS result for the EHR to present to the user. Cards can provide a 
+combination of information (for reading), suggested actions (to be applied if a user
+selects them), and links (to launch an app if the user selects them). The EHR decides
+how to display cards, but we recommend displaying suggestions using buttons, and
+links using underlined text.
+
+**`card.summary`** one-sentence, <140-character summary message for display to
+the user inside of this card.
+
+**`card.detail`** optional detailed information to display, represented in Markdown. (For
+non-urgent cards, the EHR may hide these details until the user clicks a link like
+"view more details...".)
+
+**`card.indicator`**  urgency/importance of what this card
+conveys. Allowed values, in order of increasing urgency, are: `success`,
+`info`, `warning`, `hard-stop`. The EHR can use this field to
+help make UI display decisions such as sort order or coloring. The value 
+`hard-stop` indicates that the workflow **should not be allowed to proceed**. 
+
+**`card.source`** grouping structure for a short, human-readable description (in `source.label`)
+of the source of the information displayed on this card, with an optional link (in `source.url`) 
+where the user can learn more about the organization or data set that provided
+the information on this card. Note that `source.url` should **not** be used to
+supply a context-specific "drill-down" view of the information on this card. For that,
+use `link.url` instead.
+
+**`card.suggestion`** grouping structure for *suggestion cards*, which allow a service
+to suggest a set of changes in the context of the current activity
+(e.g.  changing the dose of the medication currently being prescribed, for the
+`medication-prescribe` activity)
+
+**`card.suggestion.label`** human-readable label to display for this suggestion
+(e.g. the EHR might render this as the text on a button tied to this
+suggestion).
+
+**`card.suggestion.create`** new resource(s) that this suggestion
+applies within the current activity (e.g. for `medication-prescribe`, this
+holds the updated prescription as proposed by the suggestion).
+
+**`card.suggestion.delete`** id(s) of any resources to remove from the current
+activity (e.g. for the `order-review` activity, this would provide a way to
+remove orders from the pending list). In activities like `medication-prescribe`
+where only one "content" resource is ever relevant, this field may be omitted.
+
+**`card.link`** grouping structure for a link to an app that the user
+might want to run for additional information or to help guide a decision.
+
+**`card.link.label`** human-readable label to display for this link (e.g. the EHR
+might render this as the underlined text of a clickable link).
+
+**`card.link.url`** URL to load when a user clicks on this link. Note that this
+may be a "deep link" with context embedded in path segments, query parameters,
+or a hash. In general this URL should embed enough context for the app to
+determine the `activityInstance`, and `redirect` url upon downstream
+launch, because the EHR will simply use this url as-is, without appending any parameters
+at launch time.
+
+**`decision`** grouping structure representing a decision to be applied directly to
+the user session. Note that a CDS service may only return a `decision` after
+interacting with the user through an app link. Decisions are designed to convey
+any choices the user made in an app session.
+
+**`decision.create`** new resource(s) that the EHR should create within the
+current activity (e.g. for `medication-prescribe`, this would be the updated
+prescription that a user had authored in an app session).
+
+**`decision.delete`** id(s) of any resources to remove from the current
+activity (e.g. for the `order-review` activity, this would provide a way to
+remove orders from the pending list). In activities like `medication-prescribe`
+where only one "content" resource is ever relevant, this field may be omitted.
+
+> Example response
 
 ```json
 {
