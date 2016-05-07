@@ -48,7 +48,7 @@ The URI path prefix of /.well-known/ is defined by <a href="https://tools.ietf.o
 
 ## Invocation
 
-An EHR calls a CSD service by POSTing a JSON document to the service endpoint. See details about the data model at http://editor.swagger.io/#/?import=https://raw.githubusercontent.com/cds-hooks/api/master/cds-hooks.yaml?token=AATHAQY8vqQ6dIZajRuuE55EWMBitTptks5XLMk6wA%3D%3D
+An EHR calls a CSD service by POSTing a JSON document to the service endpoint. See details about the data model [in swagger](http://editor.swagger.io/#/?import=https://raw.githubusercontent.com/cds-hooks/api/master/cds-hooks.yaml?token=AATHAQY8vqQ6dIZajRuuE55EWMBitTptks5XLMk6wA%3D%3D)
 
 ```shell
 curl "https://example.com/example-cds-service"
