@@ -184,9 +184,11 @@ example, `Practitioner/123`. The type is one of: `Practitioner`, `Patient`, or
 needs. (For exampe, with the `order-review` activity this will include
 MedicationOrder and  Diagnostic resources, among others)
 
-**`prefetch`** as a performance tweak, the EHR may pass along data according
-to the service's [[Prefetch-Template]]. This helps provide the service with all
-the data it needs to efficiently compute a set of recommendations. Each key matches a key described in the CDS Service Discovery document; and each value is a FHIR Bundle.entry indicating a response status and returned resource.
+**`prefetch`** as a performance tweak, the EHR may pass along data according to
+the service's [[Prefetch-Template]]. This helps provide the service with all
+the data it needs to efficiently compute a set of recommendations. Each key
+matches a key described in the CDS Service Discovery document; and each value
+is a FHIR Bundle.entry indicating a `response` status and returned `resource`.
 
 Note that in the absence of `prefetch`, an external service can always execute
 FHIR REST API calls against the EHR server to obtain additional data ad-hoc.)
