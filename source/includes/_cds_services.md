@@ -49,7 +49,7 @@ The URI path prefix of /.well-known/ is defined by <a href="https://tools.ietf.o
 ## Invocation
 
 An EHR calls a CDS service by `POST`ing a JSON document to the service
-endpoint. See details about the data model [in
+endpoint, which can be constructed from the CDS Service base URL and an individual serviec id as `{baseUrl}/cds-services/{service.id}`. See details about the data model [in
 swagger](http://editor.swagger.io/#/?import=https://raw.githubusercontent.com/cds-hooks/api/master/cds-hooks.yaml?token=AATHAQY8vqQ6dIZajRuuE55EWMBitTptks5XLMk6wA%3D%3D)
 
 
