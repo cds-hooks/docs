@@ -2,11 +2,25 @@
 
 ## Discovery
 
+Developers of CDS Services must provide a well-known endpoint allowing the EHR to discover all available CDS Services, including information such as the purpose of the CDS Service, when it should be invoked, and any data that is requested to be prefetched.
+
+
+### HTTP Request
+
 ```shell
 curl "https://example.com/.well-known/cds-services"
 ```
 
-> The above command returns JSON structured like this:
+The discovery endpoint is always available at `{baseUrl}/.well-known/cds-services`. For example, if the `baseUrl` is https://example.com, the EHR would invoke:
+
+`GET https://example.com/.well-known/cds-services`
+
+<aside class="notice">
+The URI path prefix of /.well-known/ is defined by <a href="https://tools.ietf.org/html/rfc5785">RFC 5785</a> for the sole purpose of expressing static, well-known URLs.
+</aside>
+
+### Response
+
 
 ```json
 {
@@ -33,20 +47,6 @@ curl "https://example.com/.well-known/cds-services"
   ]
 }
 ```
-
-Developers of CDS Services must provide a well-known endpoint allowing the EHR to discover all available CDS Services, including information such as the purpose of the CDS Service, when it should be invoked, and any data that is requested to be prefetched.
-
-### HTTP Request
-
-The discovery endpoint is always available at `{baseUrl}/.well-known/cds-services`. For example, if the `baseUrl` is https://example.com, the EHR would invoke:
-
-`GET https://example.com/.well-known/cds-services`
-
-<aside class="notice">
-The URI path prefix of /.well-known/ is defined by <a href="https://tools.ietf.org/html/rfc5785">RFC 5785</a> for the sole purpose of expressing static, well-known URLs.
-</aside>
-
-### Response
 
 The response to the discovery endpoint is an object containing a list of CDS Services.
 
@@ -92,6 +92,7 @@ Code | Description
 }
 ```
 
+### Request fields
 
 ```
 curl "https://example.com/cds-services/static-patient-greeter"
@@ -123,7 +124,6 @@ curl "https://example.com/cds-services/static-patient-greeter"
 }
 ```
 
-### Request fields
 
 The CDS Hook call includes the following input fields:
 
