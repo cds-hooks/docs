@@ -72,5 +72,5 @@ prescription to "just be there". By returning a decision *instead of a card*,
 the CDS service achieves this expected behavior. (*Note:* To return a
 decision after a user interaction, the CDS service must maintain state
 associated with the request's `hookInstance`;
-when the EHR invokes the `$cds-hook` operation for a second time with the same
+when the EHR invokes the hook for a second time with the same
 `hookInstance`, the service can respond with decisions on as well as cards.)
