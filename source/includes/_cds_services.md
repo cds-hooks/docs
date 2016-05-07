@@ -231,6 +231,41 @@ swagger](http://editor.swagger.io/#/?import=https://raw.githubusercontent.com/cd
 }
 ```
 
+> Example response
+
+```json
+{
+  "cards": [
+    {
+      "summary": "Success Card",
+      "indicator": "success",
+      "detail": "This is an example success card.",
+      "source": {
+        "name": "Static CDS Service Example",
+        "url": "https://example.com"
+      },
+      "links": [
+        {
+          "label": "Google",
+          "url": "https://google.com"
+        },
+        {
+          "label": "Github",
+          "url": "https://github.com"
+        }
+      ]
+    },
+    {
+      "summary": "Info card",
+      "indicator": "info",
+      "source": {
+        "name": "Static CDS Service Example"
+      }
+    }
+  ]
+}
+```
+
 **`cards`** CDS results for the EHR to present to the user. Cards can provide a 
 combination of information (for reading), suggested actions (to be applied if a user
 selects them), and links (to launch an app if the user selects them). The EHR decides
@@ -301,39 +336,3 @@ prescription that a user had authored in an app session).
 activity (e.g. for the `order-review` activity, this would provide a way to
 remove orders from the pending list). In activities like `medication-prescribe`
 where only one "content" resource is ever relevant, this field may be omitted.
-
-> Example response
-
-```json
-{
-  "cards": [
-    {
-      "summary": "Success Card",
-      "indicator": "success",
-      "detail": "This is an example success card.",
-      "source": {
-        "name": "Static CDS Service Example",
-        "url": "https://example.com"
-      },
-      "links": [
-        {
-          "label": "Google",
-          "url": "https://google.com"
-        },
-        {
-          "label": "Github",
-          "url": "https://github.com"
-        }
-      ]
-    },
-    {
-      "summary": "Info card",
-      "indicator": "info",
-      "source": {
-        "name": "Static CDS Service Example"
-      }
-    }
-  ]
-}
-```
-This command returns JSON structured like:
