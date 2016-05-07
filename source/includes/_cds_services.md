@@ -46,6 +46,31 @@ The discovery endpoint is always available at `{baseUrl}/.well-known/cds-service
 The URI path prefix of /.well-known/ is defined by <a href="https://tools.ietf.org/html/rfc5785">RFC 5785</a> for the sole purpose of expressing static, well-known URLs.
 </aside>
 
+### Response
+
+The response to the discovery endpoint is an object containing a list of CDS Services.
+
+Field | Description
+----- | -----------
+`services` *array* | An array of *CDS Services*
+
+Each CDS Service is described by the following attributes.
+
+Field | Description
+----- | -----------
+`hook` *string* | The hook this service should be invoked on<br />(todo: link to hook documentation)
+`name` *string* | The name of this service
+`description` *string* | The description of this service
+`id` *string* | The {id} portion of the URL to this service which is available at<br />`{baseUrl}/cds-services/{id}`
+`prefetch` *object* | An object containing key/value pairs of FHIR queries to data<br />that this service would like the EHR prefetch and provide on<br />each service call. The key is a *string* that describes the type<br />of data being requested and the value is a *string* representing<br />the FHIR query.<br />(todo: link to prefetching documentation)
+
+### HTTP Status Codes
+
+Code | Description
+---- | -----------
+`200 OK` | A successful response
+
+
 ## Calling a CDS Service
 
 ```shell
