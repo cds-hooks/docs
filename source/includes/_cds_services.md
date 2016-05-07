@@ -50,6 +50,33 @@ The URI path prefix of /.well-known/ is defined by <a href="https://tools.ietf.o
 
 An EHR calls a CSD service by POSTing a JSON document to the service endpoint. See details about the data model [in swagger](http://editor.swagger.io/#/?import=https://raw.githubusercontent.com/cds-hooks/api/master/cds-hooks.yaml?token=AATHAQY8vqQ6dIZajRuuE55EWMBitTptks5XLMk6wA%3D%3D)
 
+```json
+{
+   "hookInstance" : "d1577c69-dfbe-44ad-ba6d-3e05e953b2ea",
+   "fhirServer" : "http://hooks.smarthealthit.org:9080",
+   "hook" : "patient-view",
+   "redirect" : "http://hooks2.smarthealthit.org/service-done.html",
+   "prefetch" : {
+      "patientToGreet" : {
+         "response" : {
+            "status" : "200 OK"
+         },
+         "resource" : {
+            "resourceType" : "Patient",
+            "gender" : "male",
+            "birthDate" : "1925-12-23",
+            "id" : "1288992",
+            "active" : true
+         }
+      }
+   },
+   "user" : "Practitioner/example",
+   "context" : [],
+   "patient" : "1288992"
+}
+
+```
+
 ```shell
 curl "https://example.com/example-cds-service"
 ```
