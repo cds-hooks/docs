@@ -20,16 +20,9 @@ This specification describes a
 ["hook"](http://en.wikipedia.org/wiki/Hooking)-based pattern for invoking
 decision support from within a clinician's EHR workflow. The API supports:
 
-1. Synchronous, workflow-triggered CDS calls returning information and suggestions
-2. Launching a user-facing SMART app when CDS requires deeper interaction
-3. Long-running, non-modal CDS sessions that observe EHR activity in progress
-
-## Design goals
-
-* CDS process that enables end-to-end UX integration with the EHR
-* Solve one important CDS problem with the simplest possible approach
-* Build on open standards (leveraging vendor investment in SMART on FHIR)
-* Enable real-world performance tweaks without changing developers' mental model
+ * Synchronous, workflow-triggered CDS calls returning information and suggestions
+ * Launching a user-facing SMART app when CDS requires deeper interaction
+ * Long-running, non-modal CDS sessions that observe EHR activity in progress
 
 ## How it works
 
