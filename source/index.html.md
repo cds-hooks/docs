@@ -3,166 +3,74 @@ title: API Reference
 
 language_tabs:
   - shell
+  - javascript
   - ruby
-  - python
 
 toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
   - <a href='https://github.com/tripit/slate'>Documentation Powered by Slate</a>
 
 includes:
-  - errors
+  - cds_services
+  - community
 
 search: true
 ---
 
-# Introduction
+# Overview
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+This specification describes a
+["hook"](http://en.wikipedia.org/wiki/Hooking)-based pattern for invoking
+decision support from within a clinician's EHR workflow. The API supports:
 
-We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
+1. Synchronous, workflow-triggered CDS calls returning information and suggestions
+2. Launching a user-facing SMART app when CDS requires deeper interaction
+3. Long-running, non-modal CDS sessions that observe EHR activity in progress
 
-This example API documentation page was created with [Slate](https://github.com/tripit/slate). Feel free to edit it and use it as a base for your own API's documentation.
+## Design goals
 
-# Authentication
+* CDS process that enables end-to-end UX integration with the EHR
+* Solve one important CDS problem with the simplest possible approach
+* Build on open standards (leveraging vendor investment in SMART on FHIR)
+* Enable real-world performance tweaks without changing developers' mental model
 
-> To authorize, use this code:
+## How it works
 
-```ruby
-require 'kittn'
+User activity inside the EHR triggers **CDS hooks** in real-time.  For example:
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-```
+* `patient-view` when opening a new patient record
+* `medication-prescribe` on authoring a new prescription
+* `order-review` on viewing pending orders for approval
 
-```python
-import kittn
+When a triggering activity occurs, the EHR notifies each CDS service registered for the activity (see [`$cds-hook` operation](./CDS Hook Operation)). These services must then provide near-real-time feedback about the triggering event. Each service gets basic details about the EHR
+context (via the `context` parameter of the hook) plus whatever
+service-specific data are required (via the `pre-fetch-template` parameter).
 
-api = kittn.authorize('meowmeowmeow')
-```
+![CDS Hooks Overview](images/overview-with-decisions.png)
 
-```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here"
-  -H "Authorization: meowmeowmeow"
-```
+## CDS Cards
 
-> Make sure to replace `meowmeowmeow` with your API key.
+Each CDS service can return any number of **cards** in response to the hook.
+Cards convey some combination of text (*information card*), alternative
+suggestions (*suggestion card*), and links to apps or reference
+materials (*app link card*). A user sees these cards — one or more of each type
+— embedded in the EHR, and can interact with them as follows:
 
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
+* *information card*: provides text for the user to read.
 
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
+* *suggestion card*: provides a specific suggestion for which the EHR renders a button that the user can click to accept. Clicking automatically populates the suggested change into the EHR's UI.
 
-`Authorization: meowmeowmeow`
+* *app link card*: provides a link to a SMART app where the user can supply details, step through a flowchart, or do anything else required to help reach an informed decision. When the user has finished, flow returns to the EHR. At that point, the **EHR re-triggers the initial CDS hook**. The re-triggering may result in different cards, and may also include **decisions** (see below).
 
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
+## CDS Decisions
 
-# Kittens
-
-## Get All Kittens
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
-```
-
-```shell
-curl "http://example.com/api/kittens"
-  -H "Authorization: meowmeowmeow"
-```
-
-> The above command returns JSON structured like this:
-
-```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
-  }
-]
-```
-
-This endpoint retrieves all kittens.
-
-### HTTP Request
-
-`GET http://example.com/api/kittens`
-
-### Query Parameters
-
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
-
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-
-## Get a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2"
-  -H "Authorization: meowmeowmeow"
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
-}
-```
-
-This endpoint retrieves a specific kitten.
-
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
-
-### HTTP Request
-
-`GET http://example.com/kittens/<ID>`
-
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to retrieve
-
+In addition to cards, a CDS service may also return **decisions** — but only
+after a user has interacted with the service via an *app link card*.
+Returning a decision allows the the CDS service to communicate the user's choices  to the EHR without displaying an additional card.  For
+example, a user might launch a hypertension management app, and upon
+returning to the EHR's prescription page she expects her new blood pressure
+prescription to "just be there". By returning a decision *instead of a card*,
+the CDS service achieves this expected behavior. (*Note:* To return a
+decision after a user interaction, the CDS service must maintain state
+associated with the request's [`activityId`](./CDS Hook Operation);
+when the EHR invokes the `$cds-hook` operation for a second time with the same
+`activityId`, the service can respond with decisions on as well as cards.)
