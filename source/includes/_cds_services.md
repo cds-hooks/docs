@@ -17,7 +17,7 @@ curl "https://example.com/.well-known/cds-services"
       "description": "An example of a CDS service that returns a static set of cards",
       "id": "static-patient-greeter",
       "prefetch": {
-        "patient": "Patient/{{Patient.id}}"
+        "patientToGreet": "Patient/{{Patient.id}}"
       }
     },
     {
