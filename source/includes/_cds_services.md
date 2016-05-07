@@ -177,7 +177,7 @@ swagger](http://editor.swagger.io/#/?import=https://raw.githubusercontent.com/cd
 
 ## CDS Service Response
 
-```
+```shell
 {
   card:                   0..* {
     summary:              1..1,
