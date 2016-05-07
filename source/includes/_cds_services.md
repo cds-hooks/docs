@@ -231,7 +231,7 @@ swagger](http://editor.swagger.io/#/?import=https://raw.githubusercontent.com/cd
 }
 ```
 
-**`cards`** one CDS result for the EHR to present to the user. Cards can provide a 
+**`cards`** CDS results for the EHR to present to the user. Cards can provide a 
 combination of information (for reading), suggested actions (to be applied if a user
 selects them), and links (to launch an app if the user selects them). The EHR decides
 how to display cards, but we recommend displaying suggestions using buttons, and
