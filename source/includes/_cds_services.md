@@ -52,7 +52,7 @@ The response to the discovery endpoint is an object containing a list of CDS Ser
 
 Field | Description
 ----- | -----------
-`services` | *array*. An array of *CDS Services*
+`services` | *array*. An array of **CDS Services**
 
 Each CDS Service is described by the following attributes.
 
@@ -72,31 +72,11 @@ Code | Description
 
 ## Calling a CDS Service
 
-```shell
-{
-  hookInstannce:          1..1,
-  hook:                   1..1,
-  fhirServer:             0..1,
-  oauth:                  0..1 {
-    token:                1..1,
-    scope:                1..1,
-    expires:              1..1
-  },
-  redirect:               1..1,
-  user:                   0..1,
-  patient:                0..1,
-  encounter:              0..1,
-  context:                0..* resource(Any),
-  prefetch:               0..1 { }
-}
-```
-
-
 ```
 curl
   -X POST \
   -H 'Content-type: application/json' \
-  --data @hook-details-see-below
+  --data @hook-details-see-example-below
   "https://example.com/cds-services/static-patient-greeter"
 ```
 
@@ -205,34 +185,6 @@ You can see the <a href="http://editor.swagger.io/#/?import=https://raw.githubus
 
 ## CDS Service Response
 
-```shell
-{
-  cards:                   0..* {
-    summary:              1..1,
-    detail:               0..1,
-    indicator:            1..1,
-    source:               1..1 {
-      label:              1..1,
-      url:                0..1
-    },
-    suggestions:           0..* {
-      label:              0..1,
-      uuid:               0..1,
-      create:             0..*,
-      delete:             0..*
-    },
-    links:                 0..* {
-      label:              0..1,
-      url:                0..1
-    }
-  },
-  decisions:               0..* {
-    create:               0..*,
-    delete:               0..*
-  }
-}
-```
-
 > Example response
 
 ```json
@@ -268,80 +220,46 @@ You can see the <a href="http://editor.swagger.io/#/?import=https://raw.githubus
 }
 ```
 
-**`cards`** CDS results for the EHR to present to the user. Cards can provide a 
-combination of information (for reading), suggested actions (to be applied if a user
-selects them), and links (to launch an app if the user selects them). The EHR decides
-how to display cards, but we recommend displaying suggestions using buttons, and
-links using underlined text.
+Field | Description
+----- | -----------
+`cards` |*array*. An array of **Cards**. Cards can provide a combination of information (for reading), suggested actions (to be applied if a user selects them), and links (to launch an app if the user selects them). The EHR decides how to display cards, but we recommend displaying suggestions using buttons, and links using underlined text.
+<nobr>`decisions`</nobr> |*array*. An array of **Decisions**. A decision should only be generated after interacting with the user through an app link. Decisions are designed to convey any choices the user made in an app session.
 
-**`cards.summary`** one-sentence, <140-character summary message for display to
-the user inside of this card.
+represents a user's choice made while interactin with the CDS Provider's external app. The first call to a service should never include any `deecisions`, since no user interaction has occurred yet.
 
-**`cards.detail`** optional detailed information to display, represented in Markdown. (For
-non-urgent cards, the EHR may hide these details until the user clicks a link like
-"view more details...".)
+Each **Card** is described by the following attributes.
 
-**`cards.indicator`**  urgency/importance of what this card
-conveys. Allowed values, in order of increasing urgency, are: `success`,
-`info`, `warning`, `hard-stop`. The EHR can use this field to
-help make UI display decisions such as sort order or coloring. The value 
-`hard-stop` indicates that the workflow **should not be allowed to proceed**. 
+Field | Description
+----- | -----------
+`summary` | *string*. one-sentence, <140-character summary message for display to the user inside of this card.
+`detail` | *string*.  optional detailed information to display, represented in Markdown. (For non-urgent cards, the EHR may hide these details until the user clicks a link like "view more details...".) 
+`indicator` | *string*.  urgency/importance of what this card conveys. Allowed values, in order of increasing urgency, are: `success`, `info`, `warning`, `hard-stop`. The EHR can use this field to help make UI display decisions such as sort order or coloring. The value `hard-stop` indicates that the workflow should not be allowed to proceed. 
+`source` | *string*. grouping structure for a short, human-readable description (in `source.label`) of the source of the information displayed on this card, with an optional link (in `source.url`) where the user can learn more about the organization or data set that provided the information on this card. Note that `source.url` should not be used to supply a context-specific "drill-down" view of the information on this card. For that, use `link.url` instead.  
+<nobr>`suggestions`</nobr> | *array* of **Suggestions**, which allow a service to suggest a set of changes in the context of the current activity (e.g.  changing the dose of the medication currently being prescribed, for the `medication-prescribe` activity)
+`links` | *array* of **Links**, which allow a service to suggest a link to an app that the user might want to run for additional information or to help guide a decision.
 
-**`cards.source`** grouping structure for a short, human-readable description (in `source.label`)
-of the source of the information displayed on this card, with an optional link (in `source.url`) 
-where the user can learn more about the organization or data set that provided
-the information on this card. Note that `source.url` should **not** be used to
-supply a context-specific "drill-down" view of the information on this card. For that,
-use `link.url` instead.
+Each **Suggestion** is described by the following attributes.
 
-**`cards.suggestions`** grouping structure for *suggestion cards*, which allow a service
-to suggest a set of changes in the context of the current activity
-(e.g.  changing the dose of the medication currently being prescribed, for the
-`medication-prescribe` activity)
+Field | Description
+----- | -----------
+`label` |  *string*. human-readable label to display for this suggestion (e.g. the EHR might render this as the text on a button tied to this suggestion).
+`uuid` | *string*. unique identifier for this suggestion. For details see [Suggestion Tracking Analytics](#analytics)
+<nobr>`create`</nobr> | *string*. new resource(s) that this suggestion applies within the current activity (e.g. for `medication-prescribe`, this holds the updated prescription as proposed by the suggestion).  
+`delete`  | *string*. id(s) of any resources to remove from the current activity (e.g. for the `order-review` activity, this would provide a way to remove orders from the pending list). In activities like `medication-prescribe` where only one "content" resource is ever relevant, this field may be omitted.
 
-**`cards.suggestions.label`** human-readable label to display for this suggestion
-(e.g. the EHR might render this as the text on a button tied to this
-suggestion).
+Each **Link** described by the following attributes.
 
-**`cards.suggestions.uuid`** unique identifier for this suggestion. For details
-see [Suggestion Tracking Analytics](#analytics)
+Field | Description
+----- | -----------
+<nobr>`label`</nobr>| *string*. human-readable label to display for this link (e.g. the EHR might render this as the underlined text of a clickable link).
+`url` | *URL*. URL to load (via `GET`, in a browser context) when a user clicks on this link. Note that this may be a "deep link" with context embedded in path segments, query parameters, or a hash. In general this URL should embed enough context for the app to determine the `activityInstance`, and `redirect` url upon downstream launch, because the EHR will simply use this url as-is, without appending any parameters at launch time.
 
 
-**`cards.suggestions.create`** new resource(s) that this suggestion
-applies within the current activity (e.g. for `medication-prescribe`, this
-holds the updated prescription as proposed by the suggestion).
-
-**`cards.suggestions.delete`** id(s) of any resources to remove from the current
-activity (e.g. for the `order-review` activity, this would provide a way to
-remove orders from the pending list). In activities like `medication-prescribe`
-where only one "content" resource is ever relevant, this field may be omitted.
-
-**`cards.links`** grouping structure for a link to an app that the user
-might want to run for additional information or to help guide a decision.
-
-**`cards.links.label`** human-readable label to display for this link (e.g. the EHR
-might render this as the underlined text of a clickable link).
-
-**`cards.links.url`** URL to load (via `GET`, in a browser context) when a user
-clicks on this link. Note that this may be a "deep link" with context embedded
-in path segments, query parameters, or a hash. In general this URL should embed
-enough context for the app to determine the `activityInstance`, and `redirect`
-url upon downstream launch, because the EHR will simply use this url as-is,
-without appending any parameters at launch time.
-
-**`decisions`** grouping structure representing a decision to be applied directly to
-the user session. Note that a CDS service may only return a `decision` after
-interacting with the user through an app link. Decisions are designed to convey
-any choices the user made in an app session.
-
-**`decisions.create`** new resource(s) that the EHR should create within the
-current activity (e.g. for `medication-prescribe`, this would be the updated
-prescription that a user had authored in an app session).
-
-**`decisions.delete`** id(s) of any resources to remove from the current
-activity (e.g. for the `order-review` activity, this would provide a way to
-remove orders from the pending list). In activities like `medication-prescribe`
-where only one "content" resource is ever relevant, this field may be omitted.
+Each **Decision** described by the following attributes.
+Field | Description
+----- | -----------
+`create` |*array* of *strings*. id(s) of new resource(s) that the EHR should create within the current activity (e.g. for `medication-prescribe`, this would be the updated prescription that a user had authored in an app session).
+<nobr>`delete`</nobr> |*array* of *strings*. id(s) of any resources to remove from the current activity (e.g. for the `order-review` activity, this would provide a way to remove orders from the pending list). In activities like `medication-prescribe` where only one "content" resource is ever relevant, this field may be omitted.
 
 # Analytics
 
