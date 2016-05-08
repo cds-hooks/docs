@@ -24,7 +24,7 @@ prescription-in-progress.
 {
   "context": {
     "resourceType": "MedicationPrescription",
-    "medicationCodeableConcept: {
+    "medicationCodeableConcept": {
       "...": "<snipped for brevity>"
     }
   }
