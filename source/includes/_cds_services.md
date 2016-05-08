@@ -144,7 +144,7 @@ Field | Description
 `patient` *string* | The [FHIR Patient identifier](https://www.hl7.org/fhir/patient-definitions.html#Patient.identifier) attribute of the current patient in context
 `encounter` *string* | The [FHIR Encounter identifier](https://www.hl7.org/fhir/encounter-definitions.html#Encounter.identifier) attribute of the current encounter in context
 `context` *object* | Hook-specific contextual data that the CDS service will need.<br />For example, with the `medication-prescribe` hook this will include [MedicationOrder](https://www.hl7.org/fhir/medicationorder.html) being prescribed.
-`prefetchData` *object* | The FHIR data that was prefetched by the EHR (see more information below)
+`prefetch` *object* | The FHIR data that was prefetched by the EHR (see more information below)
 
 #### hookInstance
 
