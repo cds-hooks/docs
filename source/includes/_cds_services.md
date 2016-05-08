@@ -131,7 +131,7 @@ Field | Description
 `hook`*string* or *URL* | The hook that triggered this CDS Service call<br />(todo: link to hook documentation)
 `hookInstance` *string* | A UUID for this particular hook call (see more information below)
 `fhirServer` *URL* | The base URL EHR's [FHIR](https://www.hl7.org/fhir/) server. The scheme should be `https`
-`oauth` *string* | The OAuth2 access token providing access to the EHR's FHIR server (see more information below)
+`oauth` *object* | The OAuth2 authorization providing access to the EHR's FHIR server (see more information below)
 `redirect` *URL* | The URL an app link card should redirect to (see more information below)
 `user` *string* | The FHIR resource type + id representing the current user.<br />The type is one of: [Practitioner](https://www.hl7.org/fhir/practitioner.html), [Patient](https://www.hl7.org/fhir/patient.html), or [RelatedPerson](https://www.hl7.org/fhir/relatedperson.html).<br />For example, `Practitioner/123`
 `patient` *string* | The [FHIR Patient identifier](https://www.hl7.org/fhir/patient-definitions.html#Patient.identifier) attribute of the current patient in context
