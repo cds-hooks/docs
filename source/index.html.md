@@ -67,3 +67,7 @@ decision after a user interaction, the CDS service must maintain state
 associated with the request's `hookInstance`;
 when the EHR invokes the hook for a second time with the same
 `hookInstance`, the service can respond with decisions on as well as cards.)
+
+# Try it!
+
+You can try CDS Hooks in our test harness at http://cds-hooks.org
