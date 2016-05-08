@@ -52,17 +52,17 @@ The response to the discovery endpoint is an object containing a list of CDS Ser
 
 Field | Description
 ----- | -----------
-`services` *array* | An array of *CDS Services*
+`services` | *array*. An array of *CDS Services*
 
 Each CDS Service is described by the following attributes.
 
 Field | Description
 ----- | -----------
-`hook` *string* | The hook this service should be invoked on<br />(todo: link to hook documentation)
-`name` *string* | The name of this service
-`description` *string* | The description of this service
-`id` *string* | The {id} portion of the URL to this service which is available at<br />`{baseUrl}/cds-services/{id}`
-`prefetch` *object* | An object containing key/value pairs of FHIR queries to data<br />that this service would like the EHR prefetch and provide on<br />each service call. The key is a *string* that describes the type<br />of data being requested and the value is a *string* representing<br />the FHIR query.<br />(todo: link to prefetching documentation)
+`hook`| *string* or *url*. The hook this service should be invoked on. See [Hook Catalog](#hook-catalog)
+`name`| *string*.  The name of this service
+<nobr>`description`</nobr>| *string*. The description of this service
+`id` | *string*. The {id} portion of the URL to this service which is available at<br />`{baseUrl}/cds-services/{id}`
+`prefetch` | *object*. An object containing key/value pairs of FHIR queries to data that this service would like the EHR prefetch and provide on<br />each service call. The key is a *string* that describes the type<br />of data being requested and the value is a *string* representing<br />the FHIR query.<br />(todo: link to prefetching documentation)
 
 ### HTTP Status Codes
 
@@ -135,16 +135,16 @@ call includes a JSON POST body with the following input fields:
 
 Field | Description
 ----- | -----------
-`hook`*string* or *URL* | The hook that triggered this CDS Service call<br />(todo: link to hook documentation)
-`hookInstance` *string* | A UUID for this particular hook call (see more information below)
-`fhirServer` *URL* | The base URL EHR's [FHIR](https://www.hl7.org/fhir/) server. The scheme should be `https`
-`oauth` *object* | The OAuth2 authorization providing access to the EHR's FHIR server (see more information below)
-`redirect` *URL* | The URL an app link card should redirect to (see more information below)
-`user` *string* | The FHIR resource type + id representing the current user.<br />The type is one of: [Practitioner](https://www.hl7.org/fhir/practitioner.html), [Patient](https://www.hl7.org/fhir/patient.html), or [RelatedPerson](https://www.hl7.org/fhir/relatedperson.html).<br />For example, `Practitioner/123`
-`patient` *string* | The [FHIR Patient identifier](https://www.hl7.org/fhir/patient-definitions.html#Patient.identifier) attribute of the current patient in context
-`encounter` *string* | The [FHIR Encounter identifier](https://www.hl7.org/fhir/encounter-definitions.html#Encounter.identifier) attribute of the current encounter in context
-`context` *object* | Hook-specific contextual data that the CDS service will need.<br />For example, with the `medication-prescribe` hook this will include [MedicationOrder](https://www.hl7.org/fhir/medicationorder.html) being prescribed.
-`prefetch` *object* | The FHIR data that was prefetched by the EHR (see more information below)
+`hook` |*string* or *URL*. The hook that triggered this CDS Service call<br />(todo: link to hook documentation)
+<nobr>`hookInstance`</nobr> |*string*.  A UUID for this particular hook call (see more information below)
+`fhirServer` |*URL*.  The base URL EHR's [FHIR](https://www.hl7.org/fhir/) server. The scheme should be `https`
+`oauth` | *object*. The OAuth2 authorization providing access to the EHR's FHIR server (see more information below)
+`redirect` |*URL*.  The URL an app link card should redirect to (see more information below)
+`user` |*string*.  The FHIR resource type + id representing the current user.<br />The type is one of: [Practitioner](https://www.hl7.org/fhir/practitioner.html), [Patient](https://www.hl7.org/fhir/patient.html), or [RelatedPerson](https://www.hl7.org/fhir/relatedperson.html).<br />For example, `Practitioner/123`
+`patient` |*string*.  The [FHIR Patient identifier](https://www.hl7.org/fhir/patient-definitions.html#Patient.identifier) attribute of the current patient in context
+`encounter` |*string*.  The [FHIR Encounter identifier](https://www.hl7.org/fhir/encounter-definitions.html#Encounter.identifier) attribute of the current encounter in context
+`context` |*object*.  Hook-specific contextual data that the CDS service will need.<br />For example, with the `medication-prescribe` hook this will include [MedicationOrder](https://www.hl7.org/fhir/medicationorder.html) being prescribed.
+`prefetch` |*object*.  The FHIR data that was prefetched by the EHR (see more information below)
 
 #### hookInstance
 
