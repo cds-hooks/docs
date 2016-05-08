@@ -16,9 +16,6 @@ you should use a URI (e.g.
 
 ## `medication-prescribe`
 
-**Purpose**: Inform an external CDS service that the user is in the process of
-prescribing a new medication, and solicit feedback about the
-prescription-in-progress.
 
 ```json
 {
@@ -31,15 +28,14 @@ prescription-in-progress.
 }
 ```
 
+**Purpose**: Inform an external CDS service that the user is in the process of
+prescribing a new medication, and solicit feedback about the
+prescription-in-progress.
+
 **Contextual data**: The set of proposed medication prescriptions. using the
 FHIR `MedicationPrescription` resource. See example in the sidebar.
 
 ## `order-review`
-
-**Purpose**: Inform an external CDS service that the user is in the process of
-reviewing a set of orders (sometimes known as a "shopping cart"), and solicit
-feedback about the orders being reviewed.
-
 
 ```json
 {
@@ -49,6 +45,13 @@ feedback about the orders being reviewed.
   }
 }
 ```
+
+**Purpose**: Inform an external CDS service that the user is in the process of
+reviewing a set of orders (sometimes known as a "shopping cart"), and solicit
+feedback about the orders being reviewed.
+
+
+
 
 **Contextual data**: The set of orders being reviewed on-screen, represented
 using a combination of MedicationOrder, DiagnosticOrder, DeviceUseRequest,
