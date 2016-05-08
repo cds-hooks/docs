@@ -70,4 +70,4 @@ when the EHR invokes the hook for a second time with the same
 
 # Try it!
 
-You can try CDS Hooks in our test harness at **[http://cds-hooks.org](http://cds-hooks.org)**
+You can try CDS Hooks in our test harness at **[http://demo.cds-hooks.org](http://demo.cds-hooks.org)**
