@@ -121,8 +121,8 @@ Field | Description
 `oauth` | *object*. The OAuth2 authorization providing access to the EHR's FHIR server (see more information below)
 `redirect` |*URL*.  The URL an app link card should redirect to (see more information below)
 `user` |*string*.  The FHIR resource type + id representing the current user.<br />The type is one of: [Practitioner](https://www.hl7.org/fhir/practitioner.html), [Patient](https://www.hl7.org/fhir/patient.html), or [RelatedPerson](https://www.hl7.org/fhir/relatedperson.html).<br />For example, `Practitioner/123`
-`patient` |*string*.  The [FHIR Patient identifier](https://www.hl7.org/fhir/patient-definitions.html#Patient.identifier) attribute of the current patient in context
-`encounter` |*string*.  The [FHIR Encounter identifier](https://www.hl7.org/fhir/encounter-definitions.html#Encounter.identifier) attribute of the current encounter in context
+`patient` |*string*.  The FHIR `Patient.id` of the current patient in context
+`encounter` |*string*.  The FHIR `Encounter.id` of the current encounter in context
 `context` |*object*.  Hook-specific contextual data that the CDS service will need.<br />For example, with the `medication-prescribe` hook this will include [MedicationOrder](https://www.hl7.org/fhir/medicationorder.html) being prescribed.
 `prefetch` |*object*.  The FHIR data that was prefetched by the EHR (see more information below)
 
