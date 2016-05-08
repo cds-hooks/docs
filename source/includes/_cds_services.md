@@ -93,7 +93,11 @@ Code | Description
 
 
 ```
-curl "https://example.com/cds-services/static-patient-greeter"
+curl
+  -X POST \
+  -H 'Content-type: application/json' \
+  --data @hook-details-see-below
+  "https://example.com/cds-services/static-patient-greeter"
 ```
 
 ```json
@@ -124,7 +128,10 @@ curl "https://example.com/cds-services/static-patient-greeter"
 
 ### HTTP Request
 
-The CDS Hook call includes the following input fields:
+An EHR calls a CDS service by `POST`ing a JSON document to the service
+endpoint, which can be constructed from the CDS Service base URL and an
+individual serviec id as `{baseUrl}/cds-services/{service.id}`.  The CDS Hook
+call includes a JSON POST body with the following input fields:
 
 Field | Description
 ----- | -----------
@@ -191,9 +198,6 @@ the data it needs to efficiently compute a set of recommendations. Each key matc
 
 Note that in the absence of `prefetch`, an external service can always execute
 FHIR REST API calls against the EHR server to obtain additional data ad-hoc.)
-An EHR calls a CDS service by `POST`ing a JSON document to the service
-endpoint, which can be constructed from the CDS Service base URL and an
-individual serviec id as `{baseUrl}/cds-services/{service.id}`.
 
 <aside class="notice">
 You can see the <a href="http://editor.swagger.io/#/?import=https://raw.githubusercontent.com/cds-hooks/api/master/cds-hooks.yaml?token=AATHAQY8vqQ6dIZajRuuE55EWMBitTptks5XLMk6wA%3D%3D">complete data model in Swagger</a>.
