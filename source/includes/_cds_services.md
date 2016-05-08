@@ -349,6 +349,6 @@ Whenever a user clicks a button from a "suggestion" card, the EHR uses the
 suggestion `uuid` to notify the CDS Service's analytics endpoint via a `POST`
 with an empty body:
 
-    POST {base}/cds-services/{serviceId}/analytics/{uuid}
+    `POST {baseUrl}/cds-services/{serviceId}/analytics/{uuid}`
 
 If a suggestion has no `uuid`, the EHR does not send a notification.
