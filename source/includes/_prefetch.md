@@ -37,7 +37,7 @@ page" links allowed — is passed along to the CDS Service using the
     "p": "Patient/{{Patient.id}}",
     "a1c": "Observation?patient={{Patient.id}}&code=4548-4&_count=1&sort:desc=date"
   }
-]
+}
 ```
 
 
