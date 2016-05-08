@@ -9,6 +9,7 @@ toc_footers:
 
 includes:
   - cds_services
+  - prefetch
   - community
 
 search: true
