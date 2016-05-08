@@ -58,7 +58,7 @@ goal is to know, at call time:
         "resourceType": "Patient",
         "gender": "male",
         "birthDate": "1974-12-25",
-        "...": "<snipped for concision>"
+        "...": "<snipped for brevity>"
       }
     },
     "a1c": {
@@ -78,7 +78,7 @@ goal is to know, at call time:
                 "display": "Hemoglobin A1c"
               }]
             },
-            "...": "<snipped for concision>"
+            "...": "<snipped for brevity>"
           }
         }]
       }
