@@ -217,6 +217,7 @@ You can see the <a href="http://editor.swagger.io/#/?import=https://raw.githubus
     },
     suggestions:           0..* {
       label:              0..1,
+      uuid:               0..1,
       create:             0..*,
       delete:             0..*
     },
@@ -302,6 +303,10 @@ to suggest a set of changes in the context of the current activity
 (e.g. the EHR might render this as the text on a button tied to this
 suggestion).
 
+**`cards.suggestions.uuid`** unique identifier for this suggestion. For details
+see [Suggestion Tracking Analytics](#analytics)
+
+
 **`cards.suggestions.create`** new resource(s) that this suggestion
 applies within the current activity (e.g. for `medication-prescribe`, this
 holds the updated prescription as proposed by the suggestion).
@@ -317,12 +322,12 @@ might want to run for additional information or to help guide a decision.
 **`cards.links.label`** human-readable label to display for this link (e.g. the EHR
 might render this as the underlined text of a clickable link).
 
-**`cards.links.url`** URL to load when a user clicks on this link. Note that this
-may be a "deep link" with context embedded in path segments, query parameters,
-or a hash. In general this URL should embed enough context for the app to
-determine the `activityInstance`, and `redirect` url upon downstream
-launch, because the EHR will simply use this url as-is, without appending any parameters
-at launch time.
+**`cards.links.url`** URL to load (via `GET`, in a browser context) when a user
+clicks on this link. Note that this may be a "deep link" with context embedded
+in path segments, query parameters, or a hash. In general this URL should embed
+enough context for the app to determine the `activityInstance`, and `redirect`
+url upon downstream launch, because the EHR will simply use this url as-is,
+without appending any parameters at launch time.
 
 **`decisions`** grouping structure representing a decision to be applied directly to
 the user session. Note that a CDS service may only return a `decision` after
@@ -337,3 +342,13 @@ prescription that a user had authored in an app session).
 activity (e.g. for the `order-review` activity, this would provide a way to
 remove orders from the pending list). In activities like `medication-prescribe`
 where only one "content" resource is ever relevant, this field may be omitted.
+
+# Analytics
+
+Whenever a user clicks a button from a "suggestion" card, the EHR uses the
+suggestion `uuid` to notify the CDS Service's analytics endpoint via a `POST`
+with an empty body:
+
+    POST {base}/cds-services/{serviceId}/analytics/{uuid}
+
+If a suggestion has no `uuid`, the EHR does not send a notification.
