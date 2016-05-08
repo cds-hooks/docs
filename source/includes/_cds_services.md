@@ -2,25 +2,11 @@
 
 ## Discovery
 
-Developers of CDS Services must provide a well-known endpoint allowing the EHR to discover all available CDS Services, including information such as the purpose of the CDS Service, when it should be invoked, and any data that is requested to be prefetched.
-
-
-### HTTP Request
-
 ```shell
 curl "https://example.com/.well-known/cds-services"
 ```
 
-The discovery endpoint is always available at `{baseUrl}/.well-known/cds-services`. For example, if the `baseUrl` is https://example.com, the EHR would invoke:
-
-`GET https://example.com/.well-known/cds-services`
-
-<aside class="notice">
-The URI path prefix of /.well-known/ is defined by <a href="https://tools.ietf.org/html/rfc5785">RFC 5785</a> for the sole purpose of expressing static, well-known URLs.
-</aside>
-
-### Response
-
+> The above command returns JSON structured like this:
 
 ```json
 {
@@ -48,6 +34,20 @@ The URI path prefix of /.well-known/ is defined by <a href="https://tools.ietf.o
 }
 ```
 
+Developers of CDS Services must provide a well-known endpoint allowing the EHR to discover all available CDS Services, including information such as the purpose of the CDS Service, when it should be invoked, and any data that is requested to be prefetched.
+
+### HTTP Request
+
+The discovery endpoint is always available at `{baseUrl}/.well-known/cds-services`. For example, if the `baseUrl` is https://example.com, the EHR would invoke:
+
+`GET https://example.com/.well-known/cds-services`
+
+<aside class="notice">
+The URI path prefix of /.well-known/ is defined by <a href="https://tools.ietf.org/html/rfc5785">RFC 5785</a> for the sole purpose of expressing static, well-known URLs.
+</aside>
+
+### Response
+
 The response to the discovery endpoint is an object containing a list of CDS Services.
 
 Field | Description
@@ -70,7 +70,6 @@ Code | Description
 ---- | -----------
 `200 OK` | A successful response
 
-
 ## Calling a CDS Service
 
 ```shell
@@ -92,7 +91,6 @@ Code | Description
 }
 ```
 
-### Request fields
 
 ```
 curl "https://example.com/cds-services/static-patient-greeter"
@@ -124,12 +122,26 @@ curl "https://example.com/cds-services/static-patient-greeter"
 }
 ```
 
+### HTTP Request
 
 The CDS Hook call includes the following input fields:
 
-**`hook`** name of the hook (a string or URL) that the user has triggered in the EHR (e.g. `patient-view`, or `medication-prescribe`).
+Field | Description
+----- | -----------
+`hook`*string* or *URL* | The hook that triggered this CDS Service call<br />(todo: link to hook documentation)
+`hookInstance` *string* | A UUID for this particular hook call (see more information below)
+`fhirServer` *URL* | The base URL EHR's [FHIR](https://www.hl7.org/fhir/) server. The scheme should be `https`
+`oauth` *string* | The OAuth2 access token providing access to the EHR's FHIR server (see more information below)
+`redirect` *URL* | The URL an app link card should redirect to (see more information below)
+`user` *string* | The FHIR resource type + id representing the current user.<br />The type is one of: [Practitioner](https://www.hl7.org/fhir/practitioner.html), [Patient](https://www.hl7.org/fhir/patient.html), or [RelatedPerson](https://www.hl7.org/fhir/relatedperson.html).<br />For example, `Practitioner/123`
+`patient` *string* | The [FHIR Patient identifier](https://www.hl7.org/fhir/patient-definitions.html#Patient.identifier) attribute of the current patient in context
+`encounter` *string* | The [FHIR Encounter identifier](https://www.hl7.org/fhir/encounter-definitions.html#Encounter.identifier) attribute of the current encounter in context
+`context` *object* | Hook-specific contextual data that the CDS service will need.<br />For example, with the `medication-prescribe` hook this will include [MedicationOrder](https://www.hl7.org/fhir/medicationorder.html) being prescribed.
+`prefetchData` *object* | The FHIR data that was prefetched by the EHR (see more information below)
 
-**`hookInstance`** While working in the EHR, a user can perform
+#### hookInstance
+
+While working in the EHR, a user can perform
 multiple activities in series or in parallel. For example, a clinician might prescribe
 two drugs in a row; each prescription activity would be assigned a
 unique `hookInstance`. The [[activity catalog|Activity]]
@@ -148,10 +160,9 @@ the steps are tied together by a common `hookInstance`:
 Note: the `hookInstance` is globally unique and should contain enough entropy
 to be un-guessable.
 
-**`fhirServer`** Base URL for the calling EHR's FHIR server. The scheme should
-be `https`.
+#### oauth
 
-**`oauth`** Security details allowing the CDS service to connect to the EHR's
+Security details allowing the CDS service to connect to the EHR's
 FHIR server.  These fields allow the CDS service to access EHR data in a
 context limited by the current user's privileges. `expires` expresses the
 token lifetime as an integer number of seconds. `scope` represents the set of
@@ -162,7 +173,9 @@ service makes to the EHR, by including it in an Authorization header like:
 
     `Authorization: Bearer {{token}}`
 
-**`redirect`** This field is only used by services that will return an *app
+#### redirect
+
+This field is only used by services that will return an *app
 link card*: when a user clicks the card's link to launch an app, it becomes
 the app's job to send the user to *this `redirect` URL* upon completion of
 user interaction. (*Design note*: this field is supplied up-front, as part of
@@ -170,25 +183,11 @@ the initial request, to avoid requiring the EHR to append any content to app
 launch links. This helps support an important "degenerate" use case for app
 link cards: pointing to static content. See below for details.)
 
-**`user`** The  FHIR resource type + id representing the current user. For
-example, `Practitioner/123`. The type is one of: `Practitioner`, `Patient`, or
-`RelatedPerson`.
+#### prefetch
 
-**`patient`** The  FHIR resource id of the current patient. For example,
-`123`.
-
-**`encounter`** The  FHIR resource id of the current encounter.  For example,
-`123`.
-
-**`context`** activity-specific contextual data (see [[Activity]]) that an external service
-needs. (For exampe, with the `order-review` activity this will include
-MedicationOrder and  Diagnostic resources, among others)
-
-**`prefetch`** as a performance tweak, the EHR may pass along data according to
-the service's [[Prefetch-Template]]. This helps provide the service with all
-the data it needs to efficiently compute a set of recommendations. Each key
-matches a key described in the CDS Service Discovery document; and each value
-is a FHIR Bundle.entry indicating a `response` status and returned `resource`.
+As a performance tweak, the EHR may pass along data according
+to the service's [[Prefetch-Template]]. This helps provide the service with all
+the data it needs to efficiently compute a set of recommendations. Each key matches a key described in the CDS Service Discovery document; and each value is a FHIR Bundle.entry indicating a response status and returned resource.
 
 Note that in the absence of `prefetch`, an external service can always execute
 FHIR REST API calls against the EHR server to obtain additional data ad-hoc.)
@@ -196,11 +195,9 @@ An EHR calls a CDS service by `POST`ing a JSON document to the service
 endpoint, which can be constructed from the CDS Service base URL and an
 individual serviec id as `{baseUrl}/cds-services/{service.id}`.
 
-See details
-about the data model [in
-swagger](http://editor.swagger.io/#/?import=https://raw.githubusercontent.com/cds-hooks/api/master/cds-hooks.yaml?token=AATHAQY8vqQ6dIZajRuuE55EWMBitTptks5XLMk6wA%3D%3D)
-
-
+<aside class="notice">
+You can see the <a href="http://editor.swagger.io/#/?import=https://raw.githubusercontent.com/cds-hooks/api/master/cds-hooks.yaml?token=AATHAQY8vqQ6dIZajRuuE55EWMBitTptks5XLMk6wA%3D%3D">complete data model in Swagger</a>.
+</aside>
 
 ## CDS Service Response
 
