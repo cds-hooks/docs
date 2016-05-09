@@ -20,5 +20,5 @@ There are several ways in which you can get involved with the CDS Hooks communit
 
 ### Want to help build our test infrastructure?
 
- * **[help-wanted issues](https://github.com/cds-hooks/cds-hooks/milestones/Sprint%201)**
+ * **[help-wanted issues](https://github.com/cds-hooks/cds-hooks/labels/help%20wanted)**
  * **[Proposed Milestones](https://github.com/cds-hooks/cds-hooks/milestones)**
