@@ -83,12 +83,15 @@ definitions:
     properties:
       id:
         type: string
+        description: short id for this service, unique with the CDS Provider (will be used in URL paths)
       hook:
-        $ref: '#/definitions/HookCoding'
+        $ref: '#/definitions/Hook'
       name:
         type: string
+        description: Human-readable name for the CDS Service (e.g. "CMS Drug Pricing Service")
       description:
         type: string
+        description: Longer-form description of what the service offers
       prefetch:
         $ref: '#/definitions/Prefetch'
 
@@ -119,14 +122,6 @@ definitions:
           type: object
       prefetch:
         type: object
-
-  HookCoding:
-    type: object
-    properties:
-      system:
-        type: string
-      code:
-        type: string
 
   CDS Response:
     type: object
@@ -165,6 +160,7 @@ definitions:
 
   Hook:
     type: string
+    description: EHR event that triggers an external decision support request
     enum:
       - patient-view
       - medication-prescribe
@@ -204,5 +200,6 @@ definitions:
 
   Prefetch:
     type: object
+    description: queries that the CDS Service would like the EHR to execute before every call
     additionalProperties:
       type: string
