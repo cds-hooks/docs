@@ -3,7 +3,7 @@
 ## Discovery
 
 ```shell
-curl "https://example.com/.well-known/cds-services"
+curl "https://example.com/cds-services"
 ```
 
 > The above command returns JSON structured like this:
@@ -38,13 +38,9 @@ Developers of CDS Services must provide a well-known endpoint allowing the EHR t
 
 ### HTTP Request
 
-The discovery endpoint is always available at `{baseUrl}/.well-known/cds-services`. For example, if the `baseUrl` is https://example.com, the EHR would invoke:
+The discovery endpoint is always available at `{baseUrl}/cds-services`. For example, if the `baseUrl` is https://example.com, the EHR would invoke:
 
-`GET https://example.com/.well-known/cds-services`
-
-<aside class="notice">
-The URI path prefix of /.well-known/ is defined by <a href="https://tools.ietf.org/html/rfc5785">RFC 5785</a> for the sole purpose of expressing static, well-known URLs.
-</aside>
+`GET https://example.com/cds-services`
 
 ### Response
 
