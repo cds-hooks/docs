@@ -18,7 +18,7 @@ produces:
 #                                           Paths                              #
 ################################################################################
 paths:
-  /.well-known/cds-services:
+  /cds-services:
     get:
       description: Get a description of all CDS services offered by this CDS Provider
       responses:
