@@ -191,7 +191,7 @@ You can see the <a href="http://editor.swagger.io/#/?import=https://raw.githubus
       "indicator": "success",
       "detail": "This is an example success card.",
       "source": {
-        "name": "Static CDS Service Example",
+        "label": "Static CDS Service Example",
         "url": "https://example.com"
       },
       "links": [
@@ -209,7 +209,7 @@ You can see the <a href="http://editor.swagger.io/#/?import=https://raw.githubus
       "summary": "Info card",
       "indicator": "info",
       "source": {
-        "name": "Static CDS Service Example"
+        "label": "Static CDS Service Example"
       }
     }
   ]
