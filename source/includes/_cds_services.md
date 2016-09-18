@@ -230,9 +230,16 @@ Field | Description
 `summary` | *string*. one-sentence, <140-character summary message for display to the user inside of this card.
 `detail` | *string*.  optional detailed information to display, represented in Markdown. (For non-urgent cards, the EHR may hide these details until the user clicks a link like "view more details...".) 
 `indicator` | *string*.  urgency/importance of what this card conveys. Allowed values, in order of increasing urgency, are: `success`, `info`, `warning`, `hard-stop`. The EHR can use this field to help make UI display decisions such as sort order or coloring. The value `hard-stop` indicates that the workflow should not be allowed to proceed. 
-`source` | *string*. grouping structure for a short, human-readable description (in `source.name`) of the source of the information displayed on this card, with an optional link (in `source.url`) where the user can learn more about the organization or data set that provided the information on this card. Note that `source.url` should not be used to supply a context-specific "drill-down" view of the information on this card. For that, use `link.url` instead.  
+`source` | *string*. grouping structure for the **Source** of the information displayed on this card.
 <nobr>`suggestions`</nobr> | *array* of **Suggestions**, which allow a service to suggest a set of changes in the context of the current activity (e.g.  changing the dose of the medication currently being prescribed, for the `medication-prescribe` activity)
 `links` | *array* of **Links**, which allow a service to suggest a link to an app that the user might want to run for additional information or to help guide a decision.
+
+The **Source** is described by the following attributes.
+
+Field | Description
+----- | -----------
+<nobr>`label`</nobr>| *string*. A short, human-readable label to display for the source of the information displayed on this card. If a `url` is also specified, this may be the text for the hyperlink.
+`url` | *URL*. An optional URL to load (via `GET`, in a browser context) when a user clicks on this link to learn more about the organization or data set that provided the information on this card. Note that this URL should not be used to supply a context-specific "drill-down" view of the information on this card. For that, use `link.url` instead.
 
 Each **Suggestion** is described by the following attributes.
 
@@ -243,7 +250,7 @@ Field | Description
 <nobr>`create`</nobr> | *string*. new resource(s) that this suggestion applies within the current activity (e.g. for `medication-prescribe`, this holds the updated prescription as proposed by the suggestion).  
 `delete`  | *string*. id(s) of any resources to remove from the current activity (e.g. for the `order-review` activity, this would provide a way to remove orders from the pending list). In activities like `medication-prescribe` where only one "content" resource is ever relevant, this field may be omitted.
 
-Each **Link** described by the following attributes.
+Each **Link** is described by the following attributes.
 
 Field | Description
 ----- | -----------
