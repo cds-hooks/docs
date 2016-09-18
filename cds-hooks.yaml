@@ -169,7 +169,7 @@ definitions:
   Source:
     type: object
     properties:
-      name:
+      label:
         type: string
       url:
         type: string
