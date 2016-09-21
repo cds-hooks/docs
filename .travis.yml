@@ -8,3 +8,7 @@ rvm:
 
 cache: bundler
 script: bundle exec middleman build
+
+notifications:
+  webhooks:
+    - https://chat.fhir.org/api/v1/external/travis?stream=cds-hooks-committers&topic=ci-notifications&api_key=dX12ZMY66SWJDklEXwB8yMyvrGrlr8w0
