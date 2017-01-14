@@ -197,11 +197,18 @@ You can see the <a href="http://editor.swagger.io/#/?import=https://raw.githubus
       "links": [
         {
           "label": "Google",
-          "url": "https://google.com"
+          "url": "https://google.com",
+          "type": "absolute"
         },
         {
           "label": "Github",
-          "url": "https://github.com"
+          "url": "https://github.com",
+          "type": "absolute"
+        },
+        {
+          "label": "SMART Example App",
+          "url": "https://smart.example.com/launch",
+          "type": "smart"
         }
       ]
     },
@@ -239,7 +246,7 @@ The **Source** is described by the following attributes.
 Field | Description
 ----- | -----------
 <nobr>`label`</nobr>| *string*. A short, human-readable label to display for the source of the information displayed on this card. If a `url` is also specified, this may be the text for the hyperlink.
-`url` | *URL*. An optional URL to load (via `GET`, in a browser context) when a user clicks on this link to learn more about the organization or data set that provided the information on this card. Note that this URL should not be used to supply a context-specific "drill-down" view of the information on this card. For that, use `link.url` instead.
+`url` | *URL*. An optional absolute URL to load (via `GET`, in a browser context) when a user clicks on this link to learn more about the organization or data set that provided the information on this card. Note that this URL should not be used to supply a context-specific "drill-down" view of the information on this card. For that, use `link.url` instead.
 
 Each **Suggestion** is described by the following attributes.
 
@@ -256,6 +263,7 @@ Field | Description
 ----- | -----------
 <nobr>`label`</nobr>| *string*. human-readable label to display for this link (e.g. the EHR might render this as the underlined text of a clickable link).
 `url` | *URL*. URL to load (via `GET`, in a browser context) when a user clicks on this link. Note that this may be a "deep link" with context embedded in path segments, query parameters, or a hash. In general this URL should embed enough context for the app to determine the `hookInstance`, and `redirect` url upon downstream launch, because the EHR will simply use this url as-is, without appending any parameters at launch time.
+`type` | *string*. The type of the given URL. There are two possible values for this field. A type of `absolute` indicates that the URL is absolute and should be treated as-is. A type of `smart` indicates that the URL is a SMART app launch URL and the EHR should ensure the SMART app launch URL is populated with the appropriate SMART launch parameters.
 
 
 Each **Decision** is described by the following attributes.

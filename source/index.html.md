@@ -52,7 +52,7 @@ materials (*app link card*). A user sees these cards — one or more of each typ
 
 * *suggestion card*: provides a specific suggestion for which the EHR renders a button that the user can click to accept. Clicking automatically populates the suggested change into the EHR's UI.
 
-* *app link card*: provides a link to a SMART app where the user can supply details, step through a flowchart, or do anything else required to help reach an informed decision. When the user has finished, flow returns to the EHR. At that point, the **EHR re-triggers the initial CDS hook**. The re-triggering may result in different cards, and may also include **decisions** (see below).
+* *app link card*: provides a link to an app (often a SMART app) where the user can supply details, step through a flowchart, or do anything else required to help reach an informed decision. When the user has finished, flow returns to the EHR. At that point, the **EHR re-triggers the initial CDS hook**. The re-triggering may result in different cards, and may also include **decisions** (see below).
 
 ## CDS Decisions
 
