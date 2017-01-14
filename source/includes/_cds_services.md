@@ -197,11 +197,18 @@ You can see the <a href="http://editor.swagger.io/#/?import=https://raw.githubus
       "links": [
         {
           "label": "Google",
-          "url": "https://google.com"
+          "url": "https://google.com",
+          "type": "absolute"
         },
         {
           "label": "Github",
-          "url": "https://github.com"
+          "url": "https://github.com",
+          "type": "absolute"
+        },
+        {
+          "label": "SMART Example App",
+          "url": "https://smart.example.com/launch",
+          "type": "smart"
         }
       ]
     },
@@ -239,7 +246,7 @@ The **Source** is described by the following attributes.
 Field | Description
 ----- | -----------
 <nobr>`label`</nobr>| *string*. A short, human-readable label to display for the source of the information displayed on this card. If a `url` is also specified, this may be the text for the hyperlink.
-`url` | *URL*. An optional URL to load (via `GET`, in a browser context) when a user clicks on this link to learn more about the organization or data set that provided the information on this card. Note that this URL should not be used to supply a context-specific "drill-down" view of the information on this card. For that, use `link.url` instead.
+`url` | *URL*. An optional absolute URL to load (via `GET`, in a browser context) when a user clicks on this link to learn more about the organization or data set that provided the information on this card. Note that this URL should not be used to supply a context-specific "drill-down" view of the information on this card. For that, use `link.url` instead.
 
 Each **Suggestion** is described by the following attributes.
 
