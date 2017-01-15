@@ -183,6 +183,8 @@ definitions:
       url:
         type: string
         format: url
+      type:
+        type: string
 
   Suggestion:
     type: object
