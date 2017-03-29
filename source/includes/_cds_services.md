@@ -54,7 +54,7 @@ Each CDS Service is described by the following attributes.
 
 Field | Description
 ----- | -----------
-`hook`| *string* or *url*. The hook this service should be invoked on. See [Hook Catalog](#hook-catalog)
+`hook`| *string* or *url*. The hook this service should be invoked on. See [Activity Catalog](#activity-catalog)
 `name`| *string*.  The name of this service
 <nobr>`description`</nobr>| *string*. The description of this service
 `id` | *string*. The {id} portion of the URL to this service which is available at<br />`{baseUrl}/cds-services/{id}`
