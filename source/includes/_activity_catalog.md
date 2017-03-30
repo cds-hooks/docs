@@ -1,12 +1,23 @@
-# Hook Catalog
+# Activity Catalog
 
-## Pre-defined CDS hooks
+## Pre-defined CDS hooks and next actions
 
-We describe a set of hooks to support common use cases out of the box.
-But **this is not a closed set**; anyone can define new hooks to address new use
-cases. To propose a new hooks please add it to the [proposed hooks](https://github.com/cds-hooks/docs/wiki/Proposed-Hooks) page of our wiki.
+We describe a set of hooks and actions to support common use cases out of the
+box.  But **this is not a closed set**; anyone can define new hooks and actions
+to address new use cases. To propose a new hooks and actions please add it to
+the [proposed hooks and
+actions](https://github.com/cds-hooks/docs/wiki/Proposed-Hooks) page of our
+wiki.
 
-Note that each hook (e.g. `medication-prescribe`) represents something the user is doing in the EHR; various hooks might respond to the same hook (e.g. a "price check" service and a "prior authorization" service might both respond to `medication-prescribe`).
+Note that each hook (e.g. `medication-prescribe`) represents something the user
+is doing in the EHR; various hooks might respond to the same hook (e.g. a
+"price check" service and a "prior authorization" service might both respond to
+`medication-prescribe`).
+
+An entry in this catalog that is used as an activity is a hint to the EHR to
+change UI state. For example, if a decision specifies an activity of
+`medication-prescribe`, a reasonable consequence would be to navigate the user
+to the prescription screen in the EHR.
 
 Note also that each hook name in our official catalog is a simple string. If
 you want to define custom hooks without submitting them to the catalog, then
