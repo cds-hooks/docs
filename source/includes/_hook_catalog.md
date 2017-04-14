@@ -20,7 +20,7 @@ you should use a URI (e.g.
 ```json
 {
   "context": {
-    "resourceType": "MedicationPrescription",
+    "resourceType": "MedicationOrder",
     "medicationCodeableConcept": {
       "...": "<snipped for brevity>"
     }
@@ -33,7 +33,7 @@ prescribing a new medication, and solicit feedback about the
 prescription-in-progress.
 
 **Contextual data**: The set of proposed medication prescriptions. using the
-FHIR `MedicationPrescription` resource. See example in the sidebar.
+FHIR `MedicationOrder` resource. See example in the sidebar.
 
 ## `order-review`
 
