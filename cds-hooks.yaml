@@ -111,11 +111,11 @@ definitions:
       redirect:
         type: string
       user:
-        type: object
+        type: string
       patient:
-        type: object
+        type: string
       encounter:
-        type: object
+        type: string
       context:
         type: array
         items:
