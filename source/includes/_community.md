@@ -7,6 +7,7 @@ There are several ways in which you can get involved with the CDS Hooks communit
 - Ask a question and participate in discussions via the [CDS Hooks Google Group](https://groups.google.com/forum/#!forum/cds-hooks)
 - Chat via [Zulip](https://zulip.org/) at <https://chat.fhir.org> in the *cds-hooks* stream
 - Contribute to the [code and documentation on Github](https://github.com/cds-hooks)
+- Check out the [CDS services available for testing](https://github.com/cds-hooks/docs/wiki/CDS-Services-for-testing) and contribute your own.
 
 ## CDS Hooks Sprint Program
 
