@@ -176,7 +176,7 @@ Note that in the absence of `prefetch`, an external service can always execute
 FHIR REST API calls against the EHR server to obtain additional data ad-hoc.)
 
 <aside class="notice">
-You can see the <a href="http://editor.swagger.io/#/?import=https://raw.githubusercontent.com/cds-hooks/api/master/cds-hooks.yaml?token=AATHAQY8vqQ6dIZajRuuE55EWMBitTptks5XLMk6wA%3D%3D">complete data model in Swagger</a>.
+You can see the <a href="http://editor.swagger.io/?url=https://raw.githubusercontent.com/cds-hooks/api/master/cds-hooks.yaml">complete data model in Swagger</a>.
 </aside>
 
 ## CDS Service Response
