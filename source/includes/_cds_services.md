@@ -229,10 +229,31 @@ You can see the <a href="http://editor.swagger.io/?url=https://raw.githubusercon
 {
   "decisions": [
     {
-      "create": [ "CarePlan/10", "Goal/128" ],
+      "create": [
+        {
+          "resourceType": "MedicationRequest",
+          "id": "medication-request-1",
+          "status": "draft",
+          "intent": "order",
+          "medicationCodeableConcept": { ... },
+          "subject": { "reference": "Patient/pat1" },
+          "dosageInstruction": [ ... ]
+        },
+        {
+          "resourceType": "Observation",
+          "id": "observation-1",
+          "code": {
+            "coding": [ ... ]
+          },
+          "subject": {
+            "reference": "Patient/pat1"
+          },
+          "valueQuantity": { ... }
+        },
+      ],
       "actions": [
         {
-          "resources": [ "CarePlan/10" ],
+          "resources": [ "#medication-request-1" ],
           "activity": "medication-prescribe"
         }
       ]
