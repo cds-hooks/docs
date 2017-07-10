@@ -26,6 +26,10 @@ decision support from within a clinician's EHR workflow. The API supports:
  * Launching a user-facing SMART app when CDS requires deeper interaction
  * Long-running, non-modal CDS sessions that observe EHR activity in progress
 
+<aside class="notice">
+The CDS Hooks API is still in active development and thus subject to change. We're currently working towards a 1.0 release and would love your feedback and proposed changes. Look at our <a href="http://github.com/cds-hooks/docs/issues">current issue list</a> and get involved!
+</aside>
+
 ## How it works
 
 User activity inside the EHR triggers **CDS hooks** in real-time.  For example:
