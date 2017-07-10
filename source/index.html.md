@@ -10,7 +10,7 @@ toc_footers:
 includes:
   - cds_services
   - prefetch
-  - hook_catalog
+  - activity_catalog
   - community
 
 search: true

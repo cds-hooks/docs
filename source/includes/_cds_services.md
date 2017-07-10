@@ -54,7 +54,7 @@ Each CDS Service is described by the following attributes.
 
 Field | Description
 ----- | -----------
-`hook`| *string* or *url*. The hook this service should be invoked on. See [Hook Catalog](#hook-catalog)
+`hook`| *string* or *url*. The hook this service should be invoked on. See [Activity Catalog](#activity-catalog)
 `name`| *string*.  The name of this service
 <nobr>`description`</nobr>| *string*. The description of this service
 `id` | *string*. The {id} portion of the URL to this service which is available at<br />`{baseUrl}/cds-services/{id}`
@@ -181,7 +181,7 @@ You can see the <a href="http://editor.swagger.io/?url=https://raw.githubusercon
 
 ## CDS Service Response
 
-> Example response
+> Example response for cards
 
 ```json
 {
@@ -223,6 +223,45 @@ You can see the <a href="http://editor.swagger.io/?url=https://raw.githubusercon
 }
 ```
 
+> Example response for decisions
+
+```json
+{
+  "decisions": [
+    {
+      "create": [
+        {
+          "resourceType": "MedicationRequest",
+          "id": "medication-request-1",
+          "status": "draft",
+          "intent": "order",
+          "medicationCodeableConcept": { ... },
+          "subject": { "reference": "Patient/pat1" },
+          "dosageInstruction": [ ... ]
+        },
+        {
+          "resourceType": "Observation",
+          "id": "observation-1",
+          "code": {
+            "coding": [ ... ]
+          },
+          "subject": {
+            "reference": "Patient/pat1"
+          },
+          "valueQuantity": { ... }
+        },
+      ],
+      "actions": [
+        {
+          "resources": [ "#medication-request-1" ],
+          "activity": "medication-prescribe"
+        }
+      ]
+    }
+  ]
+}
+```
+
 Field | Description
 ----- | -----------
 `cards` |*array*. An array of **Cards**. Cards can provide a combination of information (for reading), suggested actions (to be applied if a user selects them), and links (to launch an app if the user selects them). The EHR decides how to display cards, but we recommend displaying suggestions using buttons, and links using underlined text.
@@ -235,8 +274,8 @@ Each **Card** is described by the following attributes.
 Field | Description
 ----- | -----------
 `summary` | *string*. one-sentence, <140-character summary message for display to the user inside of this card.
-`detail` | *string*.  optional detailed information to display, represented in Markdown. (For non-urgent cards, the EHR may hide these details until the user clicks a link like "view more details...".) 
-`indicator` | *string*.  urgency/importance of what this card conveys. Allowed values, in order of increasing urgency, are: `success`, `info`, `warning`, `hard-stop`. The EHR can use this field to help make UI display decisions such as sort order or coloring. The value `hard-stop` indicates that the workflow should not be allowed to proceed. 
+`detail` | *string*.  optional detailed information to display, represented in Markdown. (For non-urgent cards, the EHR may hide these details until the user clicks a link like "view more details...".)
+`indicator` | *string*.  urgency/importance of what this card conveys. Allowed values, in order of increasing urgency, are: `success`, `info`, `warning`, `hard-stop`. The EHR can use this field to help make UI display decisions such as sort order or coloring. The value `hard-stop` indicates that the workflow should not be allowed to proceed.
 `source` | *object*. grouping structure for the **Source** of the information displayed on this card. The source should be the primary source of guidance for the decision support the card represents.
 <nobr>`suggestions`</nobr> | *array* of **Suggestions**, which allow a service to suggest a set of changes in the context of the current activity (e.g.  changing the dose of the medication currently being prescribed, for the `medication-prescribe` activity)
 `links` | *array* of **Links**, which allow a service to suggest a link to an app that the user might want to run for additional information or to help guide a decision.
@@ -254,7 +293,7 @@ Field | Description
 ----- | -----------
 `label` |  *string*. human-readable label to display for this suggestion (e.g. the EHR might render this as the text on a button tied to this suggestion).
 `uuid` | *string*. unique identifier for this suggestion. For details see [Suggestion Tracking Analytics](#analytics)
-<nobr>`create`</nobr> | *string*. new resource(s) that this suggestion applies within the current activity (e.g. for `medication-prescribe`, this holds the updated prescription as proposed by the suggestion).  
+<nobr>`create`</nobr> | *string*. new resource(s) that this suggestion applies within the current activity (e.g. for `medication-prescribe`, this holds the updated prescription as proposed by the suggestion).
 `delete`  | *string*. id(s) of any resources to remove from the current activity (e.g. for the `order-review` activity, this would provide a way to remove orders from the pending list). In activities like `medication-prescribe` where only one "content" resource is ever relevant, this field may be omitted.
 
 Each **Link** is described by the following attributes.
@@ -271,7 +310,16 @@ Each **Decision** is described by the following attributes.
 Field | Description
 ----- | -----------
 `create` |*array* of *strings*. id(s) of new resource(s) that the EHR should create within the current activity (e.g. for `medication-prescribe`, this would be the updated prescription that a user had authored in an app session).
-<nobr>`delete`</nobr> |*array* of *strings*. id(s) of any resources to remove from the current activity (e.g. for the `order-review` activity, this would provide a way to remove orders from the pending list). In activities like `medication-prescribe` where only one "content" resource is ever relevant, this field may be omitted.
+`delete` |*array* of *strings*. id(s) of any resources to remove from the current activity (e.g. for the `order-review` activity, this would provide a way to remove orders from the pending list). In activities like `medication-prescribe` where only one "content" resource is ever relevant, this field may be omitted.
+<nobr>`actions`</nobr> | *array* of **Actions**. An action describes one or more resources and a subsequent activity that should occur in the EHR.
+
+
+Each **Action** is described by the following attributes.
+
+Field | Description
+----- | -----------
+<nobr>`resources`</nobr> | *array* of *ids*. id(s) of any resources relating to the action.
+`activity` | *string* or *url*. The subsequent activity that should happen in the EHR. See [Activity Catalog](#activity-catalog)
 
 # Analytics
 
