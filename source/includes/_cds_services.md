@@ -13,7 +13,7 @@ curl "https://example.com/cds-services"
   "services": [
     {
       "hook": "patient-view",
-      "name": "Static CDS Service Example",
+      "title": "Static CDS Service Example",
       "description": "An example of a CDS service that returns a static set of cards",
       "id": "static-patient-greeter",
       "prefetch": {
@@ -22,7 +22,7 @@ curl "https://example.com/cds-services"
     },
     {
       "hook": "medication-prescribe",
-      "name": "Medication Echo CDS Service",
+      "title": "Medication Echo CDS Service",
       "description": "An example of a CDS service that simply echos the medication being prescribed",
       "id": "medication-echo",
       "prefetch": {
@@ -55,7 +55,7 @@ Each CDS Service is described by the following attributes.
 Field | Description
 ----- | -----------
 `hook`| *string* or *url*. The hook this service should be invoked on. See [Hook Catalog](#hook-catalog)
-`name`| *string*.  The name of this service
+`title`| *string*.  The human-friendly name of this service
 <nobr>`description`</nobr>| *string*. The description of this service
 `id` | *string*. The {id} portion of the URL to this service which is available at<br />`{baseUrl}/cds-services/{id}`
 `prefetch` | *object*. An object containing key/value pairs of FHIR queries to data that this service would like the EHR prefetch and provide on<br />each service call. The key is a *string* that describes the type<br />of data being requested and the value is a *string* representing<br />the FHIR query.<br />(todo: link to prefetching documentation)
