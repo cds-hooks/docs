@@ -96,7 +96,7 @@ Note that a missing key indicates that an EHR has not attempted to supply a
 given prefetch value; the CDS service can issue the request manually at call
 time to fetch the required data.``
 
-## Prefetch Query Restrictions
+## Prefetch query restrictions
 
 To reduce the implementation burden on EHRs that support CDS services, CDS Hooks requires that prefetch queries only use a subset of the full functionality available in the FHIR specification. Valid prefetch URLs are only allowed to contain:
 
