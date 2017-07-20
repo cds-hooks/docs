@@ -23,7 +23,6 @@
 - [Communication](#communication)
 - [Code of Conduct](#code-of-conduct)
 - [Licensing](#licensing)
-- [Outstanding Questions](#outstanding-questions)
 
 ## Overview
 
@@ -176,20 +175,3 @@ If you encounter any violation of these terms, please contact any member of the 
 ## Licensing
 
 All code is licensed under the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0). All documentation, including the specification itself, is licensed under the [Creative Commons Attribution 4.0 International license (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/).
-
-## Outstanding Questions
-
-### Contributor license agreement (CLA)
-
-A [CLA](https://en.wikipedia.org/wiki/Contributor_License_Agreement) is an important document for large open source projects.
-
-CLAs are not without their challenges:
-- We need to determine the actual CLA text. This will likely require lawyers. To aid with this, http://contributoragreements.org/ exists to allow you to generate a CLA by simply answering some questions.
-- CLAs introduce a barrier to contributors whom may be reluctant to sign a legal document. For contributors that work for an entity/company, they often must get permission from their company to sign any CLAs
-- We need to enforce and maintain our CLAs. Thankfully, free and open-source services like https://cla-assistant.io/ exist to handle this.
-
-If a CLA is not adopted upfront, it is problematic to introduce a CLA at a later date.
-
-### Trademark
-
-Once we determine trademark ownership, we should link to a trademark usage document.
