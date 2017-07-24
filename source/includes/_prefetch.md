@@ -19,7 +19,7 @@ relevant data, where the following variables are defined:
 |`{{Patient.id}}`|The id of the patient in context for this activity (e.g. `123`)|
 |`{{User.id}}`|The type and id of the user for this session (e.g. `Practitioner/123`)|
 
-Before calling the CDS Service, the EHR will fill out this template, replacing
+Before calling the CDS Service, the EHR may fill out this template, replacing
 `{{Patient.id}}` with the id of the current patient (e.g. `123`) inside of any
 URL strings. The EHR then executes the requests in the template as a set of
 FHIR `read` and `search` operations (exactly as though they had been submitted
@@ -27,7 +27,9 @@ to the server's "transaction" endpoint as a FHIR batch-type bundle).
 
 The resulting response, which must be rendered in a single page — no "next
 page" links allowed — is passed along to the CDS Service using the
-`prefetch` parameter (see below for a complete example).
+`prefetch` parameter (see below for a complete example). 
+
+When the EHR can't prefetch one or all of the requested resources, the CDS service won't receive all of the requested prefetch templates and may query the FHIR server for the missing information.
 
 ## Example prefetch request
 
