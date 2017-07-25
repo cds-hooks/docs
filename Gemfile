@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+gem 'rack', '~> 1.6.8' # Enables Heroku pull review apps
+
 # Middleman
 gem 'middleman', '~>4.0.0'
 gem 'middleman-gh-pages', '~> 0.0.3'
