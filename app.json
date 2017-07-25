@@ -1,0 +1,12 @@
+{
+  "name": "cds-hooks-docs",
+  "scripts": {},
+  "env": {},
+  "formation": {
+    "web": {
+      "size": "free"
+    }
+  },
+  "addons": [],
+  "buildpacks": []
+}
