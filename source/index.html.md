@@ -12,6 +12,7 @@ includes:
   - prefetch
   - hook_catalog
   - community
+  - examples
 
 search: true
 ---
