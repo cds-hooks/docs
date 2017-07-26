@@ -95,3 +95,16 @@ keys match the request keys (`p` and `a1c` in this case).
 Note that a missing key indicates that an EHR has not attempted to supply a
 given prefetch value; the CDS service can issue the request manually at call
 time to fetch the required data.``
+
+## Prefetch query restrictions
+
+To reduce the implementation burden on EHRs that support CDS services, CDS Hooks requires that prefetch queries only use a subset of the full functionality available in the FHIR specification. Valid prefetch URLs are only allowed to contain:
+
+* _instance_ level read interactions (for the `Patient` resource only)
+* _type_ level search interactions (using `GET`)
+* Patient references (e.g. `patient={{Patient}}`)
+* _token_ search parameters using equality (e.g. `code=4548-4`) and optionally the `:in` modifier (no other modifiers for token parameters are allowed)
+* _date_ search parameters on `date`, `dateTime`, `instant`, or `Period` types only, and using only the prefixes `eq`, `lt`, `gt`, `ge`, `le`
+* the `_count` parameter to limit the number of results returned
+* the `_sort` parameter to allow for _most recent_ and _first_ queries
+
