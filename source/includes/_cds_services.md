@@ -273,6 +273,18 @@ Field | Description
 `create` |*array* of *strings*. id(s) of new resource(s) that the EHR should create within the current activity (e.g. for `medication-prescribe`, this would be the updated prescription that a user had authored in an app session).
 <nobr>`delete`</nobr> |*array* of *strings*. id(s) of any resources to remove from the current activity (e.g. for the `order-review` activity, this would provide a way to remove orders from the pending list). In activities like `medication-prescribe` where only one "content" resource is ever relevant, this field may be omitted.
 
+### No Decision Support
+
+> Response when no decision support is necessary for the user
+
+```json
+{
+  "cards": []
+}
+```
+
+If your CDS Service has no decision support for the user, your service should return a 200 HTTP response with an empty array of cards.
+
 # Analytics
 
 Whenever a user clicks a button from a "suggestion" card, the EHR uses the
