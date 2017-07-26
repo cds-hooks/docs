@@ -192,7 +192,8 @@ You can see the <a href="http://editor.swagger.io/?url=https://raw.githubusercon
       "detail": "This is an example card.",
       "source": {
         "label": "Static CDS Service Example",
-        "url": "https://example.com"
+        "url": "https://example.com",
+        "icon": "https://example.com/img/icon-100px.png"
       },
       "links": [
         {
@@ -247,6 +248,7 @@ Field | Description
 ----- | -----------
 <nobr>`label`</nobr>| *string*. A short, human-readable label to display for the source of the information displayed on this card. If a `url` is also specified, this may be the text for the hyperlink.
 `url` | *URL*. An optional absolute URL to load (via `GET`, in a browser context) when a user clicks on this link to learn more about the organization or data set that provided the information on this card. Note that this URL should not be used to supply a context-specific "drill-down" view of the information on this card. For that, use `link.url` instead.
+`icon` | *URL*. An optional absolute URL to an icon for the source of this card. The icon returned by this URL should be in PNG format, an image size of 100x100 pixels, and must not include any transparent regions.
 
 Each **Suggestion** is described by the following attributes. 
 
