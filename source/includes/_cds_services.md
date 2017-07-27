@@ -187,12 +187,13 @@ You can see the <a href="http://editor.swagger.io/?url=https://raw.githubusercon
 {
   "cards": [
     {
-      "summary": "Success Card",
-      "indicator": "success",
-      "detail": "This is an example success card.",
+      "summary": "Example Card",
+      "indicator": "info",
+      "detail": "This is an example card.",
       "source": {
         "label": "Static CDS Service Example",
-        "url": "https://example.com"
+        "url": "https://example.com",
+        "icon": "https://example.com/img/icon-100px.png"
       },
       "links": [
         {
@@ -213,8 +214,8 @@ You can see the <a href="http://editor.swagger.io/?url=https://raw.githubusercon
       ]
     },
     {
-      "summary": "Info card",
-      "indicator": "info",
+      "summary": "Another card",
+      "indicator": "warning",
       "source": {
         "label": "Static CDS Service Example"
       }
@@ -235,8 +236,8 @@ Each **Card** is described by the following attributes.
 Field | Description
 ----- | -----------
 `summary` | *string*. one-sentence, <140-character summary message for display to the user inside of this card.
-`detail` | *string*.  optional detailed information to display, represented in Markdown. (For non-urgent cards, the EHR may hide these details until the user clicks a link like "view more details...".) 
-`indicator` | *string*.  urgency/importance of what this card conveys. Allowed values, in order of increasing urgency, are: `success`, `info`, `warning`, `hard-stop`. The EHR can use this field to help make UI display decisions such as sort order or coloring. The value `hard-stop` indicates that the workflow should not be allowed to proceed. 
+`detail` | *string*.  optional detailed information to display, represented in [(GitHub Flavored) Markdown](https://github.github.com/gfm/). (For non-urgent cards, the EHR may hide these details until the user clicks a link like "view more details...".) 
+`indicator` | *string*.  urgency/importance of what this card conveys. Allowed values, in order of increasing urgency, are: `info`, `warning`, `hard-stop`. The EHR can use this field to help make UI display decisions such as sort order or coloring. The value `hard-stop` indicates that the workflow should not be allowed to proceed. 
 `source` | *object*. grouping structure for the **Source** of the information displayed on this card. The source should be the primary source of guidance for the decision support the card represents.
 <nobr>`suggestions`</nobr> | *array* of **Suggestions**, which allow a service to suggest a set of changes in the context of the current activity (e.g.  changing the dose of the medication currently being prescribed, for the `medication-prescribe` activity)
 `links` | *array* of **Links**, which allow a service to suggest a link to an app that the user might want to run for additional information or to help guide a decision.
@@ -247,6 +248,7 @@ Field | Description
 ----- | -----------
 <nobr>`label`</nobr>| *string*. A short, human-readable label to display for the source of the information displayed on this card. If a `url` is also specified, this may be the text for the hyperlink.
 `url` | *URL*. An optional absolute URL to load (via `GET`, in a browser context) when a user clicks on this link to learn more about the organization or data set that provided the information on this card. Note that this URL should not be used to supply a context-specific "drill-down" view of the information on this card. For that, use `link.url` instead.
+`icon` | *URL*. An optional absolute URL to an icon for the source of this card. The icon returned by this URL should be in PNG format, an image size of 100x100 pixels, and must not include any transparent regions.
 
 Each **Suggestion** is described by the following attributes.
 
@@ -272,6 +274,18 @@ Field | Description
 ----- | -----------
 `create` |*array* of *strings*. id(s) of new resource(s) that the EHR should create within the current activity (e.g. for `medication-prescribe`, this would be the updated prescription that a user had authored in an app session).
 <nobr>`delete`</nobr> |*array* of *strings*. id(s) of any resources to remove from the current activity (e.g. for the `order-review` activity, this would provide a way to remove orders from the pending list). In activities like `medication-prescribe` where only one "content" resource is ever relevant, this field may be omitted.
+
+### No Decision Support
+
+> Response when no decision support is necessary for the user
+
+```json
+{
+  "cards": []
+}
+```
+
+If your CDS Service has no decision support for the user, your service should return a 200 HTTP response with an empty array of cards.
 
 # Analytics
 
