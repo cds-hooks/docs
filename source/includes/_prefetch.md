@@ -98,12 +98,12 @@ time to fetch the required data.``
 
 ## Prefetch query restrictions
 
-To reduce the implementation burden on EHRs that support CDS services, CDS Hooks requires that prefetch queries only use a subset of the full functionality available in the FHIR specification. Valid prefetch URLs are only allowed to contain:
+To reduce the implementation burden on EHRs that support CDS services, CDS Hooks recommends that prefetch queries only use a subset of the full functionality available in the FHIR specification. Valid prefetch URLs should only contain:
 
-* _instance_ level read interactions (for the `Patient` resource only)
-* _type_ level search interactions (using `GET`)
+* _instance_ level [read](https://www.hl7.org/fhir/http.html#read) interactions (for resources with known ids such as `Patient` and `Practitioner`)
+* _type_ level [search](https://www.hl7.org/fhir/http.html#search) interactions
 * Patient references (e.g. `patient={{Patient}}`)
-* _token_ search parameters using equality (e.g. `code=4548-4`) and optionally the `:in` modifier (no other modifiers for token parameters are allowed)
+* _token_ search parameters using equality (e.g. `code=4548-4`) and optionally the `:in` modifier (no other modifiers for token parameters)
 * _date_ search parameters on `date`, `dateTime`, `instant`, or `Period` types only, and using only the prefixes `eq`, `lt`, `gt`, `ge`, `le`
 * the `_count` parameter to limit the number of results returned
 * the `_sort` parameter to allow for _most recent_ and _first_ queries
