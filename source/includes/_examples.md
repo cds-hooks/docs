@@ -5,7 +5,7 @@
 ```json
 {
   "hookInstance": "d1577c69-dfbe-44ad-ba6d-3e05e953b2ea",
-  "fhirServer": "http://fhirtest.uhn.ca/baseDstu2",
+  "fhirServer": "http://fhir.example.com",
   "hook": "medication-prescribe",
   "user": "Practitioner/example",
   "context": [
@@ -48,7 +48,7 @@
       ]
     }
   ],
-  "patient": "Patient/Patient-12214",
+  "patient": "Patient/example",
   "prefetch": {
     "medication": {
       "response": {
@@ -60,7 +60,7 @@
         "dateWritten": "2017-04-25",
         "status": "active",
         "patient": {
-          "reference": "Patient/Patient-12214"
+          "reference": "Patient/example"
         },
         "medicationCodeableConcept": {
           "coding": [
@@ -131,8 +131,8 @@ The opioid guideline request results in the following response that indicates th
 ```json
 {
   "hookInstance": "d1577c69-dfbe-44ad-ba6d-3e05e953b2ea",
-  "fhirServer": "http://fhirtest.uhn.ca/baseDstu2",
-  "hook": "medication-prescribe",
+  "fhirServer": "http://fhir.example.com",
+  "hook": "order-review",
   "user": "Practitioner/example",
   "context": [
     {
@@ -146,7 +146,7 @@ The opioid guideline request results in the following response that indicates th
           "system": "http://www.ama-assn.org/go/cpt",
           "code": "70450",
           "display": "CT, head, wo iv contrast"
-        }],
+        }]
       },
       "subject": {
         "reference": "Patient/example"
