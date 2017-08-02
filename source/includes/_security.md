@@ -1,5 +1,9 @@
 # Security
 
+<aside class="notice">
+The proposed security model has not yet received implementer feedback and as such, is subject to change. Maintaining both a secure model and an easy implementation experience is a key concern of our impending 1.0 release. As such, we encourage open feedback on this proposed approach on <a href="https://github.com/cds-hooks/docs/issues/7">this Github issue</a> from all of our stakeholders.
+</aside>
+
 CDS Hooks defines the agreed upon security model between an EHR and the CDS Service. Like SMART on FHIR, the security model of CDS Hooks leverages the same open and well supported standards like OAuth 2 and JSON web tokens. However, as CDS Hooks differs from SMART, the manny in which these standards are used is specific to CDS Hooks.
 
 ## Trusting CDS Services
