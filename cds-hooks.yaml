@@ -190,14 +190,27 @@ definitions:
     properties:
       label:
         type: string
-      create:
+      uuid:
+        type: string
+        format: uuid
+      actions:
         type: array
         items:
-          type: object
-      delete:
-        type: array
-        items:
-          type: object
+          $ref: '#/definitions/Action'
+
+  Action:
+    type: object
+    properties:
+      type:
+        type: string
+        enum:
+          - create
+          - update
+          - delete
+      description:
+        type: string
+      resource:
+        type: object
 
   Prefetch:
     type: object
