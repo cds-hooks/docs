@@ -86,7 +86,7 @@ definitions:
         description: short id for this service, unique with the CDS Provider (will be used in URL paths)
       hook:
         $ref: '#/definitions/Hook'
-      name:
+      title:
         type: string
         description: Human-readable name for the CDS Service (e.g. "CMS Drug Pricing Service")
       description:
@@ -143,7 +143,6 @@ definitions:
       indicator:
         type: string
         enum:
-          - success
           - info
           - warning
           - hard-stop
@@ -191,14 +190,27 @@ definitions:
     properties:
       label:
         type: string
-      create:
+      uuid:
+        type: string
+        format: uuid
+      actions:
         type: array
         items:
-          type: object
-      delete:
-        type: array
-        items:
-          type: object
+          $ref: '#/definitions/Action'
+
+  Action:
+    type: object
+    properties:
+      type:
+        type: string
+        enum:
+          - create
+          - update
+          - delete
+      description:
+        type: string
+      resource:
+        type: object
 
   Prefetch:
     type: object
