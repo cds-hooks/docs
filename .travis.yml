@@ -6,7 +6,7 @@ rvm:
   - 2.3
 
 cache: bundler
-script: bash ./deploy.sh
+script: bash ./travis-deploy.sh
 
 env:
   global:
