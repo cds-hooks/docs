@@ -2,11 +2,9 @@
 
 ## CDC Guideline for Prescribing Opioids for Chronic Pain
 
-This example illustrates the use of the CDS Hooks `medication-prescribe` hook to implement Recommendation #5 from the [CDC guideline for prescribing opioids for chronic pain](https://guidelines.gov/summaries/summary/50153/cdc-guideline-for-prescribing-opioids-for-chronic-pain---united-states-2016#420).
+> CDS Service Request
 
-This example is taken from the [Opioid Prescribing Support Implementation Guide](http://build.fhir.org/ig/cqframework/opioid-cds/), developed in partnership with the Centers for Disease Control and Prevention [(CDC)](https://www.cdc.gov/).
-
-### Request
+> The example illustrates a prescription for Acetaminophen/Hydrocodone Bitartrate for a patient that already has a prescription for Oxycodone Hydrochloride:
 
 ```json
 {
@@ -101,9 +99,14 @@ This example is taken from the [Opioid Prescribing Support Implementation Guide]
   }
 }
 ```
-The example illustrates a prescription for Acetaminophen/Hydrocodone Bitartrate for a patient that already has a prescription for Oxycodone Hydrochloride:
 
-### Response
+This example illustrates the use of the CDS Hooks `medication-prescribe` hook to implement Recommendation #5 from the [CDC guideline for prescribing opioids for chronic pain](https://guidelines.gov/summaries/summary/50153/cdc-guideline-for-prescribing-opioids-for-chronic-pain---united-states-2016#420).
+
+This example is taken from the [Opioid Prescribing Support Implementation Guide](http://build.fhir.org/ig/cqframework/opioid-cds/), developed in partnership with the Centers for Disease Control and Prevention [(CDC)](https://www.cdc.gov/).
+
+> CDS Service Response
+
+> The opioid guideline request results in the following response that indicates the patient is at high risk for opioid overdose according to the CDC guidelines, and the dosage should be tapered to less than 50 MME. Links are provided to the guideline, as well as to the MME conversion tables provided by CDC.
 
 ```json
 {
@@ -124,11 +127,12 @@ The example illustrates a prescription for Acetaminophen/Hydrocodone Bitartrate 
   "detail": "Total morphine milligram equivalent (MME) is 125mg. Taper to less than 50."
 }
 ```
-The opioid guideline request results in the following response that indicates the patient is at high risk for opioid overdose according to the CDC guidelines, and the dosage should be tapered to less than 50 MME. Links are provided to the guideline, as well as to the MME conversion tables provided by CDC.
 
 ## Radiology Appropriateness
 
-### Request
+> CDS Service Request
+
+> This example illustrates the use of the CDS Hooks `order-review` hook to implement Radiology Appropriateness scoring.
 
 ```json
 {
@@ -163,9 +167,10 @@ The opioid guideline request results in the following response that indicates th
   "patient": "Patient/example"
 }
 ```
-This example illustrates the use of the CDS Hooks `order-review` hook to implement Radiology Appropriateness scoring.
 
-### Response
+> CDS Servivec Response
+
+> The appropriateness score is communicated via an update of the procedure request that adds an extension element to indicate the appropriateness rating.
 
 ```json
 {
@@ -215,5 +220,3 @@ This example illustrates the use of the CDS Hooks `order-review` hook to impleme
   ]
 }
 ```
-The appropriateness score is communicated via an update of the procedure request that adds an extension element to indicate the appropriateness rating.
-
