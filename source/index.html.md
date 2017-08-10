@@ -13,6 +13,7 @@ includes:
   - security
   - hook_catalog
   - community
+  - examples
 
 search: true
 ---
