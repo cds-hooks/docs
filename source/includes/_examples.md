@@ -168,7 +168,7 @@ This example is taken from the [Opioid Prescribing Support Implementation Guide]
 }
 ```
 
-> CDS Servivec Response
+> CDS Service Response
 
 > The appropriateness score is communicated via an update of the procedure request that adds an extension element to indicate the appropriateness rating.
 
