@@ -239,7 +239,7 @@ Field | Description
 `detail` | *string*.  optional detailed information to display, represented in [(GitHub Flavored) Markdown](https://github.github.com/gfm/). (For non-urgent cards, the EHR may hide these details until the user clicks a link like "view more details...".) 
 `indicator` | *string*.  urgency/importance of what this card conveys. Allowed values, in order of increasing urgency, are: `info`, `warning`, `hard-stop`. The EHR can use this field to help make UI display decisions such as sort order or coloring. The value `hard-stop` indicates that the workflow should not be allowed to proceed. 
 `source` | *object*. grouping structure for the **Source** of the information displayed on this card. The source should be the primary source of guidance for the decision support the card represents.
-<nobr>`suggestions`</nobr> | *array* of **Suggestions**, which allow a service to suggest a set of changes in the context of the current activity (e.g.  changing the dose of the medication currently being prescribed, for the `medication-prescribe` activity)
+<nobr>`suggestions`</nobr> | *array* of **Suggestions**, which allow a service to suggest a set of changes in the context of the current activity (e.g.  changing the dose of the medication currently being prescribed, for the `medication-prescribe` activity). Note that suggestions are implicitly OR'd. 
 `links` | *array* of **Links**, which allow a service to suggest a link to an app that the user might want to run for additional information or to help guide a decision.
 
 The **Source** is described by the following attributes.
@@ -256,8 +256,15 @@ Field | Description
 ----- | -----------
 `label` |  *string*. human-readable label to display for this suggestion (e.g. the EHR might render this as the text on a button tied to this suggestion).
 `uuid` | *string*. unique identifier for this suggestion. For details see [Suggestion Tracking Analytics](#analytics)
-<nobr>`create`</nobr> | *string*. new resource(s) that this suggestion applies within the current activity (e.g. for `medication-prescribe`, this holds the updated prescription as proposed by the suggestion).  
-`delete`  | *string*. id(s) of any resources to remove from the current activity (e.g. for the `order-review` activity, this would provide a way to remove orders from the pending list). In activities like `medication-prescribe` where only one "content" resource is ever relevant, this field may be omitted.
+`actions` | *array*. array of objects, each defining a suggested action. Within a suggestion, all actions are logically AND'd together, such that a user selecting a suggestion selects all of the actions within it.
+
+Each **Action** is described by the following attributes.
+
+Field | Description
+----- | -----------
+`type` |  *string*. The type of action being performed. Allowed values are: `create`, `update`, `delete`. 
+`description` | *string*. human-readable description of the suggested action. May be presented to the end-user. 
+`resource` | *object*. depending upon the `type` attribute, new resource(s) or id(s) of resources. For a type of `create`, the `resource` attribute contains new FHIR resources to apply within the current activity (e.g. for `medication-prescribe`, this holds the updated prescription as proposed by the suggestion).  For `delete`, id(s) of any resources to remove from the current activity (e.g. for the `order-review` activity, this would provide a way to remove orders from the pending list). In activities like `medication-prescribe` where only one "content" resource is ever relevant, this field may be omitted. For `update`, existing resources to modify from the current activity (e.g. for the `order-review` activity, this would provide a way to annotate an order from the pending list with an assessment). This field may be omitted.
 
 Each **Link** is described by the following attributes.
 
