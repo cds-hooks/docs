@@ -14,7 +14,7 @@ EHRs should use accepted best practices for verifying the authenticity and trust
 
 ## Trusting EHRs
 
-Since the CDS Service is invoked by the EHR, the CDS Service does not have the same mechanism as EHRs to establish trust of the EHR invoking it. To establish trust of the EHR, [JSON web tokens](https://jwt.io/) are used.
+Since the CDS Service is invoked by the EHR, the CDS Service does not have the same mechanism as EHRs to establish trust of the EHR invoking it. To establish trust of the EHR, [JSON web tokens (JWT)](https://jwt.io/) are used. Specifically, the JWT is the same `id_token` used in SMART on FHIR.
 
 Each time the EHR makes a request to the CDS Service, it should send an `Authorization` header where the value is `Bearer <token>`, replacing `<token>` with the actual JWT. Note that this is for every single CDS Service call, whether that be Discovery calls, CDS Service invocations, etc.
 
@@ -23,9 +23,10 @@ Each time the EHR makes a request to the CDS Service, it should send an `Authori
 ```json
 {
   "iss": "https://fhir-ehr.example.com/",
-  "aud": "https://cds.example.org/cds-services",
+  "sub": "some-username",
+  "aud": "44b16507-8a59-4369-96f9-1e9b1f9a0ace",
   "exp": 1422568860,
-  "jti": "2af5e8a5-b5ef-4fd0-8d93-c560dac40c98"
+  "iat": 1311280970
 }
 ```
 
@@ -40,9 +41,10 @@ The JWT from the EHR is signed with the EHR's private key and contains the follo
 Field | Value
 ----- | -----
 iss | The base URL of the EHR's FHIR server. This must be the same URL as the `fhirServer` field in a CDS Service request.
-aud | The URL being invoked by the EHR.
-exp | Expiration time integer for this authentication JWT, expressed in seconds since the "Epoch" (1970-01-01T00:00:00Z UTC). This time MUST be no more than five minutes in the future.
-jti | A nonce string value that uniquely identifies this authentication JWT.
+sub | The unique identifer for the current user
+aud | The OAuth 2 client id of the CDS Service
+exp | Expiration time integer for this authentication JWT, expressed in seconds since the "Epoch" (1970-01-01T00:00:00Z UTC).
+iat | The time at which this JWT was issued, expressed in seconds since the "Epoch" (1970-01-01T00:00:00Z UTC).
 
 Note that the use of JWT in CDS Hooks resembles the [SMART on FHIR Backend Services](http://docs.smarthealthit.org/authorization/backend-services/) usage of JWT. However, there are differences due to the differing use cases and concerns between CDS Hooks and SMART Backend Services.
 
@@ -50,6 +52,14 @@ Note that the use of JWT in CDS Hooks resembles the [SMART on FHIR Backend Servi
 
 <aside class="notice">
 TODO: Need to propose how the EHR public key is discovered. Preference would be a further extension in the EHR FHIR server Conformance resource.
+</aside>
+
+<aside class="notice">
+TODO: Need to outline the risks of noalg signatures
+</aside>
+
+<aside class="notice">
+TODO: Need to exposing client_id and scopes in Discovery
 </aside>
 
 ### Mutual TLS
