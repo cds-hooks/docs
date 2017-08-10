@@ -6,7 +6,13 @@ rvm:
   - 2.3
 
 cache: bundler
-script: bundle exec middleman build
+script: bash ./travis-deploy.sh
+
+env:
+  global:
+    - GH_COMMIT_AUTHOR="Travis CI"
+    - GH_COMMIT_EMAIL=travisci@cds-hooks.org
+    - ENCRYPTION_LABEL=ddaacfe268bd
 
 notifications:
   webhooks:
