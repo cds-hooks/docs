@@ -44,7 +44,7 @@ When a triggering activity occurs, the EHR notifies each CDS service registered 
 context (via the `context` parameter of the hook) plus whatever
 service-specific data are required (via the `pre-fetch-template` parameter).
 
-![CDS Hooks Overview](images/overview-with-decisions.png)
+![CDS Hooks Overview](images/overview.png)
 
 ## CDS Cards
 

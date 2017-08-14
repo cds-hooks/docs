@@ -2,16 +2,14 @@
 
 ## CDC Guideline for Prescribing Opioids for Chronic Pain
 
-This example illustrates the use of the CDS Hooks `medication-prescribe` hook to implement Recommendation #5 from the [CDC guideline for prescribing opioids for chronic pain](https://guidelines.gov/summaries/summary/50153/cdc-guideline-for-prescribing-opioids-for-chronic-pain---united-states-2016#420).
+> CDS Service Request
 
-This example is taken from the [Opioid Prescribing Support Implementation Guide](http://build.fhir.org/ig/cqframework/opioid-cds/), developed in partnership with the Centers for Disease Control and Prevention [(CDC)](https://www.cdc.gov/).
-
-The example illustrates a prescription for Acetaminophen/Hydrocodone Bitartrate for a patient that already has a prescription for Oxycodone Hydrochloride:
+> The example illustrates a prescription for Acetaminophen/Hydrocodone Bitartrate for a patient that already has a prescription for Oxycodone Hydrochloride:
 
 ```json
 {
   "hookInstance": "d1577c69-dfbe-44ad-ba6d-3e05e953b2ea",
-  "fhirServer": "http://fhirtest.uhn.ca/baseDstu2",
+  "fhirServer": "http://fhir.example.com",
   "hook": "medication-prescribe",
   "user": "Practitioner/example",
   "context": [
@@ -54,7 +52,7 @@ The example illustrates a prescription for Acetaminophen/Hydrocodone Bitartrate 
       ]
     }
   ],
-  "patient": "Patient/Patient-12214",
+  "patient": "Patient/example",
   "prefetch": {
     "medication": {
       "response": {
@@ -66,7 +64,7 @@ The example illustrates a prescription for Acetaminophen/Hydrocodone Bitartrate 
         "dateWritten": "2017-04-25",
         "status": "active",
         "patient": {
-          "reference": "Patient/Patient-12214"
+          "reference": "Patient/example"
         },
         "medicationCodeableConcept": {
           "coding": [
@@ -102,7 +100,13 @@ The example illustrates a prescription for Acetaminophen/Hydrocodone Bitartrate 
 }
 ```
 
-This request results in the following response:
+This example illustrates the use of the CDS Hooks `medication-prescribe` hook to implement Recommendation #5 from the [CDC guideline for prescribing opioids for chronic pain](https://guidelines.gov/summaries/summary/50153/cdc-guideline-for-prescribing-opioids-for-chronic-pain---united-states-2016#420).
+
+This example is taken from the [Opioid Prescribing Support Implementation Guide](http://build.fhir.org/ig/cqframework/opioid-cds/), developed in partnership with the Centers for Disease Control and Prevention [(CDC)](https://www.cdc.gov/).
+
+> CDS Service Response
+
+> The opioid guideline request results in the following response that indicates the patient is at high risk for opioid overdose according to the CDC guidelines, and the dosage should be tapered to less than 50 MME. Links are provided to the guideline, as well as to the MME conversion tables provided by CDC.
 
 ```json
 {
@@ -121,17 +125,20 @@ This request results in the following response:
     }
   ],
   "detail": "Total morphine milligram equivalent (MME) is 125mg. Taper to less than 50."
-}```
+}
+```
 
 ## Radiology Appropriateness
 
-This example illustrates the use of the CDS Hooks `order-review` hook to implement Radiology Appropriateness scoring.
+> CDS Service Request
+
+> This example illustrates the use of the CDS Hooks `order-review` hook to implement Radiology Appropriateness scoring.
 
 ```json
 {
   "hookInstance": "d1577c69-dfbe-44ad-ba6d-3e05e953b2ea",
-  "fhirServer": "http://fhirtest.uhn.ca/baseDstu2",
-  "hook": "medication-prescribe",
+  "fhirServer": "http://fhir.example.com",
+  "hook": "order-review",
   "user": "Practitioner/example",
   "context": [
     {
@@ -140,12 +147,13 @@ This example illustrates the use of the CDS Hooks `order-review` hook to impleme
       "status": "draft",
       "intent": "proposal",
       "priority": "routine",
-      "code":
+      "code": {
         "coding": [{
           "system": "http://www.ama-assn.org/go/cpt",
           "code": "70450",
           "display": "CT, head, wo iv contrast"
-        }],
+        }]
+      },
       "subject": {
         "reference": "Patient/example"
       },
@@ -160,7 +168,9 @@ This example illustrates the use of the CDS Hooks `order-review` hook to impleme
 }
 ```
 
-The appropriateness score is communicated via an update of the procedure request:
+> CDS Service Response
+
+> The appropriateness score is communicated via an update of the procedure request that adds an extension element to indicate the appropriateness rating.
 
 ```json
 {
@@ -172,7 +182,7 @@ The appropriateness score is communicated via an update of the procedure request
       "suggestions": [
         {
           "label": "The appropriateness score for this procedure given these indications is 9, usually appropriate.",
-          "actions": [
+          "actions": [{
             "type": "update",
             "description": "Update the order to record the appropriateness score.",
             "resource": {
@@ -187,12 +197,13 @@ The appropriateness score is communicated via an update of the procedure request
               "status": "draft",
               "intent": "proposal",
               "priority": "routine",
-              "code":
+              "code": {
                 "coding": [{
                   "system": "http://www.ama-assn.org/go/cpt",
                   "code": "70450",
                   "display": "CT, head, wo iv contrast"
-                }],
+                }]
+              },
               "subject": {
                 "reference": "Patient/example"
               },
@@ -202,7 +213,7 @@ The appropriateness score is communicated via an update of the procedure request
                 }
               }
             }
-          ]
+          }]
         }
       ]
     }
