@@ -4,7 +4,7 @@
 The proposed security model has not yet received implementer feedback and as such, is subject to change. Maintaining both a secure model and an easy implementation experience is a key concern of our impending 1.0 release. As such, we encourage open feedback on this proposed approach on <a href="https://github.com/cds-hooks/docs/issues/7">this Github issue</a> from all of our stakeholders.
 </aside>
 
-CDS Hooks defines the agreed upon security model between an EHR and the CDS Service. Like SMART on FHIR, the security model of CDS Hooks leverages the same open and well supported standards like OAuth 2 and JSON web tokens. However, as CDS Hooks differs from SMART, the manny in which these standards are used is specific to CDS Hooks.
+CDS Hooks defines the agreed upon security model between an EHR and the CDS Service. Like SMART on FHIR, the security model of CDS Hooks leverages the same open and well supported standards like OAuth 2 and JSON web tokens. However, as CDS Hooks differs from SMART, the manner in which these standards are used is specific to CDS Hooks.
 
 ## Trusting CDS Services
 
@@ -59,7 +59,7 @@ TODO: Need to outline the risks of noalg signatures
 </aside>
 
 <aside class="notice">
-TODO: Need to exposing client_id and scopes in Discovery
+TODO: Need to expose client_id and scopes in Discovery
 </aside>
 
 ### Mutual TLS
@@ -76,7 +76,7 @@ Like SMART on FHIR, CDS Hooks requires that access to the FHIR server be control
 
 In SMART on FHIR, the SMART app requests and ultimately obtains an access token from the Authorization server using the SMART launch workflow. This process utilizes the authorization code grant model as defined by the OAuth 2.0 Authorization Framework in [rfc6749](https://tools.ietf.org/html/rfc6749).
 
-With CDS Hooks, the EHR provides the access token directly in the request to the CDS Service. Thus, the CDS Service does not need to request the token from the authorization server as a SMART app would. This is done purely for performance reasons as the authorization code grant model in OAuth 2 involves several HTTPS calls and redirects. In contrast with a SMART app, a CDS Service may be invoked many times during a workflow. Going through the authorization code grant model on every hook invocation would likely result in a slow performing CDS Service due to the authorization overhead.
+With CDS Hooks, the EHR provides the access token directly in the request to the CDS Service. Thus, the CDS Service does not need to request the token from the authorization server as a SMART app would. This is done purely for performance reasons as the authorization code grant model in OAuth 2 involves several HTTPS calls and redirects. In contrast to a SMART app, a CDS Service may be invoked many times during a workflow. Going through the authorization code grant model on every hook invocation would likely result in a slow performing CDS Service due to the authorization overhead.
 
 ```json
 {
@@ -118,8 +118,8 @@ Not quite. There is actually no requirement that there be any user interaction t
 
 With SMART on FHIR, we have seen real production behavior in which the authorization server:
 
-- Grants access to practictioner facing SMART apps via some predefined business arrangement that was done out of bounds. The user (practitioner) never is asked to authorize the SMART app as their organization (hospital) has already made this decision for them.
-- Grants access to patient facing SMART apps by asking the user explicitly for permission to both launch the SMART app as well as what specific scopes (data permissions) the SMART app may havel
+- Grants access to practictioner facing SMART apps via some predefined business arrangement that was done out-of-band. The user (practitioner) never is asked to authorize the SMART app as their organization (hospital) has already made this decision for them.
+- Grants access to patient facing SMART apps by asking the user explicitly for permission to both launch the SMART app as well as what specific scopes (data permissions) the SMART app may have.
 
 2. The FHIR access token model places quite a bit of work on the EHRs. Why?
 
