@@ -96,7 +96,7 @@ The access token is specified in the CDS Service request via the `fhirAuthorizat
 Field | Description
 ----- | -----------
 `access_token` |*string*. This is the OAuth 2 access token that provides access to the FHIR server.
-`token_type`   |*string*. Always the value `code`
+`token_type`   |*string*. Fixed value: `Bearer`
 `expires_in`   |*integer*. The lifetime in seconds of the access token.
 `scope`        |*string*. The scopes the access token grants the CDS Service.
 
