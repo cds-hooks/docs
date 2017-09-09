@@ -82,7 +82,7 @@ With CDS Hooks, the EHR provides the access token directly in the request to the
 {
   "fhirAuthorization" : {
     "access_token" : "some-opaque-fhir-access-token",
-    "token_type" : "code",
+    "token_type" : "Bearer",
     "expires_in" : 300,
     "scope" : "patient/Patient.read patient/Observation.read"
   }
