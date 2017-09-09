@@ -138,6 +138,7 @@ You should carefully consider how you support CORS, but a quick starting point f
 Header | Value
 ------ | -----
 Access-Control-Allow-Credentials | true
+Access-Control-Allow-Headers | Authoriztion, Content-Type
 Access-Control-Allow-Methods | GET, POST, OPTIONS
 Access-Control-Allow-Origin | *
 Access-Control-Expose-Headers | Origin, Accept, Content-Location, Location, X-Requested-With
