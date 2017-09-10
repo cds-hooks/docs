@@ -239,7 +239,7 @@ Field | Description
 `detail` | *string*.  optional detailed information to display, represented in [(GitHub Flavored) Markdown](https://github.github.com/gfm/). (For non-urgent cards, the EHR may hide these details until the user clicks a link like "view more details...".) 
 `indicator` | *string*.  urgency/importance of what this card conveys. Allowed values, in order of increasing urgency, are: `info`, `warning`, `hard-stop`. The EHR can use this field to help make UI display decisions such as sort order or coloring. The value `hard-stop` indicates that the workflow should not be allowed to proceed. 
 `source` | *object*. grouping structure for the **Source** of the information displayed on this card. The source should be the primary source of guidance for the decision support the card represents.
-<nobr>`suggestions`</nobr> | *array* of **Suggestions**, which allow a service to suggest a set of changes in the context of the current activity (e.g.  changing the dose of the medication currently being prescribed, for the `medication-prescribe` activity). Note that suggestions are implicitly OR'd. 
+<nobr>`suggestions`</nobr> | *array* of **Suggestions**, which allow a service to suggest a set of changes in the context of the current activity (e.g.  changing the dose of the medication currently being prescribed, for the `medication-prescribe` activity). The user must be allowed to choose at most one suggestion.
 `links` | *array* of **Links**, which allow a service to suggest a link to an app that the user might want to run for additional information or to help guide a decision.
 
 The **Source** is described by the following attributes.
