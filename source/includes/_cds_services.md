@@ -81,7 +81,6 @@ curl
    "hookInstance" : "d1577c69-dfbe-44ad-ba6d-3e05e953b2ea",
    "fhirServer" : "http://hooks.smarthealthit.org:9080",
    "hook" : "patient-view",
-   "redirect" : "http://hooks2.smarthealthit.org/service-done.html",
    "user" : "Practitioner/example",
    "context" : [],
    "patient" : "1288992",
@@ -115,7 +114,6 @@ Field | Description
 <nobr>`hookInstance`</nobr> |*string*.  A UUID for this particular hook call (see more information below)
 `fhirServer` |*URL*.  The base URL EHR's [FHIR](https://www.hl7.org/fhir/) server. The scheme should be `https`
 `oauth` | *object*. The OAuth2 authorization providing access to the EHR's FHIR server (see more information below)
-`redirect` |*URL*.  The URL an app link card should redirect to (see more information below)
 `user` |*string*.  The FHIR resource type + id representing the current user.<br />The type is one of: [Practitioner](https://www.hl7.org/fhir/practitioner.html), [Patient](https://www.hl7.org/fhir/patient.html), or [RelatedPerson](https://www.hl7.org/fhir/relatedperson.html).<br />For example, `Practitioner/123`
 `patient` |*string*.  The FHIR `Patient.id` of the current patient in context
 `encounter` |*string*.  The FHIR `Encounter.id` of the current encounter in context
@@ -124,20 +122,19 @@ Field | Description
 
 #### hookInstance
 
-While working in the EHR, a user can perform
-multiple activities in series or in parallel. For example, a clinician might prescribe
-two drugs in a row; each prescription activity would be assigned a
-unique `hookInstance`. The [[activity catalog|Activity]]
-provides a description of what events should initiate and terminate
-a given hook. This allows an external
-service to associate requests with activity state, which is necessary to
-support the following app-centric decision sequence, where
-the steps are tied together by a common `hookInstance`:
+While working in the EHR, a user can perform multiple activities in series or
+in parallel. For example, a clinician might prescribe two drugs in a row; each
+prescription activity would be assigned a unique `hookInstance`. The [[activity
+catalog|Activity]] provides a description of what events should initiate and
+terminate a given hook. This allows an external service to associate requests
+with activity state, which is necessary to support the following app-centric
+decision sequence, where the steps are tied together by a common
+`hookInstance`:
 
   0. EHR invokes CDS hook
   1. CDS service returns *app link card*
   2. User clicks app link and interacts with app
-  3. Flow returns to EHR, which re-invokes CDS hook
+  3. Flow returns to EHR using postMessage, which re-invokes CDS hook
   4. CDS service returns *decision* with user's choice
 
 Note: the `hookInstance` is globally unique and should contain enough entropy
@@ -156,15 +153,36 @@ service makes to the EHR, by including it in an Authorization header like:
 
     `Authorization: Bearer {{token}}`
 
-#### redirect
+#### flow returns to EHR using postMessage
 
-This field is only used by services that will return an *app
-link card*: when a user clicks the card's link to launch an app, it becomes
-the app's job to send the user to *this `redirect` URL* upon completion of
-user interaction. (*Design note*: this field is supplied up-front, as part of
-the initial request, to avoid requiring the EHR to append any content to app
-launch links. This helps support an important "degenerate" use case for app
-link cards: pointing to static content. See below for details.)
+> Example EHR code to listen for a completion message
+
+```javascript
+window.addEventListener("message", function(event) {
+  // The data in the message, i.e. completion.hookInstance
+  var completion = event.data;
+
+  // Implementation.. reinvoke the CDS hook, remove iframe, etc...
+}, false);
+```
+
+> Example App code to send a completion message
+
+```javascript
+var completion = {
+  hookInstance: "d1577c69-dfbe-44ad-ba6d-3e05e953b2ea"
+};
+
+window.parent.postMessage(completion);
+```
+
+When the interaction with the user and app is finished, it is the apps's job to
+send the EHR a message using [Javascript
+postMessage](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage),
+sending an object with the `hookInstance`.
+
+It is the EHR's job to know which CDS service to call based on the
+`hookInstance` value, and then reinvoke the appropiate CDS hook.
 
 #### prefetch
 
@@ -271,7 +289,7 @@ Each **Link** is described by the following attributes.
 Field | Description
 ----- | -----------
 <nobr>`label`</nobr>| *string*. human-readable label to display for this link (e.g. the EHR might render this as the underlined text of a clickable link).
-`url` | *URL*. URL to load (via `GET`, in a browser context) when a user clicks on this link. Note that this may be a "deep link" with context embedded in path segments, query parameters, or a hash. In general this URL should embed enough context for the app to determine the `hookInstance`, and `redirect` url upon downstream launch, because the EHR will simply use this url as-is, without appending any parameters at launch time.
+`url` | *URL*. URL to load (via `GET`, in a browser context) when a user clicks on this link. Note that this may be a "deep link" with context embedded in path segments, query parameters, or a hash. In general this URL should embed enough context for the app to determine the `hookInstance` upon downstream launch, because the EHR will simply use this url as-is, without appending any parameters at launch time.
 `type` | *string*. The type of the given URL. There are two possible values for this field. A type of `absolute` indicates that the URL is absolute and should be treated as-is. A type of `smart` indicates that the URL is a SMART app launch URL and the EHR should ensure the SMART app launch URL is populated with the appropriate SMART launch parameters.
 
 
