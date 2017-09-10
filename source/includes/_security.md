@@ -23,30 +23,30 @@ Each time the EHR makes a request to the CDS Service, it should send an `Authori
 ```json
 {
   "iss": "https://fhir-ehr.example.com/",
-  "sub": "some-username",
-  "aud": "44b16507-8a59-4369-96f9-1e9b1f9a0ace",
+  "aud": "https://cds.example.org/cds-services/some-service",
   "exp": 1422568860,
-  "iat": 1311280970
+  "iat": 1311280970,
+  "jti": "ee22b021-e1b7-4611-ba5b-8eec6a33ac1e"
 }
 ```
 
 > Using the above JWT payload, the complete JWT as passed in the Authorization HTTP header would be:
 
 ```
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL2ZoaXItZWhyLmV4YW1wbGUuY29tLyIsImF1ZCI6Imh0dHBzOi8vY2RzLmV4YW1wbGUub3JnL2Nkcy1zZXJ2aWNlcyIsImV4cCI6MTQyMjU2ODg2MCwianRpIjoiMmFmNWU4YTUtYjVlZi00ZmQwLThkOTMtYzU2MGRhYzQwYzk4In0.ahR57rtcMFhvrHEEo9w13vVdLrhZs_gRY2NV6R2GAoU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL2ZoaXItZWhyLmV4YW1wbGUuY29tLyIsImF1ZCI6Imh0dHBzOi8vY2RzLmV4YW1wbGUub3JnL2Nkcy1zZXJ2aWNlcy9zb21lLXNlcnZpY2UiLCJleHAiOjE0MjI1Njg4NjAsImlhdCI6MTMxMTI4MDk3MCwianRpIjoiZWUyMmIwMjEtZTFiNy00NjExLWJhNWItOGVlYzZhMzNhYzFlIn0.Gwl3s301OMWpdEVAVj_T3JZV8bs7N5-V7QNNG7TQ33o
 ```
 
 The JWT from the EHR is signed with the EHR's private key and contains the following fields:
 
 Field | Value
 ----- | -----
-iss | The base URL of the EHR's FHIR server. This must be the same URL as the `fhirServer` field in a CDS Service request.
-sub | The unique identifer for the current user
-aud | The OAuth 2 client id of the CDS Service
-exp | Expiration time integer for this authentication JWT, expressed in seconds since the "Epoch" (1970-01-01T00:00:00Z UTC).
-iat | The time at which this JWT was issued, expressed in seconds since the "Epoch" (1970-01-01T00:00:00Z UTC).
+iss | *string* The URL of the issurer of this JWT.
+aud | *string or array of strings* The CDS Service endpoint that is being called by the EHR. (See more details below).
+exp | *number* Expiration time integer for this authentication JWT, expressed in seconds since the "Epoch" (1970-01-01T00:00:00Z UTC).
+iat | *number* The time at which this JWT was issued, expressed in seconds since the "Epoch" (1970-01-01T00:00:00Z UTC).
+jti | *string* A nonce string value that uniquely identifies this authentication JWT (used to protect against replay attacks)
 
-Note that the use of JWT in CDS Hooks resembles the [SMART on FHIR Backend Services](http://docs.smarthealthit.org/authorization/backend-services/) usage of JWT. However, there are differences due to the differing use cases and concerns between CDS Hooks and SMART Backend Services.
+Per [rfc7519](https://tools.ietf.org/html/rfc7519#section-4.1.3), the `aud` value is either a string or an array of strings. For CDS Hooks, this is the URL of the CDS Service endpoint being invoked. For example, consider a CDS Service available at a base URL of `https://cds.example.org`. When the EHR invokes the CDS Service discovery endpoint, the aud value should be either `"https://cds.example.org/cds-services"` or `["https://cds.example.org/cds-services"]`. Similarly, when the EHR invokes a particular CDS Service (say, `some-service`), the aud value should be either `"https://cds.example.org/cds-services/some-service"` or `["https://cds.example.org/cds-services/some-service"]`.
 
 [https://jwt.io/](https://jwt.io/) is a great resource not only for learning about JSON web tokens, but also for parsing a JWT value into its distinct parts to see how it is constructed. Try taking the example JWT here and pasting it into the form at [https://jwt.io/](https://jwt.io/) to see how the token is constructed.
 
@@ -56,10 +56,6 @@ TODO: Need to propose how the EHR public key is discovered. Preference would be 
 
 <aside class="notice">
 TODO: Need to outline the risks of noalg signatures
-</aside>
-
-<aside class="notice">
-TODO: Need to expose client_id and scopes in Discovery
 </aside>
 
 ### Mutual TLS
