@@ -1,0 +1,6 @@
+site_name: CDS Hooks
+pages:
+- Home: 'index.md'
+- Spec: 'spec.md'
+- Catalog: 'catalog.md'
+- Community: 'community.md'
