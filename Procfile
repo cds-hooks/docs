@@ -1,1 +1,1 @@
-web: mkdocs serve -a localhost:80
+web: mkdocs build
