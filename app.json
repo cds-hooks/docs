@@ -9,7 +9,6 @@
   },
   "addons": [],
   "buildpacks": [
-    { "url": "heroku/python" },
-    { "url": "https://github.com/heroku/heroku-buildpack-static.git" }
+    { "url": "heroku/python" }
   ]
 }
