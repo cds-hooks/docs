@@ -1,0 +1,1 @@
+web: mkdocs serve -a localhost:80

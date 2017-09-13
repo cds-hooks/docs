@@ -4,7 +4,13 @@ python:
   - "2.7"
 script:
   - mkdocs build --verbose --clean --strict
-  - bash ./travis-deploy.sh
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN # Set in travis-ci.org dashboard
+  local_dir: site
+  on:
+    branch: master
 
 env:
   global:
