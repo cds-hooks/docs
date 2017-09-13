@@ -1,0 +1,1 @@
+web: cd site && python -m SimpleHTTPServer 80
