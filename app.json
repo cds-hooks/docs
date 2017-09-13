@@ -9,7 +9,7 @@
   },
   "addons": [],
   "buildpacks": [
-    { "url": "heroku/python" },
-    { "url": "heroku/ruby" }
+    { "url": "heroku/ruby" },
+    { "url": "heroku/python" }
   ]
 }
