@@ -8,5 +8,5 @@
     }
   },
   "addons": [],
-  "buildpacks": ["heroku/python"]
+  "buildpacks": [{ "url": "heroku/python" }]
 }
