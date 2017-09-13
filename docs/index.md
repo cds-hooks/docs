@@ -1,13 +1,3 @@
-  - cds_services
-  - prefetch
-  - security
-  - hook_catalog
-  - community
-  - examples
-
-search: true
----
-
 # Overview
 
 This specification describes a
