@@ -1,1 +1,1 @@
-web: cd site && python -m SimpleHTTPServer 80
+web: cd site && python -m SimpleHTTPServer $PORT
