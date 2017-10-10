@@ -24,6 +24,7 @@ An EHR *may* choose to honor some or all of the desired prefetch templates from 
 - The EHR may have some of the desired prefetched data already in memory, thereby removing the need for any network call
 - The EHR may compute an efficient set of prefetch templates from multiple CDS Services, thereby reducing the number of network calls to a minimum
 - The EHR may satisfy some of the desired prefetched templates via some internal service or even its own FHIR server
+- The user may not be authorized to share the desired prefetch data.
 
 Regardless of how the EHR satisfies the prefetched templates (if at all), it is important that the prefetched data given to the CDS Service is equivalent to the CDS Service making its own call to the EHR FHIR server, where `{{Patient.id}}` is replaced with the id of the current patient (e.g. `123`) inside of any URL strings and using `read` and `search` operations to the server's "transaction" endpoint as a FHIR batch-type bundle.
 
@@ -31,7 +32,7 @@ The resulting response, which must be rendered in a single page — no "next
 page" links allowed — is passed along to the CDS Service using the
 `prefetch` parameter (see below for a complete example). 
 
-The CDS Service must not receive any prefetch template key that the EHR chooses not to satisfy. Additionally, if the EHR encounters an error while retrieving any prefetched data, the prefetch template key should not be sent to the CDS Service. It is the CDS Service's responsibility to check to see what prefetched data was satisfied (if any) and manually retrieve any necessary data.
+The CDS Service must not receive any prefetch template key that the EHR chooses not to satisfy. Additionally, if the EHR encounters an error while retrieving any prefetched data, the prefetch template key should not be sent to the CDS Service. It is the CDS Service's responsibility to check to see what prefetched data was satisfied (if any) and manually retrieve any necessary data. If the EHR neither grants access to a FHIR server nor satifies a service's pre-fetched templates for data that is required by the service, the service responds with an HTTP 412 Precondition Failed status code.
 
 ## Example prefetch request
 
