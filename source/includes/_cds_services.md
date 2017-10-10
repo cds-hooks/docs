@@ -13,7 +13,7 @@ curl "https://example.com/cds-services"
   "services": [
     {
       "hook": "patient-view",
-      "name": "Static CDS Service Example",
+      "title": "Static CDS Service Example",
       "description": "An example of a CDS service that returns a static set of cards",
       "id": "static-patient-greeter",
       "prefetch": {
@@ -22,7 +22,7 @@ curl "https://example.com/cds-services"
     },
     {
       "hook": "medication-prescribe",
-      "name": "Medication Echo CDS Service",
+      "title": "Medication Echo CDS Service",
       "description": "An example of a CDS service that simply echos the medication being prescribed",
       "id": "medication-echo",
       "prefetch": {
@@ -55,7 +55,7 @@ Each CDS Service is described by the following attributes.
 Field | Description
 ----- | -----------
 `hook`| *string* or *url*. The hook this service should be invoked on. See [Hook Catalog](#hook-catalog)
-`name`| *string*.  The name of this service
+`title`| *string*.  The human-friendly name of this service
 <nobr>`description`</nobr>| *string*. The description of this service
 `id` | *string*. The {id} portion of the URL to this service which is available at<br />`{baseUrl}/cds-services/{id}`
 `prefetch` | *object*. An object containing key/value pairs of FHIR queries to data that this service would like the EHR prefetch and provide on<br />each service call. The key is a *string* that describes the type<br />of data being requested and the value is a *string* representing<br />the FHIR query.<br />(todo: link to prefetching documentation)
@@ -176,7 +176,7 @@ Note that in the absence of `prefetch`, an external service can always execute
 FHIR REST API calls against the EHR server to obtain additional data ad-hoc.)
 
 <aside class="notice">
-You can see the <a href="http://editor.swagger.io/#/?import=https://raw.githubusercontent.com/cds-hooks/api/master/cds-hooks.yaml?token=AATHAQY8vqQ6dIZajRuuE55EWMBitTptks5XLMk6wA%3D%3D">complete data model in Swagger</a>.
+You can see the <a href="http://editor.swagger.io/?url=https://raw.githubusercontent.com/cds-hooks/api/master/cds-hooks.yaml">complete data model in Swagger</a>.
 </aside>
 
 ## CDS Service Response
@@ -187,27 +187,35 @@ You can see the <a href="http://editor.swagger.io/#/?import=https://raw.githubus
 {
   "cards": [
     {
-      "summary": "Success Card",
-      "indicator": "success",
-      "detail": "This is an example success card.",
+      "summary": "Example Card",
+      "indicator": "info",
+      "detail": "This is an example card.",
       "source": {
         "label": "Static CDS Service Example",
-        "url": "https://example.com"
+        "url": "https://example.com",
+        "icon": "https://example.com/img/icon-100px.png"
       },
       "links": [
         {
           "label": "Google",
-          "url": "https://google.com"
+          "url": "https://google.com",
+          "type": "absolute"
         },
         {
           "label": "Github",
-          "url": "https://github.com"
+          "url": "https://github.com",
+          "type": "absolute"
+        },
+        {
+          "label": "SMART Example App",
+          "url": "https://smart.example.com/launch",
+          "type": "smart"
         }
       ]
     },
     {
-      "summary": "Info card",
-      "indicator": "info",
+      "summary": "Another card",
+      "indicator": "warning",
       "source": {
         "label": "Static CDS Service Example"
       }
@@ -228,10 +236,10 @@ Each **Card** is described by the following attributes.
 Field | Description
 ----- | -----------
 `summary` | *string*. one-sentence, <140-character summary message for display to the user inside of this card.
-`detail` | *string*.  optional detailed information to display, represented in Markdown. (For non-urgent cards, the EHR may hide these details until the user clicks a link like "view more details...".) 
-`indicator` | *string*.  urgency/importance of what this card conveys. Allowed values, in order of increasing urgency, are: `success`, `info`, `warning`, `hard-stop`. The EHR can use this field to help make UI display decisions such as sort order or coloring. The value `hard-stop` indicates that the workflow should not be allowed to proceed. 
-`source` | *string*. grouping structure for the **Source** of the information displayed on this card.
-<nobr>`suggestions`</nobr> | *array* of **Suggestions**, which allow a service to suggest a set of changes in the context of the current activity (e.g.  changing the dose of the medication currently being prescribed, for the `medication-prescribe` activity)
+`detail` | *string*.  optional detailed information to display, represented in [(GitHub Flavored) Markdown](https://github.github.com/gfm/). (For non-urgent cards, the EHR may hide these details until the user clicks a link like "view more details...".) 
+`indicator` | *string*.  urgency/importance of what this card conveys. Allowed values, in order of increasing urgency, are: `info`, `warning`, `hard-stop`. The EHR can use this field to help make UI display decisions such as sort order or coloring. The value `hard-stop` indicates that the workflow should not be allowed to proceed. 
+`source` | *object*. grouping structure for the **Source** of the information displayed on this card. The source should be the primary source of guidance for the decision support the card represents.
+<nobr>`suggestions`</nobr> | *array* of **Suggestions**, which allow a service to suggest a set of changes in the context of the current activity (e.g.  changing the dose of the medication currently being prescribed, for the `medication-prescribe` activity). The user must be allowed to choose at most one suggestion.
 `links` | *array* of **Links**, which allow a service to suggest a link to an app that the user might want to run for additional information or to help guide a decision.
 
 The **Source** is described by the following attributes.
@@ -239,7 +247,8 @@ The **Source** is described by the following attributes.
 Field | Description
 ----- | -----------
 <nobr>`label`</nobr>| *string*. A short, human-readable label to display for the source of the information displayed on this card. If a `url` is also specified, this may be the text for the hyperlink.
-`url` | *URL*. An optional URL to load (via `GET`, in a browser context) when a user clicks on this link to learn more about the organization or data set that provided the information on this card. Note that this URL should not be used to supply a context-specific "drill-down" view of the information on this card. For that, use `link.url` instead.
+`url` | *URL*. An optional absolute URL to load (via `GET`, in a browser context) when a user clicks on this link to learn more about the organization or data set that provided the information on this card. Note that this URL should not be used to supply a context-specific "drill-down" view of the information on this card. For that, use `link.url` instead.
+`icon` | *URL*. An optional absolute URL to an icon for the source of this card. The icon returned by this URL should be in PNG format, an image size of 100x100 pixels, and must not include any transparent regions.
 
 Each **Suggestion** is described by the following attributes.
 
@@ -247,8 +256,15 @@ Field | Description
 ----- | -----------
 `label` |  *string*. human-readable label to display for this suggestion (e.g. the EHR might render this as the text on a button tied to this suggestion).
 `uuid` | *string*. unique identifier for this suggestion. For details see [Suggestion Tracking Analytics](#analytics)
-<nobr>`create`</nobr> | *string*. new resource(s) that this suggestion applies within the current activity (e.g. for `medication-prescribe`, this holds the updated prescription as proposed by the suggestion).  
-`delete`  | *string*. id(s) of any resources to remove from the current activity (e.g. for the `order-review` activity, this would provide a way to remove orders from the pending list). In activities like `medication-prescribe` where only one "content" resource is ever relevant, this field may be omitted.
+`actions` | *array*. array of objects, each defining a suggested action. Within a suggestion, all actions are logically AND'd together, such that a user selecting a suggestion selects all of the actions within it.
+
+Each **Action** is described by the following attributes.
+
+Field | Description
+----- | -----------
+`type` |  *string*. The type of action being performed. Allowed values are: `create`, `update`, `delete`. 
+`description` | *string*. human-readable description of the suggested action. May be presented to the end-user. 
+`resource` | *object*. depending upon the `type` attribute, new resource(s) or id(s) of resources. For a type of `create`, the `resource` attribute contains new FHIR resources to apply within the current activity (e.g. for `medication-prescribe`, this holds the updated prescription as proposed by the suggestion).  For `delete`, id(s) of any resources to remove from the current activity (e.g. for the `order-review` activity, this would provide a way to remove orders from the pending list). In activities like `medication-prescribe` where only one "content" resource is ever relevant, this field may be omitted. For `update`, existing resources to modify from the current activity (e.g. for the `order-review` activity, this would provide a way to annotate an order from the pending list with an assessment). This field may be omitted.
 
 Each **Link** is described by the following attributes.
 
@@ -256,6 +272,7 @@ Field | Description
 ----- | -----------
 <nobr>`label`</nobr>| *string*. human-readable label to display for this link (e.g. the EHR might render this as the underlined text of a clickable link).
 `url` | *URL*. URL to load (via `GET`, in a browser context) when a user clicks on this link. Note that this may be a "deep link" with context embedded in path segments, query parameters, or a hash. In general this URL should embed enough context for the app to determine the `hookInstance`, and `redirect` url upon downstream launch, because the EHR will simply use this url as-is, without appending any parameters at launch time.
+`type` | *string*. The type of the given URL. There are two possible values for this field. A type of `absolute` indicates that the URL is absolute and should be treated as-is. A type of `smart` indicates that the URL is a SMART app launch URL and the EHR should ensure the SMART app launch URL is populated with the appropriate SMART launch parameters.
 
 
 Each **Decision** is described by the following attributes.
@@ -264,6 +281,18 @@ Field | Description
 ----- | -----------
 `create` |*array* of *strings*. id(s) of new resource(s) that the EHR should create within the current activity (e.g. for `medication-prescribe`, this would be the updated prescription that a user had authored in an app session).
 <nobr>`delete`</nobr> |*array* of *strings*. id(s) of any resources to remove from the current activity (e.g. for the `order-review` activity, this would provide a way to remove orders from the pending list). In activities like `medication-prescribe` where only one "content" resource is ever relevant, this field may be omitted.
+
+### No Decision Support
+
+> Response when no decision support is necessary for the user
+
+```json
+{
+  "cards": []
+}
+```
+
+If your CDS Service has no decision support for the user, your service should return a 200 HTTP response with an empty array of cards.
 
 # Analytics
 

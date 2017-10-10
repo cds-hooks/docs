@@ -10,8 +10,10 @@ toc_footers:
 includes:
   - cds_services
   - prefetch
+  - security
   - hook_catalog
   - community
+  - examples
 
 search: true
 ---
@@ -26,6 +28,10 @@ decision support from within a clinician's EHR workflow. The API supports:
  * Launching a user-facing SMART app when CDS requires deeper interaction
  * Long-running, non-modal CDS sessions that observe EHR activity in progress
 
+<aside class="notice">
+The CDS Hooks API is still in active development and thus subject to change. We're currently working towards a 1.0 release and would love your feedback and proposed changes. Look at our <a href="http://github.com/cds-hooks/docs/issues">current issue list</a> and get involved!
+</aside>
+
 ## How it works
 
 User activity inside the EHR triggers **CDS hooks** in real-time.  For example:
@@ -38,7 +44,7 @@ When a triggering activity occurs, the EHR notifies each CDS service registered 
 context (via the `context` parameter of the hook) plus whatever
 service-specific data are required (via the `pre-fetch-template` parameter).
 
-![CDS Hooks Overview](images/overview-with-decisions.png)
+![CDS Hooks Overview](images/overview.png)
 
 ## CDS Cards
 
@@ -52,7 +58,7 @@ materials (*app link card*). A user sees these cards — one or more of each typ
 
 * *suggestion card*: provides a specific suggestion for which the EHR renders a button that the user can click to accept. Clicking automatically populates the suggested change into the EHR's UI.
 
-* *app link card*: provides a link to a SMART app where the user can supply details, step through a flowchart, or do anything else required to help reach an informed decision. When the user has finished, flow returns to the EHR. At that point, the **EHR re-triggers the initial CDS hook**. The re-triggering may result in different cards, and may also include **decisions** (see below).
+* *app link card*: provides a link to an app (often a SMART app) where the user can supply details, step through a flowchart, or do anything else required to help reach an informed decision. When the user has finished, flow returns to the EHR. At that point, the **EHR re-triggers the initial CDS hook**. The re-triggering may result in different cards, and may also include **decisions** (see below).
 
 ## CDS Decisions
 
@@ -70,4 +76,4 @@ when the EHR invokes the hook for a second time with the same
 
 # Try it!
 
-You can try CDS Hooks in our test harness at **[http://demo.cds-hooks.org](http://demo.cds-hooks.org)**
+You can try CDS Hooks in our test harness at **[http://sandbox.cds-hooks.org](http://sandbox.cds-hooks.org)**

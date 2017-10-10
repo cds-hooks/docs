@@ -3,11 +3,16 @@ sudo: false
 language: ruby
 
 rvm:
-  - 2.0.0
-  - 2.1.0
+  - 2.3
 
 cache: bundler
-script: bundle exec middleman build
+script: bash ./travis-deploy.sh
+
+env:
+  global:
+    - GH_COMMIT_AUTHOR="Travis CI"
+    - GH_COMMIT_EMAIL=travisci@cds-hooks.org
+    - ENCRYPTION_LABEL=ddaacfe268bd
 
 notifications:
   webhooks:
