@@ -2,9 +2,8 @@
 
 ## Pre-defined CDS hooks
 
-We describe a set of hooks to support common use cases out of the box.
-But **this is not a closed set**; anyone can define new hooks to address new use
-cases. To propose a new hooks please add it to the [proposed hooks](https://github.com/cds-hooks/docs/wiki/Proposed-Hooks) page of our wiki.
+This specification describes a set of hooks to support common use cases out of the box. **This is not a closed set**; anyone can define new hooks to address new use
+cases. To propose a new hooks please add it to the [proposed hooks](https://github.com/cds-hooks/docs/wiki/Proposed-Hooks) page of the CDS Hooks wiki.
 
 Note that each hook (e.g. `medication-prescribe`) represents something the user is doing in the EHR; various hooks might respond to the same hook (e.g. a "price check" service and a "prior authorization" service might both respond to `medication-prescribe`).
 
@@ -16,46 +15,51 @@ you should use a URI (e.g.
 
 ## `medication-prescribe`
 
+**Purpose**: Inform an external CDS service that the user is in the process of
+prescribing a new medication, and solicit feedback about the
+prescription-in-progress.
+
+**Contextual data**: The set of proposed medication prescriptions are communicated using the FHIR `MedicationOrder` resource. See example below:
 
 ```json
 {
-  "context": {
-    "resourceType": "MedicationOrder",
-    "medicationCodeableConcept": {
-      "...": "<snipped for brevity>"
+   "hookInstance" : "de49f375-3cab-4363-bdf1-d5fbf01f3cd8",
+   "fhirServer" : "http://hooks.smarthealthit.org:9080",
+   "hook" : "medication-prescribe",
+   "context": {
+     "resourceType": "MedicationOrder",
+     "medicationCodeableConcept": {
+       "...": "<snipped for brevity>"
     }
   }
 }
 ```
 
-**Purpose**: Inform an external CDS service that the user is in the process of
-prescribing a new medication, and solicit feedback about the
-prescription-in-progress.
 
-**Contextual data**: The set of proposed medication prescriptions. using the
-FHIR `MedicationOrder` resource. See example in the sidebar.
 
 ## `order-review`
-
-```json
-{
-  "context": {
-    "resourceType": "DiagnosticOrder",
-    "...": "<snipped for brevity>"
-  }
-}
-```
 
 **Purpose**: Inform an external CDS service that the user is in the process of
 reviewing a set of orders (sometimes known as a "shopping cart"), and solicit
 feedback about the orders being reviewed.
 
-
-
-
 **Contextual data**: The set of orders being reviewed on-screen, represented
 using a combination of MedicationOrder, DiagnosticOrder, DeviceUseRequest,
-ReferralRequest, and ProcedureRequest. See example in the sidebar.
+ReferralRequest, and ProcedureRequest. See example below:
+
+```json
+{
+  "hookInstance" : "700a274f-7a73-43e5-bd6e-6858db1a9c00",
+  "fhirServer" : "http://hooks.smarthealthit.org:9080",
+  "hook" : "order-review",
+  "redirect" : "http://hooks2.smarthealthit.org/service-done.html",
+  "user" : "Practitioner/example",
+  "context": {
+    "resourceType": "DiagnosticOrder",
+      "...": "<snipped for brevity>"
+  }
+}
+```
 
 ## `patient-view`
 
@@ -64,11 +68,30 @@ patient record and is viewing a summary screen or "face sheet", and solicit
 feedback about this patient.
 
 **Contextual data**: None required beyond default context.
+
+```json
+{
+   "hookInstance" : "0b197ddc-b510-437b-99ea-aae68a0f9dc7",
+   "fhirServer" : "http://hooks.smarthealthit.org:9080",
+   "hook" : "patient-view",
+   "redirect" : "http://hooks2.smarthealthit.org/service-done.html",
+   "user" : "Practitioner/example",
+   "context" : [],
+   "...": "<snipped for brevity>"
+  }
+}
+```
+
+
 # Examples
 
 ## CDC Guideline for Prescribing Opioids for Chronic Pain
 
-> CDS Service Request
+**CDS Service Request** on `medication-prescribe`
+
+This example illustrates the use of the CDS Hooks `medication-prescribe` hook to implement Recommendation #5 from the [CDC guideline for prescribing opioids for chronic pain](https://guidelines.gov/summaries/summary/50153/cdc-guideline-for-prescribing-opioids-for-chronic-pain---united-states-2016#420).
+This example is taken from the [Opioid Prescribing Support Implementation Guide](http://build.fhir.org/ig/cqframework/opioid-cds/), developed in partnership with the Centers for Disease Control and Prevention [(CDC)](https://www.cdc.gov/).
+
 
 > The example illustrates a prescription for Acetaminophen/Hydrocodone Bitartrate for a patient that already has a prescription for Oxycodone Hydrochloride:
 
@@ -165,11 +188,6 @@ feedback about this patient.
   }
 }
 ```
-
-This example illustrates the use of the CDS Hooks `medication-prescribe` hook to implement Recommendation #5 from the [CDC guideline for prescribing opioids for chronic pain](https://guidelines.gov/summaries/summary/50153/cdc-guideline-for-prescribing-opioids-for-chronic-pain---united-states-2016#420).
-
-This example is taken from the [Opioid Prescribing Support Implementation Guide](http://build.fhir.org/ig/cqframework/opioid-cds/), developed in partnership with the Centers for Disease Control and Prevention [(CDC)](https://www.cdc.gov/).
-
 > CDS Service Response
 
 > The opioid guideline request results in the following response that indicates the patient is at high risk for opioid overdose according to the CDC guidelines, and the dosage should be tapered to less than 50 MME. Links are provided to the guideline, as well as to the MME conversion tables provided by CDC.
@@ -196,9 +214,11 @@ This example is taken from the [Opioid Prescribing Support Implementation Guide]
 
 ## Radiology Appropriateness
 
-> CDS Service Request
+**CDS Service Request** on `order-review`
 
-> This example illustrates the use of the CDS Hooks `order-review` hook to implement Radiology Appropriateness scoring.
+This example illustrates the use of the CDS Hooks `order-review` hook to implement Radiology Appropriateness scoring.
+
+> This example illustrates a routine CT Head without IV contrast order for a patient.
 
 ```json
 {
@@ -275,7 +295,7 @@ This example is taken from the [Opioid Prescribing Support Implementation Guide]
               },
               "requester": {
                 "agent": {
-                  "reference": "Practitioner/exampmle"
+                  "reference": "Practitioner/example"
                 }
               }
             }
