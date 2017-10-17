@@ -5,12 +5,10 @@ This specification describes a
 decision support from within a clinician's EHR workflow. The API supports:
 
  * Synchronous, workflow-triggered CDS calls returning information and suggestions
- * Launching a user-facing SMART app when CDS requires deeper interaction
- * Long-running, non-modal CDS sessions that observe EHR activity in progress
+ * Presenting a user-facing app when CDS requires additional interaction
 
-<aside class="notice">
-The CDS Hooks API is still in active development and thus subject to change. We're currently working towards a 1.0 release and would love your feedback and proposed changes. Look at our <a href="http://github.com/cds-hooks/docs/issues">current issue list</a> and get involved!
-</aside>
+ *The CDS Hooks API is still in active development and thus subject to change. We're currently working towards a 1.0 release and would love your feedback and proposed changes. Look at our <a href="http://github.com/cds-hooks/docs/issues">current issue list</a> and get involved!*
+
 
 ## How it works
 
@@ -21,25 +19,26 @@ User activity inside the EHR triggers **CDS hooks** in real-time.  For example:
 * `order-review` on viewing pending orders for approval
 
 When a triggering activity occurs, the EHR notifies each CDS service registered for the activity. These services must then provide near-real-time feedback about the triggering event. Each service gets basic details about the EHR
-context (via the `context` parameter of the hook) plus whatever
-service-specific data are required (via the `pre-fetch-template` parameter).
+context (via the `context` parameter of the hook) plus any required 
+service-specific data (via the `prefetch` parameter).
 
-![CDS Hooks Overview](images/overview.png)
+![CDS Hooks Overview](images/overview_updated.png)
 
 ## CDS Cards
 
-Each CDS service can return any number of **cards** in response to the hook.
+Each CDS service returns **cards** in response to the hook.
 Cards convey some combination of text (*information card*), alternative
 suggestions (*suggestion card*), and links to apps or reference
 materials (*app link card*). A user sees these cards — one or more of each type
 — embedded in the EHR, and can interact with them as follows:
 
-* *information card*: provides text for the user to read.
+* **information** card: provides text for the user to read.
 
-* *suggestion card*: provides a specific suggestion for which the EHR renders a button that the user can click to accept. Clicking automatically populates the suggested change into the EHR's UI.
+* **suggestion** card: provides a specific suggestion for which the EHR renders a button that the user can click to accept. Clicking automatically populates the suggested change into the EHR's UI.
 
-* *app link card*: provides a link to an app (often a SMART app) where the user can supply details, step through a flowchart, or do anything else required to help reach an informed decision. When the user has finished, flow returns to the EHR. At that point, the **EHR re-triggers the initial CDS hook**. The re-triggering may result in different cards, and may also include **decisions** (see below).
+* **app link** card: provides a link to an app (often a SMART app) where the user can supply details, step through a flowchart, or do anything else required to help reach an informed decision. When the user has finished, flow returns to the EHR. At that point, the **EHR re-triggers the initial CDS hook**. The re-triggering may result in no cards, a different set of cards, or a [decision](Future_Work/#cds-decisions).
 
+<!-- Moved to Future_Work/#cds-decisions
 ## CDS Decisions
 
 In addition to cards, a CDS service may also return **decisions** — but only
@@ -52,7 +51,7 @@ the CDS service achieves this expected behavior. (*Note:* To return a
 decision after a user interaction, the CDS service must maintain state
 associated with the request's `hookInstance`;
 when the EHR invokes the hook for a second time with the same
-`hookInstance`, the service can respond with decisions on as well as cards.)
+`hookInstance`, the service can respond with decisions on as well as cards.) -->
 
 # Try it!
 

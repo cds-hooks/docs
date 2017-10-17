@@ -3,4 +3,6 @@ pages:
 - Home: 'index.md'
 - Spec: 'spec.md'
 - Catalog: 'catalog.md'
+- Quick Start: 'quick_cds_ehr_start.md'
 - Community: 'community.md'
+- Future Work: 'Future_Work.md'
