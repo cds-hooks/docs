@@ -1,11 +1,11 @@
-# Overview
+﻿# Overview
 
 This specification describes a
 ["hook"](http://en.wikipedia.org/wiki/Hooking)-based pattern for invoking
 decision support from within a clinician's EHR workflow. The API supports:
 
  * Synchronous, workflow-triggered CDS calls returning information and suggestions
- * Presenting a user-facing app when CDS requires additional interaction
+ * Launching a user-facing SMART app when CDS requires additional interaction
 
  *The CDS Hooks API is still in active development and thus subject to change. We're currently working towards a 1.0 release and would love your feedback and proposed changes. Look at our <a href="http://github.com/cds-hooks/docs/issues">current issue list</a> and get involved!*
 
