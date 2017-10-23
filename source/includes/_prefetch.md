@@ -32,7 +32,7 @@ The resulting response, which must be rendered in a single page — no "next
 page" links allowed — is passed along to the CDS Service using the
 `prefetch` parameter (see below for a complete example). 
 
-The CDS Service must not receive any prefetch template key that the EHR chooses not to satisfy. Additionally, if the EHR encounters an error while retrieving any prefetched data, the prefetch template key should not be sent to the CDS Service. It is the CDS Service's responsibility to check to see what prefetched data was satisfied (if any) and manually retrieve any necessary data. If the EHR neither grants access to a FHIR server nor satifies a service's pre-fetched templates for data that is required by the service, the service responds with an HTTP 412 Precondition Failed status code.
+The CDS Service must not receive any prefetch template key that the EHR chooses not to satisfy. Additionally, if the EHR encounters an error while retrieving any prefetched data, the prefetch template key should not be sent to the CDS Service. It is the CDS Service's responsibility to check to see what prefetched data was satisfied (if any) and manually retrieve any necessary data. If the EHR neither grants access to a FHIR server nor satifies a service's pre-fetched templates for data that is required by the service, the service MUST respond with an HTTP 412 Precondition Failed status code.
 
 ## Example prefetch request
 
