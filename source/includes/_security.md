@@ -1,7 +1,7 @@
 # Security
 
 <aside class="notice">
-The proposed security model has not yet received implementer feedback and as such, is subject to change. Maintaining both a secure model and an easy implementation experience is a key concern of our impending 1.0 release. As such, we encourage open feedback on this proposed approach on <a href="https://github.com/cds-hooks/docs/issues/7">this Github issue</a> from all of our stakeholders.
+The CDS Hooks security model is undergoing a rigorous security assessment and as such, may be subject to change.
 </aside>
 
 CDS Hooks defines the agreed upon security model between an EHR and the CDS Service. Like SMART on FHIR, the security model of CDS Hooks leverages the same open and well supported standards like OAuth 2 and JSON web tokens. However, as CDS Hooks differs from SMART, the manner in which these standards are used is specific to CDS Hooks.
@@ -14,9 +14,9 @@ EHRs should use accepted best practices for verifying the authenticity and trust
 
 ## Trusting EHRs
 
-Since the CDS Service is invoked by the EHR, the CDS Service does not have the same mechanism as EHRs to establish trust of the EHR invoking it. To establish trust of the EHR, [JSON web tokens (JWT)](https://jwt.io/) are used. Specifically, the JWT is the same `id_token` used in SMART on FHIR.
+Since the CDS Service is invoked by the EHR, the CDS Service does not have the same mechanism as EHRs to establish trust of the EHR invoking it. Signed [JSON web tokens (JWT)](https://jwt.io/) are produced by the EHR and provided to the CDS Service, allowing the CDS Service to establish trust of the calling EHR.
 
-Each time the EHR makes a request to the CDS Service, it should send an `Authorization` header where the value is `Bearer <token>`, replacing `<token>` with the actual JWT. Note that this is for every single CDS Service call, whether that be Discovery calls, CDS Service invocations, etc.
+Each time the EHR makes a request to the CDS Service, it MUST send an `Authorization` header where the value is `Bearer <token>`, replacing `<token>` with the actual JWT. Note that this is for every single CDS Service call, whether that be Discovery calls, CDS Service invocations, etc.
 
 > Example JSON web token payload
 
@@ -40,27 +40,23 @@ The JWT from the EHR is signed with the EHR's private key and contains the follo
 
 Field | Value
 ----- | -----
-iss | *string* The URL of the issurer of this JWT.
+iss | *string* The URL of the issuer of this JWT.
 aud | *string or array of strings* The CDS Service endpoint that is being called by the EHR. (See more details below).
 exp | *number* Expiration time integer for this authentication JWT, expressed in seconds since the "Epoch" (1970-01-01T00:00:00Z UTC).
 iat | *number* The time at which this JWT was issued, expressed in seconds since the "Epoch" (1970-01-01T00:00:00Z UTC).
 jti | *string* A nonce string value that uniquely identifies this authentication JWT (used to protect against replay attacks)
 
-Per [rfc7519](https://tools.ietf.org/html/rfc7519#section-4.1.3), the `aud` value is either a string or an array of strings. For CDS Hooks, this is the URL of the CDS Service endpoint being invoked. For example, consider a CDS Service available at a base URL of `https://cds.example.org`. When the EHR invokes the CDS Service discovery endpoint, the aud value should be either `"https://cds.example.org/cds-services"` or `["https://cds.example.org/cds-services"]`. Similarly, when the EHR invokes a particular CDS Service (say, `some-service`), the aud value should be either `"https://cds.example.org/cds-services/some-service"` or `["https://cds.example.org/cds-services/some-service"]`.
+Per [rfc7519](https://tools.ietf.org/html/rfc7519#section-4.1.3), the `aud` value is either a string or an array of strings. For CDS Hooks, this is the URL of the CDS Service endpoint being invoked. For example, consider a CDS Service available at a base URL of `https://cds.example.org`. When the EHR invokes the CDS Service discovery endpoint, the aud value is either `"https://cds.example.org/cds-services"` or `["https://cds.example.org/cds-services"]`. Similarly, when the EHR invokes a particular CDS Service (say, `some-service`), the aud value is either `"https://cds.example.org/cds-services/some-service"` or `["https://cds.example.org/cds-services/some-service"]`.
 
 [https://jwt.io/](https://jwt.io/) is a great resource not only for learning about JSON web tokens, but also for parsing a JWT value into its distinct parts to see how it is constructed. Try taking the example JWT here and pasting it into the form at [https://jwt.io/](https://jwt.io/) to see how the token is constructed.
 
 <aside class="notice">
-TODO: Need to propose how the EHR public key is discovered. Preference would be a further extension in the EHR FHIR server Conformance resource.
-</aside>
-
-<aside class="notice">
-TODO: Need to outline the risks of noalg signatures
+At this time, CDS Hooks does not prescribe how the EHR shares its public key or the format of said key used in the JWT signature.
 </aside>
 
 ### Mutual TLS
 
-[Mutual TLS](https://en.wikipedia.org/wiki/Mutual_authentication) (mTLS) can be used between an EHR and CDS Service and that would allow the CDS Service to establish trust of the EHR. However, if mTLS is used, this should be in addition to using JSON web tokens to establish trust of the EHR. As mTLS is not well supported across all platforms and technologies, it is not the standard means of establishing trust with the EHR.
+[Mutual TLS](https://en.wikipedia.org/wiki/Mutual_authentication) (mTLS) MAY be used alongside JSON web tokens to establish trust of the EHR by the CDS Service.
 
 ## FHIR Resource Access
 
@@ -72,7 +68,7 @@ Like SMART on FHIR, CDS Hooks requires that access to the FHIR server be control
 
 In SMART on FHIR, the SMART app requests and ultimately obtains an access token from the Authorization server using the SMART launch workflow. This process utilizes the authorization code grant model as defined by the OAuth 2.0 Authorization Framework in [rfc6749](https://tools.ietf.org/html/rfc6749).
 
-With CDS Hooks, the EHR provides the access token directly in the request to the CDS Service. Thus, the CDS Service does not need to request the token from the authorization server as a SMART app would. This is done purely for performance reasons as the authorization code grant model in OAuth 2 involves several HTTPS calls and redirects. In contrast to a SMART app, a CDS Service may be invoked many times during a workflow. Going through the authorization code grant model on every hook invocation would likely result in a slow performing CDS Service due to the authorization overhead.
+With CDS Hooks, the EHR provides the access token directly in the request to the CDS Service. Thus, the CDS Service does not need to request the token from the authorization server as a SMART app would. This is done purely for performance reasons as the authorization code grant model in OAuth 2 involves several HTTPS calls and redirects. In contrast to a SMART app, a CDS Service may be invoked many times during a workflow. Going through the authorization code grant model on every hook invocation would likely result in a poorly performing CDS Service due to the authorization overhead.
 
 ```json
 {
@@ -96,15 +92,14 @@ Field | Description
 `expires_in`   |*integer*. The lifetime in seconds of the access token.
 `scope`        |*string*. The scopes the access token grants the CDS Service.
 
-It is recommended that the `expires_in` value be very short lived as the access token should be treated as a transient value by the CDS Service.
+It is recommended that the `expires_in` value be very short lived as the access token MUST be treated as a transient value by the CDS Service.
 
 It is recommended that the `scope` value contain just the scopes that the CDS Service needs for its logic and no more.
 
-As the CDS Service is executing on behalf of a user, it is important that the data the CDS Service has access to is under the same restrictions/authorization as the current user. As such, the access token should be scoped to:
+As the CDS Service is executing on behalf of a user, it is important that the data the CDS Service has access to is under the same restrictions/authorization as the current user. As such, the access token SHALL be scoped to:
 
 - The CDS Service being invoked
 - The current user
-- The current patient
 
 ### Frequently Asked Questions
 
@@ -114,7 +109,7 @@ Not quite. There is actually no requirement that there be any user interaction t
 
 With SMART on FHIR, we have seen real production behavior in which the authorization server:
 
-- Grants access to practictioner facing SMART apps via some predefined business arrangement that was done out-of-band. The user (practitioner) never is asked to authorize the SMART app as their organization (hospital) has already made this decision for them.
+- Grants access to practitioner facing SMART apps via some predefined business arrangement that was done out-of-band. The user (practitioner) never is asked to authorize the SMART app as their organization (hospital) has already made this decision for them.
 - Grants access to patient facing SMART apps by asking the user explicitly for permission to both launch the SMART app as well as what specific scopes (data permissions) the SMART app may have.
 
 2. The FHIR access token model places quite a bit of work on the EHRs. Why?
