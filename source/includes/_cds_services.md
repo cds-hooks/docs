@@ -114,7 +114,7 @@ Field | Description
 `hook` |*string* or *URL*. The hook that triggered this CDS Service call<br />(todo: link to hook documentation)
 <nobr>`hookInstance`</nobr> |*string*.  A UUID for this particular hook call (see more information below)
 `fhirServer` |*URL*.  The base URL EHR's [FHIR](https://www.hl7.org/fhir/) server. The scheme should be `https`
-`oauth` | *object*. The OAuth2 authorization providing access to the EHR's FHIR server (see more information below)
+`fhirAuthorization` | *object*. The OAuth 2 authorization providing access to the EHR's FHIR server. See the [FHIR Resource Access](#fhir-resource-access) heading of the security section for more information.
 `redirect` |*URL*.  The URL an app link card should redirect to (see more information below)
 `user` |*string*.  The FHIR resource type + id representing the current user.<br />The type is one of: [Practitioner](https://www.hl7.org/fhir/practitioner.html), [Patient](https://www.hl7.org/fhir/patient.html), or [RelatedPerson](https://www.hl7.org/fhir/relatedperson.html).<br />For example, `Practitioner/123`
 `patient` |*string*.  The FHIR `Patient.id` of the current patient in context
@@ -142,19 +142,6 @@ the steps are tied together by a common `hookInstance`:
 
 Note: the `hookInstance` is globally unique and should contain enough entropy
 to be un-guessable.
-
-#### oauth
-
-Security details allowing the CDS service to connect to the EHR's
-FHIR server.  These fields allow the CDS service to access EHR data in a
-context limited by the current user's privileges. `expires` expresses the
-token lifetime as an integer number of seconds. `scope` represents the set of
-scopes assigned to this token (see [SMART on FHIR
-scopes](http://docs.smarthealthit.org/authorization/scopes-and-launch-context/)).
-Finally, `token` is a bearer token to be presented with any API calls the CDS
-service makes to the EHR, by including it in an Authorization header like:
-
-    `Authorization: Bearer {{token}}`
 
 #### redirect
 
