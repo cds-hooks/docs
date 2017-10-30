@@ -124,7 +124,9 @@ Unlike SMART apps, CDS Services should treat access tokens as transient tokens u
 
 For CDS Services, implementing CORS is required if your CDS Service is to be called from a web browser. As the [CDS Hooks Sandbox](http://sandbox.cds-hooks.org) is a browser application, you must implement CORS to test your CDS Service in the CDS Hooks Sandbox.
 
-You should carefully consider how you support CORS, but a quick starting point for testing would be to ensure your CDS Service returns the following HTTP headers:
+You should carefully consider if and how you support CORS in your CDS Service. A secure implementation guide for CORS is outside of the CDS Hooks specification, as it involves implementation decisions that are made based upon your organization's tolerance for risk and deployment environment.
+
+An insecure, extremely permissive, non-production CORS configuration that allows you to test your CDS Service against our Sandbox returns the following HTTP headers:
 
 Header | Value
 ------ | -----
