@@ -16,7 +16,7 @@ EHRs should use accepted best practices for verifying the authenticity and trust
 
 Since the CDS Service is invoked by the EHR, the CDS Service does not have the same mechanism as EHRs to establish trust of the EHR invoking it. Signed [JSON web tokens (JWT)](https://jwt.io/) are produced by the EHR and provided to the CDS Service, allowing the CDS Service to establish trust of the calling EHR.
 
-Each time the EHR makes a request to the CDS Service, it MUST send an `Authorization` header where the value is `Bearer <token>`, replacing `<token>` with the actual JWT. Note that this is for every single CDS Service call, whether that be Discovery calls, CDS Service invocations, etc.
+Each time the EHR makes a request to the CDS Service, it must send an `Authorization` header where the value is `Bearer <token>`, replacing `<token>` with the actual JWT. Note that this is for every single CDS Service call, whether that be Discovery calls, CDS Service invocations, etc.
 
 > Example JSON web token payload
 
@@ -56,7 +56,7 @@ At this time, CDS Hooks does not prescribe how the EHR shares its public key or 
 
 ### Mutual TLS
 
-[Mutual TLS](https://en.wikipedia.org/wiki/Mutual_authentication) (mTLS) MAY be used alongside JSON web tokens to establish trust of the EHR by the CDS Service.
+[Mutual TLS](https://en.wikipedia.org/wiki/Mutual_authentication) (mTLS) may be used alongside JSON web tokens to establish trust of the EHR by the CDS Service.
 
 ## FHIR Resource Access
 
@@ -92,11 +92,11 @@ Field | Description
 `expires_in`   |*integer*. The lifetime in seconds of the access token.
 `scope`        |*string*. The scopes the access token grants the CDS Service.
 
-It is recommended that the `expires_in` value be very short lived as the access token MUST be treated as a transient value by the CDS Service.
+It is recommended that the `expires_in` value be very short lived as the access token must be treated as a transient value by the CDS Service.
 
 It is recommended that the `scope` value contain just the scopes that the CDS Service needs for its logic and no more.
 
-As the CDS Service is executing on behalf of a user, it is important that the data the CDS Service has access to is under the same restrictions/authorization as the current user. As such, the access token SHALL be scoped to:
+As the CDS Service is executing on behalf of a user, it is important that the data the CDS Service has access to is under the same restrictions/authorization as the current user. As such, the access token shall be scoped to:
 
 - The CDS Service being invoked
 - The current user
