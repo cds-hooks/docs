@@ -101,23 +101,6 @@ As the CDS Service is executing on behalf of a user, it is important that the da
 - The CDS Service being invoked
 - The current user
 
-### Frequently Asked Questions
-
-1. How is the user (clinician) prompted to authorize the CDS Service to obtain an access token on behalf of the user? If we're aligning with how security works for SMART apps, this is what happens today.
-
-Not quite. There is actually no requirement that there be any user interaction to authorize a SMART app to obtain an access token. More generally, the OAuth 2 framework does not prescribe *how* authorization is determined. That is, authorization may be determined via some user interruptive decision, some pre-existing business rules, or even by random chance! The authorization server is free to determine how it grants access to the resources it protects.
-
-With SMART on FHIR, we have seen real production behavior in which the authorization server:
-
-- Grants access to practitioner facing SMART apps via some predefined business arrangement that was done out-of-band. The user (practitioner) never is asked to authorize the SMART app as their organization (hospital) has already made this decision for them.
-- Grants access to patient facing SMART apps by asking the user explicitly for permission to both launch the SMART app as well as what specific scopes (data permissions) the SMART app may have.
-
-2. The FHIR access token model places quite a bit of work on the EHRs. Why?
-
-Yes, requiring the EHRs to obtain and share the access token with each CDS Service on each hook invocation isn't trivial work. However, the need to control the performance of the CDS Service invocations necessitates a different approach than SMART on FHIR. By putting the burden on the EHRs to obtain this access token, it is left to the EHR to manage this cost appropriately. Given the authorization server and EHR are controlled by the same organization, it is assumed the EHR is in a much better position to implement strategies to both obtain and manage access tokens in a performant manner in a model like CDS Hooks.
-
-Unlike SMART apps, CDS Services should treat access tokens as transient tokens used during the course of a single evaluation of decision support. If the EHRs did not bear the responsibility of obtaining the access token on behalf of the CDS Service, each CDS Service would need to not only obtain the token themselves, but also determine a performant manner to optimize token (re)use when their service is invoked for the same user/patient.
-
 ## Cross-Origin Resource Sharing
 
 [Cross-origin resource sharing (CORS)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS) is web security mechanism that is built into browsers. In short, CORS allows servers to control how browsers access resources on the server, including the accessible HTTP response headers. CORS is only honored by web browsers and as such, is a client-side security mechanism.
