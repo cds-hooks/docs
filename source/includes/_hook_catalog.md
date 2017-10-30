@@ -16,6 +16,9 @@ you should use a URI (e.g.
 
 ## `medication-prescribe`
 
+**Workflow description**: The user is in the process of prescribing a new medication, and solicit feedback about the prescription-in-progress.
+
+**Context**: The set of proposed medication prescriptions. using the FHIR `MedicationOrder` resource. 
 
 ```json
 {
@@ -28,14 +31,14 @@ you should use a URI (e.g.
 }
 ```
 
-**Purpose**: Inform an external CDS service that the user is in the process of
-prescribing a new medication, and solicit feedback about the
-prescription-in-progress.
-
-**Contextual data**: The set of proposed medication prescriptions. using the
-FHIR `MedicationOrder` resource. See example in the sidebar.
 
 ## `order-review`
+
+**Workflow description**: The user is in the process of reviewing a set of orders (sometimes known as a "shopping cart"), and solicit
+feedback about the orders being reviewed.
+
+
+**Context**: The set of orders being reviewed on-screen, represented using a combination of MedicationOrder, DiagnosticOrder, DeviceUseRequest, ReferralRequest, and ProcedureRequest. See example in the sidebar.
 
 ```json
 {
@@ -46,21 +49,8 @@ FHIR `MedicationOrder` resource. See example in the sidebar.
 }
 ```
 
-**Purpose**: Inform an external CDS service that the user is in the process of
-reviewing a set of orders (sometimes known as a "shopping cart"), and solicit
-feedback about the orders being reviewed.
-
-
-
-
-**Contextual data**: The set of orders being reviewed on-screen, represented
-using a combination of MedicationOrder, DiagnosticOrder, DeviceUseRequest,
-ReferralRequest, and ProcedureRequest. See example in the sidebar.
-
 ## `patient-view`
 
-**Purpose**: Inform an external CDS service that the user has just opened a new
-patient record and is viewing a summary screen or "face sheet", and solicit
-feedback about this patient.
+**Workflow description**: The user has just opened a new patient record.
 
-**Contextual data**: None required beyond default context.
+**Context**: {}
