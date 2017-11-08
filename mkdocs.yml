@@ -1,7 +1,13 @@
 site_name: CDS Hooks
 
+theme:
+  name: 'material'
+  palette:
+    primary: 'blue'
+    accent: 'blue'
+
 pages:
-- Home: 'index.md'
+- Overview: 'index.md'
 - Spec: 'spec.md'
 - Hooks: 'hooks.md'
 - Examples: 'examples.md'
