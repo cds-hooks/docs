@@ -114,7 +114,7 @@ Field | Description
 `hook` |*string* or *URL*. The hook that triggered this CDS Service call<br />(todo: link to hook documentation)
 <nobr>`hookInstance`</nobr> |*string*.  A UUID for this particular hook call (see more information below)
 `fhirServer` |*URL*.  The base URL EHR's [FHIR](https://www.hl7.org/fhir/) server. The scheme should be `https`
-`oauth` | *object*. The OAuth2 authorization providing access to the EHR's FHIR server (see more information below)
+`fhirAuthorization` | *object*. The OAuth 2 authorization providing access to the EHR's FHIR server. See the [FHIR Resource Access](#fhir-resource-access) heading of the security section for more information.
 `redirect` |*URL*.  The URL an app link card should redirect to (see more information below)
 `user` |*string*.  The FHIR resource type + id representing the current user.<br />The type is one of: [Practitioner](https://www.hl7.org/fhir/practitioner.html), [Patient](https://www.hl7.org/fhir/patient.html), or [RelatedPerson](https://www.hl7.org/fhir/relatedperson.html).<br />For example, `Practitioner/123`
 `patient` |*string*.  The FHIR `Patient.id` of the current patient in context
@@ -142,19 +142,6 @@ the steps are tied together by a common `hookInstance`:
 
 Note: the `hookInstance` is globally unique and should contain enough entropy
 to be un-guessable.
-
-#### oauth
-
-Security details allowing the CDS service to connect to the EHR's
-FHIR server.  These fields allow the CDS service to access EHR data in a
-context limited by the current user's privileges. `expires` expresses the
-token lifetime as an integer number of seconds. `scope` represents the set of
-scopes assigned to this token (see [SMART on FHIR
-scopes](http://docs.smarthealthit.org/authorization/scopes-and-launch-context/)).
-Finally, `token` is a bearer token to be presented with any API calls the CDS
-service makes to the EHR, by including it in an Authorization header like:
-
-    `Authorization: Bearer {{token}}`
 
 #### redirect
 
@@ -264,7 +251,7 @@ Field | Description
 ----- | -----------
 `type` |  *string*. The type of action being performed. Allowed values are: `create`, `update`, `delete`. 
 `description` | *string*. human-readable description of the suggested action. May be presented to the end-user. 
-`resource` | *object*. depending upon the `type` attribute, new resource(s) or id(s) of resources. For a type of `create`, the `resource` attribute contains new FHIR resources to apply within the current activity (e.g. for `medication-prescribe`, this holds the updated prescription as proposed by the suggestion).  For `delete`, id(s) of any resources to remove from the current activity (e.g. for the `order-review` activity, this would provide a way to remove orders from the pending list). In activities like `medication-prescribe` where only one "content" resource is ever relevant, this field may be omitted. For `update`, existing resources to modify from the current activity (e.g. for the `order-review` activity, this would provide a way to annotate an order from the pending list with an assessment). This field may be omitted.
+`resource` | *object*. depending upon the `type` attribute, a new resource or the id of a resource. For a type of `create`, the `resource` attribute contains a new FHIR resource to apply within the current activity (e.g. for `medication-prescribe`, this holds the updated prescription as proposed by the suggestion).  For `delete`, this is the id of any resource to remove from the current activity (e.g. for the `order-review` activity, this would provide a way to remove an order from the pending list). In activities like `medication-prescribe` where only one "content" resource is ever relevant, this field may be omitted. For `update`, this holds the updated resource to modify from the current activity (e.g. for the `order-review` activity, this would provide a way to annotate an order from the pending list with an assessment). This field may be omitted.
 
 Each **Link** is described by the following attributes.
 
@@ -330,6 +317,7 @@ An EHR *may* choose to honor some or all of the desired prefetch templates from 
 - The EHR may have some of the desired prefetched data already in memory, thereby removing the need for any network call
 - The EHR may compute an efficient set of prefetch templates from multiple CDS Services, thereby reducing the number of network calls to a minimum
 - The EHR may satisfy some of the desired prefetched templates via some internal service or even its own FHIR server
+- The user may not be authorized to share the desired prefetch data.
 
 Regardless of how the EHR satisfies the prefetched templates (if at all), it is important that the prefetched data given to the CDS Service is equivalent to the CDS Service making its own call to the EHR FHIR server, where `{{Patient.id}}` is replaced with the id of the current patient (e.g. `123`) inside of any URL strings and using `read` and `search` operations to the server's "transaction" endpoint as a FHIR batch-type bundle.
 
@@ -337,7 +325,7 @@ The resulting response, which must be rendered in a single page — no "next
 page" links allowed — is passed along to the CDS Service using the
 `prefetch` parameter (see below for a complete example). 
 
-The CDS Service must not receive any prefetch template key that the EHR chooses not to satisfy. Additionally, if the EHR encounters an error while retrieving any prefetched data, the prefetch template key should not be sent to the CDS Service. It is the CDS Service's responsibility to check to see what prefetched data was satisfied (if any) and manually retrieve any necessary data.
+The CDS Service must not receive any prefetch template key that the EHR chooses not to satisfy. Additionally, if the EHR encounters an error while retrieving any prefetched data, the prefetch template key should not be sent to the CDS Service. It is the CDS Service's responsibility to check to see what prefetched data was satisfied (if any) and manually retrieve any necessary data. If the CDS Service is unable to obtain required data because it cannot access the FHIR server and the request did not contain the necessary pre-fetch keys; the service shall respond with an HTTP 412 Precondition Failed status code.
 
 ## Example prefetch request
 
