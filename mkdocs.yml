@@ -3,6 +3,7 @@ site_name: CDS Hooks
 theme:
   name: 'material'
   logo: 'images/logo-square.png'
+  favicon: 'images/favicon.png'
   palette:
     primary: 'blue'
     accent: 'blue'
