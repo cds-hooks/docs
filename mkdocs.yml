@@ -7,6 +7,11 @@ theme:
     primary: 'blue'
     accent: 'blue'
 
+extra:
+  social:
+    - type: 'github'
+      link: 'https://github.com/cds-hooks'
+
 pages:
 - Overview: 'index.md'
 - Spec: 'spec.md'
