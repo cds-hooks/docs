@@ -52,6 +52,6 @@ associated with the request's `hookInstance`;
 when the EHR invokes the hook for a second time with the same
 `hookInstance`, the service can respond with decisions on as well as cards.)
 
-# Try it!
+## Try it!
 
 You can try CDS Hooks in our test harness at **[http://sandbox.cds-hooks.org](http://sandbox.cds-hooks.org)**

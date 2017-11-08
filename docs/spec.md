@@ -281,7 +281,7 @@ Field | Description
 
 If your CDS Service has no decision support for the user, your service should return a 200 HTTP response with an empty array of cards.
 
-# Analytics
+## Analytics
 
 Whenever a user clicks a button from a "suggestion" card, the EHR uses the
 suggestion `uuid` to notify the CDS Service's analytics endpoint via a `POST`
@@ -291,9 +291,9 @@ with an empty body:
 
 If a suggestion has no `uuid`, the EHR does not send a notification.
 
-# Prefetch
+## Prefetch
 
-## A performance tweak
+### A performance tweak
 
 If real-world performance were no issue, an EHR could launch a CDS Service
 passing only *context* data, and *without passing any additional clinical data*
@@ -327,7 +327,7 @@ page" links allowed — is passed along to the CDS Service using the
 
 The CDS Service must not receive any prefetch template key that the EHR chooses not to satisfy. Additionally, if the EHR encounters an error while retrieving any prefetched data, the prefetch template key should not be sent to the CDS Service. It is the CDS Service's responsibility to check to see what prefetched data was satisfied (if any) and manually retrieve any necessary data. If the CDS Service is unable to obtain required data because it cannot access the FHIR server and the request did not contain the necessary pre-fetch keys; the service shall respond with an HTTP 412 Precondition Failed status code.
 
-## Example prefetch request
+### Example prefetch request
 
 ```json
 {
@@ -348,7 +348,7 @@ goal is to know, at call time:
 | `a1c` | Most recent Hemoglobin A1c reading for this patient |
 | `u` | Information on the current user (Practitioner)
 
-## Example prefetch response
+### Example prefetch response
 
 ```json
 {
@@ -395,7 +395,7 @@ keys match the request keys (`p` and `a1c` in this case).
 
 Note that the missing `u` key indicates that either the EHR has decided not to satisfy this particular prefetch template or it was not able to retrieve this prefetched data. The CDS Service is responsible for retrieving this Practitioner data from the FHIR server (if required).
 
-## Prefetch query restrictions
+### Prefetch query restrictions
 
 To reduce the implementation burden on EHRs that support CDS services, CDS Hooks recommends that prefetch queries only use a subset of the full functionality available in the FHIR specification. Valid prefetch URLs should only contain:
 
@@ -407,7 +407,7 @@ To reduce the implementation burden on EHRs that support CDS services, CDS Hooks
 * the `_count` parameter to limit the number of results returned
 * the `_sort` parameter to allow for _most recent_ and _first_ queries
 
-# Security
+## Security
 
 <aside class="notice">
 The CDS Hooks security model is undergoing a rigorous security assessment and as such, may be subject to change.
@@ -415,13 +415,13 @@ The CDS Hooks security model is undergoing a rigorous security assessment and as
 
 CDS Hooks defines the agreed upon security model between an EHR and the CDS Service. Like SMART on FHIR, the security model of CDS Hooks leverages the same open and well supported standards like OAuth 2 and JSON web tokens. However, as CDS Hooks differs from SMART, the manner in which these standards are used is specific to CDS Hooks.
 
-## Trusting CDS Services
+### Trusting CDS Services
 
 As the EHR initiates every interaction with the CDS Service, it is responsible for establishing trust with the CDS Services it intends to call. This trust is established via a TLS connection to the CDS Service. Thus, all CDS Service endpoints must be deployed to a TLS protected URL (https). This includes both the Discovery and individual CDS Service endpoints.
 
 EHRs should use accepted best practices for verifying the authenticity and trust of these TLS connections. For instance, [rfc5280](https://tools.ietf.org/html/rfc5280) and [rfc6125](https://tools.ietf.org/html/rfc6125). Additionally, it is assumed that EHRs configure the CDS Services they connect to via some offline process according to the business rules and practices of both the EHR and CDS Service organizations.
 
-## Trusting EHRs
+### Trusting EHRs
 
 Since the CDS Service is invoked by the EHR, the CDS Service does not have the same mechanism as EHRs to establish trust of the EHR invoking it. Signed [JSON web tokens (JWT)](https://jwt.io/) are produced by the EHR and provided to the CDS Service, allowing the CDS Service to establish trust of the calling EHR.
 
@@ -463,17 +463,17 @@ Per [rfc7519](https://tools.ietf.org/html/rfc7519#section-4.1.3), the `aud` valu
 At this time, CDS Hooks does not prescribe how the EHR shares its public key or the format of said key used in the JWT signature.
 </aside>
 
-### Mutual TLS
+#### Mutual TLS
 
 [Mutual TLS](https://en.wikipedia.org/wiki/Mutual_authentication) (mTLS) may be used alongside JSON web tokens to establish trust of the EHR by the CDS Service.
 
-## FHIR Resource Access
+### FHIR Resource Access
 
 The CDS Service is able to use the FHIR server of the EHR to obtain any additional data it needs in order to perform its decision support. This is similar to SMART on FHIR where the SMART app can obtain additional data via the provided FHIR server.
 
 Like SMART on FHIR, CDS Hooks requires that access to the FHIR server be controlled by an Authorization server utilizing the OAuth 2 framework. Thus, the CDS Service is able to consume the given FHIR server via an access (bearer) token just like a SMART app. While CDS Hooks shares the underlying technical framework and standards as SMART on FHIR, there are very important differences between SMART and CDS Hooks.
 
-### Obtaining an Access Token
+#### Obtaining an Access Token
 
 In SMART on FHIR, the SMART app requests and ultimately obtains an access token from the Authorization server using the SMART launch workflow. This process utilizes the authorization code grant model as defined by the OAuth 2.0 Authorization Framework in [rfc6749](https://tools.ietf.org/html/rfc6749).
 
@@ -490,7 +490,7 @@ With CDS Hooks, the EHR provides the access token directly in the request to the
 }
 ```
 
-### Access Token
+#### Access Token
 
 The access token is specified in the CDS Service request via the `fhirAuthorization` request parameter. This parameter is an object that contains both the access token as well as other related information.
 
@@ -510,7 +510,7 @@ As the CDS Service is executing on behalf of a user, it is important that the da
 - The CDS Service being invoked
 - The current user
 
-## Cross-Origin Resource Sharing
+### Cross-Origin Resource Sharing
 
 [Cross-origin resource sharing (CORS)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS) is web security mechanism that is built into browsers. In short, CORS allows servers to control how browsers access resources on the server, including the accessible HTTP response headers. CORS is only honored by web browsers and as such, is a client-side security mechanism.
 
