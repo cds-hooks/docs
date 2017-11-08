@@ -2,5 +2,6 @@ site_name: CDS Hooks
 pages:
 - Home: 'index.md'
 - Spec: 'spec.md'
-- Catalog: 'catalog.md'
+- Hooks: 'hooks.md'
+- Examples: 'examples.md'
 - Community: 'community.md'
