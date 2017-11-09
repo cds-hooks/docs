@@ -1,0 +1,1 @@
+web: mkdocs build && cd site && python -m SimpleHTTPServer $PORT
