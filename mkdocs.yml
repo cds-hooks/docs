@@ -15,7 +15,7 @@ extra:
 
 pages:
 - Overview: 'index.md'
-- Spec: 'spec.md'
+- Specification: 'specification.md'
 - Hooks: 'hooks.md'
 - Examples: 'examples.md'
 - Community: 'community.md'
