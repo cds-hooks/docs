@@ -18,3 +18,11 @@ pages:
 - Community: 'community.md'
 
 repo_url: 'https://github.com/cds-hooks/docs'
+
+markdown_extensions:
+  - admonition
+  - codehilite:
+      guess_lang: false
+      linenums: true
+  - toc:
+      permalink: true
