@@ -1,13 +1,13 @@
 backports-abc==0.5
-certifi==2017.7.27.1
+certifi==2017.11.5
 click==6.7
-Jinja2==2.9.6
+Jinja2==2.10
 livereload==2.5.1
 Markdown==2.6.9
 MarkupSafe==1.0
 mkdocs==0.17.1
 PyYAML==3.12
 singledispatch==3.4.0.3
-six==1.10.0
+six==1.11.0
 tornado==4.5.2
 mkdocs-material==2.0.4
