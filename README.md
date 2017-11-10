@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/cds-hooks/docs/raw/docs/logo.png">
+  <img src="https://github.com/cds-hooks/docs/raw/master/logo.png">
 </p>
 
 # CDS Hooks
