@@ -70,10 +70,10 @@ You may already have created a SMART app prior to this step, but just in case th
 The CDS hooks initiative provides a publicly available [sandbox](http://sandbox.cds-hooks.org/) to test your service. 
 
 Select the configure hooks:<br>
-![Demo Configuration](images/demo_configure_hooks1.png)
+![Demo Configuration](images/demo-configure-hooks.png)
 
 Delete the existing hooks, and then do a quick add with a reference to your CDS service:<br>
-![Patient View Hooks Launch from Sandbox](images/demo_quick_add1.png)
+![Patient View Hooks Launch from Sandbox](images/demo-quick-add.png)
 
 After testing with the sandbox, you are ready to connect with an EHR service.
 
@@ -99,7 +99,7 @@ Below is an example work flow where a business analyst accesses this list of ava
 
 and then configures them in the system. 
 
-![business analyst configuration](images/analyst-configuration_spec.png)
+![business analyst configuration](images/analyst-configuration-spec.png)
 
 This image captures a business analyst reviewing services from one CDS provider. A business analyst may review services from multiple providers and configure appropriate services per user profiles.
 
@@ -169,7 +169,7 @@ Example card JSON:
       ]
     }
 
-Example card rendered: ![Card with SMART App link](images/premier_SMART-App_Card.png)
+Example card rendered: ![Card with SMART App link](images/smart-app-card.png)
 
 ### Launch SMART app 
 
