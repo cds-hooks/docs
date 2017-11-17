@@ -19,19 +19,21 @@ This tutorial recommends implementing the [security](specification/#security) af
 ### Endpoint for discovery
 The CDS service must provide a stable endpoint for the EHR to discover the available services. A system must expose their services at `{baseUrl}/cds-services`. A service endpoint that supports the `patient-view` hook may return:
 
+```json
+{
+  "services": [
     {
-      "services": [
-        {
-          "hook": "patient-view",
-          "name": "Static CDS Service Example",
-          "description": "An example of a CDS service that returns a card with SMART app recommendations.",
-          "id": "static-patient-view",
-          "prefetch": {
-            "patientToGreet": "Patient/{{Patient.id}}"
-          }
-        }
-      ]
+      "hook": "patient-view",
+      "name": "Static CDS Service Example",
+      "description": "An example of a CDS service that returns a card with SMART app recommendations.",
+      "id": "static-patient-view",
+      "prefetch": {
+        "patientToGreet": "Patient/{{Patient.id}}"
+      }
     }
+  ]
+}
+```
 
 The attributes available to describe a CDS services is documented in the [CDS hooks specification](specification/#discovery).
 
@@ -42,26 +44,28 @@ With a stable open end point available it's time to complete development of a se
 
 A CDS `patient-view` hook could return the following card:
 
+```json
+{
+  "cards": [
     {
-      "cards": [
+      "summary": "SMART App Success Card",
+      "indicator": "success",
+      "detail": "This is an example SMART App success card.",
+      "source": {
+        "label": "Static CDS Service Example",
+        "url": "https://example.com"
+      },
+      "links": [
         {
-          "summary": "SMART App Success Card",
-          "indicator": "success",
-          "detail": "This is an example SMART App success card.",
-          "source": {
-            "label": "Static CDS Service Example",
-            "url": "https://example.com"
-          },
-          "links": [
-            {
-              "label": "SMART Example App",
-              "url": "https://smart.example.com/launch",
-              "type": "smart"
-            }
-          ]
+          "label": "SMART Example App",
+          "url": "https://smart.example.com/launch",
+          "type": "smart"
         }
       ]
-     }
+    }
+  ]
+ }
+```
 
 ### Create a SMART App
 You may already have created a SMART app prior to this step, but just in case this is a reminder. The SMART app is launched from the link returned in your service. If you want to borrow a SMART app, check out the [app gallery](https://apps.smarthealthit.org/apps/pricing/open-source).
@@ -109,29 +113,31 @@ The patient-view hook is invoked when a patient chart is opened. It's one of the
 ### Support for FHIR resources on request or prefetch
 Often a CDS service will require additional information from the EHR to perform the decision support logic, or determine the appropriate SMART app to return. Prefetch provides the EHR the capability to pass a resource when invoking a service. For example, with a patient resource included a service could do a geography search for potential environmental risk factors. Below is an example request invoked on patient-view with a patient included: (***fix server, not working for me)
 
-    {
-       "hookInstance" : "23f1a303-991f-4118-86c5-11d99a39222e",
-       "fhirServer" : "http://hooks.smarthealthit.org:9080",
-       "hook" : "patient-view",
-       "redirect" : "http://hooks2.smarthealthit.org/service-done.html",
-       "user" : "Practitioner/example",
-       "context" : [],
-       "patient" : "1288992",
-       "prefetch" : {
-          "patientToGreet" : {
-             "response" : {
-                "status" : "200 OK"
-             },
-             "resource" : {
-                "resourceType" : "Patient",
-                "gender" : "male",
-                "birthDate" : "1925-12-23",
-                "id" : "1288992",
-                "active" : true
-             }
-          }
-       }
-    }
+```json
+{
+   "hookInstance" : "23f1a303-991f-4118-86c5-11d99a39222e",
+   "fhirServer" : "http://hooks.smarthealthit.org:9080",
+   "hook" : "patient-view",
+   "redirect" : "http://hooks2.smarthealthit.org/service-done.html",
+   "user" : "Practitioner/example",
+   "context" : [],
+   "patient" : "1288992",
+   "prefetch" : {
+      "patientToGreet" : {
+         "response" : {
+            "status" : "200 OK"
+         },
+         "resource" : {
+            "resourceType" : "Patient",
+            "gender" : "male",
+            "birthDate" : "1925-12-23",
+            "id" : "1288992",
+            "active" : true
+         }
+      }
+   }
+}
+```
 
 
 In some cases, additional information beyond what is included in the prefetch maybe required. The CDS service can request additional information using the FHIR REST APIs:
@@ -148,26 +154,28 @@ The CDS service will provide a response in the form a of a 'card'. Your EHR need
 
 Example card JSON: 
 
+```json
+{
+  "cards": [
     {
-      "cards": [
+      "summary": "Premier Inc:  Based on new culture information and facility antibiogram, the following anti-infectives has the highest likelihood (% susceptibility) of effectively treating the infections ",
+      "indicator": "info",
+      "detail": "<Table><tr><td><strong>Anti-infective Medications </strong><span style=\"color: #00ccff;\">(% Susceptable)</span></td></tr><TR><TD>Ampicillin-Sulbactam( 93%) </TD></TR><TR><TD>Levofloxacin( 88%) </TD></TR><TR><TD>Cefazolin(79%) </TD></TR><TR><TD>SMX-TMP(76%) </TD></TR><TR><TD>Gentamicin(73%) </TD></TR></Table>",
+      "source": {
+        "name": "Premier Inc",
+        "url": null
+      },
+      "links": [
         {
-          "summary": "Premier Inc:  Based on new culture information and facility antibiogram, the following anti-infectives has the highest likelihood (% susceptibility) of effectively treating the infections ",
-          "indicator": "info",
-          "detail": "<Table><tr><td><strong>Anti-infective Medications </strong><span style=\"color: #00ccff;\">(% Susceptable)</span></td></tr><TR><TD>Ampicillin-Sulbactam( 93%) </TD></TR><TR><TD>Levofloxacin( 88%) </TD></TR><TR><TD>Cefazolin(79%) </TD></TR><TR><TD>SMX-TMP(76%) </TD></TR><TR><TD>Gentamicin(73%) </TD></TR></Table>",
-          "source": {
-            "name": "Premier Inc",
-            "url": null
-          },
-          "links": [
-            {
-              "label": "Launch Premier TheraDoc for more details",
-              "url": "http://premiercdsapps-env.us-east-1.elasticbeanstalk.com/CDS_Hooks/antibiogramlink?hookinstance=9ae4bc55-2ccd-469b-b5cc-33e23d983998",
-              "type": "absolute"
-           }
-          ]
-        }
+          "label": "Launch Premier TheraDoc for more details",
+          "url": "http://premiercdsapps-env.us-east-1.elasticbeanstalk.com/CDS_Hooks/antibiogramlink?hookinstance=9ae4bc55-2ccd-469b-b5cc-33e23d983998",
+          "type": "absolute"
+       }
       ]
     }
+  ]
+}
+```
 
 Example card rendered: ![Card with SMART App link](images/smart-app-card.png)
 
