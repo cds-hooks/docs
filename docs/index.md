@@ -1,23 +1,3 @@
----
-title: API Reference
-
-language_tabs:
-  - code
-
-toc_footers:
-  - <a href='https://github.com/tripit/slate'>Documentation Powered by Slate</a>
-
-includes:
-  - cds_services
-  - prefetch
-  - security
-  - hook_catalog
-  - community
-  - examples
-
-search: true
----
-
 # Overview
 
 This specification describes a
@@ -25,12 +5,10 @@ This specification describes a
 decision support from within a clinician's EHR workflow. The API supports:
 
  * Synchronous, workflow-triggered CDS calls returning information and suggestions
- * Launching a user-facing SMART app when CDS requires deeper interaction
- * Long-running, non-modal CDS sessions that observe EHR activity in progress
+ * Launching a user-facing SMART app when CDS requires additional interaction
 
-<aside class="notice">
-The CDS Hooks API is still in active development and thus subject to change. We're currently working towards a 1.0 release and would love your feedback and proposed changes. Look at our <a href="http://github.com/cds-hooks/docs/issues">current issue list</a> and get involved!
-</aside>
+ *The CDS Hooks API is still in active development and thus subject to change. We're currently working towards a 1.0 release and would love your feedback and proposed changes. Look at our <a href="http://github.com/cds-hooks/docs/issues">current issue list</a> and get involved!*
+
 
 ## How it works
 
@@ -74,6 +52,6 @@ associated with the request's `hookInstance`;
 when the EHR invokes the hook for a second time with the same
 `hookInstance`, the service can respond with decisions on as well as cards.)
 
-# Try it!
+## Try it!
 
 You can try CDS Hooks in our test harness at **[http://sandbox.cds-hooks.org](http://sandbox.cds-hooks.org)**

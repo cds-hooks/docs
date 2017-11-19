@@ -1,0 +1,28 @@
+site_name: CDS Hooks
+
+theme:
+  name: 'material'
+  logo: 'images/logo-square.png'
+  favicon: 'images/favicon.png'
+
+extra:
+  social:
+    - type: 'github'
+      link: 'https://github.com/cds-hooks'
+
+pages:
+- Overview: 'index.md'
+- Specification: 'specification.md'
+- Hooks: 'hooks.md'
+- Examples: 'examples.md'
+- Community: 'community.md'
+
+repo_url: 'https://github.com/cds-hooks/docs'
+
+markdown_extensions:
+  - admonition
+  - codehilite:
+      guess_lang: false
+      linenums: true
+  - toc:
+      permalink: true

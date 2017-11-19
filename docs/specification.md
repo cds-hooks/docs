@@ -1,0 +1,529 @@
+# CDS Services
+
+## Discovery
+
+```shell
+curl "https://example.com/cds-services"
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "services": [
+    {
+      "hook": "patient-view",
+      "title": "Static CDS Service Example",
+      "description": "An example of a CDS service that returns a static set of cards",
+      "id": "static-patient-greeter",
+      "prefetch": {
+        "patientToGreet": "Patient/{{Patient.id}}"
+      }
+    },
+    {
+      "hook": "medication-prescribe",
+      "title": "Medication Echo CDS Service",
+      "description": "An example of a CDS service that simply echos the medication being prescribed",
+      "id": "medication-echo",
+      "prefetch": {
+        "patient": "Patient/{{Patient.id}}",
+        "medications": "MedicationOrder?patient={{Patient.id}}"
+      }
+    }
+  ]
+}
+```
+
+Developers of CDS Services must provide a well-known endpoint allowing the EHR to discover all available CDS Services, including information such as the purpose of the CDS Service, when it should be invoked, and any data that is requested to be prefetched.
+
+### HTTP Request
+
+The discovery endpoint is always available at `{baseUrl}/cds-services`. For example, if the `baseUrl` is https://example.com, the EHR would invoke:
+
+`GET https://example.com/cds-services`
+
+### Response
+
+The response to the discovery endpoint is an object containing a list of CDS Services.
+
+Field | Description
+----- | -----------
+`services` | *array*. An array of **CDS Services**
+
+Each CDS Service is described by the following attributes.
+
+Field | Description
+----- | -----------
+`hook`| *string* or *url*. The hook this service should be invoked on. See [Hook Catalog](#hook-catalog)
+`title`| *string*.  The human-friendly name of this service
+<nobr>`description`</nobr>| *string*. The description of this service
+`id` | *string*. The {id} portion of the URL to this service which is available at<br />`{baseUrl}/cds-services/{id}`
+`prefetch` | *object*. An object containing key/value pairs of FHIR queries to data that this service would like the EHR prefetch and provide on<br />each service call. The key is a *string* that describes the type<br />of data being requested and the value is a *string* representing<br />the FHIR query.<br />(todo: link to prefetching documentation)
+
+### HTTP Status Codes
+
+Code | Description
+---- | -----------
+`200 OK` | A successful response
+
+## Calling a CDS Service
+
+```
+curl
+  -X POST \
+  -H 'Content-type: application/json' \
+  --data @hook-details-see-example-below
+  "https://example.com/cds-services/static-patient-greeter"
+```
+
+```json
+{
+   "hookInstance" : "d1577c69-dfbe-44ad-ba6d-3e05e953b2ea",
+   "fhirServer" : "http://hooks.smarthealthit.org:9080",
+   "hook" : "patient-view",
+   "redirect" : "http://hooks2.smarthealthit.org/service-done.html",
+   "user" : "Practitioner/example",
+   "context" : [],
+   "patient" : "1288992",
+   "prefetch" : {
+      "patientToGreet" : {
+         "response" : {
+            "status" : "200 OK"
+         },
+         "resource" : {
+            "resourceType" : "Patient",
+            "gender" : "male",
+            "birthDate" : "1925-12-23",
+            "id" : "1288992",
+            "active" : true
+         }
+      }
+   }
+}
+```
+
+### HTTP Request
+
+An EHR calls a CDS service by `POST`ing a JSON document to the service
+endpoint, which can be constructed from the CDS Service base URL and an
+individual service id as `{baseUrl}/cds-services/{service.id}`.  The CDS Hook
+call includes a JSON POST body with the following input fields:
+
+Field | Description
+----- | -----------
+`hook` |*string* or *URL*. The hook that triggered this CDS Service call<br />(todo: link to hook documentation)
+<nobr>`hookInstance`</nobr> |*string*.  A UUID for this particular hook call (see more information below)
+`fhirServer` |*URL*.  The base URL EHR's [FHIR](https://www.hl7.org/fhir/) server. The scheme should be `https`
+`fhirAuthorization` | *object*. The OAuth 2 authorization providing access to the EHR's FHIR server. See the [FHIR Resource Access](#fhir-resource-access) heading of the security section for more information.
+`redirect` |*URL*.  The URL an app link card should redirect to (see more information below)
+`user` |*string*.  The FHIR resource type + id representing the current user.<br />The type is one of: [Practitioner](https://www.hl7.org/fhir/practitioner.html), [Patient](https://www.hl7.org/fhir/patient.html), or [RelatedPerson](https://www.hl7.org/fhir/relatedperson.html).<br />For example, `Practitioner/123`
+`patient` |*string*.  The FHIR `Patient.id` of the current patient in context
+`encounter` |*string*.  The FHIR `Encounter.id` of the current encounter in context
+`context` |*object*.  Hook-specific contextual data that the CDS service will need.<br />For example, with the `medication-prescribe` hook this will include [MedicationOrder](https://www.hl7.org/fhir/medicationorder.html) being prescribed.
+`prefetch` |*object*.  The FHIR data that was prefetched by the EHR (see more information below)
+
+#### hookInstance
+
+While working in the EHR, a user can perform
+multiple activities in series or in parallel. For example, a clinician might prescribe
+two drugs in a row; each prescription activity would be assigned a
+unique `hookInstance`. The [[activity catalog|Activity]]
+provides a description of what events should initiate and terminate
+a given hook. This allows an external
+service to associate requests with activity state, which is necessary to
+support the following app-centric decision sequence, where
+the steps are tied together by a common `hookInstance`:
+
+  0. EHR invokes CDS hook
+  1. CDS service returns *app link card*
+  2. User clicks app link and interacts with app
+  3. Flow returns to EHR, which re-invokes CDS hook
+  4. CDS service returns *decision* with user's choice
+
+Note: the `hookInstance` is globally unique and should contain enough entropy
+to be un-guessable.
+
+#### redirect
+
+This field is only used by services that will return an *app
+link card*: when a user clicks the card's link to launch an app, it becomes
+the app's job to send the user to *this `redirect` URL* upon completion of
+user interaction. (*Design note*: this field is supplied up-front, as part of
+the initial request, to avoid requiring the EHR to append any content to app
+launch links. This helps support an important "degenerate" use case for app
+link cards: pointing to static content. See below for details.)
+
+#### prefetch
+
+As a performance tweak, the EHR may pass along data according
+to the service's [[Prefetch-Template]]. This helps provide the service with all
+the data it needs to efficiently compute a set of recommendations. Each key matches a key described in the CDS Service Discovery document; and each value is a FHIR Bundle.entry indicating a response status and returned resource.
+
+Note that in the absence of `prefetch`, an external service can always execute
+FHIR REST API calls against the EHR server to obtain additional data ad-hoc.)
+
+<aside class="notice">
+You can see the <a href="http://editor.swagger.io/?url=https://raw.githubusercontent.com/cds-hooks/api/master/cds-hooks.yaml">complete data model in Swagger</a>.
+</aside>
+
+## CDS Service Response
+
+> Example response
+
+```json
+{
+  "cards": [
+    {
+      "summary": "Example Card",
+      "indicator": "info",
+      "detail": "This is an example card.",
+      "source": {
+        "label": "Static CDS Service Example",
+        "url": "https://example.com",
+        "icon": "https://example.com/img/icon-100px.png"
+      },
+      "links": [
+        {
+          "label": "Google",
+          "url": "https://google.com",
+          "type": "absolute"
+        },
+        {
+          "label": "Github",
+          "url": "https://github.com",
+          "type": "absolute"
+        },
+        {
+          "label": "SMART Example App",
+          "url": "https://smart.example.com/launch",
+          "type": "smart"
+        }
+      ]
+    },
+    {
+      "summary": "Another card",
+      "indicator": "warning",
+      "source": {
+        "label": "Static CDS Service Example"
+      }
+    }
+  ]
+}
+```
+
+Field | Description
+----- | -----------
+`cards` |*array*. An array of **Cards**. Cards can provide a combination of information (for reading), suggested actions (to be applied if a user selects them), and links (to launch an app if the user selects them). The EHR decides how to display cards, but we recommend displaying suggestions using buttons, and links using underlined text.
+<nobr>`decisions`</nobr> |*array*. An array of **Decisions**. A decision should only be generated after interacting with the user through an app link. Decisions are designed to convey any choices the user made in an app session.
+
+represents a user's choice made while interacting with the CDS Provider's external app. The first call to a service should never include any `decisions`, since no user interaction has occurred yet.
+
+Each **Card** is described by the following attributes.
+
+Field | Description
+----- | -----------
+`summary` | *string*. one-sentence, <140-character summary message for display to the user inside of this card.
+`detail` | *string*.  optional detailed information to display, represented in [(GitHub Flavored) Markdown](https://github.github.com/gfm/). (For non-urgent cards, the EHR may hide these details until the user clicks a link like "view more details...".) 
+`indicator` | *string*.  urgency/importance of what this card conveys. Allowed values, in order of increasing urgency, are: `info`, `warning`, `hard-stop`. The EHR can use this field to help make UI display decisions such as sort order or coloring. The value `hard-stop` indicates that the workflow should not be allowed to proceed. 
+`source` | *object*. grouping structure for the **Source** of the information displayed on this card. The source should be the primary source of guidance for the decision support the card represents.
+<nobr>`suggestions`</nobr> | *array* of **Suggestions**, which allow a service to suggest a set of changes in the context of the current activity (e.g.  changing the dose of the medication currently being prescribed, for the `medication-prescribe` activity). The user must be allowed to choose at most one suggestion.
+`links` | *array* of **Links**, which allow a service to suggest a link to an app that the user might want to run for additional information or to help guide a decision.
+
+The **Source** is described by the following attributes.
+
+Field | Description
+----- | -----------
+<nobr>`label`</nobr>| *string*. A short, human-readable label to display for the source of the information displayed on this card. If a `url` is also specified, this may be the text for the hyperlink.
+`url` | *URL*. An optional absolute URL to load (via `GET`, in a browser context) when a user clicks on this link to learn more about the organization or data set that provided the information on this card. Note that this URL should not be used to supply a context-specific "drill-down" view of the information on this card. For that, use `link.url` instead.
+`icon` | *URL*. An optional absolute URL to an icon for the source of this card. The icon returned by this URL should be in PNG format, an image size of 100x100 pixels, and must not include any transparent regions.
+
+Each **Suggestion** is described by the following attributes.
+
+Field | Description
+----- | -----------
+`label` |  *string*. human-readable label to display for this suggestion (e.g. the EHR might render this as the text on a button tied to this suggestion).
+`uuid` | *string*. unique identifier for this suggestion. For details see [Suggestion Tracking Analytics](#analytics)
+`actions` | *array*. array of objects, each defining a suggested action. Within a suggestion, all actions are logically AND'd together, such that a user selecting a suggestion selects all of the actions within it.
+
+Each **Action** is described by the following attributes.
+
+Field | Description
+----- | -----------
+`type` |  *string*. The type of action being performed. Allowed values are: `create`, `update`, `delete`. 
+`description` | *string*. human-readable description of the suggested action. May be presented to the end-user. 
+`resource` | *object*. depending upon the `type` attribute, a new resource or the id of a resource. For a type of `create`, the `resource` attribute contains a new FHIR resource to apply within the current activity (e.g. for `medication-prescribe`, this holds the updated prescription as proposed by the suggestion).  For `delete`, this is the id of any resource to remove from the current activity (e.g. for the `order-review` activity, this would provide a way to remove an order from the pending list). In activities like `medication-prescribe` where only one "content" resource is ever relevant, this field may be omitted. For `update`, this holds the updated resource to modify from the current activity (e.g. for the `order-review` activity, this would provide a way to annotate an order from the pending list with an assessment). This field may be omitted.
+
+Each **Link** is described by the following attributes.
+
+Field | Description
+----- | -----------
+<nobr>`label`</nobr>| *string*. human-readable label to display for this link (e.g. the EHR might render this as the underlined text of a clickable link).
+`url` | *URL*. URL to load (via `GET`, in a browser context) when a user clicks on this link. Note that this may be a "deep link" with context embedded in path segments, query parameters, or a hash. In general this URL should embed enough context for the app to determine the `hookInstance`, and `redirect` url upon downstream launch, because the EHR will simply use this url as-is, without appending any parameters at launch time.
+`type` | *string*. The type of the given URL. There are two possible values for this field. A type of `absolute` indicates that the URL is absolute and should be treated as-is. A type of `smart` indicates that the URL is a SMART app launch URL and the EHR should ensure the SMART app launch URL is populated with the appropriate SMART launch parameters.
+
+
+Each **Decision** is described by the following attributes.
+
+Field | Description
+----- | -----------
+`create` |*array* of *strings*. id(s) of new resource(s) that the EHR should create within the current activity (e.g. for `medication-prescribe`, this would be the updated prescription that a user had authored in an app session).
+<nobr>`delete`</nobr> |*array* of *strings*. id(s) of any resources to remove from the current activity (e.g. for the `order-review` activity, this would provide a way to remove orders from the pending list). In activities like `medication-prescribe` where only one "content" resource is ever relevant, this field may be omitted.
+
+### No Decision Support
+
+> Response when no decision support is necessary for the user
+
+```json
+{
+  "cards": []
+}
+```
+
+If your CDS Service has no decision support for the user, your service should return a 200 HTTP response with an empty array of cards.
+
+## Analytics
+
+Whenever a user clicks a button from a "suggestion" card, the EHR uses the
+suggestion `uuid` to notify the CDS Service's analytics endpoint via a `POST`
+with an empty body:
+
+    `POST {baseUrl}/cds-services/{serviceId}/analytics/{uuid}`
+
+If a suggestion has no `uuid`, the EHR does not send a notification.
+
+## Prefetch
+
+### A performance tweak
+
+If real-world performance were no issue, an EHR could launch a CDS Service
+passing only *context* data, and *without passing any additional clinical data*
+up-front. The CDS Service could then request any data it needed via the EHR's
+FHIR REST API.
+
+But CDS services must respond quickly (on the order of 500 ms), and so we
+provide a performance tweak that allows a CDS Service to register a set of "prefetch
+templates" with the EHR ahead of time.
+
+The prefetch templates are a dictionary of `read` and `search` requests to supply
+relevant data, where the following variables are defined:
+
+|variable|meaning|
+---------|--------
+|`{{Patient.id}}`|The id of the patient in context for this activity (e.g. `123`)|
+|`{{User.id}}`|The type and id of the user for this session (e.g. `Practitioner/123`)|
+
+An EHR *may* choose to honor some or all of the desired prefetch templates from an appropriate source. For example:
+
+- The EHR may have some of the desired prefetched data already in memory, thereby removing the need for any network call
+- The EHR may compute an efficient set of prefetch templates from multiple CDS Services, thereby reducing the number of network calls to a minimum
+- The EHR may satisfy some of the desired prefetched templates via some internal service or even its own FHIR server
+- The user may not be authorized to share the desired prefetch data.
+
+Regardless of how the EHR satisfies the prefetched templates (if at all), it is important that the prefetched data given to the CDS Service is equivalent to the CDS Service making its own call to the EHR FHIR server, where `{{Patient.id}}` is replaced with the id of the current patient (e.g. `123`) inside of any URL strings and using `read` and `search` operations to the server's "transaction" endpoint as a FHIR batch-type bundle.
+
+The resulting response, which must be rendered in a single page — no "next
+page" links allowed — is passed along to the CDS Service using the
+`prefetch` parameter (see below for a complete example). 
+
+The CDS Service must not receive any prefetch template key that the EHR chooses not to satisfy. Additionally, if the EHR encounters an error while retrieving any prefetched data, the prefetch template key should not be sent to the CDS Service. It is the CDS Service's responsibility to check to see what prefetched data was satisfied (if any) and manually retrieve any necessary data. If the CDS Service is unable to obtain required data because it cannot access the FHIR server and the request did not contain the necessary pre-fetch keys; the service shall respond with an HTTP 412 Precondition Failed status code.
+
+### Example prefetch request
+
+```json
+{
+  "prefetch": {
+    "p": "Patient/{{Patient.id}}",
+    "a1c": "Observation?patient={{Patient.id}}&code=4548-4&_count=1&sort:desc=date",
+    "u": "Practitioner/{{User.id}}"
+  }
+}
+```
+
+Here is an example prefetch property from a CDS service discovery endpoint. The
+goal is to know, at call time:
+
+| Key | Description |
+| --- | ----------- |
+| `p` | Patient demographics |
+| `a1c` | Most recent Hemoglobin A1c reading for this patient |
+| `u` | Information on the current user (Practitioner)
+
+### Example prefetch response
+
+```json
+{
+  "prefetch": {
+    "p":{
+      "response": {
+        "status": "200 OK"
+      },
+      "resource": {
+        "resourceType": "Patient",
+        "gender": "male",
+        "birthDate": "1974-12-25",
+        "...": "<snipped for brevity>"
+      }
+    },
+    "a1c": {
+      "response": {
+        "status": "200 OK"
+      },
+      "resource":{
+        "resourceType": "Bundle",
+        "type": "searchset",
+        "entry": [{
+          "resource": {
+            "resourceType": "Observation",
+            "code": {
+              "coding": [{
+                "system": "http://loinc.org",
+                "code": "4548-4",
+                "display": "Hemoglobin A1c"
+              }]
+            },
+            "...": "<snipped for brevity>"
+          }
+        }]
+      }
+    }
+  }
+}
+```
+
+The response is augmented to include two prefetch values, where the dictionary
+keys match the request keys (`p` and `a1c` in this case).
+
+Note that the missing `u` key indicates that either the EHR has decided not to satisfy this particular prefetch template or it was not able to retrieve this prefetched data. The CDS Service is responsible for retrieving this Practitioner data from the FHIR server (if required).
+
+### Prefetch query restrictions
+
+To reduce the implementation burden on EHRs that support CDS services, CDS Hooks recommends that prefetch queries only use a subset of the full functionality available in the FHIR specification. Valid prefetch URLs should only contain:
+
+* _instance_ level [read](https://www.hl7.org/fhir/http.html#read) interactions (for resources with known ids such as `Patient` and `Practitioner`)
+* _type_ level [search](https://www.hl7.org/fhir/http.html#search) interactions
+* Patient references (e.g. `patient={{Patient}}`)
+* _token_ search parameters using equality (e.g. `code=4548-4`) and optionally the `:in` modifier (no other modifiers for token parameters)
+* _date_ search parameters on `date`, `dateTime`, `instant`, or `Period` types only, and using only the prefixes `eq`, `lt`, `gt`, `ge`, `le`
+* the `_count` parameter to limit the number of results returned
+* the `_sort` parameter to allow for _most recent_ and _first_ queries
+
+## Security
+
+<aside class="notice">
+The CDS Hooks security model is undergoing a rigorous security assessment and as such, may be subject to change.
+</aside>
+
+CDS Hooks defines the agreed upon security model between an EHR and the CDS Service. Like SMART on FHIR, the security model of CDS Hooks leverages the same open and well supported standards like OAuth 2 and JSON web tokens. However, as CDS Hooks differs from SMART, the manner in which these standards are used is specific to CDS Hooks.
+
+### Trusting CDS Services
+
+As the EHR initiates every interaction with the CDS Service, it is responsible for establishing trust with the CDS Services it intends to call. This trust is established via a TLS connection to the CDS Service. Thus, all CDS Service endpoints must be deployed to a TLS protected URL (https). This includes both the Discovery and individual CDS Service endpoints.
+
+EHRs should use accepted best practices for verifying the authenticity and trust of these TLS connections. For instance, [rfc5280](https://tools.ietf.org/html/rfc5280) and [rfc6125](https://tools.ietf.org/html/rfc6125). Additionally, it is assumed that EHRs configure the CDS Services they connect to via some offline process according to the business rules and practices of both the EHR and CDS Service organizations.
+
+### Trusting EHRs
+
+Since the CDS Service is invoked by the EHR, the CDS Service does not have the same mechanism as EHRs to establish trust of the EHR invoking it. Signed [JSON web tokens (JWT)](https://jwt.io/) are produced by the EHR and provided to the CDS Service, allowing the CDS Service to establish trust of the calling EHR.
+
+Each time the EHR makes a request to the CDS Service, it must send an `Authorization` header where the value is `Bearer <token>`, replacing `<token>` with the actual JWT. Note that this is for every single CDS Service call, whether that be Discovery calls, CDS Service invocations, etc.
+
+> Example JSON web token payload
+
+```json
+{
+  "iss": "https://fhir-ehr.example.com/",
+  "aud": "https://cds.example.org/cds-services/some-service",
+  "exp": 1422568860,
+  "iat": 1311280970,
+  "jti": "ee22b021-e1b7-4611-ba5b-8eec6a33ac1e"
+}
+```
+
+> Using the above JWT payload, the complete JWT as passed in the Authorization HTTP header would be:
+
+```
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL2ZoaXItZWhyLmV4YW1wbGUuY29tLyIsImF1ZCI6Imh0dHBzOi8vY2RzLmV4YW1wbGUub3JnL2Nkcy1zZXJ2aWNlcy9zb21lLXNlcnZpY2UiLCJleHAiOjE0MjI1Njg4NjAsImlhdCI6MTMxMTI4MDk3MCwianRpIjoiZWUyMmIwMjEtZTFiNy00NjExLWJhNWItOGVlYzZhMzNhYzFlIn0.Gwl3s301OMWpdEVAVj_T3JZV8bs7N5-V7QNNG7TQ33o
+```
+
+The JWT from the EHR is signed with the EHR's private key and contains the following fields:
+
+Field | Value
+----- | -----
+iss | *string* The URL of the issuer of this JWT.
+aud | *string or array of strings* The CDS Service endpoint that is being called by the EHR. (See more details below).
+exp | *number* Expiration time integer for this authentication JWT, expressed in seconds since the "Epoch" (1970-01-01T00:00:00Z UTC).
+iat | *number* The time at which this JWT was issued, expressed in seconds since the "Epoch" (1970-01-01T00:00:00Z UTC).
+jti | *string* A nonce string value that uniquely identifies this authentication JWT (used to protect against replay attacks)
+
+Per [rfc7519](https://tools.ietf.org/html/rfc7519#section-4.1.3), the `aud` value is either a string or an array of strings. For CDS Hooks, this is the URL of the CDS Service endpoint being invoked. For example, consider a CDS Service available at a base URL of `https://cds.example.org`. When the EHR invokes the CDS Service discovery endpoint, the aud value is either `"https://cds.example.org/cds-services"` or `["https://cds.example.org/cds-services"]`. Similarly, when the EHR invokes a particular CDS Service (say, `some-service`), the aud value is either `"https://cds.example.org/cds-services/some-service"` or `["https://cds.example.org/cds-services/some-service"]`.
+
+[https://jwt.io/](https://jwt.io/) is a great resource not only for learning about JSON web tokens, but also for parsing a JWT value into its distinct parts to see how it is constructed. Try taking the example JWT here and pasting it into the form at [https://jwt.io/](https://jwt.io/) to see how the token is constructed.
+
+<aside class="notice">
+At this time, CDS Hooks does not prescribe how the EHR shares its public key or the format of said key used in the JWT signature.
+</aside>
+
+#### Mutual TLS
+
+[Mutual TLS](https://en.wikipedia.org/wiki/Mutual_authentication) (mTLS) may be used alongside JSON web tokens to establish trust of the EHR by the CDS Service.
+
+### FHIR Resource Access
+
+The CDS Service is able to use the FHIR server of the EHR to obtain any additional data it needs in order to perform its decision support. This is similar to SMART on FHIR where the SMART app can obtain additional data via the provided FHIR server.
+
+Like SMART on FHIR, CDS Hooks requires that access to the FHIR server be controlled by an Authorization server utilizing the OAuth 2 framework. Thus, the CDS Service is able to consume the given FHIR server via an access (bearer) token just like a SMART app. While CDS Hooks shares the underlying technical framework and standards as SMART on FHIR, there are very important differences between SMART and CDS Hooks.
+
+#### Obtaining an Access Token
+
+In SMART on FHIR, the SMART app requests and ultimately obtains an access token from the Authorization server using the SMART launch workflow. This process utilizes the authorization code grant model as defined by the OAuth 2.0 Authorization Framework in [rfc6749](https://tools.ietf.org/html/rfc6749).
+
+With CDS Hooks, the EHR provides the access token directly in the request to the CDS Service. Thus, the CDS Service does not need to request the token from the authorization server as a SMART app would. This is done purely for performance reasons as the authorization code grant model in OAuth 2 involves several HTTPS calls and redirects. In contrast to a SMART app, a CDS Service may be invoked many times during a workflow. Going through the authorization code grant model on every hook invocation would likely result in a poorly performing CDS Service due to the authorization overhead.
+
+```json
+{
+  "fhirAuthorization" : {
+    "access_token" : "some-opaque-fhir-access-token",
+    "token_type" : "Bearer",
+    "expires_in" : 300,
+    "scope" : "patient/Patient.read patient/Observation.read"
+  }
+}
+```
+
+#### Access Token
+
+The access token is specified in the CDS Service request via the `fhirAuthorization` request parameter. This parameter is an object that contains both the access token as well as other related information.
+
+Field | Description
+----- | -----------
+`access_token` |*string*. This is the OAuth 2 access token that provides access to the FHIR server.
+`token_type`   |*string*. Fixed value: `Bearer`
+`expires_in`   |*integer*. The lifetime in seconds of the access token.
+`scope`        |*string*. The scopes the access token grants the CDS Service.
+
+It is recommended that the `expires_in` value be very short lived as the access token must be treated as a transient value by the CDS Service.
+
+It is recommended that the `scope` value contain just the scopes that the CDS Service needs for its logic and no more.
+
+As the CDS Service is executing on behalf of a user, it is important that the data the CDS Service has access to is under the same restrictions/authorization as the current user. As such, the access token shall be scoped to:
+
+- The CDS Service being invoked
+- The current user
+
+### Cross-Origin Resource Sharing
+
+[Cross-origin resource sharing (CORS)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS) is web security mechanism that is built into browsers. In short, CORS allows servers to control how browsers access resources on the server, including the accessible HTTP response headers. CORS is only honored by web browsers and as such, is a client-side security mechanism.
+
+For CDS Services, implementing CORS is required if your CDS Service is to be called from a web browser. As the [CDS Hooks Sandbox](http://sandbox.cds-hooks.org) is a browser application, you must implement CORS to test your CDS Service in the CDS Hooks Sandbox.
+
+You should carefully consider if and how you support CORS in your CDS Service. A secure implementation guide for CORS is outside of the CDS Hooks specification, as it involves implementation decisions that are made based upon your organization's tolerance for risk and deployment environment.
+
+An insecure, extremely permissive, non-production CORS configuration that allows you to test your CDS Service against our Sandbox returns the following HTTP headers:
+
+Header | Value
+------ | -----
+Access-Control-Allow-Credentials | true
+Access-Control-Allow-Headers | Authorization, Content-Type
+Access-Control-Allow-Methods | GET, POST, OPTIONS
+Access-Control-Allow-Origin | *
+Access-Control-Expose-Headers | Origin, Accept, Content-Location, Location, X-Requested-With

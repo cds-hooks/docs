@@ -1,25 +1,8 @@
-*.gem
-*.rbc
-.bundle
-.config
-coverage
-InstalledFiles
-lib/bundler/man
-pkg
-rdoc
-spec/reports
-test/tmp
-test/version_tmp
-tmp
+# Mac
 *.DS_STORE
-build/
-.cache
-.vagrant
-.sass-cache
-vendor/bundle
 
-# YARD artifacts
-.yardoc
-_yardoc
-doc/
-.idea/
+# python
+env/
+
+# mkdocs
+site/
