@@ -36,22 +36,8 @@ materials (*app link card*). A user sees these cards — one or more of each typ
 
 * *suggestion card*: provides a specific suggestion for which the EHR renders a button that the user can click to accept. Clicking automatically populates the suggested change into the EHR's UI.
 
-* *app link card*: provides a link to an app (often a SMART app) where the user can supply details, step through a flowchart, or do anything else required to help reach an informed decision. When the user has finished, flow returns to the EHR. At that point, the **EHR re-triggers the initial CDS hook**. The re-triggering may result in different cards, and may also include **decisions** (see below).
-
-## CDS Decisions
-
-In addition to cards, a CDS service may also return **decisions** — but only
-after a user has interacted with the service via an *app link card*.
-Returning a decision allows the the CDS service to communicate the user's choices  to the EHR without displaying an additional card.  For
-example, a user might launch a hypertension management app, and upon
-returning to the EHR's prescription page she expects her new blood pressure
-prescription to "just be there". By returning a decision *instead of a card*,
-the CDS service achieves this expected behavior. (*Note:* To return a
-decision after a user interaction, the CDS service must maintain state
-associated with the request's `hookInstance`;
-when the EHR invokes the hook for a second time with the same
-`hookInstance`, the service can respond with decisions on as well as cards.)
+* *app link card*: provides a link to an app (often a SMART app) where the user can supply details, step through a flowchart, or do anything else required to help reach an informed decision.
 
 ## Try it!
 
-You can try CDS Hooks in our test harness at **[http://sandbox.cds-hooks.org](http://sandbox.cds-hooks.org)**
+You can try CDS Hooks in our Sandbox at **[http://sandbox.cds-hooks.org](http://sandbox.cds-hooks.org)**
