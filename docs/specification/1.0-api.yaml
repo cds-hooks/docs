@@ -44,7 +44,7 @@ paths:
             $ref: '#/definitions/CDS Request'
       responses:
         200:
-          description: Success (includes CDS Cards and Decisions)
+          description: Success (includes CDS Cards)
           schema:
             $ref: '#/definitions/CDS Response'
 
@@ -108,8 +108,6 @@ definitions:
         format: url
       oauth:
         type: object
-      redirect:
-        type: string
       user:
         type: string
       patient:
@@ -130,8 +128,6 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/Card'
-      decisions:
-        type: object
 
   Card:
     type: object
