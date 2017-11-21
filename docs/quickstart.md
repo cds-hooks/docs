@@ -155,51 +155,27 @@ The CDS service will provide a response in the form a of a 'card'. Your EHR need
 
 Example card JSON: 
 
-<<<<<<< HEAD
-	{
-       "summary": "Bilirubin: Based on the age of this patient consider overlaying bilirubin [Mass/volume] results over a time-based risk chart",
+```json
+{
+      "summary": "Bilirubin: Based on the age of this patient consider overlaying bilirubin [Mass/volume] results over a time-based risk chart",
       "indicator": "info",
       "detail": "The focus of this app is to reduce the incidence of severe hyperbilirubinemia and bilirubin encephalopathy while minimizing the risks of unintended harm such as maternal anxiety, decreased breastfeeding, and unnecessary costs or treatment.",
       "source": {
         "name": "Intermountain",
-=======
-```json
-{
-  "cards": [
-    {
-      "summary": "Premier Inc:  Based on new culture information and facility antibiogram, the following anti-infectives has the highest likelihood (% susceptibility) of effectively treating the infections ",
-      "indicator": "info",
-      "detail": "<Table><tr><td><strong>Anti-infective Medications </strong><span style=\"color: #00ccff;\">(% Susceptable)</span></td></tr><TR><TD>Ampicillin-Sulbactam( 93%) </TD></TR><TR><TD>Levofloxacin( 88%) </TD></TR><TR><TD>Cefazolin(79%) </TD></TR><TR><TD>SMX-TMP(76%) </TD></TR><TR><TD>Gentamicin(73%) </TD></TR></Table>",
-      "source": {
-        "name": "Premier Inc",
->>>>>>> dcb09173354b669a65b90eaa5dd293855183e614
         "url": null
       },
       "links": [
         {
-<<<<<<< HEAD
           "label": "Bilirubin SMART app",
           "url": "https://example.com/launch",
           "type": "smart"
        }
       ]
     }
-	
-
-Example card rendered: ![Card with SMART App link](images/Bilirubin_SMART_App_Card.png)
-=======
-          "label": "Launch Premier TheraDoc for more details",
-          "url": "http://premiercdsapps-env.us-east-1.elasticbeanstalk.com/CDS_Hooks/antibiogramlink?hookinstance=9ae4bc55-2ccd-469b-b5cc-33e23d983998",
-          "type": "absolute"
-       }
-      ]
-    }
-  ]
-}
 ```
 
-Example card rendered: ![Card with SMART App link](images/smart-app-card.png)
->>>>>>> dcb09173354b669a65b90eaa5dd293855183e614
+Example card rendered: ![Card with SMART App link](images/Bilirubin_SMART_App_Card.png)
+
 
 ### Launch SMART app 
 
