@@ -9,6 +9,7 @@ Note that each hook (e.g. `medication-prescribe`) represents something the user 
 Note also that each hook name in our official catalog is a simple string. If you want to define custom hooks without submitting them to the catalog, then you should use a URI (e.g. `http://my-organization/custom-hooks/patient-transmogrify`).
 
 ## Format for hook definitions
+
 ### `hook-name-expressed-as-noun-verb` 
 The hook name is a simple string that succintly describes the user's action. 
 
