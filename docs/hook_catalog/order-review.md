@@ -7,6 +7,7 @@
 |key|FHIR resource|FHIR resource version|
 |---|---|---|
 |patient|Patient FHIR id|n/a|
+|encounter|Encounter FHIR id|n/a|
 |orders-in-progress|MedicationOrder, MedicationRequest, DiagnosticOrder, DeviceUseRequest, ReferralRequest, ProcedureRequest, NutritionOrder, VisionPrescription|DSTU2 or STU3|
 
 ```json

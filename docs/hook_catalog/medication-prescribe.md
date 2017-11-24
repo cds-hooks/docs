@@ -7,6 +7,7 @@
 |key|data|FHIR resource version|
 |---|---|---|
 |patient|Patient FHIR id|n/a|
+|encounter|Encounter FHIR id|n/a|
 |medications|MedicationOrder resource or MedicationRequest resource|DSTU2 or STU3|
 
 ```json
