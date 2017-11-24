@@ -17,7 +17,7 @@ pages:
 - Hooks:
     - 'Predefined CDS Hooks' : 'hook_catalog/index.md'
     - 'patient-view' : 'hook_catalog/patient-view.md'
-    - 'medication-prescribe' : hook_catalog/medication-prescribe.md'
+    - 'medication-prescribe' : 'hook_catalog/medication-prescribe.md'
     - 'order-review' : 'hook_catalog/order-review.md'
 - Examples: 'examples.md'
 - Community: 'community.md'
