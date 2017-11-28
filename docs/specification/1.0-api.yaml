@@ -180,6 +180,8 @@ definitions:
         format: url
       type:
         type: string
+      appcontext:
+        type: string
 
   Suggestion:
     type: object
