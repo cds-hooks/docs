@@ -180,7 +180,7 @@ definitions:
         format: url
       type:
         type: string
-      appcontext:
+      appContext:
         type: string
 
   Suggestion:
