@@ -1,12 +1,14 @@
-## `patient-view`
+# `patient-view`
 
-**Workflow description**: The user has just opened a patient's record.
+## Workflow description
+The user has just opened a patient's record.
 
-**Contextual data**: The patient whose record is currently open. 
+## Contextual data
+The patient whose record is currently open. 
 
-|key|FHIR resource|FHIR resource version|
+|key|data|cardinality|
 |---|---|---|
-|patient|Patient resource|DSTU2 or STU3|
+|patient|DSTU2 - Patient <br/>STU3 - Patient |1..1|
 
 
 ```json
@@ -189,3 +191,4 @@
 		}
 	}
 }
+```

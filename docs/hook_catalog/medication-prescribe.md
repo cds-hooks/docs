@@ -1,19 +1,22 @@
-## `medication-prescribe`
+# `medication-prescribe`
 
-**Workflow description**: The user is in the process of prescribing a new medication, and solicit feedback about the prescription-in-progress.
+## Workflow description
+The user is in the process of prescribing one or more new medications.
 
-**Contextual data**: The set of medication proposed or in progress of being prescribed.
+## Contextual data
+The set of medication proposed or in progress of being prescribed.
 
-|key|data|FHIR resource version|
+|key|data|cardinality|
 |---|---|---|
-|patient|Patient FHIR id|n/a|
-|encounter|Encounter FHIR id|n/a|
-|medications|MedicationOrder resource or MedicationRequest resource|DSTU2 or STU3|
+|patient|Patient FHIR id|1..1|
+|encounter|Encounter FHIR id|0..1|
+|medications-in-progress|DSTU2 - MedicationOrder <br/> STU3 - MedicationRequest|1..*|
 
 ```json
 {
   "context": {
 	"patient": "smart-1081332",
+	"encounter": "7196235250",
 	"medications-in-progress:" [
 		{
 		  "resourceType": "MedicationOrder",
