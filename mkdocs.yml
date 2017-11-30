@@ -12,7 +12,8 @@ extra:
 
 pages:
 - Overview: 'index.md'
-- Specification: 'specification.md'
+- Specification:
+    - '1.0': 'specification/1.0.md'
 - Hooks: 'hooks.md'
 - Quick Start: 'quickstart.md'
 - Examples: 'examples.md'
