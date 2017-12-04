@@ -4,13 +4,13 @@
 The user is in the process of prescribing one or more new medications.
 
 ## Contextual data
-The set of medication proposed or in progress of being prescribed.
+The set of medication proposed or in progress of being prescribed. Note that all FHIR resources in a single CDS request should be the same version of FHIR. 
 
-|key|data|cardinality|
+|key|data|required?|
 |---|---|---|
-|patient|Patient FHIR id|1..1|
-|encounter|Encounter FHIR id|0..1|
-|medications-in-progress|DSTU2 - MedicationOrder <br/> STU3 - MedicationRequest|1..*|
+|patient|Patient FHIR id|Yes|
+|encounter|Encounter FHIR id|No|
+|medications-in-progress|DSTU2 - Array of MedicationOrder <br/> STU3 - Array of MedicationRequest|Yes|
 
 ```json
 {

@@ -1,16 +1,16 @@
 # `order-review`
 
 ## Workflow description
-Inform an external CDS service that the user is in the process of reviewing a set of orders (sometimes known as a "shopping cart").
+Inform an external CDS service that the user is in the process of reviewing a set of orders.
 
 ## Contextual data
-The set of orders being reviewed on-screen, represented at least one of MedicationOrder, DiagnosticOrder, DeviceUseRequest, ReferralRequest, ProcedureRequest, NutritionOrder, and VisionPrescription.
+The set of orders being reviewed on-screen, represented at least one of MedicationOrder, DiagnosticOrder, DeviceUseRequest, ReferralRequest, ProcedureRequest, NutritionOrder, and VisionPrescription. Note that all FHIR resources in a single CDS request should be the same version of FHIR. 
 
-|key|data|cardinality|
+|key|data|required?|
 |---|---|---|
-|patient|Patient FHIR id|1..1|
-|encounter|Encounter FHIR id|0..1|
-|orders-in-progress|DSTU2 - MedicationOrder, DiagnosticOrder,DeviceUseRequest, ReferralRequest, ProcedureRequest, NutritionOrder, VisionPrescription <br/> STU3 - MedicationRequest, ReferralRequest, ProcedureRequest, NutritionOrder, VisionPrescriptionVisionPrescription|1..*|
+|patient|Patient FHIR id|Yes|
+|encounter|Encounter FHIR id|No|
+|orders-in-progress|DSTU2 - Array of MedicationOrder, DiagnosticOrder,DeviceUseRequest, ReferralRequest, ProcedureRequest, NutritionOrder, VisionPrescription <br/> STU3 - Array of MedicationRequest, ReferralRequest, ProcedureRequest, NutritionOrder, VisionPrescriptionVisionPrescription|Yes|
 
 ```json
 {

@@ -6,9 +6,9 @@ The user has just opened a patient's record.
 ## Contextual data
 The patient whose record is currently open. 
 
-|key|data|cardinality|
+|key|data|required?|
 |---|---|---|
-|patient|DSTU2 - Patient <br/>STU3 - Patient |1..1|
+|patient|DSTU2 - Patient <br/>STU3 - Patient |Yes|
 
 
 ```json
