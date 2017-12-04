@@ -17,54 +17,6 @@ The patient whose record is currently open.
 		"patient": {
 		  "resourceType": "Patient",
 		  "id": "1b102e3f-dbd4-4b53-a7bf-a3bd80afd93a",
-		  "extension": [
-			{
-			  "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race",
-			  "valueCodeableConcept": {
-				"coding": [
-				  {
-					"system": "http://hl7.org/fhir/v3/Race",
-					"code": "2106-3",
-					"display": "White"
-				  }
-				],
-				"text": "race"
-			  }
-			},
-			{
-			  "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity",
-			  "valueCodeableConcept": {
-				"coding": [
-				  {
-					"system": "http://hl7.org/fhir/v3/Ethnicity",
-					"code": "2186-5",
-					"display": "Nonhispanic"
-				  }
-				],
-				"text": "ethnicity"
-			  }
-			},
-			{
-			  "url": "http://hl7.org/fhir/StructureDefinition/birthPlace",
-			  "valueAddress": {
-				"city": "Brookline",
-				"state": "MA",
-				"country": "US"
-			  }
-			},
-			{
-			  "url": "http://hl7.org/fhir/StructureDefinition/patient-mothersMaidenName",
-			  "valueString": "Gayla Keebler"
-			},
-			{
-			  "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex",
-			  "valueCode": "F"
-			},
-			{
-			  "url": "http://hl7.org/fhir/StructureDefinition/patient-interpreterRequired",
-			  "valueBoolean": false
-			}
-		  ],
 		  "identifier": [
 			{
 			  "system": "https://github.com/synthetichealth/synthea",
