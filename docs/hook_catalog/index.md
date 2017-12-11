@@ -35,7 +35,7 @@ Describe the set of contextual data required for this hook as represented by FHI
 |key|data|required?|
 |---|---|---|
 |json object name|description of object value, e.g. <br/> FHIR version - [Array of] FHIR resource <br/> FHIR resource id <br/> non-FHIR object|
-|example-patient-id|Patient FHIR id|Yes|String|
+|example-patient-id|Patient FHIR id|Yes|
 |example-medication|DSTU2 - MedicationOrder <br/>STU3 - MedicationRequest|No|
 
 
