@@ -6,6 +6,7 @@
 
 [![Build Status](https://api.travis-ci.org/cds-hooks/docs.svg)](https://travis-ci.org/cds-hooks/docs)
 [![Dependencies Status](http://img.shields.io/gemnasium/cds-hooks/docs.svg)](https://gemnasium.com/cds-hooks/docs)
+[![Help Contribute to Open Source](https://www.codetriage.com/cds-hooks/docs/badges/users.svg)](https://www.codetriage.com/cds-hooks/docs)
 
 CDS Hooks is a vendor agnostic remote decision support standard. This repository serves as both the specification and website for the CDS Hooks project.
 
