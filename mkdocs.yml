@@ -15,10 +15,10 @@ pages:
 - Specification:
     - '1.0': 'specification/1.0.md'
 - Hooks:
-    - 'Predefined CDS Hooks' : 'hook_catalog/index.md'
-    - 'patient-view' : 'hook_catalog/patient-view.md'
-    - 'medication-prescribe' : 'hook_catalog/medication-prescribe.md'
-    - 'order-review' : 'hook_catalog/order-review.md'
+    - 'Predefined CDS Hooks' : 'hooks/index.md'
+    - 'patient-view' : 'hooks/patient-view.md'
+    - 'medication-prescribe' : 'hooks/medication-prescribe.md'
+    - 'order-review' : 'hooks/order-review.md'
 - Examples: 'examples.md'
 - Community: 'community.md'
 
