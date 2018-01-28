@@ -4,7 +4,7 @@
 
 As a specification, CDS Hooks does not prescribe a default or required set of hooks for implementers. Rather, the set of hooks defined here are merely a set of common use cases that were used to aid in the creation of CDS Hooks. The set of hooks defined here are not a closed set; anyone is able to define new hooks to fit their use cases.
 
-New hooks should be added to our [proposed hooks Wiki page](https://github.com/cds-hooks/docs/wiki/Proposed-Hooks) according to the format described below.
+New hooks should be added to the CDS [proposed hooks Wiki page](https://github.com/cds-hooks/docs/wiki/Proposed-Hooks) according to the format described below.
 
 Note that each hook (e.g. `medication-prescribe`) represents something the user is doing in the EHR and multiple CDS Services might respond to the same hook (e.g. a "price check" service and a "prior authorization" service might both respond to `medication-prescribe`).
 
