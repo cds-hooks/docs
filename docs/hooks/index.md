@@ -18,6 +18,8 @@ When the context data relates to a FHIR data type, it is important not to confla
 
 Consider another hook for when a new patient is being registered. In this case, it would likely be appropriate for the context to contain the full FHIR resource for the patient being registered as the patient may not be yet recorded in the EHR (and thus not available from the FHIR server) and CDS Services using this hook would predominately be interested in the details of the patient being registered.
 
+Additionally, consider a PGX CDS Service and a Zika screening CDS Service, each of which is subscribed to the same hook. The context data specified by their shared hook should contain data relevant to both CDS Services; however, each service will have other specific data needs that will necessitate disparate prefetch requests. For instance, the PGX CDS Service likely is interested in genomics data whereas the Zika screening CDS Service will want Observations.
+
 In summary, context is data specific to a hook and universally relevant to all CDS Services subscribed to said hook. Prefetch data is unique to individual CDS Services and supplements the data from context.
 
 ### Prefetch tokens
