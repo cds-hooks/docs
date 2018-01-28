@@ -36,6 +36,54 @@ The token name would be `{{context.patientId}}`. Again using our above condition
 
 Only the first level fields in context may be considered for tokens. Hook creators MUST document which fields in the context are supported as tokens. If a context field can be tokenized, the value of the context field MUST be a data type that can placed into a FHIR query (eg, string, number, etc).
 
+For example, given the following context that contains amongst other things, a Patient FHIR resource:
+
+```json
+"context" : {
+  "encounterId": "456",
+  "patient": {
+    "resourceType": "Patient",
+    "id": "123",
+    "active": true,
+    "name": [
+      {
+        "use": "official",
+        "family": "Watts",
+        "given": [
+          "Wade"
+        ]
+      }
+    ],
+    "gender": "male",
+    "birthDate": "2024-08-12"
+  }
+}
+```
+
+Only the `encounterId` field in this example is eligible to be a prefetch token as it is a first level field and the datatype (string) can be placed into the FHIR query. The Patient.id value in the context is not eligible to be a prefetch token because it is not a first level field. If the hook creator intends for the Patient.id value to be available as a prefetch token, it must be made available as a first level field. Using the aforementioned example, we simply add a new `patientId` field:
+
+```json
+"context" : {
+  "patientId": "123",
+  "encounterId": "456",
+  "patient": {
+    "resourceType": "Patient",
+    "id": "123",
+    "active": true,
+    "name": [
+      {
+        "use": "official",
+        "family": "Watts",
+        "given": [
+          "Wade"
+        ]
+      }
+    ],
+    "gender": "male",
+    "birthDate": "2024-08-12"
+  }
+```
+
 ## Hook Definition Format
 
 Hooks are defined in the following format:
