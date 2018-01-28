@@ -1,24 +1,22 @@
 # `medication-prescribe`
 
-## Workflow description
+## Workflow
+
 The user is in the process of prescribing one or more new medications.
 
-## Contextual data
-The set of medication proposed or in progress of being prescribed. Note that all FHIR resources in a single CDS request should be the same version of FHIR. 
+## Context
 
-|key|data|required?|
-|---|---|---|
-|patient|Patient FHIR id|Yes|
-|encounter|Encounter FHIR id|No|
-|medications-in-progress|DSTU2 - Array of MedicationOrder <br/> STU3 - Array of MedicationRequest|Yes|
+The set of medications proposed or in progress of being prescribed. All FHIR resources in this context MUST be based on the same FHIR version.
+
+Field | Priority | Prefetch Token | Description
+----- | -------- | ---- | ----
+`medications` | REQUIRED | No | *array* DSTU2 - An array of MedicationOrder resources <br/> *array* STU3 - An array of MedicationRequest resources
 
 ### Example (DSTU2)
 
 ```json 
-"context":{  
-  "patient":"smart-1081332",
-  "encounter":"7196235250",
-  "medications-in-progress":[  
+"context":{
+  "medications":[  
     {  
       "resourceType":"MedicationOrder",
       "id":"smart-MedicationOrder-103",

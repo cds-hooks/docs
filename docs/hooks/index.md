@@ -1,54 +1,89 @@
-# Hook Catalog
+# Hooks
 
-## Pre-defined CDS hooks
+## Overview
 
-We describe a set of hooks to support common use cases out of the box. But **this is not a closed set**; anyone can define new hooks to address new use cases. To propose a new hooks please add it to the [proposed hooks](https://github.com/cds-hooks/docs/wiki/Proposed-Hooks) page of our wiki in the same format as below.
+As a specification, CDS Hooks does not prescribe a default or required set of hooks for implementers. Rather, the set of hooks defined here are merely a set of common use cases that were used to aid in the creation of CDS Hooks. The set of hooks defined here are not a closed set; anyone is able to define new hooks to fit their use cases.
 
-Note that each hook (e.g. `medication-prescribe`) represents something the user is doing in the EHR; various CDS services might respond to the same hook (e.g. a "price check" service and a "prior authorization" service might both respond to `medication-prescribe`).
+New hooks should be added to our [proposed hooks Wiki page](https://github.com/cds-hooks/docs/wiki/Proposed-Hooks) according to the format described below.
 
-Note also that each hook name in our official catalog is a simple string. If you want to define custom hooks without submitting them to the catalog, then you should use a URI (e.g. `http://my-organization/custom-hooks/patient-transmogrify`).
+Note that each hook (e.g. `medication-prescribe`) represents something the user is doing in the EHR and multiple CDS Services might respond to the same hook (e.g. a "price check" service and a "prior authorization" service might both respond to `medication-prescribe`).
 
 ## Hook context and prefetch
 
 ### What's the difference?
-A discrete user workflow or action within the EHR often naturally includes a set of contextual data. For example, the patient-view hook necessarily includes a patient. For many clinical workflows, the patient-view also includes an encounter. These pieces of contextual data naturally define the hook and are generically useful for most CDS services subscribing to the hook.  Each pre-defined CDS hook may include one or more required or optional contextual parameters represented as named key/value pairs. 
 
-Pre-fetch, on the other hand, defines data that is used and perhaps even required, by a single CDS service. 
+A discrete user workflow or action within the EHR often naturally includes a set of contextual data. This context can contain both required and optional data and is specific to a hook. Additionally, the context data is relevant to most CDS Services subscribing to the hook.
 
-### Pre-fetch extends context.
-Often a pre-fetch template builds on the contextual data associated with the CDS hook. For example, a particular CDS service might recommend guidance based on a patient's conditions when the chart is opened. The service could obtain the patient's conditions with a FHIR search, like so:  `Condition?patient=patient123`. 
-Since the hook's contextual parameters are named, the pre-fetch template references the actual name of the contextual value from the CDS request. Using the below example hook definition, and actual prefetch template would be: `Condition?patient={{example-patient-id}}`.
+When the context data relates to a FHIR data type, it is important not to conflate context and prefetch. For instance, imagine a hook for opening a patient's chart. This hook should include the FHIR identifier of the patient whose chart is being opened, not the full patient FHIR resource. In this case, the FHIR identifier of the patient is appropriate as CDS Services may not be interested in details about the patient resource but instead other data related to this patient. Or, a CDS Service may only need the full patient resource in certain scenarios. Therefore, including the full patient resource in context would be unnecessary. For CDS Services that want the full patient resource, they can request it to be prefetched or fetch it as need from the FHIR server.
 
-**Format for hook definitions**:
+Consider another hook for when a new patient is being registered. In this case, it would likely be appropriate for the context to contain the full FHIR resource for the patient being registered as the patient may not be yet recorded in the EHR (and thus not available from the FHIR server) and CDS Services using this hook would predominately be interested in the details of the patient being registered.
 
-New hooks are defined in the following format. Note that all FHIR resources in a single CDS request should be the same version of FHIR. 
+In summary, context is data specific to a hook and universally relevant to all CDS Services subscribed to said hook. Prefetch data is unique to individual CDS Services and supplements the data from context.
 
-# `hook-name-expressed-as-noun-verb` 
-The hook name is a simple string that succintly describes the user's action. 
+### Prefetch tokens
 
-## **Workflow description**
-Describe this hook occurs in a user's workflow.
-
-## **Contextual data**
-Describe the set of contextual data required for this hook as represented by FHIR resources, including FHIR version and complete example. Only data logically and necessarily associated with the user's action should be represented in context; prefetch should enable any additional data required in the request by a specific cds service.
-
-|key|data|required?|
-|---|---|---|
-|json object name|description of object value, e.g. <br/> FHIR version - [Array of] FHIR resource <br/> FHIR resource id <br/> non-FHIR object|
-|example-patient-id|Patient FHIR id|Yes|
-|example-medication|DSTU2 - MedicationOrder <br/>STU3 - MedicationRequest|No|
-
+Often a prefetch template builds on the contextual data associated with the hook. For example, a particular CDS Service might recommend guidance based on a patient's conditions when the chart is opened. The FHIR query to retrieve these conditions might be `Condition?patient=123`. In order to express this as a prefetch template, the CDS Service must express the FHIR identifier of the patient as a token so that the EHR can replace the token with the appropriate value. When context fields are used as tokens, their token name MUST be `context.name-of-the-field`. For example, given a context like:
 
 ```json
-{
-  "context": {
-	"example-patient-id" : {
-		// FHIR patient identifier
-	},
-    "example-medication": {
-		// DSTU2: full MedicationOrder FHIR resource of the medication being prescribed or, 
-		// STU3: full MedicationRequest FHIR resource of the medication being prescribed
-	}
-  }
+"context" : {
+  "patientId": "123"
 }
 ```
+
+The token name would be `{{context.patientId}}`. Again using our above conditions example, the complete prefetch template would be `Condition?patient={{context.patientId}}`.
+
+Only the first level fields in context may be considered for tokens. Hook creators MUST document which fields in the context are supported as tokens. If a context field can be tokenized, the value of the context field MUST be a data type that can placed into a FHIR query (eg, string, number, etc).
+
+## Hook Definition Format
+
+Hooks are defined in the following format:
+
+-----
+
+# `hook-name-expressed-as-noun-verb` 
+
+The name of the hook SHOULD succinctly and clearly describes the activity or event. Hook names are unique so hook creators SHOULD take care to ensure newly proposed hooks do not conflict with an existing hook name. Hook creators MAY choose to name their hook with a URI (e.g. `https://example.org/hooks/patient-transmogrify`) if the hook is specific to an organization.
+
+When naming hooks, the name should start with the subject (noun) of the hook and be followed by the activity (verb). For example, `patient-view` (not `view-patient`) or `medication-prescribe` (not `prescribe-medication`).
+
+## Workflow
+
+Describe when this hook occurs in a workflow. Hook creators SHOULD include as much detail and clarity as possible to minimize any ambiguity or confusion amongst implementors.
+
+## Context
+
+Describe the set of contextual data used by this hook. Only data logically and necessarily associated with the purpose of this hook should be represented in context.
+
+All fields defined by the hook's context MUST be defined in a table where each field is described by three attributes:
+
+- Field: The name of the property in the context JSON object.
+- Priority: A fixed value of either `REQUIRED` or `OPTIONAL`
+- Prefetch Token: A fixed value of either `Yes` or `No`, indicating whether this field can be tokenized in a prefetch template.
+- Description: The value of the property in the context JSON object, expressed both as the JSON data type as well as a functional description of the value. If this value can change according to the FHIR version in use, the description SHOULD describe the value for each supported FHIR version.
+
+While a context with FHIR data SHOULD document any differences in the data between FHIR versions, when a context object is valued, all FHIR resources in context MUST be based on the same FHIR version.
+
+Field | Priority | Prefetch Token | Description
+----- | -------- | ---- | ----
+`someProperty` | REQUIRED | Yes | *string* A clear description of the value of this field.
+`anotherProperty` | OPTIONAL | No | *number* A clear description of the value of this field.
+`someObject` | REQUIRED | No | *object* A clear description of the value of this field.
+`moreObjects` | OPTIONAL | No | *array* A clear description of the items in this array.
+
+### Examples
+
+Hook creators SHOULD include examples of the context.
+
+```json
+"context":{
+  "someProperty":"foo",
+  "anotherProperty":123,
+  "someObject": {
+    "color": "red",
+    "version": 1
+  },
+  "moreObjects":[]
+}
+```
+
+If the context contains FHIR data, hook creators SHOULD include examples across multiple versions of FHIR if differences across FHIR versions are possible.

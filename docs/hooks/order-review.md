@@ -1,22 +1,22 @@
 # `order-review`
 
 ## Workflow description
-Inform an external CDS service that the user is in the process of reviewing a set of orders.
 
-## Contextual data
-The set of orders being reviewed on-screen, represented at least one of MedicationOrder, DiagnosticOrder, DeviceUseRequest, ReferralRequest, ProcedureRequest, NutritionOrder, and VisionPrescription. Note that all FHIR resources in a single CDS request should be the same version of FHIR. 
+The user is in the process of reviewing a set of orders to sign.
 
-|key|data|required?|
-|---|---|---|
-|patient|Patient FHIR id|Yes|
-|encounter|Encounter FHIR id|No|
-|orders-in-progress|DSTU2 - Array of MedicationOrder, DiagnosticOrder,DeviceUseRequest, ReferralRequest, ProcedureRequest, NutritionOrder, VisionPrescription <br/> STU3 - Array of MedicationRequest, ReferralRequest, ProcedureRequest, NutritionOrder, VisionPrescriptionVisionPrescription|Yes|
+## Context
+
+The set of orders being reviewed for signature on-screen. All FHIR resources in this context MUST be based on the same FHIR version.
+
+Field | Priority | Prefetch Token | Description
+----- | -------- | ---- | ----
+orders | REQUIRED | No | *array* DSTU2 - Array of MedicationOrder, DiagnosticOrder, DeviceUseRequest, ReferralRequest, ProcedureRequest, NutritionOrder, VisionPrescription <br/> *array* STU3 - Array of MedicationRequest, ReferralRequest, ProcedureRequest, NutritionOrder, VisionPrescription
+
 ### Example (DSTU2)
 
 ```json
-"context":{  
-  "patient":"nest-patient-1-NUTR1",
-  "orders-in-progress":[  
+"context":{
+  "orders":[  
     {  
       "resourceType":"NutritionOrder",
       "id":"nest-patient-1-NUTR1",

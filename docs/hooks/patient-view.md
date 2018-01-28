@@ -4,6 +4,6 @@
 
 The user has just opened a patient's record.
 
-## Contextual data
+## Context
 
 None.
