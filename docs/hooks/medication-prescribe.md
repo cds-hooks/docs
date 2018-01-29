@@ -10,12 +10,16 @@ The set of medications proposed or in progress of being prescribed. All FHIR res
 
 Field | Priority | Prefetch Token | Description
 ----- | -------- | ---- | ----
+`patientId` | REQUIRED | Yes | *string*.  The FHIR `Patient.id` of the current patient in context
+`encounterId` | OPTIONAL | Yes | *string*.  The FHIR `Encounter.id` of the current encounter in context
 `medications` | REQUIRED | No | *array* DSTU2 - An array of MedicationOrder resources <br/> *array* STU3 - An array of MedicationRequest resources
 
 ### Example (DSTU2)
 
 ```json 
 "context":{
+  "patientId" : "1288992",
+  "encounterId" : "89284",
   "medications":[  
     {  
       "resourceType":"MedicationOrder",

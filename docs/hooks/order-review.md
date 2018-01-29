@@ -10,12 +10,16 @@ The set of orders being reviewed for signature on-screen. All FHIR resources in 
 
 Field | Priority | Prefetch Token | Description
 ----- | -------- | ---- | ----
-orders | REQUIRED | No | *array* DSTU2 - Array of MedicationOrder, DiagnosticOrder, DeviceUseRequest, ReferralRequest, ProcedureRequest, NutritionOrder, VisionPrescription <br/> *array* STU3 - Array of MedicationRequest, ReferralRequest, ProcedureRequest, NutritionOrder, VisionPrescription
+`patientId` | REQUIRED | Yes | *string*.  The FHIR `Patient.id` of the current patient in context
+`encounterId` | OPTIONAL | Yes | *string*.  The FHIR `Encounter.id` of the current encounter in context
+`orders` | REQUIRED | No | *array* DSTU2 - Array of MedicationOrder, DiagnosticOrder, DeviceUseRequest, ReferralRequest, ProcedureRequest, NutritionOrder, VisionPrescription <br/> *array* STU3 - Array of MedicationRequest, ReferralRequest, ProcedureRequest, NutritionOrder, VisionPrescription
 
 ### Example (DSTU2)
 
 ```json
 "context":{
+  "patientId" : "1288992",
+  "encounterId" : "89284",
   "orders":[  
     {  
       "resourceType":"NutritionOrder",
