@@ -6,13 +6,14 @@ The user has just opened a patient's record.
 
 ## Context
 
-The patient whose record was opened.
+The patient whose record was opened, including their encounter, if applicable.
 
 Field | Priority | Prefetch Token | Description
 ----- | -------- | ---- | ----
-`patientId` | REQUIRED | No | *string*. The FHIR `Patient.id` of the current patient in context
+`patientId` | REQUIRED | Yes | *string*. The FHIR `Patient.id` of the current patient in context
+`encounterId` | OPTIONAL | Yes | *string*. The FHIR `Encounter.id` of the current encounter in context
 
-### Example (DSTU2)
+### Examples
 
 ```json
 "context":{
@@ -20,3 +21,9 @@ Field | Priority | Prefetch Token | Description
 }
 ```
 
+```json
+"context":{
+  "patientId" : "1288992",
+  "encounterId" : "456"
+}
+```
