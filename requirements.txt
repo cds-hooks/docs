@@ -1,5 +1,5 @@
 backports-abc==0.5
-certifi==2017.11.5
+certifi==2018.1.18
 click==6.7
 Jinja2==2.10
 livereload==2.5.1
@@ -10,4 +10,4 @@ PyYAML==3.12
 singledispatch==3.4.0.3
 six==1.11.0
 tornado==4.5.3
-mkdocs-material==2.5.4
+mkdocs-material==2.6.2
