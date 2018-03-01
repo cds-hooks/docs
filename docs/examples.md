@@ -12,47 +12,49 @@
   "fhirServer": "http://fhir.example.com",
   "hook": "medication-prescribe",
   "user": "Practitioner/example",
-  "context": [
-    {
-      "resourceType": "MedicationOrder",
-      "id": "medrx001",
-      "dateWritten": "2017-05-05",
-      "status": "draft",
-      "patient": {
-        "reference": "Patient/example"
-      },
-      "medicationCodeableConcept": {
-        "coding": [
+  "context": {
+    "medications": [
+      {
+        "resourceType": "MedicationOrder",
+        "id": "medrx001",
+        "dateWritten": "2017-05-05",
+        "status": "draft",
+        "patient": {
+          "reference": "Patient/example"
+        },
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "857001",
+              "display": "Acetaminophen 325 MG / Hydrocodone Bitartrate 10 MG Oral Tablet"
+            }
+          ]
+        },
+        "dosageInstruction": [
           {
-            "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
-            "code": "857001",
-            "display": "Acetaminophen 325 MG / Hydrocodone Bitartrate 10 MG Oral Tablet"
+            "text": "Take 1 tablet Oral every 4 hours as needed",
+            "timing": {
+              "repeat": {
+                "frequency": 6,
+                "frequencyMax": 6,
+                "period": 1,
+                "unit": "d"
+              }
+            },
+            "asNeededBoolean": true,
+            "doseQuantity": {
+              "value": 10,
+              "unit": "mg",
+              "system": "http://unitsofmeasure.org",
+              "code": "mg"
+            }
           }
         ]
-      },
-      "dosageInstruction": [
-        {
-          "text": "Take 1 tablet Oral every 4 hours as needed",
-          "timing": {
-            "repeat": {
-              "frequency": 6,
-              "frequencyMax": 6,
-              "period": 1,
-              "unit": "d"
-            }
-          },
-          "asNeededBoolean": true,
-          "doseQuantity": {
-            "value": 10,
-            "unit": "mg",
-            "system": "http://unitsofmeasure.org",
-            "code": "mg"
-          }
-        }
-      ]
-    }
-  ],
-  "patient": "Patient/example",
+      }
+    ],
+    "patientId": "1288992"
+  },
   "prefetch": {
     "medication": {
       "response": {
@@ -140,31 +142,33 @@ This example is taken from the [Opioid Prescribing Support Implementation Guide]
   "fhirServer": "http://fhir.example.com",
   "hook": "order-review",
   "user": "Practitioner/example",
-  "context": [
-    {
-      "resourceType": "ProcedureRequest",
-      "id": "procedure-request-1",
-      "status": "draft",
-      "intent": "proposal",
-      "priority": "routine",
-      "code": {
-        "coding": [{
-          "system": "http://www.ama-assn.org/go/cpt",
-          "code": "70450",
-          "display": "CT, head, wo iv contrast"
-        }]
-      },
-      "subject": {
-        "reference": "Patient/example"
-      },
-      "requester": {
-        "agent": {
-          "reference": "Practitioner/exampmle"
+  "context": {
+    "orders": [
+      {
+        "resourceType": "ProcedureRequest",
+        "id": "procedure-request-1",
+        "status": "draft",
+        "intent": "proposal",
+        "priority": "routine",
+        "code": {
+          "coding": [{
+            "system": "http://www.ama-assn.org/go/cpt",
+            "code": "70450",
+            "display": "CT, head, wo iv contrast"
+          }]
+        },
+        "subject": {
+          "reference": "Patient/example"
+        },
+        "requester": {
+          "agent": {
+            "reference": "Practitioner/exampmle"
+          }
         }
       }
-    }
-  ],
-  "patient": "Patient/example"
+    ],
+    "patientId": "1288992"
+  }
 }
 ```
 
