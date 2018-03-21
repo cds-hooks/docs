@@ -147,6 +147,8 @@ Because hooks are such an integral part of the CDS Hooks specification, hook def
 
     specificationVersion: 1.0
 
+Because the specification itself follows semantic versioning, the version specified here is a minimum specification version. In other words, a hook defined to work against 1.0 should continue to work against the 1.1 version of CDS Hooks. However, a hook that specifies 1.1 would not be expected to work in a CDS Hooks 1.0 environment.
+
 ### Hook Version
 
 To enable tracking of changes to hook definitions, each hook MUST include a version indicator, expressed as a string, and a status of `DRAFT`, `ACTIVE`, or `RETIRED`.
@@ -154,11 +156,11 @@ To enable tracking of changes to hook definitions, each hook MUST include a vers
     hookVersion: 1.0.0
     status: ACTIVE
 
-To help ensure the stability of CDS Hooks implementations, once a hook has been defined (i.e. published with a particular name so that it is available for implementation), it can only be changed in ways that will not break existing implementations. This means that fields can be added and restrictions relaxed, but fields cannot be changed, and restrictions cannot be tightened.
+To help ensure the stability of CDS Hooks implementations, once a hook has been defined (i.e. published with a particular name and a status of ACTIVE so that it is available for implementation), breaking changes MUST NOT be made. This means that fields can be added and restrictions relaxed, but fields cannot be changed, and restrictions cannot be tightened.
 
 In particular, the semantics of a hook (i.e. the meaning of the hook from the perspective of the EHR) cannot be changed. EHRs that implement specific hooks are responsible for ensuring the hook is called from the appropriate point in the workflow.
 
-Note that this means that the name of the hook carries major version semantics. That is not to say that the name must include the major version, that choice is left as a choice by users of the specification.
+Note that this means that the name of the hook carries major version semantics. That is not to say that the name must include the major version, that is left as a choice by users of the specification. Clean hook names increase usability. Ideally, an active hook name accurately defines the meaning and workflow of the hook in actual words.
 
 The following types of changes are possible for a hook definition:
 
@@ -186,9 +188,9 @@ For example:
 
 Version | Description
 ---- | ----
-1.0.0 | Initial Release
-1.0.1 | Clarified context variable usage
 1.1.0 | Added new context variable
+1.0.1 | Clarified context variable usage
+1.0.0 | Initial Release
 
 
 
