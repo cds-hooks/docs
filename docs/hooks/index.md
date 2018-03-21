@@ -175,6 +175,21 @@ Change of semantics of the hook | Major
 
 When a major change is made, the hook definition MUST be published under a new name. When a minor or patch change is made, the hook version MUST be updated. Hook definers SHOULD use [semantic versioning](https://semver.org/) to communicate the impact of changes in an industry standard way.
 
+### Change Log
+
+Changes made to a hook MUST be documented in a change log to ensure hook consumers can track what has been changed over the life of a hook. The change log MUST contain the following elements:
+
+- Version: The version of the change
+- Description: A description of the change and its impact
+
+For example:
+
+Version | Description
+---- | ----
+1.0.0 | Initial Release
+1.0.1 | Clarified context variable usage
+1.1.0 | Added new context variable
+
 
 
 
