@@ -141,22 +141,23 @@ If the context contains FHIR data, hook creators SHOULD include examples across 
 
 ## Changes to the Definition of a Hook (Hook Versioning)
 
+Each hook MUST include a Metadata table at the beginning of the hook with the specification version and hook version as described in the following sections.
+
 ### Specification Version
 
 Because hooks are such an integral part of the CDS Hooks specification, hook definitions are associated with specific versions of the specification. The hook definition MUST include the version (or versions) of the CDS Hooks specification that it is defined to work with.
 
-    specificationVersion: 1.0
+    specificationVersion | 1.0
 
 Because the specification itself follows semantic versioning, the version specified here is a minimum specification version. In other words, a hook defined to work against 1.0 should continue to work against the 1.1 version of CDS Hooks. However, a hook that specifies 1.1 would not be expected to work in a CDS Hooks 1.0 environment.
 
 ### Hook Version
 
-To enable tracking of changes to hook definitions, each hook MUST include a version indicator, expressed as a string, and a status of `DRAFT`, `ACTIVE`, or `RETIRED`.
+To enable tracking of changes to hook definitions, each hook MUST include a version indicator, expressed as a string.
 
-    hookVersion: 1.0.0
-    status: ACTIVE
+    hookVersion | 1.0.0
 
-To help ensure the stability of CDS Hooks implementations, once a hook has been defined (i.e. published with a particular name and a status of ACTIVE so that it is available for implementation), breaking changes MUST NOT be made. This means that fields can be added and restrictions relaxed, but fields cannot be changed, and restrictions cannot be tightened.
+To help ensure the stability of CDS Hooks implementations, once a hook has been defined (i.e. published with a particular name so that it is available for implementation), breaking changes MUST NOT be made. This means that fields can be added and restrictions relaxed, but fields cannot be changed, and restrictions cannot be tightened.
 
 In particular, the semantics of a hook (i.e. the meaning of the hook from the perspective of the EHR) cannot be changed. EHRs that implement specific hooks are responsible for ensuring the hook is called from the appropriate point in the workflow.
 
@@ -175,7 +176,7 @@ Removal of an existing context field | Major
 Change of semantics of an existing context field | Major
 Change of semantics of the hook | Major
 
-When a major change is made, the hook definition MUST be published under a new name. When a minor or patch change is made, the hook version MUST be updated. Hook definers SHOULD use [semantic versioning](https://semver.org/) to communicate the impact of changes in an industry standard way.
+When a major change is made, the hook definition MUST be published under a new name. When a minor or patch change is made, the hook version MUST be updated. Hook definers MUST use [semantic versioning](https://semver.org/) to communicate the impact of changes in an industry standard way.
 
 ### Change Log
 

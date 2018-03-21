@@ -1,7 +1,9 @@
 # `patient-view`
 
-specificationVersion: 1.0
-hookVersion: 1.0.0
+| Metadata | Value
+| ---- | ----
+| specificationVersion | 1.0
+| hookVersion | 1.0.0
 
 ## Workflow description
 
