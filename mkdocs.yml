@@ -8,7 +8,7 @@ theme:
 extra:
   social:
     - type: 'github'
-      link: 'https://github.com/yashaskram'
+      link: 'https://github.com/cds-hooks'
 
 pages:
 - Overview: 'index.md'
@@ -19,12 +19,12 @@ pages:
     - 'patient-view' : 'hooks/patient-view.md'
     - 'medication-prescribe' : 'hooks/medication-prescribe.md'
     - 'order-review' : 'hooks/order-review.md'
+    - 'result-review' : 'hooks/result-review.md'
 - Quick Start: 'quickstart.md'
 - Examples: 'examples.md'
 - Community: 'community.md'
 
-repo_url: 'https://github.com/yashaskram/docs'
-
+repo_url: 'https://github.com/cds-hooks/docs'
 
 markdown_extensions:
   - admonition
