@@ -8,7 +8,7 @@ theme:
 extra:
   social:
     - type: 'github'
-      link: 'https://github.com/cds-hooks'
+      link: 'https://github.com/yashaskram'
 
 pages:
 - Overview: 'index.md'
@@ -23,7 +23,8 @@ pages:
 - Examples: 'examples.md'
 - Community: 'community.md'
 
-repo_url: 'https://github.com/cds-hooks/docs'
+repo_url: 'https://github.com/yashaskram/docs'
+
 
 markdown_extensions:
   - admonition
