@@ -86,9 +86,7 @@ Only the `encounterId` field in this example is eligible to be a prefetch token 
 
 ## Hook Definition Format
 
-Hooks are defined in the following format:
-
------
+Hooks are defined in the following format.
 
 ### `hook-name-expressed-as-noun-verb`
 
