@@ -115,7 +115,7 @@ All fields defined by the hook's context MUST be defined in a table where each f
 
 When potentially multiple FHIR resources value a single context field, these resources SHOULD be formatted as a FHIR Bundle. For example, multiple FHIR resources are necessary to describe all of the orders under review in the `order-review` hook's `orders` field. Hook definitions SHOULD prefer the use of FHIR Bundles over other bespoke data structures.
 
-Often, context is populated with in-progress or in-memory data that may not yet be available from the FHIR server. For example, `medication-prescribe` and `order-review` define context fields containing FHIR resources that represent draft resources. In this case,  the EHR should only provide these draft resources and not the full set of ordesr available from its FHIR server. The CDS service MAY pre-fetch or query for FHIR resources with other statuses.
+Often, context is populated with in-progress or in-memory data that may not yet be available from the FHIR server. For example, `medication-prescribe` and `order-review` define context fields containing FHIR resources that represent draft resources. In this case,  the EHR should only provide these draft resources and not the full set of orders available from its FHIR server. The CDS service MAY pre-fetch or query for FHIR resources with other statuses.
 
 All FHIR resources in context MUST be based on the same FHIR version.
 
