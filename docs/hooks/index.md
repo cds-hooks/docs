@@ -112,7 +112,13 @@ All fields defined by the hook's context MUST be defined in a table where each f
 - Type: The type of the field in the context JSON object, expressed as the JSON type, or the name of a FHIR Resource type. Valid types are *string*, *number*, *object*, *array*, or the name of a FHIR resource type. When a field can be of multiple types, type names MUST be separated by a *pipe* (`|`)
 - Description: A functional description of the context value. If this value can change according to the FHIR version in use, the description SHOULD describe the value for each supported FHIR version.
 
-While a context with FHIR data SHOULD document any differences in the data between FHIR versions, when a context object is instantiated, all FHIR resources in context MUST be based on the same FHIR version.
+### FHIR resources in context
+
+When potentially multiple FHIR resources value a single context field, these resources SHOULD be formatted as a FHIR Bundle. For example, multiple FHIR resources are necessary to describe all of the orders under review in the `order-review` hook's `orders` field. Hook definitions SHOULD prefer the use of FHIR Bundles over other bespoke data structures.
+
+Often, context is populated with in-progress or in-memory data that may not yet be available from the FHIR server. For example, `medication-prescribe` and `order-review` define context fields containing FHIR resources that represent draft resources. In this case,  the EHR should only provide these draft resources and not the full set of orders available from its FHIR server. The CDS service MAY pre-fetch or query for FHIR resources with other statuses.
+
+All FHIR resources in context MUST be based on the same FHIR version.
 
 Field | Optionality | Prefetch Token | Type | Description
 ----- | -------- | ---- | ---- | ----
@@ -120,6 +126,7 @@ Field | Optionality | Prefetch Token | Type | Description
 `anotherField` | OPTIONAL | No | *number* | A clear description of the value of this field.
 `someObject` | REQUIRED | No | *object* | A clear description of the value of this field.
 `moreObjects` | OPTIONAL | No | *array* | A clear description of the items in this array.
+`allFHIR` | OPTIONAL | No | *object* | A FHIR Bundle of the following FHIR resources using a specific version of FHIR.
 
 ### Examples
 
