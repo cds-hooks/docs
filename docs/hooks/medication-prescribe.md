@@ -1,5 +1,10 @@
 # `medication-prescribe`
 
+| Metadata | Value
+| ---- | ----
+| specificationVersion | 1.0
+| hookVersion | 1.0
+
 ## Workflow
 
 The user is in the process of prescribing one or more new medications.
@@ -8,11 +13,11 @@ The user is in the process of prescribing one or more new medications.
 
 The set of medications proposed or in progress of being prescribed. All FHIR resources in this context MUST be based on the same FHIR version.
 
-Field | Priority | Prefetch Token | Description
------ | -------- | ---- | ----
-`patientId` | REQUIRED | Yes | *string*.  The FHIR `Patient.id` of the current patient in context
-`encounterId` | OPTIONAL | Yes | *string*.  The FHIR `Encounter.id` of the current encounter in context
-`medications` | REQUIRED | No | *object* DSTU2 - A FHIR Bundle of draft MedicationOrder resources <br/> *object* STU3 - A FHIR Bundle of draft MedicationRequest resources
+Field | Optionality | Prefetch Token | Type | Description
+----- | -------- | ---- | ---- | ----
+`patientId` | REQUIRED | Yes | *string* |  The FHIR `Patient.id` of the current patient in context
+`encounterId` | OPTIONAL | Yes | *string* |  The FHIR `Encounter.id` of the current encounter in context
+`medications` | REQUIRED | No | *array* | DSTU2 - An array of MedicationOrder resources <br/> STU3 - An array of MedicationRequest resources
 
 ### Example (DSTU2)
 
@@ -131,3 +136,8 @@ Field | Priority | Prefetch Token | Description
 }
 }
 ```
+## Change Log
+
+Version | Description
+---- | ----
+1.0 | Initial Release
