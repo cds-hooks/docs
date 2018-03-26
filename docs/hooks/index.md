@@ -119,6 +119,7 @@ When potentially multiple FHIR resources value a single context field, these res
 Often, context is populated with in-progress or in-memory data that may not yet be available from the FHIR server. For example, `medication-prescribe` and `order-review` define context fields containing FHIR resources that represent draft resources. In this case,  the EHR should only provide these draft resources and not the full set of orders available from its FHIR server. The CDS service MAY pre-fetch or query for FHIR resources with other statuses.
 
 All FHIR resources in context MUST be based on the same FHIR version.
+
 Field | Optionality | Prefetch Token | Type | Description
 ----- | -------- | ---- | ---- | ----
 `someField` | REQUIRED | Yes | *string* | A clear description of the value of this field.
