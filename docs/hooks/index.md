@@ -82,6 +82,7 @@ Only the `encounterId` field in this example is eligible to be a prefetch token 
     "gender": "male",
     "birthDate": "2024-08-12"
   }
+}
 ```
 
 ## Hook Definition Format
