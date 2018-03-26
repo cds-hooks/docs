@@ -155,7 +155,7 @@ Because the specification itself follows semantic versioning, the version specif
 
 To enable tracking of changes to hook definitions, each hook MUST include a version indicator, expressed as a string.
 
-    hookVersion | 1.0.0
+    hookVersion | 1.0
 
 To help ensure the stability of CDS Hooks implementations, once a hook has been defined (i.e. published with a particular name so that it is available for implementation), breaking changes MUST NOT be made. This means that fields can be added and restrictions relaxed, but fields cannot be changed, and restrictions cannot be tightened.
 
@@ -189,9 +189,9 @@ For example:
 
 Version | Description
 ---- | ----
-1.1.0 | Added new context variable
+1.1 | Added new context variable
 1.0.1 | Clarified context variable usage
-1.0.0 | Initial Release
+1.0 | Initial Release
 
 
 

@@ -3,7 +3,7 @@
 | Metadata | Value
 | ---- | ----
 | specificationVersion | 1.0
-| hookVersion | 1.0.0
+| hookVersion | 1.0
 
 ## Workflow
 
@@ -142,5 +142,5 @@ Field | Optionality | Prefetch Token | Type | Description
 
 Version | Description
 ---- | ----
-1.0.0 | Initial Release
+1.0 | Initial Release
 
