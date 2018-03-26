@@ -27,7 +27,7 @@ Field | Optionality | Prefetch Token | Type | Description
   "encounterId" : "89284",
   "medications": {
   	"resourceType": "Bundle",
-		"entry": [{
+		"entry": [
 			{
 				"resource":
 					"resourceType": "MedicationOrder",
@@ -78,9 +78,8 @@ Field | Optionality | Prefetch Token | Type | Description
 							"code": "d"
 						}
 					}
-				}
 			},
-      {
+      		{
 			"resource": {
 				"resourceType": "MedicationOrder",
 				"id": "smart-MedicationOrder-104",
@@ -133,7 +132,7 @@ Field | Optionality | Prefetch Token | Type | Description
 			}
 		}
 	]
-}
+  }
 }
 ```
 ## Change Log
