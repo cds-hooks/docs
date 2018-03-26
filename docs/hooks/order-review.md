@@ -1,5 +1,10 @@
 # `order-review`
 
+| Metadata | Value
+| ---- | ----
+| specificationVersion | 1.0
+| hookVersion | 1.0
+
 ## Workflow description
 
 The user is in the process of reviewing a set of orders to sign.
@@ -8,11 +13,11 @@ The user is in the process of reviewing a set of orders to sign.
 
 The set of orders being reviewed for signature on-screen. All FHIR resources in this context MUST be based on the same FHIR version.
 
-Field | Priority | Prefetch Token | Description
------ | -------- | ---- | ----
-`patientId` | REQUIRED | Yes | *string*.  The FHIR `Patient.id` of the current patient in context
-`encounterId` | OPTIONAL | Yes | *string*.  The FHIR `Encounter.id` of the current encounter in context
-`orders` | REQUIRED | No | *array* DSTU2 - Array of MedicationOrder, DiagnosticOrder, DeviceUseRequest, ReferralRequest, ProcedureRequest, NutritionOrder, VisionPrescription <br/> *array* STU3 - Array of MedicationRequest, ReferralRequest, ProcedureRequest, NutritionOrder, VisionPrescription
+Field | Optionality | Prefetch Token | Type | Description
+----- | -------- | ---- | ---- | ----
+`patientId` | REQUIRED | Yes | *string* | The FHIR `Patient.id` of the current patient in context
+`encounterId` | OPTIONAL | Yes | *string* | The FHIR `Encounter.id` of the current encounter in context
+`orders` | REQUIRED | No | *array* | DSTU2 - Array of MedicationOrder, DiagnosticOrder, DeviceUseRequest, ReferralRequest, ProcedureRequest, NutritionOrder, VisionPrescription <br/> STU3 - Array of MedicationRequest, ReferralRequest, ProcedureRequest, NutritionOrder, VisionPrescription
 
 ### Example (DSTU2)
 
@@ -153,3 +158,10 @@ Field | Priority | Prefetch Token | Description
   ]
 }
 ```
+
+## Change Log
+
+Version | Description
+---- | ----
+1.0 | Initial Release
+
