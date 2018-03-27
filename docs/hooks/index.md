@@ -82,13 +82,12 @@ Only the `encounterId` field in this example is eligible to be a prefetch token 
     "gender": "male",
     "birthDate": "2024-08-12"
   }
+}
 ```
 
 ## Hook Definition Format
 
-Hooks are defined in the following format:
-
------
+Hooks are defined in the following format.
 
 ### `hook-name-expressed-as-noun-verb`
 
@@ -109,7 +108,7 @@ All fields defined by the hook's context MUST be defined in a table where each f
 - Field: The name of the field in the context JSON object.
 - Optionality: A string value of either `REQUIRED` or `OPTIONAL`
 - Prefetch Token: A string value of either `Yes` or `No`, indicating whether this field can be tokenized in a prefetch template.
-- Type: The type of the field in the context JSON object, expressed as the JSON type, or the name of a FHIR Resource type. Valid types are *string*, *number*, *object*, *array*, or the name of a FHIR resource type. When a field can be of multiple types, type names MUST be separated by a *pipe* (`|`)
+- Type: The type of the field in the context JSON object, expressed as the JSON type, or the name of a FHIR Resource type. Valid types are *boolean*, *string*, *number*, *object*, *array*, or the name of a FHIR resource type. When a field can be of multiple types, type names MUST be separated by a *pipe* (`|`)
 - Description: A functional description of the context value. If this value can change according to the FHIR version in use, the description SHOULD describe the value for each supported FHIR version.
 
 ### FHIR resources in context
