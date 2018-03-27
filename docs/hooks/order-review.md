@@ -5,7 +5,7 @@
 | specificationVersion | 1.0
 | hookVersion | 1.0
 
-## Workflow description
+## Workflow
 
 The user is in the process of reviewing a set of orders to sign.
 
