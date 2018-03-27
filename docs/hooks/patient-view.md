@@ -5,7 +5,7 @@
 | specificationVersion | 1.0
 | hookVersion | 1.0
 
-## Workflow description
+## Workflow
 
 The user has just opened a patient's record.
 
