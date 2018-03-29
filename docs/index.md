@@ -18,7 +18,6 @@ User activity inside the EHR triggers **CDS hooks** in real-time.  For example:
 * `medication-prescribe` on authoring a new prescription
 * `order-review` on viewing pending orders for approval
 
-
 When a triggering activity occurs, the EHR notifies each CDS service registered for the activity. These services must then provide near-real-time feedback about the triggering event. Each service gets basic details about the EHR
 context (via the `context` parameter of the hook) plus whatever
 service-specific data are required (via the `pre-fetch-template` parameter).
