@@ -35,7 +35,6 @@ $ mkdocs serve
 
 Anytime you make a change to the content within the site, your browser should automatically refresh to show your changes in real-time.
 
-
 ## Contributing
 
 We encourage and welcome any contributions to CDS Hooks.
@@ -46,7 +45,10 @@ In support of a healthy and inclusive community, we use and enforce a [code of c
 
 ## License
 
-Licensed under the Apache License, Version 2.0 (the "License");
+All Markdown content in this repository is licensed under the [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).
+
+Unless otherwise noted, the contents of this repository
+are licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 
