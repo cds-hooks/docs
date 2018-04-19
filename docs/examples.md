@@ -224,3 +224,7 @@ This example is taken from the [Opioid Prescribing Support Implementation Guide]
   ]
 }
 ```
+
+## Example Services
+
+- [hep-c-screener](https://github.com/cdaringe/hep-c-screener)
