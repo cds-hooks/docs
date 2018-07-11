@@ -20,4 +20,4 @@ env:
 
 notifications:
   webhooks:
-    - https://chat.fhir.org/api/v1/external/travis?stream=cds-hooks-committers&topic=ci-notifications&api_key=dX12ZMY66SWJDklEXwB8yMyvrGrlr8w0
+    - https://chat.fhir.org/api/v1/external/travis?stream=cds%20hooks%2Fcommitters&topic=ci-notifications&api_key=dX12ZMY66SWJDklEXwB8yMyvrGrlr8w0
