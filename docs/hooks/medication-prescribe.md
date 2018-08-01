@@ -11,7 +11,7 @@ The user is in the process of prescribing one or more new medications.
 
 ## Context
 
-The set of medications proposed or in progress of being prescribed. All FHIR resources in this context MUST be based on the same FHIR version.
+The set of medications proposed or in progress of being prescribed. All FHIR resources in this context MUST be based on the same FHIR version. All FHIR resources in the medications object MUST have a status of _draft_.
 
 Field | Optionality | Prefetch Token | Type | Description
 ----- | -------- | ---- | ---- | ----
