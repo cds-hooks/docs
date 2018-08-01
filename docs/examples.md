@@ -224,3 +224,99 @@ This example is taken from the [Opioid Prescribing Support Implementation Guide]
   ]
 }
 ```
+
+## Lab Results Intepretation 
+
+> CDS Service Request
+
+> This example illustrates the use of the CDS Hooks `result-review` hook to implement Lab Results Intepretation service.
+
+```json
+{
+  "hookInstance": "d1577c69-dfbe-44ad-ba6d-3e05e953b2ea",
+  "fhirServer": "http://fhir.example.com",
+  "hook": "result-review",
+  "user": "Practitioner/example",
+  "context": {
+    "patientId": "1288992",
+    "encounterId": "89284",
+    "results": {
+      "resourceType": "Bundle",
+      "entry": [
+        {
+          "resourceType": "Observation",
+          "id": "171184",
+          "meta": {
+            "versionId": "2",
+            "lastUpdated": "2018-03-28T21:35:28.000+00:00"
+          },
+          "status": "final",
+          "category": {
+            "coding": [
+              {
+                "system": "http://hl7.org/fhir/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          },
+          "code": {
+            "coding": [
+              {
+                "system": "http://loinc.org",
+                "code": "2951-2",
+                "display": "Sodium [Moles/volume] in Serum or Plasma"
+              }
+            ],
+            "text": "Sodium"
+          },
+          "subject": {
+            "reference": "Patient/171092"
+          },
+          "effectiveDateTime": "2018-03-28T04:00:00.000Z",
+          "valueQuantity": {
+            "value": 130,
+            "unit": "mmol/L",
+            "system": "http://unitsofmeasure.org",
+            "code": "mmol/L"
+          },
+          "interpretation": {
+            "coding": [
+              {
+                "system": "http://hl7.org/fhir/ValueSet/observation-interpretation",
+                "code": "L",
+                "display": "Low"
+              }
+            ],
+            "text": "L"
+          }
+        }
+      ]
+    }
+  }
+}
+```
+
+> CDS Service Response
+
+> The appropriateness score is communicated via an update of the procedure request that adds an extension element to indicate the appropriateness rating.
+
+```json
+{
+  "cards": [
+    {
+      "summary": "Results Intepretation",
+      "indicator": "info",
+      "detail": "Review the Lab Intepretation Content available",
+      "links":[
+        {
+          "label": "Hyponatremia in adults",
+          "url": "https://www.uptodate.com/contents/2374",
+          "type": "absolute",
+        }
+      ]
+    }
+  ]
+}
+```
