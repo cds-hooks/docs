@@ -11,7 +11,7 @@ The user is in the process of reviewing a set of orders to sign.
 
 ## Context
 
-The set of orders being reviewed for signature on-screen. All FHIR resources in this _context_ MUST be based on the same FHIR version. All FHIR resources in the medications object MUST have a status of _draft_
+The set of orders being reviewed for signature on-screen. All FHIR resources in this _context_ MUST be based on the same FHIR version. All FHIR resources in the medications object MUST have a status of _draft_.
 
 Field | Optionality | Prefetch Token | Type | Description
 ----- | -------- | ---- | ---- | ----
