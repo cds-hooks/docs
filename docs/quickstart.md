@@ -80,7 +80,7 @@ Delete the existing hooks, and then do a quick add with a reference to your CDS 
 
 After testing with the sandbox, you are ready to connect with an EHR service.
 
-## Building an EHR Service
+## Integrating CDS Services into an EHR
 Build out following sections:
 
 1. Call discovery endpoint 
