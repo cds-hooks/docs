@@ -6,13 +6,13 @@ A CDS Hooks scenario typically includes two main actors: an EHR and a CDS Servic
 ![patient-view Hook Overview](images/patient-view-hook-launch_spec.png)
 
 ## Building a CDS Service
-A CDS Service is an external service that responds to EHR requests through cards. There are several steps to setting up a CDS Service: 
+A CDS Service is an external service that responds to EHR requests through cards. A card can optionally link to a SMART app. There are several steps to setting up a CDS Service: 
 
 1. Create an endpoint for discovery
 2. Develop a service
 3. Test the service with the [sandbox](http://sandbox.cds-hooks.org/)
-4. Create a SMART app (or [borrow one](https://apps.smarthealthit.org/apps/pricing/open-source))
-5. Test the service and SMART app with an EHR
+4. If applicable, create a SMART app (or [borrow one](https://apps.smarthealthit.org/apps/pricing/open-source))
+5. Test the service (and, if applicable, SMART app) with an EHR
 
 This tutorial recommends implementing the CDS Hooks [security model](specification/1.0/#security-and-safety) after successful open access testing.
 
