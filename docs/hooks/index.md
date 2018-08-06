@@ -175,7 +175,8 @@ Change | Version Impact
 ------ | ----
 Clarifications and corrections to documentation that do not impact functionality | Patch
 Change of prefetch token status of an existing context field | Patch
-Addition of a new field to the context | Minor
+Addition of a new, REQUIRED field to the context | Major
+Addition of a new, OPTIONAL field to the context | Minor
 Change of optionality of an existing context field | Major
 Change of type or cardinality of an existing context field | Major
 Removal of an existing context field | Major
