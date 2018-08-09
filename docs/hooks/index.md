@@ -169,7 +169,7 @@ To help ensure the stability of CDS Hooks implementations, once a hook has been 
 
 In particular, the semantics of a hook (i.e. the meaning of the hook from the perspective of the EHR) cannot be changed. EHRs that implement specific hooks are responsible for ensuring the hook is called from the appropriate point in the workflow.
 
-Note that this means that the name of the hook carries major version semantics. That is not to say that the name must include the major version, that is left as a choice by users of the specification. Clean hook names increase usability. Ideally, an active hook name accurately defines the meaning and workflow of the hook in actual words.
+Note that this means that the name of the hook carries major version semantics. That is not to say that the name must include the major version, that is left as a choice to authors of the specification. For example, following version 1.x, the major version MAY be included in the name as "-2", "-3", etc. Eg: patient-view-2, patient-view-3, etc. Clean hook names increase usability. Ideally, an active hook name accurately defines the meaning and workflow of the hook in actual words.
 
 The following types of changes are possible for a hook definition:
 
@@ -177,7 +177,8 @@ Change | Version Impact
 ------ | ----
 Clarifications and corrections to documentation that do not impact functionality | Patch
 Change of prefetch token status of an existing context field | Patch
-Addition of a new field to the context | Minor
+Addition of a new, REQUIRED field to the context | Major
+Addition of a new, OPTIONAL field to the context | Minor
 Change of optionality of an existing context field | Major
 Change of type or cardinality of an existing context field | Major
 Removal of an existing context field | Major
