@@ -111,13 +111,7 @@ All fields defined by the hook's context MUST be defined in a table where each f
 - Type: The type of the field in the context JSON object, expressed as the JSON type, or the name of a FHIR Resource type. Valid types are *boolean*, *string*, *number*, *object*, *array*, or the name of a FHIR resource type. When a field can be of multiple types, type names MUST be separated by a *pipe* (`|`)
 - Description: A functional description of the context value. If this value can change according to the FHIR version in use, the description SHOULD describe the value for each supported FHIR version.
 
-### FHIR resources in context
-
-When potentially multiple FHIR resources value a single context field, these resources SHOULD be formatted as a FHIR Bundle. For example, multiple FHIR resources are necessary to describe all of the orders under review in the `order-review` hook's `orders` field. Hook definitions SHOULD prefer the use of FHIR Bundles over other bespoke data structures.
-
-Often, context is populated with in-progress or in-memory data that may not yet be available from the FHIR server. For example, `medication-prescribe` and `order-review` define context fields containing FHIR resources that represent draft resources. In this case,  the EHR should only provide these draft resources and not the full set of orders available from its FHIR server. The CDS service MAY pre-fetch or query for FHIR resources with other statuses.
-
-All FHIR resources in context MUST be based on the same FHIR version.
+The below illustrates a sample table. 
 
 Field | Optionality | Prefetch Token | Type | Description
 ----- | -------- | ---- | ---- | ----
@@ -126,6 +120,14 @@ Field | Optionality | Prefetch Token | Type | Description
 `someObject` | REQUIRED | No | *object* | A clear description of the value of this field.
 `moreObjects` | OPTIONAL | No | *array* | A clear description of the items in this array.
 `allFHIR` | OPTIONAL | No | *object* | A FHIR Bundle of the following FHIR resources using a specific version of FHIR.
+
+### FHIR resources in context
+
+When potentially multiple FHIR resources value a single context field, these resources SHOULD be formatted as a FHIR Bundle. For example, multiple FHIR resources are necessary to describe all of the orders under review in the `order-review` hook's `orders` field. Hook definitions SHOULD prefer the use of FHIR Bundles over other bespoke data structures.
+
+Often, context is populated with in-progress or in-memory data that may not yet be available from the FHIR server. For example, `medication-prescribe` and `order-review` define context fields containing FHIR resources that represent draft resources. In this case,  the EHR should only provide these draft resources and not the full set of orders available from its FHIR server. The CDS service MAY pre-fetch or query for FHIR resources with other statuses. 
+
+All FHIR resources in context MUST be based on the same FHIR version. 
 
 ### Examples
 
@@ -167,7 +169,7 @@ To help ensure the stability of CDS Hooks implementations, once a hook has been 
 
 In particular, the semantics of a hook (i.e. the meaning of the hook from the perspective of the EHR) cannot be changed. EHRs that implement specific hooks are responsible for ensuring the hook is called from the appropriate point in the workflow.
 
-Note that this means that the name of the hook carries major version semantics. That is not to say that the name must include the major version, that is left as a choice by users of the specification. Clean hook names increase usability. Ideally, an active hook name accurately defines the meaning and workflow of the hook in actual words.
+Note that this means that the name of the hook carries major version semantics. That is not to say that the name must include the major version, that is left as a choice to authors of the specification. For example, following version 1.x, the major version MAY be included in the name as "-2", "-3", etc. Eg: patient-view-2, patient-view-3, etc. Clean hook names increase usability. Ideally, an active hook name accurately defines the meaning and workflow of the hook in actual words.
 
 The following types of changes are possible for a hook definition:
 
@@ -175,7 +177,8 @@ Change | Version Impact
 ------ | ----
 Clarifications and corrections to documentation that do not impact functionality | Patch
 Change of prefetch token status of an existing context field | Patch
-Addition of a new field to the context | Minor
+Addition of a new, REQUIRED field to the context | Major
+Addition of a new, OPTIONAL field to the context | Minor
 Change of optionality of an existing context field | Major
 Change of type or cardinality of an existing context field | Major
 Removal of an existing context field | Major
