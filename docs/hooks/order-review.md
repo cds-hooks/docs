@@ -11,13 +11,13 @@ The user is in the process of reviewing a set of orders to sign.
 
 ## Context
 
-The set of orders being reviewed for signature on-screen. All FHIR resources in this _context_ MUST be based on the same FHIR version.
+The set of orders being reviewed for signature on-screen. All FHIR resources in this _context_ MUST be based on the same FHIR version. All FHIR resources in the medications object MUST have a status of _draft_.
 
 Field | Optionality | Prefetch Token | Type | Description
 ----- | -------- | ---- | ---- | ----
 `patientId` | REQUIRED | Yes | *string* | The FHIR `Patient.id` of the current patient in context
 `encounterId` | OPTIONAL | Yes | *string* | The FHIR `Encounter.id` of the current encounter in context
-`orders` | REQUIRED | No | *object* | DSTU2 - FHIR Bundle of MedicationOrder, DiagnosticOrder, DeviceUseRequest, ReferralRequest, ProcedureRequest, NutritionOrder, VisionPrescription <br/> STU3 - FHIR Bundle of MedicationRequest, ReferralRequest, ProcedureRequest, NutritionOrder, VisionPrescription
+`orders` | REQUIRED | No | *object* | DSTU2 - FHIR Bundle of MedicationOrder, DiagnosticOrder, DeviceUseRequest, ReferralRequest, ProcedureRequest, NutritionOrder, VisionPrescription with _draft_ status <br/> STU3 - FHIR Bundle of MedicationRequest, ReferralRequest, ProcedureRequest, NutritionOrder, VisionPrescription with _draft_ status
 
 ### Example (DSTU2)
 
