@@ -147,6 +147,20 @@ Hook creators SHOULD include examples of the context.
 
 If the context contains FHIR data, hook creators SHOULD include examples across multiple versions of FHIR if differences across FHIR versions are possible.
 
+## Hook Maturity Model
+The intent of the CDS Hooks Maturity Model is to attain broad community engagement and consensus, before a hook is labeled as mature, that the hook is necessary, implementable, and worthwhile to the CDS services and CDS clients that would reasonably be expected to use it. Implementer feedback should drive the maturity of new hooks. Diverse participation in open developer forums and events, such as HL7 FHIR Connectathons, is necessary to achieve significant implementer feedback. The below criteria will be evaluated with these goals in mind.
+
+The Hook maturity levels use the term CDS client to generically refer to the clinical workflow system in which a CDS services returned cards are displayed. 
+
+Maturity Level | Maturity title | Requirements
+--- | --- | ---
+0 | Draft | Hook is defined according to the [hook definition format](#hook-definition-format). 
+1 | Submitted  | _The above, and …_ Hook definition is written up as a github pull request using the [Hook template](hooks/template/) and community feedback is solicited on the [zulip CDS Hooks stream](https://chat.fhir.org/#narrow/stream/17-cds-hooks). (TODO - specify repo that PR should be submitted to).
+2 | Tested | _The above, and …_ The hook has been tested and successfully supports interoperability among at least one CDS client and two independent CDS services using semi-realistic data and scenarios (e.g. at a FHIR Connectathon). The github pull request defining the hook is approved and published.
+3 | Considered |  _The above, and …_ At least 3 distinct organizations recorded ten distinct implementer comments, including at least two CDS clients and three independent CDS services. The hook has been tested at two connectathons.
+4 | Documented | _The above, and …_ The author agrees that the artifact is sufficiently stable to require implementer consultation for subsequent non-backward compatible changes.  The hook is implemented in the standard CDS Hooks sandbox and multiple prototype projects. The Hook specification SHALL: <ul><ol>Identify a broad set of example contexts in which the hook may be used with a minimum of three, but as many as 8-10.</ol><ol>Clearly differentiate the hook from similar hooks or other standards to help an implementer determine if the hook is correct for their scenario.</ol><ol>Explicitly document example scenarios when the hook should not be used.</ol></ul>
+5 | Mature | _The above, and ..._ The hook has been implemented in production in at least two CDS clients and three independent CDS services. An HL7 working group ballots the hook and the hook has passed HL7 STU ballot.
+
 ## Changes to the Definition of a Hook (Hook Versioning)
 
 Each hook MUST include a Metadata table at the beginning of the hook with the specification version and hook version as described in the following sections.
