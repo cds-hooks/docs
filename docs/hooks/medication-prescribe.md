@@ -98,8 +98,7 @@ Field | Optionality | Prefetch Token | Type | Description
             "resourceType":"MedicationRequest",
             "id":"smart-MedicationRequest-104",
             "meta":{
-              "lastUpdated":"2018-04-30T13:26:48.124-04:00",
-
+              "lastUpdated":"2018-04-30T13:26:48.124-04:00"
             },
             "text":{
               "status":"generated",
