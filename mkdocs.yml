@@ -10,7 +10,7 @@ extra:
     - type: 'github'
       link: 'https://github.com/cds-hooks'
 
-pages:
+nav:
 - Overview: 'index.md'
 - Specification:
     - '1.0': 'specification/1.0.md'
