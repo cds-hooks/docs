@@ -21,7 +21,6 @@ $ git clone https://github.com/cds-hooks/docs
 2. Install the project dependencies
 
 ```sh
-$ cd docs
 $ pip install -r requirements.txt
 ```
 
