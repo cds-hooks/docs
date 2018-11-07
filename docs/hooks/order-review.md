@@ -15,6 +15,7 @@ The set of orders being reviewed for signature on-screen. All FHIR resources in 
 
 Field | Optionality | Prefetch Token | Type | Description
 ----- | -------- | ---- | ---- | ----
+`userId` | REQUIRED | Yes | *string* | The FHIR resource type + id representing the current user.<br />The type is one of: [Practitioner](https://www.hl7.org/fhir/practitioner.html), [Patient](https://www.hl7.org/fhir/patient.html), or [RelatedPerson](https://www.hl7.org/fhir/relatedperson.html).<br />For example, `Practitioner/123`
 `patientId` | REQUIRED | Yes | *string* | The FHIR `Patient.id` of the current patient in context
 `encounterId` | OPTIONAL | Yes | *string* | The FHIR `Encounter.id` of the current encounter in context
 `orders` | REQUIRED | No | *object* | DSTU2 - FHIR Bundle of MedicationOrder, DiagnosticOrder, DeviceUseRequest, ReferralRequest, ProcedureRequest, NutritionOrder, VisionPrescription with _draft_ status <br/> STU3 - FHIR Bundle of MedicationRequest, ReferralRequest, ProcedureRequest, NutritionOrder, VisionPrescription with _draft_ status
@@ -24,6 +25,7 @@ Field | Optionality | Prefetch Token | Type | Description
 ```json
 {
    "context":{
+      "userId":"Practitioner/123",
       "patientId":"1288992",
       "encounterId":"89284",
       "orders":{
@@ -202,6 +204,7 @@ Field | Optionality | Prefetch Token | Type | Description
 
 ```json
 "context":{
+  "userId":"Practitioner/123",
   "patientId":"1288992",
   "encounterId":"89284",
   "orders":{
