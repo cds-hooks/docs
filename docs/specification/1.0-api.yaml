@@ -141,13 +141,17 @@ definitions:
         enum:
           - info
           - warning
-          - hard-stop
+          - critical
       source:
         $ref: '#/definitions/Source'
       suggestions:
         type: array
         items:
           $ref: '#/definitions/Suggestion'
+      selectionBehavior:
+        type: string
+        enum:
+          - at-most-one
       links:
         type: array
         items:
