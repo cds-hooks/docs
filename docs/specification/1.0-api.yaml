@@ -106,18 +106,10 @@ definitions:
       fhirServer:
         type: string
         format: url
-      oauth:
+      fhirAuthorization:
         type: object
-      user:
-        type: string
-      patient:
-        type: string
-      encounter:
-        type: string
       context:
-        type: array
-        items:
-          type: object
+        type: object
       prefetch:
         type: object
 

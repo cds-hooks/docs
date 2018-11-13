@@ -15,6 +15,7 @@ The set of medications proposed or in progress of being prescribed. All FHIR res
 
 Field | Optionality | Prefetch Token | Type | Description
 ----- | -------- | ---- | ---- | ----
+`userId` | REQUIRED | Yes | *string* | The id of the current user.<br />For this hook, the user is expected to be of type [Practitioner](https://www.hl7.org/fhir/practitioner.html).<br />For example, `Practitioner/123`
 `patientId` | REQUIRED | Yes | *string* |  The FHIR `Patient.id` of the current patient in context
 `encounterId` | OPTIONAL | Yes | *string* |  The FHIR `Encounter.id` of the current encounter in context
 `medications` | REQUIRED | No | *object* | DSTU2 - FHIR Bundle of _draft_ MedicationOrder resources <br/> STU3 - FHIR Bundle of _draft_ MedicationRequest resources
@@ -24,6 +25,7 @@ Field | Optionality | Prefetch Token | Type | Description
 ```json
 {
   "context":{
+    "userId":"Practitioner/123",
     "patientId":"1288992",
     "encounterId":"89284",
     "medications":{
@@ -168,6 +170,7 @@ Field | Optionality | Prefetch Token | Type | Description
 ```json 
 {
   "context":{
+    "userId":"Practitioner/123",
     "patientId":"1288992",
     "encounterId":"89284",
     "medications":{
