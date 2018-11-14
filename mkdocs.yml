@@ -15,7 +15,6 @@ nav:
 - Specification:
     - '1.0': 'specification/1.0.md'
 - Hooks:
-    - 'Hooks' : 'hooks/index.md'
     - 'new-hook-template' : 'hooks/template.md'
     - 'patient-view' : 'hooks/patient-view.md'
     - 'medication-prescribe' : 'hooks/medication-prescribe.md'
