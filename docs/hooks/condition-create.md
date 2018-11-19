@@ -21,11 +21,9 @@ Field | Optionality | Prefetch Token | Type | Description
 `conditions` | REQUIRED | No | *object* | DSTU2 - FHIR Bundle of Condition<br/> STU3 - FHIR Bundle of Condition
 
 
-### Examples
+### Example (STU3)
 
-### Examples
- ### Example (STU3)
- ```json
+```json
 {
    "context":{
       "userId":"Practitioner/123",
@@ -66,8 +64,9 @@ Field | Optionality | Prefetch Token | Type | Description
 }
 ```
 
- ### Example (DSTU2)
- ```json
+### Example (DSTU2)
+
+```json
 {
    "context":{
       "userId":"Practitioner/123",
