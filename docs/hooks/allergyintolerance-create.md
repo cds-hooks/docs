@@ -23,8 +23,8 @@ Field | Optionality | Prefetch Token | Type | Description
 
 ### Examples
 
-### Examples
- ### Example (STU3)
+### Example (STU3)
+
  ```json
 {
    "context":{
@@ -67,6 +67,7 @@ Field | Optionality | Prefetch Token | Type | Description
 ```
 
  ### Example (DSTU2)
+ 
  ```json
 {
    "context":{
