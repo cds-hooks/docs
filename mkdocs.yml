@@ -18,6 +18,7 @@ nav:
     - 'new-hook-template' : 'hooks/template.md'
     - 'patient-view' : 'hooks/patient-view.md'
     - 'medication-prescribe' : 'hooks/medication-prescribe.md'
+    - 'medication-refill' : 'hooks/medication-refill.md'
     - 'order-review' : 'hooks/order-review.md'
 - Quick Start: 'quickstart.md'
 - Examples: 'examples.md'
