@@ -16,6 +16,7 @@ nav:
     - '1.0': 'specification/1.0.md'
 - Hooks:
     - 'new-hook-template' : 'hooks/template.md'
+    - allergyintolerance-create : 'hooks/allergyintolerance-create.md'
     - 'patient-view' : 'hooks/patient-view.md'
     - 'medication-prescribe' : 'hooks/medication-prescribe.md'
     - 'order-review' : 'hooks/order-review.md'
