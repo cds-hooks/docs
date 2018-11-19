@@ -66,7 +66,7 @@ Field | Optionality | Prefetch Token | Type | Description
 }
 ```
 
- ### Example (DSTU2)
+### Example (DSTU2)
  
 ```json
 {
