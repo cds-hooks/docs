@@ -25,7 +25,7 @@ Field | Optionality | Prefetch Token | Type | Description
 
 ### Example (STU3)
 
- ```json
+```json
 {
    "context":{
       "userId":"Practitioner/123",
@@ -68,7 +68,7 @@ Field | Optionality | Prefetch Token | Type | Description
 
  ### Example (DSTU2)
  
- ```json
+```json
 {
    "context":{
       "userId":"Practitioner/123",
