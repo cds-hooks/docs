@@ -172,7 +172,7 @@ Example card rendered: ![Card with SMART App link](images/Bilirubin_SMART_App_Ca
 
 ### Launch SMART app 
 
-For some CDS Services the end step will just display the card. For the patient-view hook discussed here, we are focused on launching a SMART app. The CDS Hooks guide places no additional constraints for launching a SMART app beyond those from [SMART on FHIR](http://docs.smarthealthit.org/authorization/). 
+For some CDS Services the end step will just display the card. For the patient-view hook discussed here, we are focused on launching a SMART app. The CDS Hooks guide places no additional constraints for launching a SMART app beyond those from [SMART on FHIR](http://hl7.org/fhir/smart-app-launch/1.0.0/).
 
 ## Test with external CDS Service
 
