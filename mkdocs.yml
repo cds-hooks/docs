@@ -16,9 +16,9 @@ nav:
     - '1.0': 'specification/1.0.md'
 - Hooks:
     - 'new-hook-template' : 'hooks/template.md'
-    - 'patient-view' : 'hooks/patient-view.md'
-    - 'medication-prescribe' : 'hooks/medication-prescribe.md'
-    - 'order-review' : 'hooks/order-review.md'
+    - 'patient-view 4' : 'hooks/patient-view.md'
+    - 'medication-prescribe 2' : 'hooks/medication-prescribe.md'
+    - 'order-review 1' : 'hooks/order-review.md'
 - Quick Start: 'quickstart.md'
 - Examples: 'examples.md'
 - Community: 'community.md'
