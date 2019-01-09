@@ -20,6 +20,7 @@ nav:
     - 'medication-prescribe 2' : 'hooks/medication-prescribe.md'
     - 'order-review 3' : 'hooks/order-review.md'
 - Quick Start: 'quickstart.md'
+- Best Practices: 'best-practices.md'
 - Examples: 'examples.md'
 - Community: 'community.md'
 
