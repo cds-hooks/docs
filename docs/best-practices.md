@@ -42,7 +42,7 @@ Upon being invoked by a CDS Client, the CDS Service should first process the giv
 3. Ensure that the `exp` value is not before the current date/time.
 4. Ensure that the `tenant` value exists in the CDS Service's whitelist of trusted tenants (may not be applicable to all CDS Services).
 5. Ensure that the JWT signature matches the public key on record with the CDS Service. See additional notes below.
-6. Ensure that the `jti` value doesn't exist in the short-term storage of JWTs previously processed by this CDS Servie.
+6. Ensure that the `jti` value doesn't exist in the short-term storage of JWTs previously processed by this CDS Service.
 
 Once the JWT has been deemed to be valid, the `jti` value should be stored in the short-term storage of processed JWTs. Values in this storage only need to be kept for the maximum duration of all JWTs processed by this CDS Service. If the CDS Clients are adhering to best practices, this should be no more than an hour.
 
