@@ -50,7 +50,7 @@ Verifying the JWT signature is a critical step in establishing trust of the call
 
 CDS Services should never store, share, or log JWTs to minimize the risk of theft and replay attacks. Information within the JWT (for instance, `iss`, `tenant`, `jti`) can be logged safely and is especially useful for analytics.
 
-If a CDS Service deems a JWT to be invalid for any reason, it should not leak the details of why the JWT failed validation back to the caller. If the caller were a malicious threat actor, leaking detailed information as to what was invalid may give the threat actor guidance on how to shape future attacks. Instead, responding to the request with a HTTP 401 Unauthorized response status code without any additional information is sufficient.
+If a CDS Service deems a JWT to be invalid for any reason, it should not leak the details of why the JWT failed validation back to the caller. If the caller were a malicious threat actor, leaking detailed information as to what was invalid may give the threat actor guidance on how to shape future attacks. Instead, responding to the request with a HTTP 401 Unauthorized response status code without any additional information is recommended.
 
 #### FHIR Access
 
