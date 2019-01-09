@@ -4,7 +4,7 @@ This page serves as best practice guidance for CDS Hooks implementers. The best 
 
 ## Security
 
-Implementing the CDS Hooks security model requires perhaps the most thought and consideration for implementers. Security topics are never binary, are often complex, and robust implementations should factor in concepts such as risk and usability. Implementers should approach their security related development with thoughtful care.
+The CDS Hooks security model requires thought and consideration from implementers. Security topics are never binary, are often complex, and robust implementations should factor in concepts such as risk and usability. Implementers should approach their security related development with thoughtful care.
 
 The CDS Hooks specifications already provides some guidance in this space. The information here is supplemental to the existing specification documentation.
 
