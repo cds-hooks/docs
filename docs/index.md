@@ -40,4 +40,8 @@ materials (*app link card*). A user sees these cards — one or more of each typ
 
 ## Try it!
 
-You can try CDS Hooks in our Sandbox at **[http://sandbox.cds-hooks.org](http://sandbox.cds-hooks.org)**
+You can try CDS Hooks in our Sandbox at [http://sandbox.cds-hooks.org](http://sandbox.cds-hooks.org)
+
+An [OpenAPI Specification](https://www.openapis.org/) (formally known as the Swagger Specification) interface of CDS Hooks is available. Using the CDS Hooks OpenAPI specification, you can generate client or server code to help you get started with your implementation. You can download the [API specification](https://github.com/cds-hooks/api) and view it online via the [Swagger Editor](http://editor.swagger.io/?url=https://raw.githubusercontent.com/cds-hooks/api/master/cds-hooks.yaml).
+
+CDS Hooks implementers are not required to use the OpenAPI Specification interface of CDS Hooks.
