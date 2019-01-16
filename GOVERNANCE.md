@@ -42,7 +42,6 @@ The current committers on the project are:
 
 - [Kevin Shekleton](https://github.com/kpshek) (PMC Chair)
 - [Josh Mandel](https://github.com/jmandel)
-- [Matt Berther](https://github.com/mattberther)
 - [Isaac Vetter](https://github.com/isaacvetter)
 - [Bryn Rhodes](https://github.com/brynrhodes)
 
@@ -57,7 +56,6 @@ The current PMC members are:
 
 - [Kevin Shekleton](https://github.com/kpshek) (PMC Chair)
 - [Josh Mandel](https://github.com/jmandel)
-- [Matt Berther](https://github.com/mattberther)
 - [Isaac Vetter](https://github.com/isaacvetter)
 - [Bryn Rhodes](https://github.com/brynrhodes)
 
