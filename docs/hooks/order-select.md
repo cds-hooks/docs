@@ -17,7 +17,7 @@ The `order-select` hook occurs after the clinician selects the order, but before
 
 ## Context
 
-The context of this hook distinguishes between the list of unsigned orders from the clinician's ordering session, and one or orders just added to this list. The `selections` field contains a list of ids of these newly selected orders; the `orders` Bundle contains an entry for all unsigned orders from this session, including newly selected orders.
+The context of this hook distinguishes between the list of unsigned orders from the clinician's ordering session, and one or orders just added to this list. The `selections` field contains a list of ids of these newly selected orders; the `draftOrders` Bundle contains an entry for all unsigned orders from this session, including newly selected orders.
 
 Field | Optionality | Prefetch Token | Type | Description
 ----- | -------- | ---- | ---- | ----
@@ -25,7 +25,7 @@ Field | Optionality | Prefetch Token | Type | Description
 `patientId` | REQUIRED | Yes | *string* |  The FHIR `Patient.id` of the current patient in context
 `encounterId` | OPTIONAL | Yes | *string* |  The FHIR `Encounter.id` of the current encounter in context
 `selections` | REQUIRED | No| *array* | The FHIR id of the newly selected order(s).<br />The `selections` field references FHIR resources in the `orders` Bundle. For example, `MedicationRequest/103`.
-`orders` | REQUIRED | No | *object* | DSTU2 - FHIR Bundle of MedicationOrder, DiagnosticOrder, DeviceUseRequest, ReferralRequest, ProcedureRequest, NutritionOrder, VisionPrescription with _draft_ status <br/> STU3 - FHIR Bundle of MedicationRequest, ReferralRequest, ProcedureRequest, NutritionOrder, VisionPrescription with _draft_ status
+`draftOrders` | REQUIRED | No | *object* | DSTU2 - FHIR Bundle of MedicationOrder, DiagnosticOrder, DeviceUseRequest, ReferralRequest, ProcedureRequest, NutritionOrder, VisionPrescription with _draft_ status <br/> STU3 - FHIR Bundle of MedicationRequest, ReferralRequest, ProcedureRequest, NutritionOrder, VisionPrescription with _draft_ status
 
 
 
@@ -40,7 +40,7 @@ Field | Optionality | Prefetch Token | Type | Description
       "patientId":"1288992",
       "encounterId":"89284",
       "selections": [ "NutritionOrder/pureeddiet-simple", "MedicationRequest/smart-MedicationRequest-103" ],
-      "orders":{
+      "draftOrders":{
          "resourceType":"Bundle",
          "entry":[
             {
@@ -220,7 +220,7 @@ Field | Optionality | Prefetch Token | Type | Description
   "patientId":"1288992",
   "encounterId":"89284",
   "selections":[ "NutritionOrder/nest-patient-1-NUTR1", "MedicationOrder/smart-MedicationOrder-103" ],
-  "orders":{
+  "draftOrders":{
     "resourceType":"Bundle",
     "entry":[
       {
