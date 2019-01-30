@@ -7,13 +7,13 @@
 
 ## Workflow
 
-The `order-sign` hook fires when a clinician signs one or more orders for a patient. 
+The `order-sign` hook fires when a clinician signs one or more orders for a patient, (including orders for medications, procedures, labs and other orders). 
 This hook is among the last workflow events before an order is promoted out of a draft status. 
-The context contains all order details, such as dose, quanity, route, etc, 
+The context contains all order details, such as dose, quantity, route, etc, 
 although the order has not yet been signed and therefore still exists in a draft status. 
 Use this hook when your service requires all order details, and the clinician will accept recommended changes.
 
-This hook is intended to deprecate the `order-review` hook. 
+This hook is intended to replace (deprecate) the `order-review` hook. 
 
 ## Context
 
@@ -22,7 +22,7 @@ Field | Optionality | Prefetch Token | Type | Description
 `userId` | REQUIRED | Yes | *string* | The id of the current user.<br />For this hook, the user is expected to be of type [Practitioner](https://www.hl7.org/fhir/practitioner.html).<br />For example, `Practitioner/123`
 `patientId` | REQUIRED | Yes | *string* |  The FHIR `Patient.id` of the current patient in context
 `encounterId` | OPTIONAL | Yes | *string* |  The FHIR `Encounter.id` of the current encounter in context
-`orders` | REQUIRED | No | *object* | DSTU2 - FHIR Bundle of MedicationOrder, DiagnosticOrder, DeviceUseRequest, ReferralRequest, ProcedureRequest, NutritionOrder, VisionPrescription with _draft_ status <br/> STU3 - FHIR Bundle of MedicationRequest, ReferralRequest, ProcedureRequest, NutritionOrder, VisionPrescription with _draft_ status
+`draftOrders` | REQUIRED | No | *object* | DSTU2 - FHIR Bundle of MedicationOrder, DiagnosticOrder, DeviceUseRequest, ReferralRequest, ProcedureRequest, NutritionOrder, VisionPrescription with _draft_ status <br/> STU3 - FHIR Bundle of MedicationRequest, ReferralRequest, ProcedureRequest, NutritionOrder, VisionPrescription with _draft_ status
 
 
 
@@ -36,7 +36,7 @@ Field | Optionality | Prefetch Token | Type | Description
       "userId":"Practitioner/123",
       "patientId":"1288992",
       "encounterId":"89284",
-      "orders":{
+      "draftOrders":{
          "resourceType":"Bundle",
          "entry":[
             {
@@ -215,7 +215,7 @@ Field | Optionality | Prefetch Token | Type | Description
   "userId":"Practitioner/123",
   "patientId":"1288992",
   "encounterId":"89284",
-  "orders":{
+  "draftOrders":{
     "resourceType":"Bundle",
     "entry":[
       {
