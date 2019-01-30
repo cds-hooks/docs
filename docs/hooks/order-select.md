@@ -7,7 +7,7 @@
 
 ## Workflow
 
-The `order-select` hook fires when a clinician selects one or more orders to place for a patient. 
+The `order-select` hook fires when a clinician selects one or more orders to place for a patient, (including orders for medications, procedures, labs and other orders). 
 This hook is among the first workflow events for an order entering a draft status. 
 The context of this hook may include defaulted order details 
 as it occurs immediately upon the clinician selecting the order from the order catalogue of the CPOE, 
