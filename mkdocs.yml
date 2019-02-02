@@ -21,6 +21,7 @@ nav:
     - 'order-review' : 'hooks/order-review.md'
     - 'order-select' : 'hooks/order-select.md'
 - Quick Start: 'quickstart.md'
+- Best Practices: 'best-practices.md'
 - Examples: 'examples.md'
 - Community: 'community.md'
 
