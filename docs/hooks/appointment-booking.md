@@ -12,7 +12,7 @@ This hook is invoked when the user is scheduling one or more future encounters/v
 
 ## Context
 
-The Patient whose appointment is/appointments are bing booked as well as the draft Appointment records.
+The Patient whose appointment(s) are being booked, as well as the proposed Appointment records.
 
 Field | Optionality | Prefetch Token | Type | Description
 ----- | -------- | ---- | ---- | ----
