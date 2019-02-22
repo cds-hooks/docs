@@ -3,11 +3,11 @@
 | Metadata | Value
 | ---- | ----
 | specificationVersion | 1.0
-| hookVersion | 0.1.0
+| hookVersion | 1.0
 
 ## Workflow
 
-The `order-sign` hook fires when a clinician signs one or more orders for a patient, (including orders for medications, procedures, labs and other orders). 
+The `order-sign` hook fires when a clinician is ready to sign one or more orders for a patient, (including orders for medications, procedures, labs and other orders).
 This hook is among the last workflow events before an order is promoted out of a draft status. 
 The context contains all order details, such as dose, quantity, route, etc, 
 although the order has not yet been signed and therefore still exists in a draft status. 
@@ -358,4 +358,4 @@ Field | Optionality | Prefetch Token | Type | Description
 
 Version | Description
 ---- | ----
-0.1.0 | Initial Release
+1.0 | Initial Release
