@@ -3,17 +3,16 @@
 | Metadata | Value
 | ---- | ----
 | specificationVersion | 1.0
-| hookVersion | 0.1.0
+| hookVersion | 1.0
 
 ## Workflow
 
-The `order-select` hook fires when a clinician selects one or more orders to place for a patient, (including orders for medications, procedures, labs and other orders). 
+The `order-select` hook fires when a clinician selects one or more orders to place for a patient, (including orders for medications, procedures, labs and other orders). If supported by the CDS Client, this hook may also be invoked each time the clinician selects a detail regarding the order.
 This hook is among the first workflow events for an order entering a draft status. 
 The context of this hook may include defaulted order details 
-as it occurs immediately upon the clinician selecting the order from the order catalogue of the CPOE, 
-but before she manually specifies order details (e.g. dose, quantity, route, etc). 
+as it first occurs immediately upon the clinician selecting the order from the order catalogue of the CPOE, or upon her manual selection of order details (e.g. dose, quantity, route, etc). CDS services should expect some of the order information to not yet be specified. 
 Additionally, the context may include previously selected orders that are not yet signed from the same ordering session. 
-The `order-select` hook occurs after the clinician selects the order, but before she fills out (configures) the order. 
+The `order-select` hook occurs after the clinician selects the order and before signing. 
 
 ## Context
 
@@ -363,4 +362,4 @@ Field | Optionality | Prefetch Token | Type | Description
 
 Version | Description
 ---- | ----
-0.1.0 | Initial Release
+1.0 | Initial Release
