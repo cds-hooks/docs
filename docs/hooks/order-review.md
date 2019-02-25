@@ -6,6 +6,10 @@
 | hookVersion | 1.0
 | Hook maturity | [3 - Considered](../../specification/1.0/#hook-maturity-model)
 
+## Deprecation Notice
+
+This hooks is being deprecated in favor of the `order-sign` hook. The workflow during which this hook fires is unclear and has led to varying implementations and confusion. Therefore, after discussions on Zulip, and the HL7 CDS Committee, the `medication-prescribe` and `order-review` hooks are being deprecated in favor of newly created [`order-select`](../order-select) and [`order-sign`](../order-sign) hooks. This notice is a placeholder to this effect while CDS Hooks determines the [appropriate process for deprecating hooks](https://github.com/cds-hooks/docs/issues/433).
+
 ## Workflow
 
 The user is in the process of reviewing a set of orders to sign.
