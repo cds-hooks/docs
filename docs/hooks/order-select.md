@@ -4,6 +4,7 @@
 | ---- | ----
 | specificationVersion | 1.0
 | hookVersion | 1.0
+| Hook maturity | [1 - Submitted](../../specification/1.0/#hook-maturity-model)
 
 ## Workflow
 
@@ -13,6 +14,8 @@ The context of this hook may include defaulted order details
 as it first occurs immediately upon the clinician selecting the order from the order catalogue of the CPOE, or upon her manual selection of order details (e.g. dose, quantity, route, etc). CDS services should expect some of the order information to not yet be specified. 
 Additionally, the context may include previously selected orders that are not yet signed from the same ordering session. 
 The `order-select` hook occurs after the clinician selects the order and before signing. 
+
+This hook is intended to replace (deprecate) the `medication-prescribe` hook. 
 
 ## Context
 
