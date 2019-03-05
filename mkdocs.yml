@@ -19,6 +19,8 @@ nav:
     - 'patient-view 4' : 'hooks/patient-view.md'
     - 'medication-prescribe 2' : 'hooks/medication-prescribe.md'
     - 'order-review 3' : 'hooks/order-review.md'
+    - 'order-select 1' : 'hooks/order-select.md'
+    - 'order-sign 1' : 'hooks/order-sign.md'
     - 'encounter-start 0' : 'hooks/encounter-start.md'
 - Quick Start: 'quickstart.md'
 - Best Practices: 'best-practices.md'
