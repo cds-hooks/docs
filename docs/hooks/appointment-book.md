@@ -1,4 +1,4 @@
-# `appointment-booking`
+# `appointment-book`
 
 | Metadata | Value
 | ---- | ----
