@@ -4,7 +4,7 @@
 | ---- | ----
 | specificationVersion | 1.0
 | hookVersion | 1.0
-| Hook maturity | 1 - Submitted
+| Hook maturity | [1 - Submitted](../../specification/1.0/#hook-maturity-model)
 
 ## Workflow
 
@@ -14,7 +14,7 @@ The context contains all order details, such as dose, quantity, route, etc,
 although the order has not yet been signed and therefore still exists in a draft status. 
 Use this hook when your service requires all order details, and the clinician will accept recommended changes.
 
-This hook is intended to replace (deprecate) the `order-review` hook. 
+This hook is intended to replace (deprecate) the `medication-prescribe` and `order-review` hooks. 
 
 ## Context
 
