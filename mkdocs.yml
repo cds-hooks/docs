@@ -22,6 +22,7 @@ nav:
     - 'order-select 1' : 'hooks/order-select.md'
     - 'order-sign 1' : 'hooks/order-sign.md'
     - 'appointment-book 0' : 'hooks/appointment-book.md'
+    - 'encounter-start 0' : 'hooks/encounter-start.md'
 - Quick Start: 'quickstart.md'
 - Best Practices: 'best-practices.md'
 - Examples: 'examples.md'
