@@ -21,6 +21,8 @@ nav:
     - 'order-review 3' : 'hooks/order-review.md'
     - 'order-select 1' : 'hooks/order-select.md'
     - 'order-sign 1' : 'hooks/order-sign.md'
+    - 'appointment-book 0' : 'hooks/appointment-book.md'
+    - 'encounter-start 0' : 'hooks/encounter-start.md'
     - 'encounter-discharge 0' : 'hooks/encounter-discharge.md'
 - Quick Start: 'quickstart.md'
 - Best Practices: 'best-practices.md'
