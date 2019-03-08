@@ -19,7 +19,7 @@ This hook is intended to replace (deprecate) the `medication-prescribe` hook.
 
 ## Context
 
-The context of this hook distinguishes between the list of unsigned orders from the clinician's ordering session, and one or orders just added to this list. The `selections` field contains a list of ids of these newly selected orders; the `draftOrders` Bundle contains an entry for all unsigned orders from this session, including newly selected orders.
+The context of this hook distinguishes between the list of unsigned orders from the clinician's ordering session, and the one or two orders just added to this list. The `selections` field contains a list of ids of these newly selected orders; the `draftOrders` Bundle contains an entry for all unsigned orders from this session, including newly selected orders.
 
 Field | Optionality | Prefetch Token | Type | Description
 ----- | -------- | ---- | ---- | ----
