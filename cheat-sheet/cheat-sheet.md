@@ -64,12 +64,12 @@ Field | Optionality | Summary
    },
    "context": {
       "userId": "Practitioner/example",
-      "...": "&lsnipped for brevity&gt"
+      "...": "&ltsnipped for brevity&gt"
    },
    "prefetch": {
       "patientToGreet": {
          "resourceType": "Patient",
-         "...": "&lsnipped for brevity&gt"
+         "...": "&ltsnipped for brevity&gt"
       }
    }
 }
@@ -79,7 +79,7 @@ Field | Optionality | Summary
 
 Field | Optionality | Summary
 ------|-------------|------------
-`hooks` | REQUIRED | an array of **Card**s with a combination of information, suggested actions, and links
+`cards` | REQUIRED | an array of **Card**s with a combination of information, suggested actions, and links
 
 ## Card
 
