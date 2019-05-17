@@ -1,152 +1,168 @@
-# CDS Hooks 1.0 - [cds-hooks.org](https://cds-hooks.org)
-
 # Overview
 
 ![alt text](https://raw.githubusercontent.com/cds-hooks/docs/master/docs/images/overview.png "Overview Diagram")
 
-# Discovery
+# Links
+
+* Spec: https://cds-hooks.hl7.org/1.0/
+* Sandbox: http://sandbox.cds-hooks.org/
+* Quick Start: https://cds-hooks.org/quickstart/
+
+# CDS Service Discovery
 
 `GET {baseUrl}/cds-services`
 
-<pre>
-{
-  <b>"services"</b>: [
-    {
-      <b>"hook"</b>: "hook-noun-verb",
-      "title": "Human-friendly name",
-      <b>"description"</b>: "Service description",
-      <b>"id"</b>: "{id} portion of {baseUrl}/cds-services/{id}",
-      "prefetch": {
-        "typeOfData": "Resource/{{context.id}}"
-      }
-    }
-  ]
-}
-</pre>
+## Response Body
+
+services - An array of **CDS Service**s
+
+### CDS Service: ###
+
+Field | Optionality | Summary
+------|-------------|------------
+`hook` | REQUIRED | hook this service should be invoked on
+`title` | RECOMMENDED | human-friendly name of this service
+`description` | REQUIRED | description of this service
+`id` | REQUIRED | {id} portion of service URL: {baseUrl}/cds-services/{id} 
+`prefetch` | OPTIONAL | Object containing key/value pairs of FHIR queries that this service is requesting the CDS Client to include on service calls
 
 # CDS Service Request
 
 `POST {baseUrl}/cds-services/{id}`
 
+## Request Body ##
+
+Field | Optionality | Summary
+------|-------------|------------
+`hook` | REQUIRED | hook that triggered this CDS Service call
+`hookInstance` | REQUIRED | UUID for this hook call
+`fhirServer` | OPTIONAL | base URL for CDS Client’s FHIR server
+`fhirAuthorization` | OPTIONAL | structure with **FHIR Authorization** information for the above url
+`context` | REQUIRED | hook-specific contextual data
+`prefetch` | OPTIONAL | FHIR data prefetched by the CDS Client
+
+### FHIR Authorization ###
+
+Field | Optionality | Summary
+------|-------------|------------
+`access_token` | REQUIRED | OAuth 2.0 access token
+`token_type` | REQUIRED | fixed value: `Bearer`
+`expires_in` | REQUIRED | lifetime in seconds of the access token
+`scope` | REQUIRED | scopes the access token grants to the CDS Service
+`subject` | REQUIRED | OAuth 2.0 client id of the CDS Service’s auth server registration 
+
+## Example ## 
+
 <pre>
 {
-  <b>"hook"</b>: "hook-noun-verb",
-  <b>"hookInstance"</b>: "d1577c69-dfbe-44ad-ba6d-3e05e953b2ea",
-  "fhirServer": "https://fhir.client.com/version",
-  "fhirAuthorization": {
-    "access_token": "opaque-token",
-    "token_type": "Bearer",
-    "expires_in": 300,
-    "scope": "patient/Patient.read patient/Observation.read",
-    "subject": "cds-service4"
-  },
-  <b>"context"</b>: {
-    "userId": "Practitioner/example",
-    "patientId": "123",
-    "encounterId": "456"
-  },
-  "prefetch": {
-    "patientToGreet" : {
-      "resourceType" : "Patient",
-      "gender" : "male",
-      "birthDate" : "1925-12-23",
-      "id" : "1288992",
-      "active" : true
-    }
-  }
+   "hook": "hook-noun-verb",
+   "hookInstance": "d1577c69-dfbe-44ad-ba6d-3e05e953b2ea",
+   "fhirServer": "https://fhir.client.com/version",
+   "fhirAuthorization": {
+      "access_token": "opaque-token",
+      "...": "&ltsnipped for brevity&gt"
+   },
+   "context": {
+      "userId": "Practitioner/example",
+      "...": "&lsnipped for brevity&gt"
+   },
+   "prefetch": {
+      "patientToGreet": {
+         "resourceType": "Patient",
+         "...": "&lsnipped for brevity&gt"
+      }
+   }
 }
 </pre>
 
-# CDS Service Response
+# CDS Service Response Body
 
-`200 OK`
+Field | Optionality | Summary
+------|-------------|------------
+`hooks` | REQUIRED | an array of **Card**s with a combination of information, suggested actions, and links
+
+## Card
+
+Field | Optionality | Summary
+------|-------------|------------
+`summary` | REQUIRED | <140-character summary sentence for display to the user inside of this card
+`detail` | OPTIONAL | optional detailed information to display (GitHub Flavored Markdown)
+`indicator` | REQUIRED | urgency/importance of what this card conveys (`info/warning/critical`)
+`source` | REQUIRED | grouping structure for the **Source** of information displayed on this card
+`suggestions` | OPTIONAL |  array of **Suggestion**s for changes in the context of the current activity
+`selectionBehavior` | OPTIONAL | intended behavior of the suggestions.  If suggestions present, value must be `at-most-one`
+`links` | OPTIONAL | array of **Link**s to suggest an app or other additional information
+
+## Source
+
+Field | Optionality | Summary
+------|-------------|------------
+`label` | REQUIRED | short, human-readable label to display source of the card’s information
+`url` | OPTIONAL | optional absolute URL to load to learn more about the organization or data set
+`icon` | OPTIONAL | absolute url for an icon for the source of this card (100x100 pixel PNG without any transparent regions)
+
+## Suggestion
+
+Field | Optionality | Summary
+------|-------------|------------
+`label` | REQUIRED | human-readable label to display for this suggestion
+`uuid` | OPTIONAL | unique identifier for auditing and logging suggestions
+`actions` | OPTIONAL | array of suggested Actions (logically AND’d together)
+
+## Action
+
+Field | Optionality | Summary
+------|-------------|------------
+`type` | REQUIRED | type of action being performed (`create/update/delete`)
+`description` | REQUIRED | human-readable description of the suggested action
+`resource` | OPTIONAL | FHIR resource to create/update or id of resource to delete  
+
+## Link
+
+Field | Optionality | Summary
+------|-------------|------------
+`label` | REQUIRED | human-readable label to display
+`url` | REQUIRED | URL to GET when link is clicked
+`type` | REQUIRED | type of the given URL (`absolute/smart`) 
+`appContext` | OPTIONAL | additional context to share with a linked SMART app
+
+## Example
 
 <pre>
 {
-  <b>"cards"</b>: [
-    {
-      <b>"summary"</b>: "&lt;140 char Summary Message",
-      "detail": "(optional) GitHub Markdown details",
-      <b>"indicator"</b>: "info",
-      <b>"source"</b>: {
-        <b>"label"</b>: "Human-readable source label",
-        "url": "https://example.com",
-        "icon": "https://example.com/img/icon-100px.png"
-      },
-      "suggestions": [
-        {
-          <b>"label"</b>: "Human-readable suggestion label",
-          "uuid": "e1187895-ad57-4ff7-a1f1-ccf954b2fe46",
-          "actions": [
+   "cards": [
+      {
+         "summary": "&lt140 char Summary Message",
+         "detail": "optional GitHub Markdown details",
+         "indicator": "info",
+         "source": {
+            "label": "Human-readable source label",
+            "url": "https://example.com",
+            "icon": "https://example.com/img/icon-100px.png"
+         },
+         "suggestions": [
             {
-              <b>"type"</b>: "create",
-              <b>"description"</b>: "Create a prescription for Acetaminophen 250 MG",
-              "resource": {
-                "resourceType": "MedicationRequest",
-                "id": "medrx001",
-                "...": "&lt;snipped for brevity&gt;"
-              }
+               "label": "Human-readable suggestion label",
+               "uuid": "e1187895-ad57-4ff7-a1f1-ccf954b2fe46",
+               "actions": [
+                  {
+                     "type": "create",
+                     "description": "Create a prescription for Acetaminophen 250 MG",
+                     "resource": {
+                        "resourceType": "MedicationRequest",
+                        "...": "&ltsnipped for brevity&gt"
+                     }
+                  }
+               ],
+               "links": [
+                  {
+                     "label": "SMART Example App",
+                     "...": "&ltsnipped for brevity&gt"
+                  }
+               ]
             }
-          ]
-        }
-      ],
-      "links": [
-        {
-          <b>"label"</b>: "SMART Example App",
-          <b>"url"</b>: "https://smart.example.com/launch",
-          <b>"type"</b>: "smart",
-          "appContext": "{\"session\":3456356,\"settings\":{\"module\":4235}}"
-        }
-      ]
-    }
-  ]
+         ]
+      }
+   ]
 }
 </pre>
-
-# Sample Hook: patient-view
-
-<pre>
-"context": {
-  <b>"userId"</b> : "Practitioner/123",
-  <b>"patientId"</b> : "1288992",
-  "encounterId" : "456"
-}
-</pre>
-
-# CDS Client JWT Format
-
-`Header`
-
-<pre>
-{
-  <b>"alg"</b>: "ES384",
-  <b>"typ"</b>: "JWT",
-  <b>"kid"</b>: "example-kid",
-  "jku": "https://fhir-ehr.example.com/jwk_uri"
-}
-</pre>
-
-`Payload`
-<pre>
-{
-  <b>"iss"</b>: "https://fhir-ehr.example.com/",
-  <b>"aud"</b>: "https://cds.example.org/cds-services/some-service",
-  <b>"exp"</b>: 1422568860,
-  <b>"iat"</b>: 1311280970,
-  <b>"jti"</b>: "ee22b021-e1b7-4611-ba5b-8eec6a33ac1e",
-  "tenant": "2ddd6c3a-8e9a-44c6-a305-52111ad302a2"
-}
-</pre>
-
-# Verifying CDS Client JWTs
-
-* `iss` - ensure it's a whitelisted client
-* `aud` - ensure it matches your service endpoint
-* `exp` - ensure it’s not before the current date/time
-* `tenant` - ensure it's a whitelisted tenant, if applicable
-* JWT signature - ensure it matches the client's public key
-* `jti` - ensure it hasn't been previously used
-
----
-
-\* Required fields in **bold**
