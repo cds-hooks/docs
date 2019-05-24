@@ -26,6 +26,24 @@ Field | Optionality | Summary
 `id` | REQUIRED | {id} portion of service URL: {baseUrl}/cds-services/{id} 
 `prefetch` | OPTIONAL | Object containing key/value pairs of FHIR queries that this service is requesting the CDS Client to include on service calls
 
+## Example
+
+<pre>
+{
+  "services": [
+    {
+      "hook": "hook-noun-verb",
+      "title": "CDS Service Example",
+      "description": "An example of a CDS Service that returns a card",
+      "id": "patient-greeter",
+      "prefetch": {
+        "patientToGreet": "Patient/{{context.patientId}}"
+      }
+    }
+  ]
+}
+</pre>
+
 # CDS Service Request
 
 `POST {baseUrl}/cds-services/{id}`
