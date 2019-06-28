@@ -13,7 +13,7 @@ There are several ways in which you can get involved with the CDS Hooks communit
 
 ### Objectives
 
- * Promote creation of clinical-grade service integrations (EHRs + CDS Services)
+ * Promote creation of clinical-grade service integrations (CDS Clients + CDS Services)
  * Gain implementation experience with real-world systems
  * Refine the spec, balancing ease of use, flexibility, and stability
  * Drive toward pilot deployments with the ability to measure results

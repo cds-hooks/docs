@@ -40,33 +40,36 @@ The committers are individuals who are recognized by merit and have a demonstrat
 
 The current committers on the project are:
 
-- [Kevin Shekleton](https://github.com/kpshek) (PMC Chair)
-- [Josh Mandel](https://github.com/jmandel)
-- [Matt Berther](https://github.com/mattberther)
-- [Isaac Vetter](https://github.com/isaacvetter)
+- [Brett Marquard](https://github.com/brettmarquard)
 - [Bryn Rhodes](https://github.com/brynrhodes)
+- [Dennis Patterson](https://github.com/dennispatterson)
+- [Isaac Vetter](https://github.com/isaacvetter)
+- [Josh Mandel](https://github.com/jmandel)
+- [Kevin Shekleton](https://github.com/kpshek)
 
 
 ### Project Management Committee
 
-Members of the PMC are committers who are also responsible for governing the CDS Hooks project. The PMC has primary responsibility for development of the CDS Hooks community. This includes evangelism, organizing Connectathons, and other forms of community building. The PMC also reports progress to the community and defines target feature sets for releases.
+Members of the PMC are committers who are also responsible for governing the CDS Hooks project. The PMC has primary responsibility for development of the CDS Hooks community. This includes evangelism, organizing Connectathons, and other forms of community building. The PMC also reports progress to the community and defines target feature sets for releases. Emeritus PMC members are recognized for their significant contributions to CDS Hooks and are not able to cast votes.Emeritus PMC members may be reinstated at any time upon a unanimous PMC vote. 
 
 The PMC also is responsible for the project governance and process (including this policy).
 
 The current PMC members are:
 
-- [Kevin Shekleton](https://github.com/kpshek) (PMC Chair)
-- [Josh Mandel](https://github.com/jmandel)
-- [Matt Berther](https://github.com/mattberther)
-- [Isaac Vetter](https://github.com/isaacvetter)
+- [Brett Marquard](https://github.com/brettmarquard)
 - [Bryn Rhodes](https://github.com/brynrhodes)
+- [Isaac Vetter](https://github.com/isaacvetter)
+- [Josh Mandel](https://github.com/jmandel)
+
+Emeritus PMC members are:
+- [Kevin Shekleton](https://github.com/kpshek)
 
 
 ### PMC Chair
 
 The PMC Chair is a PMC member and committer who takes on the primary responsibility of ensuring the health of the project and community. The PMC Chair Additionally, the PMC Chair maintains logistical resources such as the domain name, hosting resources, and mailing list.
 
-The current PMC Chair is [Kevin Shekleton](https://github.com/kpshek)
+The current PMC Chair is - [Isaac Vetter](https://github.com/isaacvetter)
 
 ### Contributors
 
@@ -84,7 +87,7 @@ The community refers to the collective set of individuals and parties contributi
 
 Any existing committer may nominate a contributor as a new committer on the project. The nominee should have a demonstrated history of contributions and commitment. Contributions can come in many forms such as code, issues, documentation, and community engagement. A nominee must receive a unanimous vote from the PMC. Upon being accepted, the PMC Chair will grant the nominee write access to the CDS Hooks repositories and announce the new committer to the mailing list.
 
-Any PMC member may nominate a current committer to the join the PMC. The nominee should have a demonstrated history leadership in support of the community, and must receive a unanimous vote from the PMC.
+Any current PMC member may nominate a current committer to the join the PMC. The nominee should have a demonstrated history leadership in support of the community, and must receive a unanimous vote from the PMC.
 
 ## Contributions
 
