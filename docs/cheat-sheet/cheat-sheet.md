@@ -171,13 +171,13 @@ Field | Optionality | Summary
                         "...": "&ltsnipped for brevity&gt"
                      }
                   }
-               ],
-               "links": [
-                  {
-                     "label": "SMART Example App",
-                     "...": "&ltsnipped for brevity&gt"
-                  }
                ]
+            }
+         ],
+         "links": [
+            {
+               "label": "SMART Example App",
+               "...": "&ltsnipped for brevity&gt"
             }
          ]
       }
