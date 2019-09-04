@@ -138,7 +138,7 @@ In some cases, additional information beyond what is included in the prefetch ma
 
 `GET [base]/AllergyIntolerance?patient=[id]`
 
-It is recommended FHIR servers implement, and CDS Services follow, locale specific implementation guides. In the US, the recommended implementation guides to follow are the [Argonaut Data Query Guide (DSTU2)](http://www.fhir.org/guides/argonaut/r2/) or [HL7 US Core (STU3)](http://hl7.org/fhir/us/core/index.html). Each profile page within these implementation guides includes queries FHIR servers are required to support. 
+It is recommended FHIR servers implement, and CDS Services follow, locale specific implementation guides. In the US, the recommended implementation guides to follow are the [Argonaut Data Query Guide (DSTU2)](http://www.fhir.org/guides/argonaut/r2/) and [HL7 US Core (STU3 and R4)](http://hl7.org/fhir/us/core/index.html). Each profile page within these implementation guides includes queries FHIR servers are required to support. 
 
 ### Expose non-secured FHIR server for testing
 A non-secured FHIR server is important to support testing with a CDS Service. When the CDS Client moves a hook to production the system is expected to follow the guidelines in the [security](specification/1.0/#security-and-safety) requirements.
