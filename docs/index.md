@@ -1,4 +1,4 @@
-| This is the development version of the CDS Hooks spec and will be incorrect or inconsistent at times.  <br>See the [published version at HL7.org](https://cds-hooks.hl7.org/).      |
+| This is the continuous integration, community release of the CDS Hooks specification. All stable releases are available at [https://cds-hooks.hl7.org](https://cds-hooks.hl7.org).      |
 | :------------- | 
 
 # Overview
