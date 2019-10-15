@@ -14,7 +14,7 @@ The user has just opened a patient's record.
 
 The patient whose record was opened, including their encounter, if applicable. 
 
-The FHIR ids referenced in `context` are expected to be available via the FHIR Server (if `fhirServer` is populated in the request) or via prefetch, if supported. However, the specification does not explicitly require this behavior and implementations should be aware that integrations may not fully support this expectation.
+The FHIR resources, referenced by ids in `context`, SHOULD be available to the CDS service. If supported by the CDS Client, the CDS service may request these resources through prefetch. Alternatively or additionally the CDS Client may provide a `fhirserver` in the request for RESTful access.  Support for both `prefetch` and `fhirServer` are optional. As such, CDS Service implementers need to be aware that CDS Clients may not support this behavior.
 
 Field | Optionality | Prefetch Token | Type | Description
 ----- | -------- | ---- | ---- | ----
