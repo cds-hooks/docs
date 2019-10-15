@@ -22,7 +22,7 @@ Field | Optionality | Prefetch Token | Type | Description
 `patientId` | REQUIRED | Yes | *string* | The FHIR `Patient.id` of the current patient in context
 `encounterId` | OPTIONAL | Yes | *string* | The FHIR `Encounter.id` of the current encounter in context
 
-For information on patient safety issues see [Security & Safety](../../specification/1.0/#security-and-safety).
+The `patient-view` hook allows a CDS Service to provide guidance based on information acquired using a prefetch template and the FHIR server. A variety of factors could cause this information to become outdated. Stale clinical data could result in a risk to patient safety. For information on patient safety issues see [Security & Safety](../../specification/1.0/#security-and-safety).
 
 ### Examples
 
