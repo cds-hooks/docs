@@ -1,3 +1,6 @@
+!!! info "Continuous Improvement Build"
+    This is the continuous integration, community release of the CDS Hooks specification. All stable releases are available at [https://cds-hooks.hl7.org](https://cds-hooks.hl7.org).      
+
 # Overview
 
 This specification describes a
