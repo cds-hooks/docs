@@ -13,7 +13,8 @@ extra:
 nav:
 - Overview: 'index.md'
 - Specification:
-    - '1.0': 'specification/1.0.md'
+    - Current: 'specification/current.md'
+    - '1.0 (External Link)': https://cds-hooks.hl7.org/1.0/
 - Hooks:
     - 'new-hook-template' : 'hooks/template.md'
     - 'patient-view 4' : 'hooks/patient-view.md'
