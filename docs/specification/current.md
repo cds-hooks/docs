@@ -1,6 +1,6 @@
 ![CDS Hooks Overview](../images/logo.png)
 
-!!! info "Current Build"
+!!! info "Current (draft)"
     This is the continuous integration, community release of the CDS Hooks specification. All stable releases are available at [https://cds-hooks.hl7.org](https://cds-hooks.hl7.org).
 
 ## Overview
