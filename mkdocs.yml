@@ -18,7 +18,7 @@ nav:
 - Hooks:
     - 'new-hook-template' : 'hooks/template.md'
     - 'patient-view 4' : 'hooks/patient-view.md'
-    - 'medication-prescribe 2' : 'hooks/medication-prescribe.md'
+    - 'medication-prescribe 🚫' : 'hooks/medication-prescribe.md'
     - 'order-review 🚫' : 'hooks/order-review.md'
     - 'order-select 1' : 'hooks/order-select.md'
     - 'order-sign 1' : 'hooks/order-sign.md'
