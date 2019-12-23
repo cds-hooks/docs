@@ -117,7 +117,7 @@ Often a CDS Service will require additional information from the CDS Client to p
    "hookInstance" : "23f1a303-991f-4118-86c5-11d99a39222e",
    "fhirServer" : "https://fhir.example.org",
    "hook" : "patient-view",
-   "user" : "Practitioner/example",
+   "user" : "PractitionerRole/example",
    "context" : {
      "patientId" : "1288992",
     },
