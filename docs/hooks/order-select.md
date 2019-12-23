@@ -24,7 +24,7 @@ The context of this hook distinguishes between the list of unsigned orders from 
 
 Field | Optionality | Prefetch Token | Type | Description
 ----- | -------- | ---- | ---- | ----
-`userId` | REQUIRED | Yes | *string* | The id of the current user.<br />For this hook, the user is expected to be of type [Practitioner](https://www.hl7.org/fhir/practitioner.html).<br />For example, `Practitioner/123`
+`userId` | REQUIRED | Yes | *string* | The id of the current user.<br />For this hook, the user is expected to be of type [Practitioner](https://www.hl7.org/fhir/practitioner.html) or [PractitionerRole](https://www.hl7.org/fhir/practitionerrole.html).<br />For example, `PractitionerRole/123`
 `patientId` | REQUIRED | Yes | *string* |  The FHIR `Patient.id` of the current patient in context
 `encounterId` | OPTIONAL | Yes | *string* |  The FHIR `Encounter.id` of the current encounter in context
 `selections` | REQUIRED | No| *array* | The FHIR id of the newly selected order(s).<br />The `selections` field references FHIR resources in the `draftOrders` Bundle. For example, `MedicationRequest/103`.
@@ -39,7 +39,7 @@ Field | Optionality | Prefetch Token | Type | Description
 ```json
 {
    "context":{
-      "userId":"Practitioner/123",
+      "userId":"PractitionerRole/123",
       "patientId":"1288992",
       "encounterId":"89284",
       "selections": [ "NutritionOrder/pureeddiet-simple", "MedicationRequest/smart-MedicationRequest-103" ],
@@ -222,7 +222,7 @@ Field | Optionality | Prefetch Token | Type | Description
 ```json
 {
    "context":{
-      "userId":"Practitioner/123",
+      "userId":"PractitionerRole/123",
       "patientId":"1288992",
       "encounterId":"89284",
       "selections": [ "NutritionOrder/pureeddiet-simple", "MedicationRequest/smart-MedicationRequest-103" ],
