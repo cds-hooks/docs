@@ -155,7 +155,7 @@ curl
      "subject" : "cds-service4"
    },
    "context" : {
-       "userId" : "Practitioner/example",
+       "userId" : "PractitionerRole/example",
        "patientId" : "1288992",
        "encounterId" : "89284"
    },
@@ -238,7 +238,7 @@ Individual hooks specify which of their `context` fields can be used as prefetch
 
 To reduce the implementation burden on CDS Clients that support CDS Services, this specification RECOMMENDS that prefetch queries only use a subset of the full functionality available in the FHIR specification. Valid prefetch templates SHOULD only make use of:
 
-* _instance_ level [read](https://www.hl7.org/fhir/http.html#read) interactions (for resources with known ids such as `Patient` and `Practitioner`)
+* _instance_ level [read](https://www.hl7.org/fhir/http.html#read) interactions (for resources with known ids such as `Patient` and `PractitionerRole`)
 * _type_ level [search](https://www.hl7.org/fhir/http.html#search) interactions
 * Patient references (e.g. `patient={{context.patientId}}`)
 * _token_ search parameters using equality (e.g. `code=4548-4`) and optionally the `:in` modifier (no other modifiers for token parameters)
@@ -328,7 +328,7 @@ goal is to know, at call time:
 | --- | ----------- |
 | `patient` | Patient demographics. |
 | `hemoglobin-a1c` | Most recent Hemoglobin A1c reading for this patient. |
-| `user` | Information on the current user (Practitioner).
+| `userId` | Information on the current user (PractitionerRole).
 
 #### Example prefetch data
 
@@ -365,7 +365,7 @@ goal is to know, at call time:
 The CDS Hooks request is augmented to include two prefetch values, where the dictionary
 keys match the request keys (`patient` and `hemoglobin-a1c` in this case).
 
-Note that the missing `user` key indicates that either the CDS Client has decided not to satisfy this particular prefetch template or it was not able to retrieve this prefetched data. The CDS Service is responsible for retrieving this Practitioner data from the FHIR server (if required).
+Note that the missing `userId` key indicates that either the CDS Client has decided not to satisfy this particular prefetch template or it was not able to retrieve this prefetched data. The CDS Service is responsible for retrieving this PractitionerRole data from the FHIR server (if required).
 
 ### FHIR Resource Access
 
@@ -737,7 +737,7 @@ For example, an extension on a request could look like this:
    "fhirServer" : "http://fhir.example.org:9080",
    "hook" : "patient-view",
    "context" : {
-       "userId" : "Practitioner/example"
+       "userId" : "PractitionerRole/example"
    },
    "extension" : {
       "com.example.timestamp": "2017-11-27T22:13:25Z",
@@ -786,7 +786,7 @@ For example, consider a simple `patient-view` hook that is invoked whenever the 
 
 ```json
 "context":{
-  "userId" : "Practitioner/123",
+  "userId" : "PractitionerRole/123",
   "patientId" : "1288992"
 }
 ```
