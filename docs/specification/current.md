@@ -328,7 +328,7 @@ goal is to know, at call time:
 | --- | ----------- |
 | `patient` | Patient demographics. |
 | `hemoglobin-a1c` | Most recent Hemoglobin A1c reading for this patient. |
-| `userId` | Information on the current user (PractitionerRole).
+| `user` | Information on the current user (PractitionerRole).
 
 #### Example prefetch data
 
