@@ -11,8 +11,8 @@
   "hookInstance": "d1577c69-dfbe-44ad-ba6d-3e05e953b2ea",
   "fhirServer": "http://fhir.example.com",
   "hook": "medication-prescribe",
-  "user": "PractitionerRole/example",
   "context": {
+    "userId": "PractitionerRole/example",
     "medications": [
       {
         "resourceType": "MedicationOrder",
@@ -141,8 +141,8 @@ This example is taken from the [Opioid Prescribing Support Implementation Guide]
   "hookInstance": "d1577c69-dfbe-44ad-ba6d-3e05e953b2ea",
   "fhirServer": "http://fhir.example.com",
   "hook": "order-review",
-  "user": "PractitionerRole/example",
   "context": {
+    "userId": "PractitionerRole/example",
     "orders": [
       {
         "resourceType": "ProcedureRequest",
