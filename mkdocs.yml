@@ -13,11 +13,12 @@ extra:
 nav:
 - Overview: 'index.md'
 - Specification:
-    - '1.0': 'specification/1.0.md'
+    - Current (draft): 'specification/current.md'
+    - '1.0 (external link)': https://cds-hooks.hl7.org/1.0/
 - Hooks:
     - 'new-hook-template' : 'hooks/template.md'
     - 'patient-view 4' : 'hooks/patient-view.md'
-    - 'medication-prescribe 2' : 'hooks/medication-prescribe.md'
+    - 'medication-prescribe 🚫' : 'hooks/medication-prescribe.md'
     - 'order-review 🚫' : 'hooks/order-review.md'
     - 'order-select 1' : 'hooks/order-select.md'
     - 'order-sign 1' : 'hooks/order-sign.md'
