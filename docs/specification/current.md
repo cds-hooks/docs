@@ -1,6 +1,6 @@
 ![CDS Hooks Overview](../images/logo.png)
 
-!!! info "1.0 Release"
+!!! info "Current (draft)"
     This is the continuous integration, community release of the CDS Hooks specification. All stable releases are available at [https://cds-hooks.hl7.org](https://cds-hooks.hl7.org).
 
 ## Overview
@@ -21,7 +21,7 @@ decision support from within a clinician's workflow. The API supports:
 
  * Synchronous, workflow-triggered CDS calls returning information and suggestions
  * Launching a user-facing SMART app when CDS requires additional interaction
- 
+
 The basic components of CDS Hooks are:
 
 * **CDS Service** A decision support service that accepts requests containing patient information, and provides responses
@@ -228,7 +228,7 @@ It is the CDS Service's responsibility to check prefetched data against its temp
 
 #### Prefetch tokens
 
-A prefetch token is a placeholder in a prefetch template that is replaced by a value from the hook's context to construct the FHIR URL used to request the prefetch data. 
+A prefetch token is a placeholder in a prefetch template that is replaced by a value from the hook's context to construct the FHIR URL used to request the prefetch data.
 
 Prefetch tokens MUST be delimited by `{{` and `}}`, and MUST contain only the qualified path to a hook context field.
 
@@ -452,7 +452,7 @@ Field | Optionality | Type | Description
 `indicator` | REQUIRED | *string* | Urgency/importance of what this card conveys. Allowed values, in order of increasing urgency, are: `info`, `warning`, `critical`. The CDS Client MAY use this field to help make UI display decisions such as sort order or coloring.
 `source` | REQUIRED | *object* | Grouping structure for the **Source** of the information displayed on this card. The source should be the primary source of guidance for the decision support the card represents.
 <nobr>`suggestions`</nobr> | OPTIONAL | *array* of **Suggestions** | Allows a service to suggest a set of changes in the context of the current activity (e.g.  changing the dose of the medication currently being prescribed, for the `medication-prescribe` activity). If suggestions are present, `selectionBehavior` MUST also be provided.
-`selectionBehavior` | OPTIONAL | *string* | Describes the intended selection behavior of the suggestions in the card. Currently, the only allowed value is `at-most-one`, indicating that the user may choose none or at most one of the suggestions. Future versions of the specification may expand this behavior, so CDS Clients that do not understand the value MUST treat the card as an error. CDS Clients MUST support the value of `at-most-one`.
+`selectionBehavior` | OPTIONAL | *string* | Describes the intended selection behavior of the suggestions in the card. Allowed values are: `at-most-one`, indicating that the user may choose none or at most one of the suggestions;`any`, indicating that the end user may choose any number of suggestions including none of them and all of them. CDS Clients that do not understand the value MUST treat the card as an error.
 `links` | OPTIONAL | *array* of **Links** | Allows a service to suggest a link to an app that the user might want to run for additional information or to help guide a decision.
 
 #### Source
@@ -773,7 +773,7 @@ As another example, an extension defined on the discovery response could look li
 
 ### Overview
 
-As a specification, CDS Hooks does not prescribe a default or required set of hooks for implementers. Rather, the set of hooks defined here are merely a set of common use cases that were used to aid in the creation of CDS Hooks. The set of hooks defined here are not a closed set; anyone is able to define new hooks to fit their use cases and propose those hooks to the community. New hooks are proposed in a prescribed [format](#hook-definition-format) using the [documentation template](../hooks/template) by submitting a [pull request](https://github.com/cds-hooks/docs/tree/master/docs/hooks). Hooks are [versioned](#changes-to-the-definition-of-a-hook-hook-versioning), and mature according to the [Hook Maturity Model](#hook-maturity-model). 
+As a specification, CDS Hooks does not prescribe a default or required set of hooks for implementers. Rather, the set of hooks defined here are merely a set of common use cases that were used to aid in the creation of CDS Hooks. The set of hooks defined here are not a closed set; anyone is able to define new hooks to fit their use cases and propose those hooks to the community. New hooks are proposed in a prescribed [format](#hook-definition-format) using the [documentation template](../hooks/template) by submitting a [pull request](https://github.com/cds-hooks/docs/tree/master/docs/hooks). Hooks are [versioned](#changes-to-the-definition-of-a-hook-hook-versioning), and mature according to the [Hook Maturity Model](#hook-maturity-model).
 
 Note that each hook (e.g. `medication-prescribe`) represents something the user is doing in the CDS Client and multiple CDS Services might respond to the same hook (e.g. a "price check" service and a "prior authorization" service might both respond to `medication-prescribe`).
 
@@ -848,9 +848,9 @@ Field | Optionality | Prefetch Token | Type | Description
 
 For context fields that may contain multiple FHIR resources, the field SHOULD be defined as a FHIR Bundle, rather than as an array of FHIR resources. For example, multiple FHIR resources are necessary to describe all of the orders under review in the `order-review` hook's `orders` field. Hook definitions SHOULD prefer the use of FHIR Bundles over other bespoke data structures.
 
-Often, context is populated with in-progress or in-memory data that may not yet be available from the FHIR server. For example, imagine a hook, `medication-order` that is invoked when a user selects a medication durating an order workflow. The context data for this hook would contain draft FHIR resources representing the medications that have been selected for ordering. In this case, the CDS Client should only provide these draft resources and not the full set of orders available from its FHIR server. The CDS service MAY pre-fetch or query for FHIR resources with other statuses. 
+Often, context is populated with in-progress or in-memory data that may not yet be available from the FHIR server. For example, imagine a hook, `medication-order` that is invoked when a user selects a medication durating an order workflow. The context data for this hook would contain draft FHIR resources representing the medications that have been selected for ordering. In this case, the CDS Client should only provide these draft resources and not the full set of orders available from its FHIR server. The CDS service MAY pre-fetch or query for FHIR resources with other statuses.
 
-All FHIR resources in context MUST be based on the same FHIR version. 
+All FHIR resources in context MUST be based on the same FHIR version.
 
 #### Examples
 
@@ -871,15 +871,15 @@ Hook creators SHOULD include examples of the context.
 If the context contains FHIR data, hook creators SHOULD include examples across multiple versions of FHIR if differences across FHIR versions are possible.
 
 ### Hook Maturity Model
-The intent of the CDS Hooks Maturity Model is to attain broad community engagement and consensus, before a hook is labeled as mature, that the hook is necessary, implementable, and worthwhile to the CDS services and CDS clients that would reasonably be expected to use it. Implementer feedback should drive the maturity of new hooks. Diverse participation in open developer forums and events, such as HL7 FHIR Connectathons, is necessary to achieve significant implementer feedback. The below criteria will be evaluated with these goals in mind. 
+The intent of the CDS Hooks Maturity Model is to attain broad community engagement and consensus, before a hook is labeled as mature, that the hook is necessary, implementable, and worthwhile to the CDS services and CDS clients that would reasonably be expected to use it. Implementer feedback should drive the maturity of new hooks. Diverse participation in open developer forums and events, such as HL7 FHIR Connectathons, is necessary to achieve significant implementer feedback. The below criteria will be evaluated with these goals in mind.
 
     Hook maturity | 3 - Considered
 
-The Hook maturity levels use the term CDS client to generically refer to the clinical workflow system in which a CDS services returned cards are displayed. 
+The Hook maturity levels use the term CDS client to generically refer to the clinical workflow system in which a CDS services returned cards are displayed.
 
 Maturity Level | Maturity title | Requirements
 --- | --- | ---
-0 | Draft | Hook is defined according to the [hook definition format](#hook-definition-format). 
+0 | Draft | Hook is defined according to the [hook definition format](#hook-definition-format).
 1 | Submitted  | _The above, and …_ Hook definition is written up as a [github pull request](https://github.com/cds-hooks/docs/tree/master/docs/hooks) using the [Hook template](hooks/template/) and community feedback is solicited on the [zulip CDS Hooks stream](https://chat.fhir.org/#narrow/stream/17-cds-hooks).
 2 | Tested | _The above, and …_ The hook has been tested and successfully supports interoperability among at least one CDS client and two independent CDS services using semi-realistic data and scenarios (e.g. at a FHIR Connectathon). The github pull request defining the hook is approved and published by the CDS Hooks Project Management Committee.
 3 | Considered |  _The above, and …_ At least 3 distinct organizations recorded ten distinct implementer comments (including a github issue, tracker item, or comment on the hook definition page), including at least two CDS clients and three independent CDS services. The hook has been tested at two connectathons.
@@ -931,7 +931,7 @@ When a major change is made, the hook definition MUST be published under a new n
 > Note that the intent of this table is to outline possible breaking changes. The authors have attempted to enumerate these types of changes exhaustively, but as new types of breaking changes are identified, this list will be updated.
 
 #### Hook Maturity
-As each hook progresses through a process of being defined, tested, implemented, used in production environments, and balloted, the hook's formal maturity level increases. Each hook has its own maturity level, which MUST be defined in the hook's definition and correspond to the [Hook Maturity Model](#hook-maturity-model). 
+As each hook progresses through a process of being defined, tested, implemented, used in production environments, and balloted, the hook's formal maturity level increases. Each hook has its own maturity level, which MUST be defined in the hook's definition and correspond to the [Hook Maturity Model](#hook-maturity-model).
 
     hookMaturity | 0 - Draft
 
