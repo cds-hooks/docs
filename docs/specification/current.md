@@ -527,7 +527,7 @@ The following example illustrates a delete action:
 
 #### OverrideReason
 
-An **OverrideReason** is described by the following attributes. This specification does not prescribe a standard set of override reasons; implementers are encouraged to submit suggestions for standardization. To enable analysis of a card's usage, the CDS service SHALL send the same `code`, `system`, and `label` across CDS Hooks requests for the same CDS client.
+An **OverrideReason** is described by the following attributes. This specification does not prescribe a standard set of override reasons; implementers are encouraged to submit suggestions for standardization. 
 
 Field | Optionality | Type | Description
 ----- | ----- | ----- | --------
