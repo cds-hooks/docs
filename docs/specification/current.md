@@ -466,7 +466,7 @@ Field | Optionality | Type | Description
 `icon` | OPTIONAL | *URL* | An absolute URL to an icon for the source of this card. The icon returned by this URL SHOULD be a 100x100 pixel PNG image without any transparent regions.
 `topic` | OPTIONAL | *object* | A **Topic** describes the content of the card by providing a high-level categorization that can be useful for filtering, searching or ordered display of related cards in the CDS client's UI.
 
-A **Topic** contains a `code`, `system` and `label`. This specification does not prescribe a standard set of topics.
+A **Topic** contains a `code`, `system` and `display`. This specification does not prescribe a standard set of topics.
 
 Field | Optionality | Type | Description
 ----- | ----- | ----- | --------
