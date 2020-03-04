@@ -454,6 +454,7 @@ Field | Optionality | Type | Description
 <nobr>`suggestions`</nobr> | OPTIONAL | *array* of **Suggestions** | Allows a service to suggest a set of changes in the context of the current activity (e.g.  changing the dose of the medication currently being prescribed, for the `medication-prescribe` activity). If suggestions are present, `selectionBehavior` MUST also be provided.
 `selectionBehavior` | OPTIONAL | *string* | Describes the intended selection behavior of the suggestions in the card. Allowed values are: `at-most-one`, indicating that the user may choose none or at most one of the suggestions;`any`, indicating that the end user may choose any number of suggestions including none of them and all of them. CDS Clients that do not understand the value MUST treat the card as an error.
 `links` | OPTIONAL | *array* of **Links** | Allows a service to suggest a link to an app that the user might want to run for additional information or to help guide a decision.
+`dismisses` | OPTIONAL | *array* of **DismissReasons**. The CDS service MAY return a list of reasons to the CDS client. The CDS client MAY present these reasons to the clinician when they dismiss a card.
 
 #### Source
 
@@ -535,6 +536,16 @@ Field | Optionality | Type | Description
 `type` | REQUIRED | *string* | The type of the given URL. There are two possible values for this field. A type of `absolute` indicates that the URL is absolute and should be treated as-is. A type of `smart` indicates that the URL is a SMART app launch URL and the CDS Client should ensure the SMART app launch URL is populated with the appropriate SMART launch parameters.
 `appContext` | OPTIONAL | *string* |  An optional field that allows the CDS Service to share information from the CDS card with a subsequently launched SMART app. The `appContext` field should only be valued if the link type is `smart` and is not valid for `absolute` links. The `appContext` field and value will be sent to the SMART app as part of the [OAuth 2.0][OAuth 2.0] access token response, alongside the other [SMART launch parameters](http://hl7.org/fhir/smart-app-launch/1.0.0/scopes-and-launch-context/#launch-context-arrives-with-your-access_token) when the SMART app is launched. Note that `appContext` could be escaped JSON, base64 encoded XML, or even a simple string, so long as the SMART app can recognize it.
 
+#### DismissReason
+So that an end user may explain why a card's guidance was dismissed, a CDS client MAY support displaying `dismisses`. To enable analysis of a card's usage, the CDS Service MUST consistently associate the same `key` with the same `label` for the same CDS client. A CDS client MAY augment the dismiss reasons presented to the user with its own reasons. 
+
+Each **DismissReason** is described by the following attributes.
+
+Field | Optionality | Type | Description
+----- | ----- | ----- | --------
+`key` | REQUIRED | *string* | An opaque, unique identifier for this dismiss reason. `key` MUST be unique for the card.
+`label` | REQUIRED | *string* | A short, human-readable label to display for this override (e.g. the CDS Client might render this as the text on a button).
+
 ### Example
 
 > Example response
@@ -575,7 +586,17 @@ Field | Optionality | Type | Description
       "indicator": "warning",
       "source": {
         "label": "Static CDS Service Example"
-      }
+      },
+      "dismisses": [
+        {
+          "key": "reason-id-provided-by-service",
+          "label": "Patient refused"
+        },
+        {
+          "key": "cntrndctd",
+          "label": "Contraindicated"
+        }
+      ]
     }
   ]
 }
