@@ -447,6 +447,7 @@ Each **Card** is described by the following attributes.
 
 Field | Optionality | Type | Description
 ----- | ----- | ----- | --------
+`uuid` | OPTIONAL | *string* | Unique identifier of the card, used for auditing and logging cards and to provide feedback.
 `summary` | REQUIRED | *string* | One-sentence, <140-character summary message for display to the user inside of this card.
 `detail` | OPTIONAL | *string* | Optional detailed information to display; if provided MUST be represented in [(GitHub Flavored) Markdown](https://github.github.com/gfm/). (For non-urgent cards, the CDS Client MAY hide these details until the user clicks a link like "view more details...").
 `indicator` | REQUIRED | *string* | Urgency/importance of what this card conveys. Allowed values, in order of increasing urgency, are: `info`, `warning`, `critical`. The CDS Client MAY use this field to help make UI display decisions such as sort order or coloring.
@@ -581,6 +582,81 @@ Field | Optionality | Type | Description
 }
 ```
 
+## Feedback
+
+Once a CDS Hooks service responds to a hook by returning an info or suggestion card, the service has no further interaction with the CDS client. The acceptance or rejection of a suggestion is valuable information to enable a service to improve its behavior towards the goal of the end-user having a positive and meaningful experience with the CDS. A feedback endpoint enables suggestion tracking & analytics.
+
+Upon receiving a card, a user may accept its sugestions, ignore it entirely, dismiss it without specifying a reason or dismiss it with a dismiss reason. Note that while a single suggestion can be accepted, an entire card is either ignored or dismissed.
+
+Typically, an end user may only accept, or dismiss a card once; however, a card once ignored could later be acted upon. CDS Hooks does not specify the UI behavior of CDS clients, including the persistence of cards. CDS clients should faithfully report each of these distinct end-user interactions as feedback. 
+
+## Suggestion accepted
+
+The CDS client can inform the service when one or more suggestions were accepted by POSTing a simple json object. 
+
+Upon the user accepting a suggestion (perhaps when she clicks a displayed label (e.g., button) from a "suggestion" card), the CDS client informs the service by posting the card and suggestion `uuid`s to the CDS Service's feedback endpoint with an outcome of `accepted`.
+
+To enable a positive clinical experience, the analytics endpoint may be called for multiple hook instances or multiple cards at the same time or even multiple times for a card or suggestion. Depending upon the UI and workflow of the CDS client, a CDS Service may receive feedback for the same card instance multiple times. 
+
+```
+POST {baseUrl}/cds-services/{serviceId}/feedback
+
+{
+   "feedback":[
+      {
+         "card":"`card.uuid` from CDS Hooks response",
+         "outcome":"accepted",
+         "acceptedSuggestions": [ { "id" : "`card.suggestion.uuid` from CDS Hooks response" } ],
+         "outcomeTimestamp": "iso timestamp in UTC when action was taken on card"
+      }
+   ]
+}
+```
+
+If either the card or the suggestion has no `uuid`, the CDS client does not send a notification.
+
+## Card ignored
+
+If the end-user doesn't interact with the CDS Service's card at all, the card is *ignored*. Why would this happen? Perhaps the priority indicator of the card deprioritized it, or the user simply ignored the guidance. In this case, the CDS Client does not inform the CDS Service of the rejected guidance. Even with a `card.uuid`, a `suggestion.uuid' and an available feedback service, the service is not informed. 
+
+## Dismissed guidance
+
+A CDS client may enable the end user to dismiss guidance without providing an explicit reason for doing so. The CDS client can inform the service when a suggestion was dismissed by specifying an outcome of `dismissed` without providing an `dismissReason`.
+
+```
+POST {baseUrl}/cds-services/{serviceId}/feedback
+
+{
+   "feedback":[
+      {
+         "card":"f6b95768-b1c8-40dc-8385-bf3504b82ffb", // uuid from `card.uuid`
+         "outcome":"dismissed",
+         "outcomeTimestamp": "iso timestamp in UTC when action was taken on card"
+      }
+   ]
+}
+
+```
+
+## Explicit reject with dismiss reasons
+
+A CDS client can inform the service when a suggestion was rejected by POSTing an outcome of `dismissed` along with a `dismissReason` to the service's feedback endpoint. The CDS Client may enable the clinician to supplement the `dismissReason` with a free text comment, supplied to the CDS Service in `dismissReason.userComment`. 
+
+```
+POST {baseUrl}/cds-services/{serviceId}/feedback
+
+{
+   "feedback":[
+      {
+         "card":"9368d37b-283f-44a0-93ea-547cebab93ed",
+         "outcome":"dismissed",
+         "dismissReason": { "key" : "reason-id-provided-by-service", "userComment" : "clinician entered comment>" }
+         "outcomeTimestamp": "iso timestamp in UTC when action was taken on card"
+      }
+   ]
+}
+
+```
 
 ## Security and Safety
 
