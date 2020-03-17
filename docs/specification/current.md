@@ -540,7 +540,7 @@ Field | Optionality | Type | Description
 {
    "overrideReasons":[
       {
-         "code":"reason-id-provided-by-service",
+         "code":"reason-code-provided-by-service",
 	 "system":"http://example.org/cds-services/fhir/CodeSystem/override-reasons",
          "display":"Patient refused"
       },
