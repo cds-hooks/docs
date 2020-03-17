@@ -482,7 +482,7 @@ Below is an example `source` parameter:
   "source" : {
     "label" : "Zika Virus Management",
     "url" : "https://example.com/cdc-zika-virus-mgmt",
-    "icon" : "https://example.com/https://example.com/cdc-zika-virus-mgmt/100.png",
+    "icon" : "https://example.com/cdc-zika-virus-mgmt/100.png",
     "topic" : {
       "system": "http://example.org/cds-services/fhir/CodeSystem/topics",
       "code": "12345",
