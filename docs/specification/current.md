@@ -533,7 +533,7 @@ Field | Optionality | Type | Description
 ----- | ----- | ----- | --------
 `code` | REQUIRED | *string* | A code for this **OverrideReason**.
 `system` | OPTIONAL | *string* | A codesystem for this **OverrideReason** `code`.
-`label` | REQUIRED | *string* | A short, human-readable label to display for this override (e.g. the CDS Client might render this as the text on a button).
+`display` | REQUIRED | *string* | A short, human-readable label to display for this override (e.g. the CDS Client might render this as the text on a button).
 
 
 ```json
@@ -542,12 +542,12 @@ Field | Optionality | Type | Description
       {
          "code":"reason-id-provided-by-service",
 	 "system":"http://example.org/cds-services/fhir/CodeSystem/override-reasons",
-         "label":"Patient refused"
+         "display":"Patient refused"
       },
       {
          "code":"12354",
 	 "system":"http://example.org/cds-services/fhir/CodeSystem/override-reasons",
-         "label":"Contraindicated"
+         "display":"Contraindicated"
       }
    ]
 }
