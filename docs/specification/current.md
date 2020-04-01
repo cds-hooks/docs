@@ -454,6 +454,7 @@ Field | Optionality | Type | Description
 `source` | REQUIRED | *object* | Grouping structure for the **Source** of the information displayed on this card. The source should be the primary source of guidance for the decision support the card represents.
 <nobr>`suggestions`</nobr> | OPTIONAL | *array* of **Suggestions** | Allows a service to suggest a set of changes in the context of the current activity (e.g.  changing the dose of the medication currently being prescribed, for the `medication-prescribe` activity). If suggestions are present, `selectionBehavior` MUST also be provided.
 `selectionBehavior` | OPTIONAL | *string* | Describes the intended selection behavior of the suggestions in the card. Allowed values are: `at-most-one`, indicating that the user may choose none or at most one of the suggestions;`any`, indicating that the end user may choose any number of suggestions including none of them and all of them. CDS Clients that do not understand the value MUST treat the card as an error.
+`overrideReasons` | OPTIONAL | *array* of **OverrideReason** | Override reasons can be selected by the end user when overriding a card without taking the suggested recommendations. The CDS service MAY return a list of override reasons to the CDS client. The CDS client SHOULD present these reasons to the clinician when they dismiss a card. A CDS client MAY augment the override reasons presented to the user with its own reasons.
 `links` | OPTIONAL | *array* of **Links** | Allows a service to suggest a link to an app that the user might want to run for additional information or to help guide a decision.
 
 #### Source
@@ -465,6 +466,35 @@ Field | Optionality | Type | Description
 <nobr>`label`</nobr>| REQUIRED | *string* | A short, human-readable label to display for the source of the information displayed on this card. If a `url` is also specified, this MAY be the text for the hyperlink.
 `url` | OPTIONAL | *URL* | An optional absolute URL to load (via `GET`, in a browser context) when a user clicks on this link to learn more about the organization or data set that provided the information on this card. Note that this URL should not be used to supply a context-specific "drill-down" view of the information on this card. For that, use `link.url` instead.
 `icon` | OPTIONAL | *URL* | An absolute URL to an icon for the source of this card. The icon returned by this URL SHOULD be a 100x100 pixel PNG image without any transparent regions.
+`topic` | OPTIONAL | *object* | A **Topic** describes the content of the card by providing a high-level categorization that can be useful for filtering, searching or ordered display of related cards in the CDS client's UI.
+
+A **Topic** contains a `code`, `system` and `display`. This specification does not prescribe a standard set of topics.
+
+Field | Optionality | Type | Description
+----- | ----- | ----- | --------
+`code` | REQUIRED | *string* | A code for this **Topic**.
+`system` | OPTIONAL | *string* | A codesystem for this **Topic** `code`.
+`display` | OPTIONAL | *string* | A short, human-readable display label for this **Topic**.
+
+
+Below is an example `source` parameter:
+
+```json
+{
+  "source" : {
+    "label" : "Zika Virus Management",
+    "url" : "https://example.com/cdc-zika-virus-mgmt",
+    "icon" : "https://example.com/cdc-zika-virus-mgmt/100.png",
+    "topic" : {
+      "system": "http://example.org/cds-services/fhir/CodeSystem/topics",
+      "code": "12345",
+      "display": "Mosquito born virus"
+    }
+  }
+}
+```
+
+=======
 
 #### Suggestion
 
@@ -522,6 +552,34 @@ The following example illustrates a delete action:
 	"type": "delete",
 	"description": "Remove the inappropriate order",
 	"resource": "ProcedureRequest/procedure-request-1"
+}
+```
+
+#### OverrideReason
+
+An **OverrideReason** is described by the following attributes. This specification does not prescribe a standard set of override reasons; implementers are encouraged to submit suggestions for standardization. 
+
+Field | Optionality | Type | Description
+----- | ----- | ----- | --------
+`code` | REQUIRED | *string* | A code for this **OverrideReason**.
+`system` | OPTIONAL | *string* | A codesystem for this **OverrideReason** `code`.
+`display` | REQUIRED | *string* | A short, human-readable label to display for this override (e.g. the CDS Client might render this as the text on a button).
+
+
+```json
+{
+   "overrideReasons":[
+      {
+         "code":"reason-code-provided-by-service",
+	 "system":"http://example.org/cds-services/fhir/CodeSystem/override-reasons",
+         "display":"Patient refused"
+      },
+      {
+         "code":"12354",
+	 "system":"http://example.org/cds-services/fhir/CodeSystem/override-reasons",
+         "display":"Contraindicated"
+      }
+   ]
 }
 ```
 
