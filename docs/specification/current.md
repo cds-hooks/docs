@@ -675,11 +675,11 @@ If either the card or the suggestion has no `uuid`, the CDS client does not send
 
 ## Card ignored
 
-If the end-user doesn't interact with the CDS Service's card at all, the card is *ignored*. Why would this happen? Perhaps the priority indicator of the card deprioritized it, or the user simply ignored the guidance. In this case, the CDS Client does not inform the CDS Service of the rejected guidance. Even with a `card.uuid`, a `suggestion.uuid` and an available feedback service, the service is not informed. 
+If the end-user doesn't interact with the CDS Service's card at all, the card is *ignored*. Why would this happen? Perhaps the priority indicator of the card deprioritized it, or the user simply ignored the guidance. In this case, the CDS Client does not inform the CDS Service of the rejected guidance. Even with a `card.uuid`, a `suggestion.uuid`, and an available feedback service, the service is not informed. 
 
 ## Overridden guidance
 
-A CDS client may enable the end user to override guidance without providing an explicit reason for doing so. The CDS client can inform the service when a suggestion was dismissed by specifying an outcome of `overridden` without providing an `overrideReason`.
+A CDS client may enable the end user to override guidance without providing an explicit reason for doing so. The CDS client can inform the service when a suggestion was dismissed by specifying an outcome of `overridden` without providing an `overrideReason`. This may occur, for example, when the end user viewed the card and dismissed it without providing a reason why.
 
 ```
 POST {baseUrl}/cds-services/{serviceId}/feedback
