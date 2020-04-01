@@ -644,9 +644,9 @@ Field | Optionality | Type | Description
 
 Once a CDS Hooks service responds to a hook by returning an info or suggestion card, the service has no further interaction with the CDS client. The acceptance or rejection of a suggestion is valuable information to enable a service to improve its behavior towards the goal of the end-user having a positive and meaningful experience with the CDS. A feedback endpoint enables suggestion tracking & analytics.
 
-Upon receiving a card, a user may accept its sugestions, ignore it entirely, dismiss it without specifying a reason or dismiss it with a dismiss reason. Note that while a single suggestion can be accepted, an entire card is either ignored or dismissed.
+Upon receiving a card, a user may accept its sugestions, ignore it entirely, or dismiss it with or without an override reason. Note that while a single suggestion can be accepted, an entire card is either ignored or overridden.
 
-Typically, an end user may only accept, or dismiss a card once; however, a card once ignored could later be acted upon. CDS Hooks does not specify the UI behavior of CDS clients, including the persistence of cards. CDS clients should faithfully report each of these distinct end-user interactions as feedback. 
+Typically, an end user may only accept, or override a card once; however, a card once ignored could later be acted upon. CDS Hooks does not specify the UI behavior of CDS clients, including the persistence of cards. CDS clients should faithfully report each of these distinct end-user interactions as feedback. 
 
 ## Suggestion accepted
 
@@ -675,11 +675,11 @@ If either the card or the suggestion has no `uuid`, the CDS client does not send
 
 ## Card ignored
 
-If the end-user doesn't interact with the CDS Service's card at all, the card is *ignored*. Why would this happen? Perhaps the priority indicator of the card deprioritized it, or the user simply ignored the guidance. In this case, the CDS Client does not inform the CDS Service of the rejected guidance. Even with a `card.uuid`, a `suggestion.uuid' and an available feedback service, the service is not informed. 
+If the end-user doesn't interact with the CDS Service's card at all, the card is *ignored*. Why would this happen? Perhaps the priority indicator of the card deprioritized it, or the user simply ignored the guidance. In this case, the CDS Client does not inform the CDS Service of the rejected guidance. Even with a `card.uuid`, a `suggestion.uuid` and an available feedback service, the service is not informed. 
 
-## Dismissed guidance
+## Overridden guidance
 
-A CDS client may enable the end user to dismiss guidance without providing an explicit reason for doing so. The CDS client can inform the service when a suggestion was dismissed by specifying an outcome of `dismissed` without providing an `dismissReason`.
+A CDS client may enable the end user to override guidance without providing an explicit reason for doing so. The CDS client can inform the service when a suggestion was dismissed by specifying an outcome of `overridden` without providing an `overrideReason`.
 
 ```
 POST {baseUrl}/cds-services/{serviceId}/feedback
@@ -688,7 +688,7 @@ POST {baseUrl}/cds-services/{serviceId}/feedback
    "feedback":[
       {
          "card":"f6b95768-b1c8-40dc-8385-bf3504b82ffb", // uuid from `card.uuid`
-         "outcome":"dismissed",
+         "outcome":"overridden",
          "outcomeTimestamp": "iso timestamp in UTC when action was taken on card"
       }
    ]
@@ -696,9 +696,9 @@ POST {baseUrl}/cds-services/{serviceId}/feedback
 
 ```
 
-## Explicit reject with dismiss reasons
+## Explicit reject with override reasons
 
-A CDS client can inform the service when a suggestion was rejected by POSTing an outcome of `dismissed` along with a `dismissReason` to the service's feedback endpoint. The CDS Client may enable the clinician to supplement the `dismissReason` with a free text comment, supplied to the CDS Service in `dismissReason.userComment`. 
+A CDS client can inform the service when a suggestion was rejected by POSTing an outcome of `overridden` along with an `overrideReason` to the service's feedback endpoint. The CDS Client may enable the clinician to supplement the `overrideReason` with a free text comment, supplied to the CDS Service in `overrideReason.userComment`. 
 
 ```
 POST {baseUrl}/cds-services/{serviceId}/feedback
@@ -707,8 +707,8 @@ POST {baseUrl}/cds-services/{serviceId}/feedback
    "feedback":[
       {
          "card":"9368d37b-283f-44a0-93ea-547cebab93ed",
-         "outcome":"dismissed",
-         "dismissReason": { "key" : "reason-id-provided-by-service", "userComment" : "clinician entered comment>" }
+         "outcome":"overridden",
+         "overrideReason": { "key" : "reason-id-provided-by-service", "userComment" : "clinician entered comment>" }
          "outcomeTimestamp": "iso timestamp in UTC when action was taken on card"
       }
    ]
