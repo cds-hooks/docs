@@ -464,6 +464,35 @@ Field | Optionality | Type | Description
 <nobr>`label`</nobr>| REQUIRED | *string* | A short, human-readable label to display for the source of the information displayed on this card. If a `url` is also specified, this MAY be the text for the hyperlink.
 `url` | OPTIONAL | *URL* | An optional absolute URL to load (via `GET`, in a browser context) when a user clicks on this link to learn more about the organization or data set that provided the information on this card. Note that this URL should not be used to supply a context-specific "drill-down" view of the information on this card. For that, use `link.url` instead.
 `icon` | OPTIONAL | *URL* | An absolute URL to an icon for the source of this card. The icon returned by this URL SHOULD be a 100x100 pixel PNG image without any transparent regions.
+`topic` | OPTIONAL | *object* | A **Topic** describes the content of the card by providing a high-level categorization that can be useful for filtering, searching or ordered display of related cards in the CDS client's UI.
+
+A **Topic** contains a `code`, `system` and `display`. This specification does not prescribe a standard set of topics.
+
+Field | Optionality | Type | Description
+----- | ----- | ----- | --------
+`code` | REQUIRED | *string* | A code for this **Topic**.
+`system` | OPTIONAL | *string* | A codesystem for this **Topic** `code`.
+`display` | OPTIONAL | *string* | A short, human-readable display label for this **Topic**.
+
+
+Below is an example `source` parameter:
+
+```json
+{
+  "source" : {
+    "label" : "Zika Virus Management",
+    "url" : "https://example.com/cdc-zika-virus-mgmt",
+    "icon" : "https://example.com/cdc-zika-virus-mgmt/100.png",
+    "topic" : {
+      "system": "http://example.org/cds-services/fhir/CodeSystem/topics",
+      "code": "12345",
+      "display": "Mosquito born virus"
+    }
+  }
+}
+```
+
+=======
 
 #### Suggestion
 
