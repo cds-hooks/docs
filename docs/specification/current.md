@@ -650,7 +650,7 @@ Typically, an end user may only accept, or override a card once; however, a card
 
 ## Suggestion accepted
 
-The CDS client can inform the service when one or more suggestions were accepted by POSTing a simple json object. 
+The CDS client can inform the service when one or more suggestions were accepted by POSTing a simple json object. The CDS client authenticates to the CDS service as described in [Trusting CDS Clients](#trusting-cds-clients).
 
 Upon the user accepting a suggestion (perhaps when she clicks a displayed label (e.g., button) from a "suggestion" card), the CDS client informs the service by posting the card and suggestion `uuid`s to the CDS Service's feedback endpoint with an outcome of `accepted`.
 
