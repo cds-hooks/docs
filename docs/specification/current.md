@@ -447,7 +447,7 @@ Each **Card** is described by the following attributes.
 
 Field | Optionality | Type | Description
 ----- | ----- | ----- | --------
-`uuid` | OPTIONAL | *string* | Unique identifier of the card, used for auditing and logging cards and to provide feedback.
+`uuid` | OPTIONAL | *string* | Unique identifier of the card, used for auditing and logging cards and included in any subsequent calls to the CDS service's feedback endpoint.
 `summary` | REQUIRED | *string* | One-sentence, <140-character summary message for display to the user inside of this card.
 `detail` | OPTIONAL | *string* | Optional detailed information to display; if provided MUST be represented in [(GitHub Flavored) Markdown](https://github.github.com/gfm/). (For non-urgent cards, the CDS Client MAY hide these details until the user clicks a link like "view more details...").
 `indicator` | REQUIRED | *string* | Urgency/importance of what this card conveys. Allowed values, in order of increasing urgency, are: `info`, `warning`, `critical`. The CDS Client MAY use this field to help make UI display decisions such as sort order or coloring.
