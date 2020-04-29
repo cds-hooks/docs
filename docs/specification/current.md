@@ -704,16 +704,17 @@ A CDS client can inform the service when a suggestion was rejected by POSTing an
 POST {baseUrl}/cds-services/{serviceId}/feedback
 
 {
-   "feedback":[
-      {
+   "feedback":[{
          "card":"9368d37b-283f-44a0-93ea-547cebab93ed",
          "outcome":"overridden",
-         "overrideReason": { "key" : "reason-id-provided-by-service", "userComment" : "clinician entered comment>" }
+         "overrideReason": { 
+	 	"code":"reason-code-provided-by-service",
+     		"system":"http://example.org/cds-services/fhir/CodeSystem/override-reasons",
+		"userComment" : "clinician entered comment>" 
+	},
          "outcomeTimestamp": "iso timestamp in UTC when action was taken on card"
-      }
-   ]
+      }]
 }
-
 ```
 
 ## Security and Safety
