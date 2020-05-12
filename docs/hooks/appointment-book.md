@@ -8,7 +8,7 @@
 
 ## Workflow
 
-This hook is invoked when the user is scheduling one or more future encounters/visits for the patient.  It would be triggered for an appointment with the same user, someone else from the same organization as well as when they book an appointment for a patient with someone outside their organization.  It may be invoked at the start and end of the booking process and/or any time between those two points.  It allows CDS Services to intervene in the decision of when future appointments should be scheduled, where they should be scheduled, what services should be booked, to identify actions that need to occur prior to scheduled appointments, etc.  
+This hook is invoked when the user is scheduling one or more future encounters/visits for the patient.  It may be triggered for an appointment with the appointment creator, a clinician within the same organization as the appointment creator or even for an appointment outside the creator's organization.  It may be invoked at the start and end of the booking process and/or any time between those two points.  This hook enables CDS Services to intervene in the decision of when future appointments should be scheduled, where they should be scheduled, what services should be booked, to identify actions that need to occur prior to scheduled appointments, etc.  
 
 ## Context
 
@@ -238,4 +238,3 @@ Field | Optionality | Prefetch Token | Type | Description
 Version | Description
 ---- | ----
 1.0 | Initial Release
-
