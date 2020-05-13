@@ -642,11 +642,11 @@ Field | Optionality | Type | Description
 
 ## Feedback
 
-Once a CDS Hooks service responds to a hook by returning an info or suggestion card, the service has no further interaction with the CDS client. The acceptance or rejection of a suggestion is valuable information to enable a service to improve its behavior towards the goal of the end-user having a positive and meaningful experience with the CDS. A feedback endpoint enables suggestion tracking & analytics.
+Once a CDS Hooks service responds to a hook by returning an info or suggestion card, the service has no further interaction with the CDS client. The acceptance of a suggestion or rejection of a card is valuable information to enable a service to improve its behavior towards the goal of the end-user having a positive and meaningful experience with the CDS. A feedback endpoint enables suggestion tracking & analytics.
 
-Upon receiving a card, a user may accept its sugestions, ignore it entirely, or dismiss it with or without an override reason. Note that while a single suggestion can be accepted, an entire card is either ignored or overridden.
+Upon receiving a card, a user may accept its sugestions, ignore it entirely, or dismiss it with or without an override reason. Note that while one or more suggestions can be accepted, an entire card is either ignored or overridden.
 
-Typically, an end user may only accept, or override a card once; however, a card once ignored could later be acted upon. CDS Hooks does not specify the UI behavior of CDS clients, including the persistence of cards. CDS clients should faithfully report each of these distinct end-user interactions as feedback. 
+Typically, an end user may only accept (a suggestion), or override a card once; however, a card once ignored could later be acted upon. CDS Hooks does not specify the UI behavior of CDS clients, including the persistence of cards. CDS clients should faithfully report each of these distinct end-user interactions as feedback. 
 
 Each **Feedback** is described by the following attributes.
 
@@ -689,7 +689,7 @@ If the end-user doesn't interact with the CDS Service's card at all, the card is
 
 ## Overridden guidance
 
-A CDS client may enable the end user to override guidance without providing an explicit reason for doing so. The CDS client can inform the service when a suggestion was dismissed by specifying an outcome of `overridden` without providing an `overrideReason`. This may occur, for example, when the end user viewed the card and dismissed it without providing a reason why.
+A CDS client may enable the end user to override guidance without providing an explicit reason for doing so. The CDS client can inform the service when a card was dismissed by specifying an outcome of `overridden` without providing an `overrideReason`. This may occur, for example, when the end user viewed the card and dismissed it without providing a reason why.
 
 
 ```
@@ -709,7 +709,7 @@ POST {baseUrl}/cds-services/{serviceId}/feedback
 
 ## Explicit reject with override reasons
 
-A CDS client can inform the service when a suggestion was rejected by POSTing an outcome of `overridden` along with an `overrideReason` to the service's feedback endpoint. The CDS Client may enable the clinician to supplement the `overrideReason` with a free text comment, supplied to the CDS Service in `overrideReason.userComment`. 
+A CDS client can inform the service when a card was rejected by POSTing an outcome of `overridden` along with an `overrideReason` to the service's feedback endpoint. The CDS Client may enable the clinician to supplement the `overrideReason` with a free text comment, supplied to the CDS Service in `overrideReason.userComment`. 
 
 Each **OverrideReason** is described by the following attributes, in the feedback POST to the CDS Service.
 
