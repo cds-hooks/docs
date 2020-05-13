@@ -729,7 +729,7 @@ POST {baseUrl}/cds-services/{serviceId}/feedback
          "overrideReason": { 
 	 	"code":"reason-code-provided-by-service",
      		"system":"http://example.org/cds-services/fhir/CodeSystem/override-reasons",
-		"userComment" : "clinician entered comment>" 
+		"userComment" : "clinician entered comment" 
 	},
          "outcomeTimestamp": "iso timestamp in UTC when action was taken on card"
       }]
