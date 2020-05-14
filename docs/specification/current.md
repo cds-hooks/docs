@@ -670,13 +670,6 @@ Field | Optionality | Type | Description
 `id` | REQUIRED | *string* | The `card.uuid` from the CDS Hooks response. Uniquely identifies the card.
 
 
-#### Suggestion
-
-Field | Optionality | Type | Description
------ | ----- | ----- | --------
-`id` | REQUIRED | *string* | The `suggestion.uuid` from the CDS Hooks response. Uniquely identifies the suggestion.
-
-
 ### Suggestion accepted
 
 The CDS client can inform the service when one or more suggestions were accepted by POSTing a simple json object.
@@ -684,6 +677,12 @@ The CDS client can inform the service when one or more suggestions were accepted
 Upon the user accepting a suggestion (perhaps when she clicks a displayed label (e.g., button) from a "suggestion" card), the CDS client informs the service by posting the card and suggestion `uuid`s to the CDS Service's feedback endpoint with an outcome of `accepted`.
 
 To enable a positive clinical experience, the feedback endpoint may be called for multiple hook instances or multiple cards at the same time or even multiple times for a card or suggestion. Depending upon the UI and workflow of the CDS client, a CDS Service may receive feedback for the same card instance multiple times. 
+
+Each **AcceptedSuggestion** is described by the following attributes.
+
+Field | Optionality | Type | Description
+----- | ----- | ----- | --------
+`id` | REQUIRED | *string* | The `card.suggestion.uuid` from the CDS Hooks response. Uniquely identifies the suggestion that was accepted.
 
 #### Example
 
