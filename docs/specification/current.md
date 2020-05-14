@@ -716,7 +716,7 @@ Each **OverrideReason** is described by the following attributes, in the feedbac
 Field | Optionality | Type | Description
 ----- | ----- | ----- | --------
 `code` | CONDITIONAL | *string* | The code for this OverrideReason as provided by the CDS Service in the CDS Hooks response. Required if user selected an overrideReason (instead of only leaving a `userComment`.
-`system` | CONDITIONAL | *string* | The codesystem for this OverrideReason code as provided by the CDS Service in the CDS Hooks response. Required if the CDS Service supplied this information in the  CDS Hooks response.
+`system` | CONDITIONAL | *string* | The codesystem for this OverrideReason code as provided by the CDS Service in the CDS Hooks response. Required if the user selected an overrideReason and the CDS Service supplied this information in the CDS Hooks response.
 `userComment` | OPTIONAL | *array* | The CDS Client may enable the clinician to further explain why the card was rejected with free text. That user comment may be communicated to the CDS Service as a `userComment`.
 
 ```
