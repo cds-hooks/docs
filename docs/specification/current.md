@@ -666,6 +666,12 @@ Upon the user accepting a suggestion (perhaps when she clicks a displayed label 
 
 To enable a positive clinical experience, the feedback endpoint may be called for multiple hook instances or multiple cards at the same time or even multiple times for a card or suggestion. Depending upon the UI and workflow of the CDS client, a CDS Service may receive feedback for the same card instance multiple times. 
 
+Each **AcceptedSuggestion** is described by the following attributes.
+
+Field | Optionality | Type | Description
+----- | ----- | ----- | --------
+`id` | REQUIRED | *string* | The `card.suggestion.uuid` from the CDS Hooks response. Uniquely identifies the suggestion that was accepted.
+
 ```
 POST {baseUrl}/cds-services/{serviceId}/feedback
 
