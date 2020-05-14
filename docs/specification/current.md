@@ -654,7 +654,7 @@ Field | Optionality | Type | Description
 ----- | ----- | ----- | --------
 `card` | REQUIRED | *string* | The `card.uuid` from the CDS Hooks response. Uniquely identifies the card.
 `outcome` | REQUIRED | *string* | A value of `accepted` or `overridden`.
-`acceptedSuggestions` | CONDITIONAL | *array* | An array of json objects identifying one or more suggestions accepted by the user. Required for `accepted` outcomes.
+`acceptedSuggestions` | CONDITIONAL | *array* | An array of json objects identifying one or more of the user's **AcceptedSuggestion**s. Required for `accepted` outcomes.
 `overrideReason` | OPTIONAL | *object* | A json object identifying the **OverrideReason** selected by the user.
 `outcomeTimestamp` | REQUIRED | *string* | ISO timestamp in UTC when action was taken on card.
 
