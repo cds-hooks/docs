@@ -656,11 +656,26 @@ Each **Feedback** is described by the following attributes.
 
 Field | Optionality | Type | Description
 ----- | ----- | ----- | --------
-`card` | REQUIRED | *string* | The `card.uuid` from the CDS Hooks response. Uniquely identifies the card.
+`card` | REQUIRED | *object* | A json object identifying the card.
 `outcome` | REQUIRED | *string* | A value of `accepted` or `overridden`.
-`acceptedSuggestions` | CONDITIONAL | *array* | An array of string identifying one or more suggestions accepted by the user. Uniquely identifies each suggestion. Required for `accepted` outcomes.
+`acceptedSuggestions` | CONDITIONAL | *array* | An array of json objects identifying one or more suggestions accepted by the user.  Required for `accepted` outcomes.
 `overrideReason` | OPTIONAL | *object* | A json object identifying the **OverrideReason** selected by the user. Optional for `overridden` outcomes.
 `outcomeTimestamp` | REQUIRED | *string* | ISO timestamp in UTC when action was taken on card.
+
+
+#### Card
+
+Field | Optionality | Type | Description
+----- | ----- | ----- | --------
+`id` | REQUIRED | *string* | The `card.uuid` from the CDS Hooks response. Uniquely identifies the card.
+
+
+#### Suggestion
+
+Field | Optionality | Type | Description
+----- | ----- | ----- | --------
+`id` | REQUIRED | *string* | The `suggestion.uuid` from the CDS Hooks response. Uniquely identifies the suggestion.
+
 
 ### Suggestion accepted
 
@@ -670,6 +685,10 @@ Upon the user accepting a suggestion (perhaps when she clicks a displayed label 
 
 To enable a positive clinical experience, the feedback endpoint may be called for multiple hook instances or multiple cards at the same time or even multiple times for a card or suggestion. Depending upon the UI and workflow of the CDS client, a CDS Service may receive feedback for the same card instance multiple times. 
 
+#### Example
+
+> Example feedback with suggestion accepted
+
 ```
 POST {baseUrl}/cds-services/{serviceId}/feedback
 
@@ -678,7 +697,7 @@ POST {baseUrl}/cds-services/{serviceId}/feedback
       {
          "card":"`card.uuid` from CDS Hooks response",
          "outcome":"accepted",
-         "acceptedSuggestions": [ "`card.suggestion.uuid` from CDS Hooks response" ],
+         "acceptedSuggestions": [{ "id" : "`card.suggestion.uuid` from CDS Hooks response" }],
          "outcomeTimestamp": "iso timestamp in UTC when action was taken on card"
       }
    ]
@@ -691,6 +710,9 @@ If either the card or the suggestion has no `uuid`, the CDS client does not send
 
 A CDS client may enable the end user to override or reject guidance without providing an explicit reason for doing so. The CDS client can inform the service when a card was dismissed by specifying an outcome of `overridden` without providing an `overrideReason`. This may occur, for example, when the end user viewed the card and dismissed it without providing a reason why.
 
+#### Example
+
+> Example feedback, card overridden
 
 ```
 POST {baseUrl}/cds-services/{serviceId}/feedback
@@ -718,6 +740,10 @@ Field | Optionality | Type | Description
 `code` | CONDITIONAL | *string* | The code for this OverrideReason as provided by the CDS Service in the CDS Hooks response. Required if user selected an overrideReason (instead of only leaving a `userComment`.
 `system` | CONDITIONAL | *string* | The codesystem for this OverrideReason code as provided by the CDS Service in the CDS Hooks response. Required if the user selected an overrideReason and the CDS Service supplied this information in the CDS Hooks response.
 `userComment` | OPTIONAL | *string* | The CDS Client may enable the clinician to further explain why the card was overridden or rejected with free text. That user comment may be communicated to the CDS Service as a `userComment`.
+
+#### Example
+
+> Example feedback, override with reasons
 
 ```
 POST {baseUrl}/cds-services/{serviceId}/feedback
