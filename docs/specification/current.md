@@ -454,7 +454,7 @@ Field | Optionality | Type | Description
 `source` | REQUIRED | *object* | Grouping structure for the **Source** of the information displayed on this card. The source should be the primary source of guidance for the decision support the card represents.
 <nobr>`suggestions`</nobr> | OPTIONAL | *array* of **Suggestions** | Allows a service to suggest a set of changes in the context of the current activity (e.g.  changing the dose of the medication currently being prescribed, for the `medication-prescribe` activity). If suggestions are present, `selectionBehavior` MUST also be provided.
 `selectionBehavior` | OPTIONAL | *string* | Describes the intended selection behavior of the suggestions in the card. Allowed values are: `at-most-one`, indicating that the user may choose none or at most one of the suggestions;`any`, indicating that the end user may choose any number of suggestions including none of them and all of them. CDS Clients that do not understand the value MUST treat the card as an error.
-`overrideReasons` | OPTIONAL | *array* of **OverrideReason** | Override reasons can be selected by the end user when overriding a card without taking the suggested recommendations. The CDS service MAY return a list of override reasons to the CDS client. The CDS client SHOULD present these reasons to the clinician when they dismiss a card. A CDS client MAY augment the override reasons presented to the user with its own reasons.
+`overrideReasons` | OPTIONAL | *array* of **CDSHooksCoding** | Override reasons can be selected by the end user when overriding a card without taking the suggested recommendations. The CDS service MAY return a list of override reasons to the CDS client. The CDS client SHOULD present these reasons to the clinician when they dismiss a card. A CDS client MAY augment the override reasons presented to the user with its own reasons.
 `links` | OPTIONAL | *array* of **Links** | Allows a service to suggest a link to an app that the user might want to run for additional information or to help guide a decision.
 
 #### Source
@@ -466,16 +466,7 @@ Field | Optionality | Type | Description
 <nobr>`label`</nobr>| REQUIRED | *string* | A short, human-readable label to display for the source of the information displayed on this card. If a `url` is also specified, this MAY be the text for the hyperlink.
 `url` | OPTIONAL | *URL* | An optional absolute URL to load (via `GET`, in a browser context) when a user clicks on this link to learn more about the organization or data set that provided the information on this card. Note that this URL should not be used to supply a context-specific "drill-down" view of the information on this card. For that, use `link.url` instead.
 `icon` | OPTIONAL | *URL* | An absolute URL to an icon for the source of this card. The icon returned by this URL SHOULD be a 100x100 pixel PNG image without any transparent regions.
-`topic` | OPTIONAL | *object* | A **Topic** describes the content of the card by providing a high-level categorization that can be useful for filtering, searching or ordered display of related cards in the CDS client's UI.
-
-A **Topic** contains a `code`, `system` and `display`. This specification does not prescribe a standard set of topics.
-
-Field | Optionality | Type | Description
------ | ----- | ----- | --------
-`code` | REQUIRED | *string* | A code for this **Topic**.
-`system` | OPTIONAL | *string* | A codesystem for this **Topic** `code`.
-`display` | OPTIONAL | *string* | A short, human-readable display label for this **Topic**.
-
+`topic` | OPTIONAL | *object* of **CDSHooksCoding** | A *topic* describes the content of the card by providing a high-level categorization that can be useful for filtering, searching or ordered display of related cards in the CDS client's UI.
 
 Below is an example `source` parameter:
 
@@ -555,16 +546,11 @@ The following example illustrates a delete action:
 }
 ```
 
-#### OverrideReason
+#### overrideReasons
 
-An **OverrideReason** is described by the following attributes. This specification does not prescribe a standard set of override reasons; implementers are encouraged to submit suggestions for standardization. 
+**overrideReasons** is an array of **CDSHooksCoding** that captures a codified set of reasons an end user may select from as the rejection reason when rejecting the advice presented in the card. When using the coding object representing a reason, implementations are required to only respect the *code* property. However, they may consume other properties for a better end user experience, such as presenting a human readable text in the *display* property instead of the *code* itself to the end user. 
 
-Field | Optionality | Type | Description
------ | ----- | ----- | --------
-`code` | REQUIRED | *string* | A code for this **OverrideReason**.
-`system` | OPTIONAL | *string* | A codesystem for this **OverrideReason** `code`.
-`display` | REQUIRED | *string* | A short, human-readable label to display for this override (e.g. the CDS Client might render this as the text on a button).
-
+This specification does not prescribe a standard set of override reasons; implementers are encouraged to submit suggestions for standardization. 
 
 ```json
 {
@@ -655,7 +641,7 @@ Field | Optionality | Type | Description
 `card` | REQUIRED | *string* | The `card.uuid` from the CDS Hooks response. Uniquely identifies the card.
 `outcome` | REQUIRED | *string* | A value of `accepted` or `overridden`.
 `acceptedSuggestions` | CONDITIONAL | *array* | An array of json objects identifying one or more of the user's **AcceptedSuggestion**s. Required for `accepted` outcomes.
-`overrideReason` | OPTIONAL | *object* | A json object identifying the **OverrideReason** selected by the user.
+`overrideReason` | OPTIONAL | *object* of **OverrideReason** | A json object capturing the override reason as well as any comments entered by the user.
 `outcomeTimestamp` | REQUIRED | *string* | ISO timestamp in UTC when action was taken on card.
 
 ## Suggestion accepted
@@ -721,8 +707,7 @@ Each **OverrideReason** is described by the following attributes, in the feedbac
 
 Field | Optionality | Type | Description
 ----- | ----- | ----- | --------
-`code` | CONDITIONAL | *string* | The code for this OverrideReason as provided by the CDS Service in the CDS Hooks response. Required if user selected an overrideReason (instead of only leaving a `userComment`.
-`system` | CONDITIONAL | *string* | The codesystem for this OverrideReason code as provided by the CDS Service in the CDS Hooks response. Required if the user selected an overrideReason and the CDS Service supplied this information in the CDS Hooks response.
+`reason` | CONDITIONAL | *object* of **CDSHooksCoding** | The Coding object representing the override reason selected by the end user. Required if user selected an override reason from the list of reasons provided in the Card (instead of only leaving a userComment).
 `userComment` | OPTIONAL | *string* | The CDS Client may enable the clinician to further explain why the card was rejected with free text. That user comment may be communicated to the CDS Service as a `userComment`.
 
 ```
@@ -733,8 +718,11 @@ POST {baseUrl}/cds-services/{serviceId}/feedback
          "card":"9368d37b-283f-44a0-93ea-547cebab93ed",
          "outcome":"overridden",
          "overrideReason": { 
-	 	"code":"reason-code-provided-by-service",
-     		"system":"http://example.org/cds-services/fhir/CodeSystem/override-reasons",
+	 	"reason": {
+	 		"code":"reason-code-provided-by-service",
+     			"system":"reason-system-provided-by-service",
+     			"display":"reason-display-provided-by-service",
+		},
 		"userComment" : "clinician entered comment" 
 	},
          "outcomeTimestamp": "iso timestamp in UTC when action was taken on card"
@@ -928,6 +916,20 @@ As another example, an extension defined on the discovery response could look li
 }
 ```
 [OAuth 2.0]: https://oauth.net/2/
+
+## Data Types
+
+This section defines some data types that are used across the specification. These types are generic enough so that they may be used with various properties pertaining to different concepts in the text of the specification.
+
+### CDSHooksCoding
+
+The CDSHooksCoding data type captures the concept of a code. A code is understood only when the given code, code-system, and a optionally a human readable display are available. This coding type is a standalone data type in CDS Hooks modeled after a trimmed down version of the [FHIR Coding data type](http://hl7.org/fhir/datatypes.html#Coding).
+
+Field | Optionality | Type | Description
+----- | ----- | ----- | --------
+`code` | REQUIRED | *string* | A code for this **OverrideReason**.
+`system` | OPTIONAL | *string* | A codesystem for this **OverrideReason** `code`.
+`display` | OPTIONAL | *string* | A short, human-readable label to display for this override (e.g. the CDS Client might render this as the text on a button).
 
 ## Hooks
 
