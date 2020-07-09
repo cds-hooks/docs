@@ -927,9 +927,9 @@ The CDSHooksCoding data type captures the concept of a code. A code is understoo
 
 Field | Optionality | Type | Description
 ----- | ----- | ----- | --------
-`code` | REQUIRED | *string* | A code for this **OverrideReason**.
-`system` | OPTIONAL | *string* | A codesystem for this **OverrideReason** `code`.
-`display` | OPTIONAL | *string* | A short, human-readable label to display for this override (e.g. the CDS Client might render this as the text on a button).
+`code` | REQUIRED | *string* | The code for what is being represented
+`system` | OPTIONAL | *string* | A codesystem for this `code`.
+`display` | OPTIONAL | *string* | A short, human-readable label to display.
 
 ## Hooks
 
