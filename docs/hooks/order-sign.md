@@ -537,6 +537,74 @@ Field | Optionality | Prefetch Token | Type | Description
 }
 ```
 
+## Coordination
+
+The details pertaining to the purpose of coordination can be found under [specification](../../specification/current/#coordination) and the implementation for `order-select` can be found [here](../order-select/#coordination).
+
+### Implementation
+
+```
+{
+   "context":{
+      "userId":"Practitioner/123",
+      "patientId":"1288992",
+      "extension": {
+         "pddi-configuration-items": {
+              "filter-out-repeated-alerts": true
+            }
+         },
+      "encounterId":"89284",
+      "draftOrders":{
+         "resourceType":"Bundle",
+         "entry":[
+
+snipped for brevity        
+```
+
+**Card Display Example**
+
+* Without `filter-out-repeated-alerts`
+
+~~~
+{
+  "cards": [
+    {
+      "summary": "Summary",
+      "indicator": "Indicator",
+      "detail": "Detail",
+      "suggestions": [
+        {
+          ...
+        },
+        {
+          "label": "Label",
+          "actions": [
+            ...
+          ]
+        }
+      ]
+    },
+    
+    ...
+  ]
+}
+~~~
+
+* With `filter-out-repeated-alerts` and `cache-for-order-sign-filtering` in `order-select`
+
+~~~
+{
+  "cards": [
+    {
+      "summary": "An alert was filtered because this request is configured to filter alerts if they were presented previously in response to a prior CDS Hook request.",
+      "indicator": "info",
+      "detail": "Since filter-out-repeated-alerts was set to true in this CDS Hook request, the service is filtering out cards that were triggered by the same knowledge artifact when the physician reference display, encounter id, and patient id match between the order-select and order-sign requests.",
+      "source": {}
+    }
+  ]
+}
+~~~
+
 ## Change Log
 
 Version | Description

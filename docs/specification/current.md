@@ -1095,6 +1095,84 @@ As each hook progresses through a process of being defined, tested, implemented,
 
     hookMaturity | 0 - Draft
 
+## Coordination 
+The primary motivation for configuration options is to support the advanced functionality of coordinating between order-select and order-sign to prevent alert duplication. Although it might seem reasonable to have the service default to this kind of coordination with no input from the EHR client, we think that there might be potential scenarios where this form of duplication might be desirable. For example, a teaching hospital might have resident physicians go through the order selection process and then have an attending physician sign off on the order. In this situation, having the same CDS Hooks cards returned at order-select and order-sign would not be perceived as a duplication to the attending. There might be other scenarios where repeating cards across the hooks makes sense. Thus, it seems best to have the EHR client some active role in the decision of whether to filter out alert responses. Using configuration options sent from the EHR client to the service provides a way for the client to have a say in how apparent duplication is handled.
+
+This implementation guide discusses a mechanism for providing the CDS service configuration from CDS Hooks requests. The use of this mechanism is required for the advanced functionality of coordinating between order-select and order-sign. There is no requirement to use additional configuration options at this time. 
+
+### Filtering CDS Hooks response cards at `order-sign`: CDS Service versus EHR Client 
+In order for use case CDS to be both sensitive and specific, different contextual factors are sent to the CDS service depending upon the order entry workflow step the clinician is engaged in.  At the time of medication selection, a `order-select` CDS Hook sends medication resources to the CDS service. Later, at the time of order signing, a `order-sign` CDS Hook sends other contextual resources. This might include retrospective patient conditions, lab measurements, and other information. One potential advantage of this approach is a reduction the amount of information needed to provide actionable information to the clinician. The approach might also limit the amount of information the EHR has to provide for an order entry task. For example, if a clinician starts an NSAID order for a patient that was taking warfarin and decides to discontinue the order based on the presented cards, the clinician only needs to read and process medication factors, and the EHR would not display additional patient resources such as age and history of upper gastrointestinal bleed. Table 1 provides a summary of the specification and feature differences between the levels of implementation.
+
+### Implementation
+
+Keys to implementation include:
+
+1. Defining two CDS Hooks triggers in CPOE workflow (i.e., `order-select` and `order-sign`)
+
+2. Creating a `order-select` specification 
+
+3. Modify `order-sign` specification
+
+4. Creating separate but coordinated Order Select and Order Sign Services
+
+> *Note:* The implementation requires two separate, but *coordinated,* services for standards' precision, logic flexibility, and to avoid the need for CDS service state.
+
+#### Summary of Operations
+Coordinating the Order Select Service with the Order Sign Service is a key aspect of the implementation. The figure below depicts the summary of operations that coordinates the Order Select and Order Sign Services.
+
+![cds service ](../images/cds_service.png)
+
+**CDS Discovery Response**
+```
+ {
+  "services": [
+    {
+      "hook": "order-select",
+      "title": "Static CDS Service Example",
+      "extension": {
+        "configuration-items": [
+          {
+            "code": <an identifier for the configuration option>,
+            "type": <data type of the configuration option, e.g. boolean>,
+            "name": <human readable name of the configuration option>,
+            "description": <human readable description of the configuration option>
+          },
+
+          ... other configuration options ...
+        ]
+    },
+    {
+      "hook": "order-sign",
+      "title": "Static CDS Service Example",
+      "extension": {
+        "configuration-items": [
+          {
+            "code": <an identifier for the configuration option>,
+            "type": <data type of the configuration option, e.g. boolean>,
+            "name": <human readable name of the configuration option>,
+            "description": <human readable description of the configuration option>
+          },
+
+          ... other configuration options ...
+        ]
+      }, ...
+
+snipped for brevity
+```
+
+#### Extension
+
+##### Configuration Items
+
+The CDS Service MUST process configuration options sent as within an extension resource with the CDS Hooks request in the field `configuration-items`. There are two standart configuration options:  `cache-for-order-sign-filtering` (only used in `order-select`), `filter-out-repeated-alerts` (only used in `order-sign`). All of these configuration options accept Boolean values and are required for the advanced implementation. The `cache-for-order-sign-filtering` option is used to cache the medication resource during `order-select` and is used as a reference during `order-sign` if `filter-out-repeated-alerts` is set to TRUE. The `filter-out-repeated-alerts` option is used to hide card results if they were shown in the `order-select` results.
+
+#### FHIR Server Request
+
+The parse and pre-process event for a `order-select` request in the Advanced Implementation is identical to what occurs with `order-sign` for the Basic Implementation. Processing of `order-sign` for the Advanced Implementation service is slightly different. During the parse and pre-process phase the CDS service checks the medication that was finally ordered against the medication that was cached during `order-select` if `cache-for-order-sign-filtering` was set to TRUE. If `filter-out-repeated-alerts` is also set to TRUE during `order-sign` then repeated alert cards will not be returned. 
+
+![parse pre-process](../images/parse_pre_process.png)
+
+
 #### Change Log
 
 Changes made to a hook's definition MUST be documented in a change log to ensure hook consumers can track what has been changed over the life of a hook. The change log MUST contain the following elements:

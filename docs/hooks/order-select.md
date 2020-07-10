@@ -545,6 +545,31 @@ Field | Optionality | Prefetch Token | Type | Description
 }
 ```
 
+## Coordination
+
+The details pertaining to the purpose of coordination can be found under [specification](../../specification/current/#coordination) and the implementation for `order-sign` can be found [here](../order-sign/#coordination).
+
+### Implementation
+
+```
+{
+   "context":{
+      "userId":"Practitioner/123",
+      "patientId":"1288992",
+      "extension": {
+         "configuration-items": {
+              "cache-for-order-sign-filtering": true
+            }
+         },
+      "encounterId":"89284",
+      "selections": [ "NutritionOrder/pureeddiet-simple", "MedicationRequest/smart-MedicationRequest-103" ],
+      "draftOrders":{
+         "resourceType":"Bundle",
+         "entry":[
+
+snipped for brevity        
+```
+
 ## Change Log
 
 Version | Description
