@@ -658,7 +658,7 @@ Field | Optionality | Type | Description
 `overrideReason` | OPTIONAL | *object* | A json object identifying the **OverrideReason** selected by the user.
 `outcomeTimestamp` | REQUIRED | *string* | ISO timestamp in UTC when action was taken on card.
 
-## Suggestion accepted
+### Suggestion accepted
 
 The CDS client can inform the service when one or more suggestions were accepted by POSTing a simple json object. The CDS client authenticates to the CDS service as described in [Trusting CDS Clients](#trusting-cds-clients).
 
@@ -689,11 +689,11 @@ POST {baseUrl}/cds-services/{serviceId}/feedback
 
 If either the card or the suggestion has no `uuid`, the CDS client does not send a notification.
 
-## Card ignored
+### Card ignored
 
 If the end-user doesn't interact with the CDS Service's card at all, the card is *ignored*. In this case, the CDS Client does not inform the CDS Service of the rejected guidance. Even with a `card.uuid`, a `suggestion.uuid`, and an available feedback service, the service is not informed. 
 
-## Overridden guidance
+### Overridden guidance
 
 A CDS client may enable the end user to override guidance without providing an explicit reason for doing so. The CDS client can inform the service when a card was dismissed by specifying an outcome of `overridden` without providing an `overrideReason`. This may occur, for example, when the end user viewed the card and dismissed it without providing a reason why.
 
@@ -713,7 +713,7 @@ POST {baseUrl}/cds-services/{serviceId}/feedback
 
 ```
 
-## Explicit reject with override reasons
+### Explicit reject with override reasons
 
 A CDS client can inform the service when a card was rejected by POSTing an outcome of `overridden` along with an `overrideReason` to the service's feedback endpoint. The CDS Client may enable the clinician to supplement the `overrideReason` with a free text comment, supplied to the CDS Service in `overrideReason.userComment`. 
 
