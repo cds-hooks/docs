@@ -546,7 +546,7 @@ The following example illustrates a delete action:
 }
 ```
 
-#### overrideReasons
+#### Reasons for rejecting a card
 
 **overrideReasons** is an array of **Coding** that captures a codified set of reasons an end user may select from as the rejection reason when rejecting the advice presented in the card. When using the coding object representing a reason, implementations are required to only respect the *code* property. However, they may consume other properties for a better end user experience, such as presenting a human readable text in the *display* property instead of the *code* itself to the end user. 
 
@@ -644,7 +644,7 @@ Field | Optionality | Type | Description
 `overrideReason` | OPTIONAL | **OverrideReason** | A json object capturing the override reason as a **Coding** as well as any comments entered by the user.
 `outcomeTimestamp` | REQUIRED | *string* | ISO timestamp in UTC when action was taken on card.
 
-## Suggestion accepted
+### Suggestion accepted
 
 The CDS client can inform the service when one or more suggestions were accepted by POSTing a simple json object. The CDS client authenticates to the CDS service as described in [Trusting CDS Clients](#trusting-cds-clients).
 
@@ -675,11 +675,11 @@ POST {baseUrl}/cds-services/{serviceId}/feedback
 
 If either the card or the suggestion has no `uuid`, the CDS client does not send a notification.
 
-## Card ignored
+### Card ignored
 
 If the end-user doesn't interact with the CDS Service's card at all, the card is *ignored*. In this case, the CDS Client does not inform the CDS Service of the rejected guidance. Even with a `card.uuid`, a `suggestion.uuid`, and an available feedback service, the service is not informed. 
 
-## Overridden guidance
+### Overridden guidance
 
 A CDS client may enable the end user to override guidance without providing an explicit reason for doing so. The CDS client can inform the service when a card was dismissed by specifying an outcome of `overridden` without providing an `overrideReason`. This may occur, for example, when the end user viewed the card and dismissed it without providing a reason why.
 
@@ -699,11 +699,11 @@ POST {baseUrl}/cds-services/{serviceId}/feedback
 
 ```
 
-## Explicit reject with override reasons
+### Explicit reject with override reasons
 
 A CDS client can inform the service when a card was rejected by POSTing an outcome of `overridden` along with an `overrideReason` to the service's feedback endpoint. The CDS Client may enable the clinician to supplement the `overrideReason` with a free text comment, supplied to the CDS Service in `overrideReason.userComment`. 
 
-### **OverrideReason**
+#### OverrideReason
 
 Each **OverrideReason** is described by the following attributes, in the feedback POST to the CDS Service.
 
