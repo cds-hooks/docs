@@ -466,7 +466,7 @@ Field | Optionality | Type | Description
 <nobr>`label`</nobr>| REQUIRED | *string* | A short, human-readable label to display for the source of the information displayed on this card. If a `url` is also specified, this MAY be the text for the hyperlink.
 `url` | OPTIONAL | *URL* | An optional absolute URL to load (via `GET`, in a browser context) when a user clicks on this link to learn more about the organization or data set that provided the information on this card. Note that this URL should not be used to supply a context-specific "drill-down" view of the information on this card. For that, use `link.url` instead.
 `icon` | OPTIONAL | *URL* | An absolute URL to an icon for the source of this card. The icon returned by this URL SHOULD be a 100x100 pixel PNG image without any transparent regions.
-`topic` | OPTIONAL | **Coding** | A *topic* describes the content of the card by providing a high-level categorization that can be useful for filtering, searching or ordered display of related cards in the CDS client's UI.
+`topic` | OPTIONAL | **Coding** | A *topic* describes the content of the card by providing a high-level categorization that can be useful for filtering, searching or ordered display of related cards in the CDS client's UI. This specification does not prescribe a standard set of topics.
 
 Below is an example `source` parameter:
 
@@ -641,7 +641,7 @@ Field | Optionality | Type | Description
 `card` | REQUIRED | *string* | The `card.uuid` from the CDS Hooks response. Uniquely identifies the card.
 `outcome` | REQUIRED | *string* | A value of `accepted` or `overridden`.
 `acceptedSuggestions` | CONDITIONAL | *array* | An array of json objects identifying one or more of the user's **AcceptedSuggestion**s. Required for `accepted` outcomes.
-`overrideReason` | OPTIONAL | *object* of **OverrideReason** | A json object capturing the override reason as well as any comments entered by the user.
+`overrideReason` | OPTIONAL | **OverrideReason** | A json object capturing the override reason as a **Coding** as well as any comments entered by the user.
 `outcomeTimestamp` | REQUIRED | *string* | ISO timestamp in UTC when action was taken on card.
 
 ## Suggestion accepted
@@ -702,6 +702,8 @@ POST {baseUrl}/cds-services/{serviceId}/feedback
 ## Explicit reject with override reasons
 
 A CDS client can inform the service when a card was rejected by POSTing an outcome of `overridden` along with an `overrideReason` to the service's feedback endpoint. The CDS Client may enable the clinician to supplement the `overrideReason` with a free text comment, supplied to the CDS Service in `overrideReason.userComment`. 
+
+### **OverrideReason**
 
 Each **OverrideReason** is described by the following attributes, in the feedback POST to the CDS Service.
 
@@ -919,7 +921,7 @@ As another example, an extension defined on the discovery response could look li
 
 ## Data Types
 
-This section defines data types used re-used across the specification. 
+This section defines data types re-used across the specification. 
 
 ### Coding
 
