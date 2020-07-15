@@ -707,7 +707,7 @@ Each **OverrideReason** is described by the following attributes, in the feedbac
 
 Field | Optionality | Type | Description
 ----- | ----- | ----- | --------
-`reason` | CONDITIONAL | *object* of **CDSHooksCoding** | The Coding object representing the override reason selected by the end user. Required if user selected an override reason from the list of reasons provided in the Card (instead of only leaving a userComment).
+`reason` | CONDITIONAL |**Coding** | The Coding object representing the override reason selected by the end user. Required if user selected an override reason from the list of reasons provided in the Card (instead of only leaving a userComment).
 `userComment` | OPTIONAL | *string* | The CDS Client may enable the clinician to further explain why the card was rejected with free text. That user comment may be communicated to the CDS Service as a `userComment`.
 
 ```
