@@ -923,7 +923,7 @@ This section defines some data types that are used across the specification. The
 
 ### Coding
 
-The CDSHooksCoding data type captures the concept of a code. A code is understood only when the given code, code-system, and a optionally a human readable display are available. This coding type is a standalone data type in CDS Hooks modeled after a trimmed down version of the [FHIR Coding data type](http://hl7.org/fhir/datatypes.html#Coding).
+The **Coding** data type captures the concept of a code. A code is understood only when the given code, code-system, and a optionally a human readable display are available. This coding type is a standalone data type in CDS Hooks modeled after a trimmed down version of the [FHIR Coding data type](http://hl7.org/fhir/datatypes.html#Coding).
 
 Field | Optionality | Type | Description
 ----- | ----- | ----- | --------
