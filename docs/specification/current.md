@@ -921,7 +921,7 @@ As another example, an extension defined on the discovery response could look li
 
 This section defines some data types that are used across the specification. These types are generic enough so that they may be used with various properties pertaining to different concepts in the text of the specification.
 
-### CDSHooksCoding
+### Coding
 
 The CDSHooksCoding data type captures the concept of a code. A code is understood only when the given code, code-system, and a optionally a human readable display are available. This coding type is a standalone data type in CDS Hooks modeled after a trimmed down version of the [FHIR Coding data type](http://hl7.org/fhir/datatypes.html#Coding).
 
