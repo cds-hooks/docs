@@ -919,7 +919,7 @@ As another example, an extension defined on the discovery response could look li
 
 ## Data Types
 
-This section defines some data types that are used across the specification. These types are generic enough so that they may be used with various properties pertaining to different concepts in the text of the specification.
+This section defines data types used re-used across the specification. 
 
 ### Coding
 
