@@ -1096,19 +1096,27 @@ As each hook progresses through a process of being defined, tested, implemented,
     hookMaturity | 0 - Draft
 
 ## Coordination 
-The primary motivation for configuration options is to support the advanced functionality of coordinating between `order-select` and `order-sign` to prevent alert duplication. Although it might seem reasonable to have the service default to this kind of coordination with no input from the EHR client, we think that there might be potential scenarios where this form of duplication might be desirable. For example, a teaching hospital might have resident physicians go through the order selection process and then have an attending physician sign off on the order. In this situation, having the same CDS Hooks cards returned at `order-select` and `order-sign` would not be perceived as a duplication to the attending. There might be other scenarios where repeating cards across the hooks makes sense. Thus, it seems best to have the EHR client some active role in the decision of whether to filter out alert responses. Using configuration options sent from the EHR client to the service provides a way for the client to have a say in how apparent duplication is handled.
+The primary motivation for configuration options is to support the functionality of coordinating between `order-select` and `order-sign` to prevent alert duplication. Although it might seem reasonable to have the service default to this kind of coordination with no input from the EHR client, we think that there might be potential scenarios where this form of duplication might be desirable. For example, a teaching hospital might have resident physicians go through the order selection process and then have an attending physician sign off on the order. In this situation, having the same CDS Hooks cards returned at `order-select` and `order-sign` would not be perceived as a duplication to the attending. There might be other scenarios where repeating cards across the hooks makes sense. Thus, it seems best to have the EHR client some active role in the decision of whether to filter out alert responses. Using configuration options sent from the EHR client to the service provides a way for the client to have a say in how apparent duplication is handled.
 
-This implementation guide discusses a mechanism for providing the CDS service configuration from CDS Hooks requests. The use of this mechanism is required for the advanced functionality of coordinating between order-select and order-sign. There is no requirement to use additional configuration options at this time. 
+This implementation guide discusses a mechanism for providing the CDS service configuration from CDS Hooks requests. The use of this mechanism is required for the functionality of coordinating between order-select and order-sign. There is no requirement to use additional configuration options at this time. 
 
 
 ### Implementation
 
 #### Summary of Operations
-Coordinating `order-select` and `order-sign` hooks involves sending configuration information to the CDS Service which prompts the service to cache data from the `order-select` request and use that data prior to returning cards from an `order-select` request to determine if the cards would appear a duplicates to the clinician. The figure below depicts the summary of operations that result in coordination between the `order-select` and `order-sign` hooks.
+Coordinating `order-select` and `order-sign` hooks involves sending configuration information to the CDS Service which prompts the service to cache data from the `order-select` request and use that data prior to returning cards from an `order-signed` request to determine if the cards would appear a duplicates to the clinician. The figure below depicts the summary of operations that result in coordination between the `order-select` and `order-sign` hooks.
 
 ![cds service ](../images/cds_service.png)
 
 **CDS Discovery Response**
+Prior to a hook trigger and subsequent processes, the EHR MUST initiate a CDS Discovery. CDS Discovery is to identify CDS services and obtain associated prefetch templates. A prefetch template is a dictionary of read and search requests for needed resources of a particular service.
+In addition to the attributes specified in the [Discovery](#discovery) section of this page, a new `extension` resource will be required.
+
+Field | Optionality | Type | Description
+----- | ----- | ----- | ---------
+`extension` | REQUIRED | *object* | 
+ 
+ 
 ```
  {
   "services": [
@@ -1146,18 +1154,16 @@ Coordinating `order-select` and `order-sign` hooks involves sending configuratio
 snipped for brevity
 ```
 
-#### Extension
+##### Extension
 
-##### Configuration Items
+###### Configuration Items
 
-The CDS Service MUST process configuration options sent as within an extension resource with the CDS Hooks request in the field `configuration-items`. There are two standart configuration options:  `cache-for-order-sign-filtering` (only used in `order-select`), `filter-out-repeated-alerts` (only used in `order-sign`). All of these configuration options accept Boolean values and are required for the advanced implementation. The `cache-for-order-sign-filtering` option is used to cache the medication resource during `order-select` and is used as a reference during `order-sign` if `filter-out-repeated-alerts` is set to TRUE. The `filter-out-repeated-alerts` option is used to hide card results if they were shown in the `order-select` results.
+The CDS Service MUST process configuration options sent as within an extension resource with the CDS Hooks request in the field `configuration-items`. There are two standart configuration options:  `cache-for-order-sign-filtering` (only used in `order-select`), `filter-out-repeated-alerts` (only used in `order-sign`). All of these configuration options accept Boolean values and are required. The `cache-for-order-sign-filtering` option is used to cache the medication resource during `order-select` and is used as a reference during `order-sign` if `filter-out-repeated-alerts` is set to TRUE. The `filter-out-repeated-alerts` option is used to hide card results if they were shown in the `order-select` results.
 
 #### FHIR Server Request
 
-With coordination, the parse and pre-process event for an `order-select` request is identical to what occurs with an `order-select` request without coordination except that the CDS Service checks to see if `cache-for-order-sign-filtering` was set to TRUE and, if so, it caches information that it will later use to filter duplicate CDS Hooks cards from a future `order-sign` request. Then, during the parse and pre-process phase for `order-sign`, the CDS service checks to see if `filter-out-repeated-alerts` is also set to TRUE. If so, it then checks the cached data for a match on specific resources and information to identify if the `order-sign` card response would be a duplication. If so, repeated alert cards will not be returned. 
-
-![parse pre-process](../images/parse_pre_process.png)
-
+With coordination, the parse and pre-process event for an `order-select` request is nearly identical to what occurs with an `order-select` request without coordination except that the CDS Service checks to see if `cache-for-order-sign-filtering` was set to TRUE and, if so, it caches information that it will later use to filter duplicate CDS Hooks cards from a future `order-sign` request. Then, during the parse and pre-process phase for `order-sign`, the CDS service checks to see if `filter-out-repeated-alerts` is also set to TRUE. If so, it then checks the cached data for a match on specific resources and information to identify if the `order-sign` card response would be a duplication. If so, repeated alert cards will not be returned. 
+More information regarding how to call a CDS Service can be found in the [HTTP Request](#http-request_1) seciton.
 
 #### Change Log
 
