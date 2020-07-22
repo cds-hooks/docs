@@ -921,7 +921,7 @@ As another example, an extension defined on the discovery response could look li
 
 ## Data Types
 
-This section defines data types re-used across the specification. 
+CDS Hooks leverages json data types throughout.  This section defines data structures re-used across the specification. 
 
 ### Coding
 
