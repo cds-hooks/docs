@@ -723,7 +723,6 @@ POST {baseUrl}/cds-services/{serviceId}/feedback
 	 	"reason": {
 	 		"code":"reason-code-provided-by-service",
      			"system":"reason-system-provided-by-service",
-     			"display":"reason-display-provided-by-service",
 		},
 		"userComment" : "clinician entered comment" 
 	},
