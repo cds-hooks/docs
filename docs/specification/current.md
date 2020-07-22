@@ -932,7 +932,8 @@ Field | Optionality | Type | Description
 `code` | REQUIRED | *string* | The code for what is being represented
 `system` | OPTIONAL | *string* | A codesystem for this `code`.
 `display` | OPTIONAL | *string* | A short, human-readable label to display.
-
+`version` | OPTIONAL | *string* | Version of the system - if relevant.
+`userSelected` | OPTIONAL | *boolean* | If this coding was chosen directly by the user.
 ## Hooks
 
 ### Overview
