@@ -20,6 +20,7 @@ nav:
     - 'patient-view 4' : 'hooks/patient-view.md'
     - 'medication-prescribe 🚫' : 'hooks/medication-prescribe.md'
     - 'order-review 🚫' : 'hooks/order-review.md'
+    - 'order-search 0' : 'hooks/order-search.md'
     - 'order-select 1' : 'hooks/order-select.md'
     - 'order-sign 1' : 'hooks/order-sign.md'
     - 'appointment-book 1' : 'hooks/appointment-book.md'
