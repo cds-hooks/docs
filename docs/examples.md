@@ -12,7 +12,7 @@
   "fhirServer": "http://fhir.example.com",
   "hook": "medication-prescribe",
   "context": {
-    "userId": "PractitionerRole/example",
+    "userId": "Practitioner/example",
     "medications": [
       {
         "resourceType": "MedicationOrder",
@@ -142,7 +142,7 @@ This example is taken from the [Opioid Prescribing Support Implementation Guide]
   "fhirServer": "http://fhir.example.com",
   "hook": "order-review",
   "context": {
-    "userId": "PractitionerRole/example",
+    "userId": "Practitioner/example",
     "orders": [
       {
         "resourceType": "ProcedureRequest",
