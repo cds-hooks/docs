@@ -447,12 +447,14 @@ Each **Card** is described by the following attributes.
 
 Field | Optionality | Type | Description
 ----- | ----- | ----- | --------
+`uuid` | OPTIONAL | *string* | Unique identifier of the card.  MAY be used for auditing and logging cards and SHALL be included in any subsequent calls to the CDS service's feedback endpoint.
 `summary` | REQUIRED | *string* | One-sentence, <140-character summary message for display to the user inside of this card.
 `detail` | OPTIONAL | *string* | Optional detailed information to display; if provided MUST be represented in [(GitHub Flavored) Markdown](https://github.github.com/gfm/). (For non-urgent cards, the CDS Client MAY hide these details until the user clicks a link like "view more details...").
 `indicator` | REQUIRED | *string* | Urgency/importance of what this card conveys. Allowed values, in order of increasing urgency, are: `info`, `warning`, `critical`. The CDS Client MAY use this field to help make UI display decisions such as sort order or coloring.
 `source` | REQUIRED | *object* | Grouping structure for the **Source** of the information displayed on this card. The source should be the primary source of guidance for the decision support the card represents.
 <nobr>`suggestions`</nobr> | OPTIONAL | *array* of **Suggestions** | Allows a service to suggest a set of changes in the context of the current activity (e.g.  changing the dose of the medication currently being prescribed, for the `medication-prescribe` activity). If suggestions are present, `selectionBehavior` MUST also be provided.
-`selectionBehavior` | OPTIONAL | *string* | Describes the intended selection behavior of the suggestions in the card. Currently, the only allowed value is `at-most-one`, indicating that the user may choose none or at most one of the suggestions. Future versions of the specification may expand this behavior, so CDS Clients that do not understand the value MUST treat the card as an error. CDS Clients MUST support the value of `at-most-one`.
+`selectionBehavior` | OPTIONAL | *string* | Describes the intended selection behavior of the suggestions in the card. Allowed values are: `at-most-one`, indicating that the user may choose none or at most one of the suggestions;`any`, indicating that the end user may choose any number of suggestions including none of them and all of them. CDS Clients that do not understand the value MUST treat the card as an error.
+`overrideReasons` | OPTIONAL | *array* of **OverrideReason** | Override reasons can be selected by the end user when overriding a card without taking the suggested recommendations. The CDS service MAY return a list of override reasons to the CDS client. The CDS client SHOULD present these reasons to the clinician when they dismiss a card. A CDS client MAY augment the override reasons presented to the user with its own reasons.
 `links` | OPTIONAL | *array* of **Links** | Allows a service to suggest a link to an app that the user might want to run for additional information or to help guide a decision.
 
 #### Source
@@ -464,6 +466,35 @@ Field | Optionality | Type | Description
 <nobr>`label`</nobr>| REQUIRED | *string* | A short, human-readable label to display for the source of the information displayed on this card. If a `url` is also specified, this MAY be the text for the hyperlink.
 `url` | OPTIONAL | *URL* | An optional absolute URL to load (via `GET`, in a browser context) when a user clicks on this link to learn more about the organization or data set that provided the information on this card. Note that this URL should not be used to supply a context-specific "drill-down" view of the information on this card. For that, use `link.url` instead.
 `icon` | OPTIONAL | *URL* | An absolute URL to an icon for the source of this card. The icon returned by this URL SHOULD be a 100x100 pixel PNG image without any transparent regions.
+`topic` | OPTIONAL | *object* | A **Topic** describes the content of the card by providing a high-level categorization that can be useful for filtering, searching or ordered display of related cards in the CDS client's UI.
+
+A **Topic** contains a `code`, `system` and `display`. This specification does not prescribe a standard set of topics.
+
+Field | Optionality | Type | Description
+----- | ----- | ----- | --------
+`code` | REQUIRED | *string* | A code for this **Topic**.
+`system` | OPTIONAL | *string* | A codesystem for this **Topic** `code`.
+`display` | OPTIONAL | *string* | A short, human-readable display label for this **Topic**.
+
+
+Below is an example `source` parameter:
+
+```json
+{
+  "source" : {
+    "label" : "Zika Virus Management",
+    "url" : "https://example.com/cdc-zika-virus-mgmt",
+    "icon" : "https://example.com/cdc-zika-virus-mgmt/100.png",
+    "topic" : {
+      "system": "http://example.org/cds-services/fhir/CodeSystem/topics",
+      "code": "12345",
+      "display": "Mosquito born virus"
+    }
+  }
+}
+```
+
+=======
 
 #### Suggestion
 
@@ -473,6 +504,7 @@ Field | Optionality | Type | Description
 ----- | ----- | ----- | --------
 `label` | REQUIRED | *string* | Human-readable label to display for this suggestion (e.g. the CDS Client might render this as the text on a button tied to this suggestion).
 `uuid` | OPTIONAL | *string* | Unique identifier, used for auditing and logging suggestions.
+`isRecommended` | OPTIONAL | *boolean* | When there are multiple suggestions, allows a service to indicate that a specific suggestion is recommended from all the available suggestions on the card. CDS Hooks clients may choose to influence their UI based on this value, such as pre-selecting, or highlighting recommended suggestions. Multiple suggestions MAY be recommended, if `card.selectionBehavior` is `any`.
 `actions` | OPTIONAL | *array* | Array of objects, each defining a suggested action. Within a suggestion, all actions are logically AND'd together, such that a user selecting a suggestion selects all of the actions within it.
 
 ##### Action
@@ -520,6 +552,34 @@ The following example illustrates a delete action:
 	"type": "delete",
 	"description": "Remove the inappropriate order",
 	"resource": "ProcedureRequest/procedure-request-1"
+}
+```
+
+#### OverrideReason
+
+An **OverrideReason** is described by the following attributes. This specification does not prescribe a standard set of override reasons; implementers are encouraged to submit suggestions for standardization. 
+
+Field | Optionality | Type | Description
+----- | ----- | ----- | --------
+`code` | REQUIRED | *string* | A code for this **OverrideReason**.
+`system` | OPTIONAL | *string* | A codesystem for this **OverrideReason** `code`.
+`display` | REQUIRED | *string* | A short, human-readable label to display for this override (e.g. the CDS Client might render this as the text on a button).
+
+
+```json
+{
+   "overrideReasons":[
+      {
+         "code":"reason-code-provided-by-service",
+	 "system":"http://example.org/cds-services/fhir/CodeSystem/override-reasons",
+         "display":"Patient refused"
+      },
+      {
+         "code":"12354",
+	 "system":"http://example.org/cds-services/fhir/CodeSystem/override-reasons",
+         "display":"Contraindicated"
+      }
+   ]
 }
 ```
 
@@ -580,6 +640,107 @@ Field | Optionality | Type | Description
 }
 ```
 
+## Feedback
+
+Once a CDS Hooks service responds to a hook by returning a card, the service has no further interaction with the CDS client. The acceptance of a suggestion or rejection of a card is valuable information to enable a service to improve its behavior towards the goal of the end-user having a positive and meaningful experience with the CDS. A feedback endpoint enables suggestion tracking & analytics.
+
+Upon receiving a card, a user may accept its suggestions, ignore it entirely, or dismiss it with or without an override reason. Note that while one or more suggestions can be accepted, an entire card is either ignored or overridden.
+
+Typically, an end user may only accept (a suggestion), or override a card once; however, a card once ignored could later be acted upon. CDS Hooks does not specify the UI behavior of CDS clients, including the persistence of cards. CDS clients should faithfully report each of these distinct end-user interactions as feedback. 
+
+Each **Feedback** is described by the following attributes.
+
+Field | Optionality | Type | Description
+----- | ----- | ----- | --------
+`card` | REQUIRED | *string* | The `card.uuid` from the CDS Hooks response. Uniquely identifies the card.
+`outcome` | REQUIRED | *string* | A value of `accepted` or `overridden`.
+`acceptedSuggestions` | CONDITIONAL | *array* | An array of json objects identifying one or more of the user's **AcceptedSuggestion**s. Required for `accepted` outcomes.
+`overrideReason` | OPTIONAL | *object* | A json object identifying the **OverrideReason** selected by the user.
+`outcomeTimestamp` | REQUIRED | *string* | ISO timestamp in UTC when action was taken on card.
+
+### Suggestion accepted
+
+The CDS client can inform the service when one or more suggestions were accepted by POSTing a simple json object. The CDS client authenticates to the CDS service as described in [Trusting CDS Clients](#trusting-cds-clients).
+
+Upon the user accepting a suggestion (perhaps when she clicks a displayed label (e.g., button) from a "suggestion" card), the CDS client informs the service by posting the card and suggestion `uuid`s to the CDS Service's feedback endpoint with an outcome of `accepted`.
+
+To enable a positive clinical experience, the feedback endpoint may be called for multiple hook instances or multiple cards at the same time or even multiple times for a card or suggestion. Depending upon the UI and workflow of the CDS client, a CDS Service may receive feedback for the same card instance multiple times. 
+
+Each **AcceptedSuggestion** is described by the following attributes.
+
+Field | Optionality | Type | Description
+----- | ----- | ----- | --------
+`id` | REQUIRED | *string* | The `card.suggestion.uuid` from the CDS Hooks response. Uniquely identifies the suggestion that was accepted.
+
+```
+POST {baseUrl}/cds-services/{serviceId}/feedback
+
+{
+   "feedback":[
+      {
+         "card":"`card.uuid` from CDS Hooks response",
+         "outcome":"accepted",
+         "acceptedSuggestions": [ { "id" : "`card.suggestion.uuid` from CDS Hooks response" } ],
+         "outcomeTimestamp": "iso timestamp in UTC when action was taken on card"
+      }
+   ]
+}
+```
+
+If either the card or the suggestion has no `uuid`, the CDS client does not send a notification.
+
+### Card ignored
+
+If the end-user doesn't interact with the CDS Service's card at all, the card is *ignored*. In this case, the CDS Client does not inform the CDS Service of the rejected guidance. Even with a `card.uuid`, a `suggestion.uuid`, and an available feedback service, the service is not informed. 
+
+### Overridden guidance
+
+A CDS client may enable the end user to override guidance without providing an explicit reason for doing so. The CDS client can inform the service when a card was dismissed by specifying an outcome of `overridden` without providing an `overrideReason`. This may occur, for example, when the end user viewed the card and dismissed it without providing a reason why.
+
+
+```
+POST {baseUrl}/cds-services/{serviceId}/feedback
+
+{
+   "feedback":[
+      {
+         "card":"f6b95768-b1c8-40dc-8385-bf3504b82ffb", // uuid from `card.uuid`
+         "outcome":"overridden",
+         "outcomeTimestamp": "iso timestamp in UTC when action was taken on card"
+      }
+   ]
+}
+
+```
+
+### Explicit reject with override reasons
+
+A CDS client can inform the service when a card was rejected by POSTing an outcome of `overridden` along with an `overrideReason` to the service's feedback endpoint. The CDS Client may enable the clinician to supplement the `overrideReason` with a free text comment, supplied to the CDS Service in `overrideReason.userComment`. 
+
+Each **OverrideReason** is described by the following attributes, in the feedback POST to the CDS Service.
+
+Field | Optionality | Type | Description
+----- | ----- | ----- | --------
+`code` | CONDITIONAL | *string* | The code for this OverrideReason as provided by the CDS Service in the CDS Hooks response. Required if user selected an overrideReason (instead of only leaving a `userComment`.
+`system` | CONDITIONAL | *string* | The codesystem for this OverrideReason code as provided by the CDS Service in the CDS Hooks response. Required if the user selected an overrideReason and the CDS Service supplied this information in the CDS Hooks response.
+`userComment` | OPTIONAL | *string* | The CDS Client may enable the clinician to further explain why the card was rejected with free text. That user comment may be communicated to the CDS Service as a `userComment`.
+
+```
+POST {baseUrl}/cds-services/{serviceId}/feedback
+
+{
+   "feedback":[{
+         "card":"9368d37b-283f-44a0-93ea-547cebab93ed",
+         "outcome":"overridden",
+         "overrideReason": { 
+	 	"code":"reason-code-provided-by-service",
+     		"system":"http://example.org/cds-services/fhir/CodeSystem/override-reasons",
+		"userComment" : "clinician entered comment" 
+	},
+         "outcomeTimestamp": "iso timestamp in UTC when action was taken on card"
+      }]
+}
+```
 
 ## Security and Safety
 
