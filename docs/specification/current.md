@@ -591,7 +591,7 @@ A `systemAction` is the same **Action** which may be returned in a suggestion, b
 		"type": "update",
 		"resource": {
 			"resourceType": "ServiceRequest",
-			"id": "example-MRI-59879846"
+			"id": "example-MRI-59879846",
                         "...": "<snipped for brevity"
 
 		}
