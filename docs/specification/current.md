@@ -554,6 +554,24 @@ The following example illustrates a delete action:
 }
 ```
 
+###### System Action
+A `systemAction` is the same **Action** which may be returned in a suggestion, but is instead returned alongside the array of cards. A `systemAction` is not presented to the user within a card, but rather may be auto-applied without user intervention.
+
+```json
+{
+	"cards": [],
+	"systemActions": [{
+		"type": "update",
+		"resource": {
+			"resourceType": "ServiceRequest",
+			"id": "example-MRI-59879846"
+                        "...": "<snipped for brevity"
+
+		}
+	}]
+}
+```
+
 #### OverrideReason
 
 An **OverrideReason** is described by the following attributes. This specification does not prescribe a standard set of override reasons; implementers are encouraged to submit suggestions for standardization. 
