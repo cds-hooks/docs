@@ -328,7 +328,7 @@ goal is to know, at call time:
 | --- | ----------- |
 | `patient` | Patient demographics. |
 | `hemoglobin-a1c` | Most recent Hemoglobin A1c reading for this patient. |
-| `user` | Information on the current user (Practitioner).
+| `user` | Information on the current user.
 
 #### Example prefetch data
 
@@ -365,7 +365,7 @@ goal is to know, at call time:
 The CDS Hooks request is augmented to include two prefetch values, where the dictionary
 keys match the request keys (`patient` and `hemoglobin-a1c` in this case).
 
-Note that the missing `user` key indicates that either the CDS Client has decided not to satisfy this particular prefetch template or it was not able to retrieve this prefetched data. The CDS Service is responsible for retrieving this Practitioner data from the FHIR server (if required).
+Note that the missing `user` key indicates that either the CDS Client has decided not to satisfy this particular prefetch template or it was not able to retrieve this prefetched data. The CDS Service is responsible for retrieving the FHIR resource representing the user from the FHIR server (if required).
 
 ### FHIR Resource Access
 
@@ -950,7 +950,7 @@ For example, consider a simple `patient-view` hook that is invoked whenever the 
 
 ```json
 "context":{
-  "userId" : "Practitioner/123",
+  "userId" : "PractitionerRole/123",
   "patientId" : "1288992"
 }
 ```

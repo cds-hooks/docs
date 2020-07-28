@@ -117,9 +117,9 @@ Often a CDS Service will require additional information from the CDS Client to p
    "hookInstance" : "23f1a303-991f-4118-86c5-11d99a39222e",
    "fhirServer" : "https://fhir.example.org",
    "hook" : "patient-view",
-   "user" : "Practitioner/example",
    "context" : {
      "patientId" : "1288992",
+     "userId" : "Practitioner/example"
     },
    "prefetch" : {
       "patientToGreet" : {
@@ -177,4 +177,3 @@ For some CDS Services the end step will just display the card. For the patient-v
 ## Test with external CDS Service
 
 No development is complete without testing with a CDS Service provider. Find a member in the [community](community) and test away. 
-
