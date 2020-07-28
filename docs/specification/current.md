@@ -485,8 +485,6 @@ Below is an example `source` parameter:
 }
 ```
 
-=======
-
 #### Suggestion
 
 Each **Suggestion** is described by the following attributes.
