@@ -554,23 +554,6 @@ The following example illustrates a delete action:
 }
 ```
 
-###### System Action
-A `systemAction` is the same **Action** which may be returned in a suggestion, but is instead returned alongside the array of cards. A `systemAction` is not presented to the user within a card, but rather may be auto-applied without user intervention.
-
-```json
-{
-	"cards": [],
-	"systemActions": [{
-		"type": "update",
-		"resource": {
-			"resourceType": "ServiceRequest",
-			"id": "example-MRI-59879846"
-                        "...": "<snipped for brevity"
-
-		}
-	}]
-}
-```
 
 #### OverrideReason
 
@@ -610,6 +593,25 @@ Field | Optionality | Type | Description
 `url` | REQUIRED | *URL* | URL to load (via `GET`, in a browser context) when a user clicks on this link. Note that this MAY be a "deep link" with context embedded in path segments, query parameters, or a hash.
 `type` | REQUIRED | *string* | The type of the given URL. There are two possible values for this field. A type of `absolute` indicates that the URL is absolute and should be treated as-is. A type of `smart` indicates that the URL is a SMART app launch URL and the CDS Client should ensure the SMART app launch URL is populated with the appropriate SMART launch parameters.
 `appContext` | OPTIONAL | *string* |  An optional field that allows the CDS Service to share information from the CDS card with a subsequently launched SMART app. The `appContext` field should only be valued if the link type is `smart` and is not valid for `absolute` links. The `appContext` field and value will be sent to the SMART app as part of the [OAuth 2.0][OAuth 2.0] access token response, alongside the other [SMART launch parameters](http://hl7.org/fhir/smart-app-launch/1.0.0/scopes-and-launch-context/#launch-context-arrives-with-your-access_token) when the SMART app is launched. Note that `appContext` could be escaped JSON, base64 encoded XML, or even a simple string, so long as the SMART app can recognize it.
+
+
+### System Action
+A `systemAction` is the same **Action** which may be returned in a suggestion, but is instead returned alongside the array of cards. A `systemAction` is not presented to the user within a card, but rather may be auto-applied without user intervention.
+
+```json
+{
+	"cards": [],
+	"systemActions": [{
+		"type": "update",
+		"resource": {
+			"resourceType": "ServiceRequest",
+			"id": "example-MRI-59879846"
+                        "...": "<snipped for brevity"
+
+		}
+	}]
+}
+```
 
 ### Example
 
