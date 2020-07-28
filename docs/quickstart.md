@@ -119,7 +119,7 @@ Often a CDS Service will require additional information from the CDS Client to p
    "hook" : "patient-view",
    "context" : {
      "patientId" : "1288992",
-     "user" : "Practitioner/example"
+     "userId" : "Practitioner/example"
     },
    "prefetch" : {
       "patientToGreet" : {
@@ -177,4 +177,3 @@ For some CDS Services the end step will just display the card. For the patient-v
 ## Test with external CDS Service
 
 No development is complete without testing with a CDS Service provider. Find a member in the [community](community) and test away. 
-
