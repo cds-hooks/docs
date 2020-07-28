@@ -410,7 +410,7 @@ Below is an example `fhirAuthorization` parameter:
 
 ## CDS Service Response
 
-For successful responses, CDS Services SHALL respond with a 200 HTTP response with an object containing a `cards` element as described below.
+For successful responses, CDS Services SHALL respond with a 200 HTTP response with an object containing a `cards` array and optionally a `systemActions` array as described below.
 
 Each card contains decision support from the CDS Service. Generally speaking, cards are intended for display to an end user. The data format of a card defines a very minimal set of required attributes with several more optional attributes to suit a variety of use cases. For instance, narrative informational decision support, actionable suggestions to modify data, and links to SMART apps.
 
@@ -430,6 +430,7 @@ CDS Services MAY return other HTTP statuses, specifically 4xx and 5xx HTTP error
 Field | Optionality | Type | Description
 ----- | ----- | ----- | --------
 `cards` | REQUIRED | *array* | An array of **Cards**. Cards can provide a combination of information (for reading), suggested actions (to be applied if a user selects them), and links (to launch an app if the user selects them). The CDS Client decides how to display cards, but this specification recommends displaying suggestions using buttons, and links using underlined text.
+`systemActions` | OPTIONAL | *array* |  An array of actions that the CDS Service proposes to auto-apply. Each action follows the schema of a [card-based `suggestion.action`](#action). The CDS Client decides whether to auto-apply actions.
 
 If your CDS Service has no decision support for the user, your service should return a 200 HTTP response with an empty array of cards.
 
@@ -484,8 +485,6 @@ Below is an example `source` parameter:
   }
 }
 ```
-
-=======
 
 #### Suggestion
 
@@ -546,6 +545,7 @@ The following example illustrates a delete action:
 }
 ```
 
+
 #### Reasons for rejecting a card
 
 **overrideReasons** is an array of **Coding** that captures a codified set of reasons an end user may select from as the rejection reason when rejecting the advice presented in the card. When using the coding object representing a reason, implementations are required to only respect the *code* property. However, they may consume other properties for a better end user experience, such as presenting a human readable text in the *display* property instead of the *code* itself to the end user. 
@@ -579,6 +579,25 @@ Field | Optionality | Type | Description
 `url` | REQUIRED | *URL* | URL to load (via `GET`, in a browser context) when a user clicks on this link. Note that this MAY be a "deep link" with context embedded in path segments, query parameters, or a hash.
 `type` | REQUIRED | *string* | The type of the given URL. There are two possible values for this field. A type of `absolute` indicates that the URL is absolute and should be treated as-is. A type of `smart` indicates that the URL is a SMART app launch URL and the CDS Client should ensure the SMART app launch URL is populated with the appropriate SMART launch parameters.
 `appContext` | OPTIONAL | *string* |  An optional field that allows the CDS Service to share information from the CDS card with a subsequently launched SMART app. The `appContext` field should only be valued if the link type is `smart` and is not valid for `absolute` links. The `appContext` field and value will be sent to the SMART app as part of the [OAuth 2.0][OAuth 2.0] access token response, alongside the other [SMART launch parameters](http://hl7.org/fhir/smart-app-launch/1.0.0/scopes-and-launch-context/#launch-context-arrives-with-your-access_token) when the SMART app is launched. Note that `appContext` could be escaped JSON, base64 encoded XML, or even a simple string, so long as the SMART app can recognize it.
+
+
+### System Action
+A `systemAction` is the same **Action** which may be returned in a suggestion, but is instead returned alongside the array of cards. A `systemAction` is not presented to the user within a card, but rather may be auto-applied without user intervention.
+
+```json
+{
+	"cards": [],
+	"systemActions": [{
+		"type": "update",
+		"resource": {
+			"resourceType": "ServiceRequest",
+			"id": "example-MRI-59879846",
+                        "...": "<snipped for brevity"
+
+		}
+	}]
+}
+```
 
 ### Example
 
