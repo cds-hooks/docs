@@ -6,7 +6,7 @@
 
 [![Build Status](https://api.travis-ci.org/cds-hooks/docs.svg)](https://travis-ci.org/cds-hooks/docs)
 
-CDS Hooks is a vendor agnostic remote decision support standard. This repository serves as both the specification and website for the CDS Hooks project.
+CDS Hooks is a vendor agnostic remote decision support standard. This repository serves as both for specification and website for the CDS Hooks project.
 
 ## Getting Started
 
