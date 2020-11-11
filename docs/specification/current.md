@@ -807,7 +807,7 @@ iat | REQUIRED | *number* | The time at which this JWT was issued, expressed in 
 jti | REQUIRED | *string* | A nonce string value that uniquely identifies this authentication JWT (used to protect against replay attacks).
 tenant | OPTIONAL | *string* | An opaque string identifying the healthcare organization that is invoking the CDS Hooks request.
 
-CDS Services SHOULD whitelist the `iss` and `jku` fields to only the CDS Clients they trust.
+CDS Services SHOULD maintain an allowlist of the `iss` and `jku` fields to only the CDS Clients they trust.
 
 Per [rfc7519](https://tools.ietf.org/html/rfc7519#section-4.1.3), the `aud` value is either a string or an array of strings. For CDS Hooks, this value MUST be the URL of the CDS Service endpoint being invoked. For example, consider a CDS Service available at a base URL of `https://cds.example.org`. When the CDS Client invokes the CDS Service discovery endpoint, the aud value is either `"https://cds.example.org/cds-services"` or `["https://cds.example.org/cds-services"]`. Similarly, when the CDS Client invokes a particular CDS Service (say, `some-service`), the aud value is either `"https://cds.example.org/cds-services/some-service"` or `["https://cds.example.org/cds-services/some-service"]`.
 
