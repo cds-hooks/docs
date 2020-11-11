@@ -9,7 +9,7 @@ The CDS Hooks specification describes the RESTful APIs and interactions to integ
 
 Unless otherwise specified, JSON attributes SHALL NOT be null. If a JSON attribute is defined with an optionality of OPTIONAL, but does not have a value, implementers MUST omit it. For instance, OPTIONAL JSON string and array attributes should be omitted rather than having a null or empty value. Similarly, JSON objects SHALL NOT be empty.
 
-Unless otherwise specified, JSON string or URL attributes that have an optionality of REQUIRED MAY NOT have empty values (those without any characters or just whitespace characters).
+Unless otherwise specified, JSON string or URL (Uniform Resource Locator) attributes that have an optionality of REQUIRED MAY NOT have empty values (those without any characters or just whitespace characters).
 
 ### Conformance Language
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this specification are to be interpreted as described in [RFC2119](https://tools.ietf.org/html/rfc2119).
