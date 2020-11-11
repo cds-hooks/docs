@@ -607,6 +607,7 @@ A `systemAction` is the same **Action** which may be returned in a suggestion, b
 {
   "cards": [
     {
+      "uuid": "4e0a3a1e-3283-4575-ab82-028d55fe2719",
       "summary": "Example Card",
       "indicator": "info",
       "detail": "This is an example card.",
@@ -677,16 +678,16 @@ Field | Optionality | Type | Description
 ----- | ----- | ----- | --------
 `id` | REQUIRED | *string* | The `card.suggestion.uuid` from the CDS Hooks response. Uniquely identifies the suggestion that was accepted.
 
-```
+```json
 POST {baseUrl}/cds-services/{serviceId}/feedback
 
 {
    "feedback":[
       {
-         "card":"`card.uuid` from CDS Hooks response",
+         "card":"4e0a3a1e-3283-4575-ab82-028d55fe2719",
          "outcome":"accepted",
-         "acceptedSuggestions": [ { "id" : "`card.suggestion.uuid` from CDS Hooks response" } ],
-         "outcomeTimestamp": "iso timestamp in UTC when action was taken on card"
+         "acceptedSuggestions": [ { "id" : "e56e1945-20b3-4393-8503-a1a20fd73152" } ],
+         "outcomeTimestamp": "2020-12-11T00:00:00Z UTC"
       }
    ]
 }
@@ -703,7 +704,7 @@ If the end-user doesn't interact with the CDS Service's card at all, the card is
 A CDS client may enable the end user to override guidance without providing an explicit reason for doing so. The CDS client can inform the service when a card was dismissed by specifying an outcome of `overridden` without providing an `overrideReason`. This may occur, for example, when the end user viewed the card and dismissed it without providing a reason why.
 
 
-```
+```json
 POST {baseUrl}/cds-services/{serviceId}/feedback
 
 {
@@ -711,7 +712,7 @@ POST {baseUrl}/cds-services/{serviceId}/feedback
       {
          "card":"f6b95768-b1c8-40dc-8385-bf3504b82ffb", // uuid from `card.uuid`
          "outcome":"overridden",
-         "outcomeTimestamp": "iso timestamp in UTC when action was taken on card"
+         "outcomeTimestamp": "2020-12-11T00:00:00Z UTC"
       }
    ]
 }
@@ -731,7 +732,7 @@ Field | Optionality | Type | Description
 `reason` | CONDITIONAL |**Coding** | The Coding object representing the override reason selected by the end user. Required if user selected an override reason from the list of reasons provided in the Card (instead of only leaving a userComment).
 `userComment` | OPTIONAL | *string* | The CDS Client may enable the clinician to further explain why the card was rejected with free text. That user comment may be communicated to the CDS Service as a `userComment`.
 
-```
+```json
 POST {baseUrl}/cds-services/{serviceId}/feedback
 
 {
@@ -740,12 +741,12 @@ POST {baseUrl}/cds-services/{serviceId}/feedback
          "outcome":"overridden",
          "overrideReason": { 
 	 	"reason": {
-	 		"code":"reason-code-provided-by-service",
-     			"system":"reason-system-provided-by-service"
+	 		"code":"d7ecf885",
+     			"system":"https://example.com/cds-hooks/override-reason-system"
 		},
 		"userComment" : "clinician entered comment" 
 	},
-         "outcomeTimestamp": "iso timestamp in UTC when action was taken on card"
+         "outcomeTimestamp": "2020-12-11T00:00:00Z UTC"
       }]
 }
 ```
