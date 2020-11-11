@@ -554,18 +554,15 @@ This specification does not prescribe a standard set of override reasons; implem
 
 ```json
 {
-   "overrideReasons":[
-      {
-         "code":"reason-code-provided-by-service",
-	 "system":"http://example.org/cds-services/fhir/CodeSystem/override-reasons",
-         "display":"Patient refused"
-      },
-      {
-         "code":"12354",
-	 "system":"http://example.org/cds-services/fhir/CodeSystem/override-reasons",
-         "display":"Contraindicated"
-      }
-   ]
+    "overrideReasons": [{
+        "code": "reason-code-provided-by-service",
+        "system": "http://example.org/cds-services/fhir/CodeSystem/override-reasons",
+        "display": "Patient refused"
+    }, {
+        "code": "12354",
+        "system": "http://example.org/cds-services/fhir/CodeSystem/override-reasons",
+        "display": "Contraindicated"
+    }]
 }
 ```
 
