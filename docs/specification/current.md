@@ -24,16 +24,14 @@ decision support from within a clinician's workflow. The API supports:
 
 The basic components of CDS Hooks are:
 
-* **CDS Service** A decision support service that accepts requests containing patient information, and provides responses
-* **CDS Client** or *EHR* An electronic health record, or other clinical information system that consumes decision support in the form of services MAY provide an authorization and FHIR resource server
-* **Hook** A defined point within the client system's workflow with well-known contextual information provided as part of the request
-* **Card** Guidance from decision support services is returned in the form of cards representing discrete recommendations or suggestions that are presented to the user within the CDS Client
-
+### CDS Services
 In CDS Hooks, a _CDS Service_ is a service that provides patient-specific recommendations and guidance through RESTful APIs as described by this specification. The primary APIs are [Discovery](#discovery), which allows a CDS Developer to publish the types of CDS Services it provides, and the [Service](#calling-a-cds-service) endpoint that CDS Clients use to request decision support.
 
-A _CDS Client_ is an electronic health record, or other clinical information system that consumes decision support by calling CDS Services at specific points in the application's workflow called [hooks](#hooks). Each hook defines the _hook context_, contextual information available within the client and specific to the workflow. Each service advertises which hooks it supports and what [_prefetch data_](#providing-fhir-resources-to-a-cds-service) (information needed by the CDS Service to determine what decision support should be presented) it requires.
+### CDS Clients
+A _CDS Client_ is an electronic health record, or other clinical information system that consumes decision support by calling CDS Services at specific points in the application's workflow called [_hooks_](#hooks). Each hook defines the _hook context_, contextual information available within the client and specific to the workflow and provided as part of the request. Each service advertises which hooks it supports and what [_prefetch data_](#providing-fhir-resources-to-a-cds-service) (information needed by the CDS Service to determine what decision support should be presented) it requires. In addition, CDS Clients MAY provide an authorization and FHIR resource server as part of the request to enable services to request additional information.
 
-Decision support is then returned to the CDS Client in the form of [cards](#cds-service-response), which the client MAY display to the end-user as part of their workflow. Cards may be informational, or they may provide suggestions that the user may accept or reject, or they may provide a [link](#link) to additional information or even launch a SMART app when additional user interaction is required.
+### Cards
+Decision support is then returned to the CDS Client in the form of [_cards_](#cds-service-response), which the client MAY display to the end-user as part of their workflow. Cards may be informational, or they may provide suggestions that the user may accept or reject, or they may provide a [link](#link) to additional information or even launch a SMART app when additional user interaction is required.
 
 ## Discovery
 
@@ -548,9 +546,9 @@ The following example illustrates a delete action:
 
 #### Reasons for rejecting a card
 
-**overrideReasons** is an array of **Coding** that captures a codified set of reasons an end user may select from as the rejection reason when rejecting the advice presented in the card. When using the coding object representing a reason, implementations are required to only respect the *code* property. However, they may consume other properties for a better end user experience, such as presenting a human readable text in the *display* property instead of the *code* itself to the end user. 
+**overrideReasons** is an array of **Coding** that captures a codified set of reasons an end user may select from as the rejection reason when rejecting the advice presented in the card. When using the coding object representing a reason, implementations are required to only respect the *code* property. However, they may consume other properties for a better end user experience, such as presenting a human readable text in the *display* property instead of the *code* itself to the end user.
 
-This specification does not prescribe a standard set of override reasons; implementers are encouraged to submit suggestions for standardization. 
+This specification does not prescribe a standard set of override reasons; implementers are encouraged to submit suggestions for standardization.
 
 ```json
 {
@@ -652,7 +650,7 @@ Once a CDS Hooks service responds to a hook by returning a card, the service has
 
 Upon receiving a card, a user may accept its suggestions, ignore it entirely, or dismiss it with or without an override reason. Note that while one or more suggestions can be accepted, an entire card is either ignored or overridden.
 
-Typically, an end user may only accept (a suggestion), or override a card once; however, a card once ignored could later be acted upon. CDS Hooks does not specify the UI behavior of CDS clients, including the persistence of cards. CDS clients should faithfully report each of these distinct end-user interactions as feedback. 
+Typically, an end user may only accept (a suggestion), or override a card once; however, a card once ignored could later be acted upon. CDS Hooks does not specify the UI behavior of CDS clients, including the persistence of cards. CDS clients should faithfully report each of these distinct end-user interactions as feedback.
 
 Each **Feedback** is described by the following attributes.
 
@@ -670,7 +668,7 @@ The CDS client can inform the service when one or more suggestions were accepted
 
 Upon the user accepting a suggestion (perhaps when she clicks a displayed label (e.g., button) from a "suggestion" card), the CDS client informs the service by posting the card and suggestion `uuid`s to the CDS Service's feedback endpoint with an outcome of `accepted`.
 
-To enable a positive clinical experience, the feedback endpoint may be called for multiple hook instances or multiple cards at the same time or even multiple times for a card or suggestion. Depending upon the UI and workflow of the CDS client, a CDS Service may receive feedback for the same card instance multiple times. 
+To enable a positive clinical experience, the feedback endpoint may be called for multiple hook instances or multiple cards at the same time or even multiple times for a card or suggestion. Depending upon the UI and workflow of the CDS client, a CDS Service may receive feedback for the same card instance multiple times.
 
 Each **AcceptedSuggestion** is described by the following attributes.
 
@@ -697,7 +695,7 @@ If either the card or the suggestion has no `uuid`, the CDS client does not send
 
 ### Card ignored
 
-If the end-user doesn't interact with the CDS Service's card at all, the card is *ignored*. In this case, the CDS Client does not inform the CDS Service of the rejected guidance. Even with a `card.uuid`, a `suggestion.uuid`, and an available feedback service, the service is not informed. 
+If the end-user doesn't interact with the CDS Service's card at all, the card is *ignored*. In this case, the CDS Client does not inform the CDS Service of the rejected guidance. Even with a `card.uuid`, a `suggestion.uuid`, and an available feedback service, the service is not informed.
 
 ### Overridden guidance
 
@@ -721,7 +719,7 @@ POST {baseUrl}/cds-services/{serviceId}/feedback
 
 ### Explicit reject with override reasons
 
-A CDS client can inform the service when a card was rejected by POSTing an outcome of `overridden` along with an `overrideReason` to the service's feedback endpoint. The CDS Client may enable the clinician to supplement the `overrideReason` with a free text comment, supplied to the CDS Service in `overrideReason.userComment`. 
+A CDS client can inform the service when a card was rejected by POSTing an outcome of `overridden` along with an `overrideReason` to the service's feedback endpoint. The CDS Client may enable the clinician to supplement the `overrideReason` with a free text comment, supplied to the CDS Service in `overrideReason.userComment`.
 
 #### OverrideReason
 
@@ -739,12 +737,12 @@ POST {baseUrl}/cds-services/{serviceId}/feedback
    "feedback":[{
          "card":"9368d37b-283f-44a0-93ea-547cebab93ed",
          "outcome":"overridden",
-         "overrideReason": { 
+         "overrideReason": {
 	 	"reason": {
 	 		"code":"d7ecf885",
      			"system":"https://example.com/cds-hooks/override-reason-system"
 		},
-		"userComment" : "clinician entered comment" 
+		"userComment" : "clinician entered comment"
 	},
          "outcomeTimestamp": "2020-12-11T00:00:00Z"
       }]
@@ -940,7 +938,7 @@ As another example, an extension defined on the discovery response could look li
 
 ## Data Types
 
-CDS Hooks leverages json data types throughout.  This section defines data structures re-used across the specification. 
+CDS Hooks leverages json data types throughout.  This section defines data structures re-used across the specification.
 
 ### Coding
 
