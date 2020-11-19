@@ -746,7 +746,7 @@ POST {baseUrl}/cds-services/{serviceId}/feedback
 		},
 		"userComment" : "clinician entered comment" 
 	},
-         "outcomeTimestamp": "2020-12-11T00:00:00Z UTC"
+         "outcomeTimestamp": "2020-12-11T00:00:00Z"
       }]
 }
 ```
