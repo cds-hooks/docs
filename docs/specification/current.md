@@ -687,7 +687,7 @@ POST {baseUrl}/cds-services/{serviceId}/feedback
          "card":"4e0a3a1e-3283-4575-ab82-028d55fe2719",
          "outcome":"accepted",
          "acceptedSuggestions": [ { "id" : "e56e1945-20b3-4393-8503-a1a20fd73152" } ],
-         "outcomeTimestamp": "2020-12-11T00:00:00Z UTC"
+         "outcomeTimestamp": "2020-12-11T00:00:00Z"
       }
    ]
 }
