@@ -224,7 +224,7 @@ The resulting response, which MUST be rendered in a single page — no "next pag
 
 The CDS Client MUST NOT send any prefetch template key that it chooses not to satisfy. Similarly, if the CDS Client encounters an error while prefetching any data, the prefetch template key MUST NOT be sent to the CDS Service. If the CDS Client has no data to populate a template prefetch key, the prefetch template key MUST have a value of __null__. Note that the __null__ result is used rather than a bundle with zero entries to account for the possibility that the prefetch url is a single-resource request.
 
-It is the CDS Service's responsibility to check prefetched data against its template to determine what requests were satisfied (if any) and to individually retrieve any  necessary data as additional HTTP requests. If the CDS Service is unable to obtain required data because it cannot access the FHIR server and the request did not contain the necessary prefetch keys, the service SHALL respond with an HTTP 412 Precondition Failed status code.
+It is the CDS Service's responsibility to check prefetched data against its template to determine what requests were satisfied (if any) and to programmatically retrieve any additional necessary data. If the CDS Service is unable to obtain required data because it cannot access the FHIR server and the request did not contain the necessary prefetch keys, the service SHALL respond with an HTTP 412 Precondition Failed status code.
 
 #### Prefetch tokens
 
