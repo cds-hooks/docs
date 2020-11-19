@@ -712,7 +712,7 @@ POST {baseUrl}/cds-services/{serviceId}/feedback
       {
          "card":"f6b95768-b1c8-40dc-8385-bf3504b82ffb", // uuid from `card.uuid`
          "outcome":"overridden",
-         "outcomeTimestamp": "2020-12-11T00:00:00Z UTC"
+         "outcomeTimestamp": "2020-12-11T00:00:00Z"
       }
    ]
 }
