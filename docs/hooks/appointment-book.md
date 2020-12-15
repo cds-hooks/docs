@@ -8,7 +8,7 @@
 
 ## Workflow
 
-This hook is invoked when the user is scheduling one or more future encounters/visits for the patient.  It may be invoked at the start and end of the booking process and/or any time between those two points.  It allows CDS Services to intervene in the decision of when future appointments should be scheduled, where they should be scheduled, what services should be booked, to identify actions that need to occur prior to scheduled appointments, etc.
+This hook is invoked when the user is scheduling one or more future encounters/visits for the patient.  For example, the `appointment-book` hook may be triggered for an appointment with the appointment creator, a clinician within the same organization as the appointment creator or even for an appointment outside the creator's organization.  It may be invoked at the start and end of the booking process and/or any time between those two points.  This hook enables CDS Services to intervene in the decision of when future appointments should be scheduled, where they should be scheduled, what services should be booked, to identify actions that need to occur prior to scheduled appointments, etc.  
 
 ## Context
 
@@ -16,7 +16,7 @@ The Patient whose appointment(s) are being booked, as well as the proposed Appoi
 
 Field | Optionality | Prefetch Token | Type | Description
 ----- | -------- | ---- | ---- | ----
-`userId` | REQUIRED | Yes | *string* | The id of the current user.<br />For this hook, the user could be of type [Practitioner](https://www.hl7.org/fhir/practitioner.html), [PractitionerRole](https://www.hl7.org/fhir/practitionerrole.html), [Patient](https://www.hl7.org/fhir/patient.html), or [RelatedPerson](https://www.hl7.org/fhir/relatedperson.html).<br />For example, `Practitioner/123`
+`userId` | REQUIRED | Yes | *string* | The id of the current user.<br />For this hook, the user could be of type [Practitioner](https://www.hl7.org/fhir/practitioner.html), [PractitionerRole](https://www.hl7.org/fhir/practitionerrole.html), [Patient](https://www.hl7.org/fhir/patient.html), or [RelatedPerson](https://www.hl7.org/fhir/relatedperson.html).<br />For example, `PractitionerRole/123`. Patient or RelatedPerson are appropriate when a patient or their proxy are booking the appointment. 
 `patientId` | REQUIRED | Yes | *string* | The FHIR `Patient.id` of Patient appointment(s) is/are for
 `encounterId` | OPTIONAL | Yes | *string* | The FHIR `Encounter.id` of Encounter where booking was initiated
 `appointments` | REQUIRED | No | *object* | DSTU2/STU3/R4 - FHIR Bundle of Appointments in 'proposed' state
@@ -238,4 +238,3 @@ Field | Optionality | Prefetch Token | Type | Description
 Version | Description
 ---- | ----
 1.0 | Initial Release
-

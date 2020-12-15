@@ -13,12 +13,13 @@ extra:
 nav:
 - Overview: 'index.md'
 - Specification:
-    - '1.0': 'specification/1.0.md'
+    - Current (draft): 'specification/current.md'
+    - '1.0 (external link)': https://cds-hooks.hl7.org/1.0/
 - Hooks:
     - 'new-hook-template' : 'hooks/template.md'
     - 'patient-view 4' : 'hooks/patient-view.md'
-    - 'medication-prescribe 2' : 'hooks/medication-prescribe.md'
-    - 'order-review 3' : 'hooks/order-review.md'
+    - 'medication-prescribe 🚫' : 'hooks/medication-prescribe.md'
+    - 'order-review 🚫' : 'hooks/order-review.md'
     - 'order-select 1' : 'hooks/order-select.md'
     - 'order-sign 1' : 'hooks/order-sign.md'
     - 'appointment-book 1' : 'hooks/appointment-book.md'
@@ -26,6 +27,7 @@ nav:
     - 'encounter-discharge 1' : 'hooks/encounter-discharge.md'
     - 'problem-create 0' : 'hooks/problem-create.md'
 - Quick Start: 'quickstart.md'
+- Cheat Sheet: 'cheat-sheet/Cheat Sheet - Sept 2019.pdf'
 - Best Practices: 'best-practices.md'
 - Examples: 'examples.md'
 - Community: 'community.md'
@@ -41,4 +43,4 @@ markdown_extensions:
   - toc:
       permalink: true
 
-copyright: © 2018 HL7 & Boston Children's Hospital.<p /> <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+copyright: © 2018 HL7 & Boston Children's Hospital.<p /> <a rel="license" href="https://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://licensebuttons.net/l/by/4.0/80x15.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
