@@ -1,4 +1,4 @@
-# `problem-list-create`
+# `problem-create`
 
 | Metadata | Value
 | ---- | ----
@@ -7,7 +7,7 @@
 
 ## Workflow
 
-The `problem-list-create` hook fires when when a clinician adds one or more new problem to a patient's problem list. 
+The `problem-create` hook fires when when a clinician adds one or more new problem to a patient's problem list. 
 This hook may fire with one or more newly added, active conditions or draft conditions of category `problem-list-item` that are not yet finalized. 
 The context of the hook includes these new conditions.
 
@@ -18,7 +18,7 @@ Field | Optionality | Prefetch Token | Type | Description
 `userId` | REQUIRED | Yes | *string* | The id of the current user.<br />For this hook, the user is expected to be of type [Practitioner](https://www.hl7.org/fhir/practitioner.html).<br />For example, `Practitioner/123`
 `patientId` | REQUIRED | Yes | *string* |  The FHIR `Patient.id` of the current patient in context
 `encounterId` | OPTIONAL | Yes | *string* |  The FHIR `Encounter.id` of the current encounter in context
-`conditions` | REQUIRED | No | *object* | DSTU2 - FHIR Bundle of `problem-list-item` Conditions<br/> STU3 - FHIR Bundle of `problem-list-item` Conditions<br/> R4 - FHIR Bundle of `problem-list-item` Conditions
+`conditions` | REQUIRED | No | *object* | STU3 - FHIR Bundle of Conditions where `category` is `problem-list-item`<br/> R4 - FHIR Bundle of Conditions where `category` is `problem-list-item`
 
 ### Example (R4)
 
