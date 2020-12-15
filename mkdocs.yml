@@ -24,7 +24,7 @@ nav:
     - 'appointment-book 1' : 'hooks/appointment-book.md'
     - 'encounter-start 1' : 'hooks/encounter-start.md'
     - 'encounter-discharge 1' : 'hooks/encounter-discharge.md'
-    - 'problem-list-create 0' : 'hooks/problem-list-create.md'
+    - 'problem-create 0' : 'hooks/problem-create.md'
 - Quick Start: 'quickstart.md'
 - Best Practices: 'best-practices.md'
 - Examples: 'examples.md'
