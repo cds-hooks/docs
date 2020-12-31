@@ -154,7 +154,7 @@ Example card JSON:
   "indicator": "info",
   "detail": "The focus of this app is to reduce the incidence of severe hyperbilirubinemia and bilirubin encephalopathy while minimizing the risks of unintended harm such as maternal anxiety, decreased breastfeeding, and unnecessary costs or treatment.",
   "source": {
-    "name": "Intermountain",
+    "label": "Intermountain",
     "url": null
   },
   "links": [
