@@ -5,11 +5,11 @@
 
 ## Overview
 
-The CDS Hooks specification describes the RESTful APIs and interactions to integrate Clinical Decision Support (CDS) between CDS Clients (typically Electronic Health Record Systems (EHRs) or other health information systems) and CDS Services. All data exchanged through the RESTful APIs MUST be sent and received as [JSON](https://tools.ietf.org/html/rfc8259) structures, and MUST be transmitted over channels secured using the Hypertext Transfer Protocol (HTTP) over Transport Layer Security (TLS), also known as HTTPS and defined in [RFC2818](https://tools.ietf.org/html/rfc2818).
+The CDS Hooks specification describes the RESTful APIs and interactions to integrate Clinical Decision Support (CDS) between CDS Clients (typically Electronic Health Record Systems (EHRs) or other health information systems) and CDS Services. All data exchanged through the RESTful APIs MUST be sent and received as [JSON](https://tools.ietf.org/html/rfc8259) (JavaScript Object Notation) structures, and MUST be transmitted over channels secured using the Hypertext Transfer Protocol (HTTP) over Transport Layer Security (TLS), also known as HTTPS and defined in [RFC2818](https://tools.ietf.org/html/rfc2818).
 
 Unless otherwise specified, JSON attributes SHALL NOT be null. If a JSON attribute is defined with an optionality of OPTIONAL, but does not have a value, implementers MUST omit it. For instance, OPTIONAL JSON string and array attributes should be omitted rather than having a null or empty value. Similarly, JSON objects SHALL NOT be empty.
 
-Unless otherwise specified, JSON string or URL attributes that have an optionality of REQUIRED MAY NOT have empty values (those without any characters or just whitespace characters).
+Unless otherwise specified, JSON string or URL (Uniform Resource Locator) attributes that have an optionality of REQUIRED MAY NOT have empty values (those without any characters or just whitespace characters).
 
 ### Conformance Language
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this specification are to be interpreted as described in [RFC2119](https://tools.ietf.org/html/rfc2119).
@@ -118,7 +118,7 @@ A CDS Client SHALL call a CDS Service by `POST`ing a JSON document to the servic
 Field | Optionality | Type | Description
 ----- | ----- | ----- | --------
 `hook` | REQUIRED | *string* | The hook that triggered this CDS Service call. See [Hooks](#hooks).
-<nobr>`hookInstance`</nobr> | REQUIRED | *string* | A UUID for this particular hook call (see more information below).
+<nobr>`hookInstance`</nobr> | REQUIRED | *string* | A universally unique identifier (UUID) for this particular hook call (see more information below).
 `fhirServer` | OPTIONAL | *URL* | The base URL of the CDS Client's [FHIR](https://www.hl7.org/fhir/) server. If fhirAuthorization is provided, this field is REQUIRED.  The scheme should be `https`
 `fhirAuthorization` | OPTIONAL | *object* | A structure holding an [OAuth 2.0][OAuth 2.0] bearer access token granting the CDS Service access to FHIR resources, along with supplemental information relating to the token. See the [FHIR Resource Access](#fhir-resource-access) section for more information.
 `context` | REQUIRED | *object* | Hook-specific contextual data that the CDS service will need.<br />For example, with the `patient-view` hook this will include the FHIR identifier of the [Patient](https://www.hl7.org/fhir/patient.html) being viewed.  For details, see the Hooks specification page.
