@@ -390,7 +390,7 @@ Field | Optionality | Type | Description
 
 The scopes granted to the CDS Service via the `scope` field are defined by the [SMART on FHIR specification](http://hl7.org/fhir/smart-app-launch/1.0.0/scopes-and-launch-context/).
 
-The `expires_in` value is established by the authorization server and SHOULD BE very short lived, as the access token MUST be treated as a transient value by the CDS Service.
+The `expires_in` value is established by the authorization server and SHOULD BE very short lived, as the access token MUST be treated as a transient value by the CDS Service. CDS Clients MAY revoke an issued access token upon the completion of the CDS Hooks request/response to limit the validity period of the token. 
 
 Below is an example `fhirAuthorization` parameter:
 
