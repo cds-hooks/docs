@@ -41,4 +41,4 @@ markdown_extensions:
   - toc:
       permalink: true
 
-copyright: © 2018+ HL7 & Boston Children's Hospital. <a rel="license" href="https://cds-hooks.org/license/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a>
+copyright: © 2018+ HL7 & Boston Children's Hospital. <a rel="license" href="/license/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a>
