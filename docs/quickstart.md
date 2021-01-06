@@ -28,7 +28,7 @@ The CDS Service must provide a stable endpoint for the CDS Client to discover th
       "description": "An example of a CDS Service that returns a card with SMART app recommendations.",
       "id": "static-patient-view",
       "prefetch": {
-        "patientToGreet": "Patient/{{Patient.id}}"
+        "patientToGreet": "Patient/{{context.patientId}}"
       }
     }
   ]
