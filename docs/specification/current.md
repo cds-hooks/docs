@@ -503,7 +503,7 @@ Field | Optionality | Type | Description
 ----- | ----- | ----- | --------
 `type` |  REQUIRED | *string* | The type of action being performed. Allowed values are: `create`, `update`, `delete`.
 `description` | REQUIRED | *string* | Human-readable description of the suggested action MAY be presented to the end-user.
-`resource` | OPTIONAL | *object* | Depending upon the `type` attribute, a new resource or the id of a resource. When the `type` attribute is `create`, the `resource` attribute SHALL contain a new FHIR resource to be created. For `delete`, this SHALL be the id of the resource to remove. In hooks where only one "content" resource is ever relevant, this attribute MAY be omitted for `delete` action types only. For `update`, this holds the updated resource in its entirety and not just the changed fields.
+`resource` | OPTIONAL | *object* | Depending upon the `type` attribute, a new resource or a resource with just the id. When the `type` attribute is `create`, the `resource` attribute SHALL contain a new FHIR resource to be created. For `delete`, this SHALL just contain the id and resourceType of the resource to remove. For `update`, this holds the updated resource in its entirety and not just the changed fields.
 
 The following example illustrates a create action:
 
@@ -526,9 +526,9 @@ The following example illustrates an update action:
 	"type": "update",
 	"description": "Update the order to record the appropriateness score",
 	"resource": {
-		"resourceType": "ProcedureRequest",
+		"resourceType": "ServiceRequest",
 		"id": "procedure-request-1",
-		"...": "<snipped for brevity"
+		"...": "<snipped for brevity>"
 	}
 }
 ```
@@ -539,7 +539,10 @@ The following example illustrates a delete action:
 {
 	"type": "delete",
 	"description": "Remove the inappropriate order",
-	"resource": "ProcedureRequest/procedure-request-1"
+	"resource": {
+		"resourceType": "ServiceRequest",
+		"id": "procedure-request-1"
+	}
 }
 ```
 
@@ -894,7 +897,7 @@ CDS Services and browser-based CDS Clients will require CORS support. A secure i
 
 ## Extensions
 
-The specification is not prescriptive about support for extensions. However, to support extensions, the specification reserves the name `extension` and will never define an element with that name, allowing implementations to use it to provide custom behavior and information. The value of an extension element MUST be a pre-coordinated JSON object.
+The specification is not prescriptive about support for extensions. However, to support extensions, the specification reserves the name `extension` and will never define an element with that name, allowing implementations to use it to provide custom behavior and information. The value of an extension element MUST be a pre-coordinated JSON object. The intension here is that anything that has broad ranging value across the community enough to be a standardized extension has broad ranging value enough to be a first class citizen rather than an extension in CDS Hooks.
 
 For example, an extension on a request could look like this:
 
@@ -908,7 +911,7 @@ For example, an extension on a request could look like this:
    },
    "extension" : {
       "com.example.timestamp": "2017-11-27T22:13:25Z",
-      "myextension-practitionerspecialty" : "gastroenterology"
+      "com.cds-hooks.sandbox.myextension-practitionerspecialty" : "gastroenterology"
    }
 }
 ```
