@@ -503,7 +503,8 @@ Field | Optionality | Type | Description
 ----- | ----- | ----- | --------
 `type` |  REQUIRED | *string* | The type of action being performed. Allowed values are: `create`, `update`, `delete`.
 `description` | REQUIRED | *string* | Human-readable description of the suggested action MAY be presented to the end-user.
-`resource` | OPTIONAL | *object* | Depending upon the `type` attribute, a new resource or a resource with just the id. When the `type` attribute is `create`, the `resource` attribute SHALL contain a new FHIR resource to be created. For `delete`, this SHALL just contain the id and resourceType of the resource to remove. For `update`, this holds the updated resource in its entirety and not just the changed fields.
+`resource` | OPTIONAL | *object* | A FHIR resource. When the `type` attribute is `create`, the `resource` attribute SHALL contain a new FHIR resource to be created.  For `update`, this holds the updated resource in its entirety and not just the changed fields. Use of this field to communicate a string of a FHIR id for delete suggestions is DEPRECATED and `resourceId` SHOULD be used instead.
+`resourceId` | OPTIONAL | *string* | A relative reference to the relevant resource in the suggestion. SHOULD be provided for when the `type` attribute is `delete`. 
 
 The following example illustrates a create action:
 
@@ -539,9 +540,7 @@ The following example illustrates a delete action:
 {
 	"type": "delete",
 	"description": "Remove the inappropriate order",
-	"resource": {
-		"resourceType": "ServiceRequest",
-		"id": "procedure-request-1"
+	"resourceId": "ServiceRequest/procedure-request-1"
 	}
 }
 ```
