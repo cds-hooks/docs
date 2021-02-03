@@ -541,7 +541,6 @@ The following example illustrates a delete action:
 	"type": "delete",
 	"description": "Remove the inappropriate order",
 	"resourceId": "ServiceRequest/procedure-request-1"
-	}
 }
 ```
 
