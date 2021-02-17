@@ -774,7 +774,8 @@ The authorization server is responsible for enforcing restrictions on the CDS Se
 
 The service agreement negotiated between the CDS Client vendor/provider and the CDS Service provider will include obligations the CDS Client vendor/provider commits to the CDS Service provider. Some agreements MAY include the use of mutual TLS, in which both ends of the channel are authenticated.
 
-However, mutual TLS is impractical for many organizations, and because the CDS Client initiates the TLS channel set-up, only the CDS Service endpoint will be authenticated.  To enable the CDS Service to authenticate the identity of the CDS Client, CDS Hooks uses digitally signed [JSON web tokens (JWT)](https://jwt.io/) ([rfc7519](https://tools.ietf.org/html/rfc7519)).
+However, mutual TLS is impractical for many organizations. In the absence of mutual TLS, only the CDS Service endpoint will be authenticated because the CDS Client initiates the TLS channel set-up.  To enable the CDS Service to authenticate the identity of the CDS Client, CDS Hooks uses digitally signed [JSON web tokens (JWT)](https://jwt.io/) ([rfc7519](https://tools.ietf.org/html/rfc7519)).
+
 
 Each time a CDS Client transmits a request to a CDS Service, the request MUST include an `Authorization` header presenting the JWT as a “Bearer” token:
 ```
