@@ -230,7 +230,7 @@ A prefetch token is a placeholder in a prefetch template that is replaced by a v
 
 Prefetch tokens MUST be delimited by `{{` and `}}`, and MUST contain only the qualified path to a hook context field.
 
-Individual hooks specify which of their `context` fields can be used as prefetch tokens. Only root-level fields with a primitive value within the `context` object are eligible to be used as prefetch tokens. For example, `{{context.medication.id}}` is not a valid prefetch token because it attempts to access the `id` field of the `medication` field.
+Individual hooks specify which of their `context` fields can be used as prefetch tokens. Only root-level fields with a primitive value within the `context` object SHALL be used as prefetch tokens. For example, `{{context.medication.id}}` is not a valid prefetch token because it attempts to access the `id` field of the `medication` field. Hook creators MUST document which fields in the context are supported as tokens. If a context field can be tokenized, the value of the context field MUST be a JSON primitive data type that can placed into a FHIR query (i.e. a string, a number, or a boolean).
 
 #### Prefetch query restrictions
 
@@ -256,7 +256,7 @@ Often a prefetch template builds on the contextual data associated with the hook
 
 The token name would be `{{context.patientId}}`. Again using our above conditions example, the complete prefetch template would be `Condition?patient={{context.patientId}}`.
 
-Only the first level fields in context may be considered for tokens. Hook creators MUST document which fields in the context are supported as tokens. If a context field can be tokenized, the value of the context field MUST be a JSON primitive data type that can placed into a FHIR query (i.e. a string, a number, or a boolean).
+Only the first level fields in context may be considered for tokens. 
 
 For example, given the following context that contains amongst other things, a Patient FHIR resource:
 
