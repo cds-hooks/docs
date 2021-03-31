@@ -4,11 +4,11 @@
 | ---- | ----
 | specificationVersion | 1.0
 | hookVersion | 1.0
-| hookMaturity | [0 - Draft](../../specification/1.0/#hook-maturity-model)
+| hookMaturity | [0 - Draft](../../specification/current/#hook-maturity-model)
 
 ## Workflow
 
-<mark>Describe when this hook occurs in a workflow. Hook creators SHOULD include as much detail and clarity as possible to minimize any ambiguity or confusion amongst implementors.</mark>
+<mark>Describe when the hook occurs in a workflow. Hook creators SHOULD include as much detail and clarity as possible to minimize any ambiguity or confusion amongst implementers. The hook name should take the form `noun-verb`, such as `encounter-start`, or `order-select` according to the [Hook Definition Format](../../specification/current/#hook-definition-format).</mark>
 
 ## Context
 
@@ -41,4 +41,3 @@ Field | Optionality | Prefetch Token | Type | Description
 Version | Description
 ---- | ----
 1.0 | Initial Release
-
