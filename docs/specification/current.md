@@ -214,7 +214,7 @@ As part of preparing the request, a CDS Client processes each prefetch template 
 
 Regardless of how the CDS Client satisfies the prefetch templates (if at all), the prefetched data given to the CDS Service MUST be equivalent to the data the CDS Service would receive if it were making its own call to the CDS Client's FHIR server using the parameterized prefetch template.
 
-> Note that this means that CDS services will receive only the information they have requested and are authorized to receive. Prefetch data for other services registered to the same hook MUST NOT be provided. In other words, services SHALL only receive the data they requested in their prefetch and for which they are authorized recipients.
+> Note that this means that CDS services will receive only the information they have requested and are authorized to receive. Prefetch data for other services registered to the same hook MUST NOT be provided. In other words, services SHALL only receive the data they requested in their prefetch.
 
 The resulting response, which MUST be rendered in a single page — no "next page" links allowed — is passed along to the CDS Service using the `prefetch` parameter (see [below](#example-prefetch-templates) for a complete example).
 
