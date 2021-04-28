@@ -37,7 +37,7 @@ Decision support is then returned to the CDS Client in the form of [_cards_](#cd
 
 Developers of CDS Services SHALL provide a stable endpoint for allowing CDS Clients to discover available CDS Services, including information such as a description of the CDS Service, when it should be invoked, and any data that is requested to be prefetched.
 
-A CDS Service provider SHALL expose its Discovery endpoint at"
+A CDS Service provider SHALL expose its Discovery endpoint at:
 
 ```shell
 {baseURL}/cds-services
