@@ -33,6 +33,7 @@ nav:
 - Logo Use: 'logo-use.md'
 
 repo_url: 'https://github.com/cds-hooks/docs'
+edit_uri: ''
 
 markdown_extensions:
   - admonition
