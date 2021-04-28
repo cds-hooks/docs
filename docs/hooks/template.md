@@ -1,5 +1,8 @@
 # <mark>`hook-name-expressed-as-noun-verb`</mark>
 
+!!! info
+    This page defines a workflow [hook](../../specification/current/#hooks) for the purpose of providing clinical decision support using CDS Hooks. This is a <mark>**build | snapshot | ballot | release**</mark> at the level of <mark>**[Draft | Trial Use | Normative | Informative | Deprecated](http://hl7.org/fhir/versions.html#std-processs)**</mark>
+
 | Metadata | Value
 | ---- | ----
 | specificationVersion | 1.0
