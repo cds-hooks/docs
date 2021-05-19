@@ -20,13 +20,11 @@ jobs:
         python-version: 3.6
         
     - name: Setup dependencies
-      run: |
-        cd docs
-        pip install -r requirements.txt
+      run: pip install -r requirements.txt
         
     - name: Generate docs
-      run: 'mkdocs build --verbose --clean --strict'
-      
+      run: mkdocs build --verbose --clean --strict
+
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
       with:
