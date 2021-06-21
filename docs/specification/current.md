@@ -226,11 +226,43 @@ It is the CDS Service's responsibility to check prefetched data against its temp
 
 #### Prefetch tokens
 
-A prefetch token is a placeholder in a prefetch template that is replaced by a value from the hook's context to construct the FHIR URL used to request the prefetch data.
+A prefetch token is a placeholder in a prefetch template that is *_replaced by information from the hook's context_* to construct the FHIR URL used to request the prefetch data.
 
-Prefetch tokens MUST be delimited by `{{` and `}}`, and MUST contain only the qualified path to a hook context field.
+Prefetch tokens MUST be delimited by `{{` and `}}`, and MUST contain only the qualified path to a hook context field *_or one of the following user identifiers: `userPractitionerId`, 'userPractitioneRolerId', `userPatientId`, or `userRelatedPersonId`_*.
 
-Individual hooks specify which of their `context` fields can be used as prefetch tokens. Only root-level fields with a primitive value within the `context` object SHALL be used as prefetch tokens. For example, `{{context.medication.id}}` is not a valid prefetch token because it attempts to access the `id` field of the `medication` field. Hook creators MUST document which fields in the context are supported as tokens. If a context field can be tokenized, the value of the context field MUST be a JSON primitive data type that can placed into a FHIR query (i.e. a string, a number, or a boolean).
+Individual hooks specify which of their `context` fields can be used as prefetch tokens. Only root-level fields with a primitive value within the `context` object are eligible to be used as prefetch tokens. For example, `{{context.medication.id}}` is not a valid prefetch token because it attempts to access the `id` field of the `medication` field.
+
+##### Prefetch tokens identifying the user
+A prefetch template enables a CDS Service to learn more about the current user through a FHIR read, like so:
+```
+{
+  "prefetch": {
+    "user": "{{context.userId}}"
+  }
+}
+```
+or though a FHIR search:
+```
+{
+  "prefetch": {
+    "user": "PractitionerRole?_id={{userPractitionerId}}&_include=PractitionerRole:practitioner"
+  }
+}
+```
+
+A prefetch template may include any of the following prefetch tokens:
+
+
+Token | Description
+---|---
+`{{userPractitionerId}}` | FHIR id of the Practitioner resource corresponding to the current user. 
+`{{userPractitionerRoleId}}`|FHIR id of the Practitioner resource corresponding to the current user. 
+`{{userPatientId}}`|FHIR id of the Practitioner resource corresponding to the current user. 
+`{{userRelatedPersonId}}`|FHIR id of the Practitioner resource corresponding to the current user. 
+
+
+No single FHIR resource represents a user, rather Practitioner and PractitionerRole may be jointly used to represent a provider or other, and Patient or Person are used to represent a patient or their proxy. Hook definitions typically define a `context.userId` field and corresponding prefetch token.
+
 
 #### Prefetch query restrictions
 
