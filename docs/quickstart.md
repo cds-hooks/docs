@@ -176,4 +176,4 @@ For some CDS Services the end step will just display the card. For the patient-v
 
 ## Test with external CDS Service
 
-No development is complete without testing with a CDS Service provider. Find a member in the [community](community) and test away. 
+No development is complete without testing with a CDS Service provider. Find a member in the [community](/community) and test away. 
