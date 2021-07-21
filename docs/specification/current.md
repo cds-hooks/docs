@@ -261,7 +261,7 @@ Token | Description
 `{{userRelatedPersonId}}`|FHIR id of the RelatedPerson resource corresponding to the current user. 
 
 
-No single FHIR resource represents a user, rather Practitioner and PractitionerRole may be jointly used to represent a provider, and Patient or Person are used to represent a patient or their proxy. Hook definitions typically define a `context.userId` field and corresponding prefetch token.
+No single FHIR resource represents a user, rather Practitioner and PractitionerRole may be jointly used to represent a provider, and Patient or RelatedPerson are used to represent a patient or their proxy. Hook definitions typically define a `context.userId` field and corresponding prefetch token.
 
 
 #### Prefetch query restrictions
