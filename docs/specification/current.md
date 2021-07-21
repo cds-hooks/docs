@@ -245,7 +245,7 @@ or though a FHIR search:
 ```
 {
   "prefetch": {
-    "user": "PractitionerRole?_id={{userPractitionerId}}&_include=PractitionerRole:practitioner"
+    "user": "PractitionerRole?_id={{userPractitionerRoleId}}&_include=PractitionerRole:practitioner"
   }
 }
 ```
