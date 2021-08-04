@@ -2,7 +2,7 @@
   <img src="https://github.com/cds-hooks/docs/raw/master/logo.png">
 </p>
 
-# CDS Hooks
+# CDS Hooks 
 
 [![Build Status](https://api.travis-ci.org/cds-hooks/docs.svg)](https://travis-ci.org/cds-hooks/docs)
 
