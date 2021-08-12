@@ -22,7 +22,7 @@ This specification describes a ["hook"](https://en.wikipedia.org/wiki/Hooking)-b
 decision support from within a clinician's workflow. The API supports:
 
  * Synchronous, workflow-triggered CDS calls returning information and suggestions
- * Launching a user-facing SMART app when CDS requires additional interaction
+ * Launching a user-facing app when CDS requires additional interaction (e.g. a SMART app)
 
 The basic components of CDS Hooks are:
 
