@@ -8,7 +8,7 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 ## Overview
 
-The CDS Hooks specification describes the RESTful APIs and interactions to integrate Clinical Decision Support (CDS) between CDS Clients (typically Electronic Health Record Systems (EHRs) or other health information systems) and CDS Services. All data exchanged through the RESTful APIs MUST be sent and received as [JSON](https://tools.ietf.org/html/rfc8259) (JavaScript Object Notation) structures, and MUST be transmitted over channels secured using the Hypertext Transfer Protocol (HTTP) over Transport Layer Security (TLS), also known as HTTPS and defined in [RFC2818](https://tools.ietf.org/html/rfc2818).
+The CDS Hooks specification describes the RESTful APIs and interactions to integrate Clinical Decision Support (CDS) between CDS Clients (typically Electronic Health Record Systems (EHRs) or other health information systems) and CDS Services. All data exchanged through the RESTful APIs MUST be sent and received as [JSON](https://tools.ietf.org/html/rfc8259) (JavaScript Object Notation) structures, and are transmitted over HTTPS. See [Security and Safety](#security-and-safety) section.
 
 Unless otherwise specified, JSON attributes SHALL NOT be null or empty. If a JSON attribute is defined with an optionality of OPTIONAL, but does not have a value, implementers MUST omit it. For instance, OPTIONAL JSON string and array attributes should be omitted rather than having a null or empty value. Similarly, JSON objects SHALL NOT be empty.
 
@@ -779,6 +779,8 @@ POST {baseUrl}/cds-services/{serviceId}/feedback
 ```
 
 ## Security and Safety
+
+All data exchanged through the RESTful APIs MUST  be transmitted over channels secured using the Hypertext Transfer Protocol (HTTP) over Transport Layer Security (TLS), also known as HTTPS and defined in [RFC2818](https://tools.ietf.org/html/rfc2818).
 
 Security and safety risks associated with the CDS Hooks API include:
 
