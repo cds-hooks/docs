@@ -10,6 +10,8 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 The CDS Hooks specification describes the RESTful APIs and interactions to integrate Clinical Decision Support (CDS) between CDS Clients (typically Electronic Health Record Systems (EHRs) or other health information systems) and CDS Services. All data exchanged through the RESTful APIs MUST be sent and received as [JSON](https://tools.ietf.org/html/rfc8259) (JavaScript Object Notation) structures, and are transmitted over HTTPS. See [Security and Safety](#security-and-safety) section.
 
+#### JSON Formatting
+
 Unless otherwise specified, JSON attributes SHALL NOT be null or empty. If a JSON attribute is defined with an optionality of OPTIONAL, but does not have a value, implementers MUST omit it. For instance, OPTIONAL JSON string and array attributes should be omitted rather than having a null or empty value. Similarly, JSON objects SHALL NOT be empty.
 
 Unless otherwise specified, JSON string or URL (Uniform Resource Locator) attributes that have an optionality of REQUIRED MAY NOT have empty values (those without any characters or just whitespace characters).
