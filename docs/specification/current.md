@@ -268,9 +268,8 @@ No single FHIR resource represents a user, rather Practitioner and PractitionerR
 
 To reduce the implementation burden on CDS Clients that support CDS Services, this specification RECOMMENDS that prefetch queries only use a subset of the full functionality available in the FHIR specification. Valid prefetch templates SHOULD only make use of:
 
-* _instance_ level [read](https://www.hl7.org/fhir/http.html#read) interactions (for resources with known ids such as `Patient` and `Practitioner`)
+* _instance_ level [read](https://www.hl7.org/fhir/http.html#read) interactions (for resources with known ids such as `Patient`, `Practitioner`, or `Encounter`; e.g. `patient={{context.patientId}}`)
 * _type_ level [search](https://www.hl7.org/fhir/http.html#search) interactions
-* Patient references (e.g. `patient={{context.patientId}}`)
 * _token_ search parameters using equality (e.g. `code=4548-4`) and optionally the `:in` modifier (no other modifiers for token parameters)
 * _date_ search parameters on `date`, `dateTime`, `instant`, or `Period` types only, and using only the prefixes `eq`, `lt`, `gt`, `ge`, `le`
 * the `_count` parameter to limit the number of results returned
