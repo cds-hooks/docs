@@ -267,7 +267,7 @@ No single FHIR resource represents a user, rather Practitioner and PractitionerR
 
 #### Prefetch query restrictions
 
-To reduce the implementation burden on CDS Clients that support CDS Services, this specification RECOMMENDS that prefetch queries only use a subset of the full functionality available in the FHIR specification. Valid prefetch templates SHOULD only make use of:
+To reduce the implementation burden on CDS Clients that support CDS Services, this specification RECOMMENDS that prefetch queries only use a subset of the full functionality available in the FHIR specification. When using this subset, valid prefetch templates MUST only make use of:
 
 * _instance_ level [read](https://www.hl7.org/fhir/http.html#read) interactions (for resources with known ids such as `Patient` and `Practitioner`)
 * _type_ level [search](https://www.hl7.org/fhir/http.html#search) interactions
