@@ -60,6 +60,7 @@ The current PMC members are:
 - [Bryn Rhodes](https://github.com/brynrhodes)
 - [Isaac Vetter](https://github.com/isaacvetter)
 - [Josh Mandel](https://github.com/jmandel)
+- [Dennis Patterson](https://github.com/dennispatterson)
 
 Emeritus PMC members are:
 - [Kevin Shekleton](https://github.com/kpshek)
