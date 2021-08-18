@@ -749,7 +749,7 @@ POST {baseUrl}/cds-services/{serviceId}/feedback
 
 ### Explicit reject with override reasons
 
-A CDS client can inform the service when a card was rejected by POSTing an outcome of `overridden` along with an `overrideReason` to the service's feedback endpoint. The CDS Client may enable the clinician to supplement the `overrideReason` with a free text comment, supplied to the CDS Service in `overrideReason.userComment`.
+A CDS client can inform the service when a card was rejected by POSTing an outcome of `overridden` along with an `overrideReason` to the service's feedback endpoint. The CDS Client may enable the clinician to provide an additional `overrideReason` or to supplement the `overrideReason` with a free text comment, supplied to the CDS Service in `overrideReason.userComment`.
 
 #### OverrideReason
 
