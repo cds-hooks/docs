@@ -46,6 +46,7 @@ The current committers on the project are:
 - [Isaac Vetter](https://github.com/isaacvetter)
 - [Josh Mandel](https://github.com/jmandel)
 - [Kevin Shekleton](https://github.com/kpshek)
+- [Vadim Peretokin](https://github.com/vadi2)
 
 
 ### Project Management Committee
