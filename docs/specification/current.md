@@ -9,7 +9,7 @@ The CDS Hooks specification describes the RESTful APIs and interactions to integ
 
 ### Null and empty JSON elements
 * JSON elements SHALL NOT be null, unless otherwise specified.
-* JSON elements SHALL NOT be empty, except to indicate [no guidance with an empty array of cards](#http-response)) in the CDS Hooks response.
+* JSON elements SHALL NOT be empty, unless otherwise specified (e.g. to indicate [no guidance with an empty array of cards](#http-response)) in the CDS Hooks response).
 
 If a JSON attribute is defined with an optionality of OPTIONAL, but does not have a value, implementers MUST omit it. For instance, OPTIONAL JSON string and array attributes should be omitted rather than having a null or empty value. 
 
