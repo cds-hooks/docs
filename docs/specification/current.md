@@ -3,7 +3,7 @@
 !!! info "Current (draft)"
     This is the continuous integration, community release of the CDS Hooks specification. All stable releases are available at [https://cds-hooks.hl7.org](https://cds-hooks.hl7.org).
 
-## Overview
+## Overview 
 
 The CDS Hooks specification describes the RESTful APIs and interactions to integrate Clinical Decision Support (CDS) between CDS Clients (typically Electronic Health Record Systems (EHRs) or other health information systems) and CDS Services. All data exchanged through the RESTful APIs MUST be sent and received as [JSON](https://tools.ietf.org/html/rfc8259) (JavaScript Object Notation) structures, and MUST be transmitted over channels secured using the Hypertext Transfer Protocol (HTTP) over Transport Layer Security (TLS), also known as HTTPS and defined in [RFC2818](https://tools.ietf.org/html/rfc2818).
 
@@ -220,7 +220,7 @@ Regardless of how the CDS Client satisfies the prefetch templates (if at all), t
 
 > Note that this means that CDS services will receive only the information they have requested and are authorized to receive. Prefetch data for other services registered to the same hook MUST NOT be provided. In other words, services SHALL only receive the data they requested in their prefetch and for which they are authorized recipients.
 
-The resulting response, which MUST be rendered in a single page — no "next page" links allowed — is passed along to the CDS Service using the `prefetch` parameter (see [below](#example-prefetch-templates) for a complete example).
+The resulting response, which MUST be the entirety of the response (e.g. no "next page" links on a Bundle), is passed along to the CDS Service using the `prefetch` parameter (see [below](#example-prefetch-templates) for a complete example).
 
 > Note that the reason prefetch results are not allowed to include next page links is that if the prefetched data contains just a single page of data, the CDS Service has no means to retrieve the subsequent pages of data. Consider, for example, a CDS Hooks implementation that does not expose a FHIR server.
 
