@@ -7,7 +7,11 @@
 
 The CDS Hooks specification describes the RESTful APIs and interactions to integrate Clinical Decision Support (CDS) between CDS Clients (typically Electronic Health Record Systems (EHRs) or other health information systems) and CDS Services. All data exchanged through the RESTful APIs MUST be sent and received as [JSON](https://tools.ietf.org/html/rfc8259) (JavaScript Object Notation) structures, and MUST be transmitted over channels secured using the Hypertext Transfer Protocol (HTTP) over Transport Layer Security (TLS), also known as HTTPS and defined in [RFC2818](https://tools.ietf.org/html/rfc2818).
 
-Unless otherwise specified, JSON attributes SHALL NOT be null. If a JSON attribute is defined with an optionality of OPTIONAL, but does not have a value, implementers MUST omit it. For instance, OPTIONAL JSON string and array attributes should be omitted rather than having a null or empty value. Similarly, JSON objects SHALL NOT be empty.
+### Null and empty JSON elements
+* JSON elements SHALL NOT be null, unless otherwise specified.
+* JSON elements SHALL NOT be empty, unless otherwise specified (e.g. to indicate [no guidance with an empty array of cards](#http-response)) in the CDS Hooks response).
+
+If a JSON attribute is defined with an optionality of OPTIONAL, but does not have a value, implementers MUST omit it. For instance, OPTIONAL JSON string and array attributes should be omitted rather than having a null or empty value. 
 
 Unless otherwise specified, JSON string or URL (Uniform Resource Locator) attributes that have an optionality of REQUIRED MAY NOT have empty values (those without any characters or just whitespace characters).
 
@@ -459,7 +463,7 @@ CDS Services MAY return other HTTP statuses, specifically 4xx and 5xx HTTP error
 
 Field | Optionality | Type | Description
 ----- | ----- | ----- | --------
-`cards` | REQUIRED | *array* | An array of **Cards**. Cards can provide a combination of information (for reading), suggested actions (to be applied if a user selects them), and links (to launch an app if the user selects them). The CDS Client decides how to display cards, but this specification recommends displaying suggestions using buttons, and links using underlined text.
+`cards` | REQUIRED | *array* | An array of **Cards**. Cards can provide a combination of information (for reading), suggested actions (to be applied if a user selects them), and links (to launch an app if the user selects them).  The CDS Client decides how to display cards, but this specification recommends displaying suggestions using buttons, and links using underlined text.
 `systemActions` | OPTIONAL | *array* |  An array of actions that the CDS Service proposes to auto-apply. Each action follows the schema of a [card-based `suggestion.action`](#action). The CDS Client decides whether to auto-apply actions.
 
 If your CDS Service has no decision support for the user, your service should return a 200 HTTP response with an empty array of cards.
