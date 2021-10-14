@@ -672,7 +672,19 @@ A `systemAction` is the same **Action** which may be returned in a suggestion, b
       "indicator": "warning",
       "source": {
         "label": "Static CDS Service Example"
-      }
+      },
+      "overrideReasons": [
+        {
+          "code": "reason-code-provided-by-service",
+          "system": "http://example.org/cds-services/fhir/CodeSystem/override-reasons",
+          "display": "Patient refused"
+        },
+        {
+          "code": "12354",
+          "system": "http://example.org/cds-services/fhir/CodeSystem/override-reasons",
+          "display": "Contraindicated"
+        }
+      ]
     }
   ]
 }
