@@ -710,6 +710,7 @@ Field | Optionality | Type | Description
 ----- | ----- | ----- | --------
 `id` | REQUIRED | *string* | The `card.suggestion.uuid` from the CDS Hooks response. Uniquely identifies the suggestion that was accepted.
 
+#### Example suggestion accepted 
 ```json
 POST {baseUrl}/cds-services/{serviceId}/feedback
 
@@ -735,6 +736,7 @@ If the end-user doesn't interact with the CDS Service's card at all, the card is
 
 A CDS client may enable the end user to override guidance without providing an explicit reason for doing so. The CDS client can inform the service when a card was dismissed by specifying an outcome of `overridden` without providing an `overrideReason`. This may occur, for example, when the end user viewed the card and dismissed it without providing a reason why.
 
+#### Example overridden guidance without overrideReason
 
 ```json
 POST {baseUrl}/cds-services/{serviceId}/feedback
@@ -763,6 +765,8 @@ Field | Optionality | Type | Description
 ----- | ----- | ----- | --------
 `reason` | CONDITIONAL |**Coding** | The Coding object representing the override reason selected by the end user. Required if user selected an override reason from the list of reasons provided in the Card (instead of only leaving a userComment).
 `userComment` | OPTIONAL | *string* | The CDS Client may enable the clinician to further explain why the card was rejected with free text. That user comment may be communicated to the CDS Service as a `userComment`.
+
+#### Example overridden guidance with overrideReason
 
 ```json
 POST {baseUrl}/cds-services/{serviceId}/feedback
