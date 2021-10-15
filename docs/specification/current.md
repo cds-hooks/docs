@@ -776,7 +776,7 @@ POST {baseUrl}/cds-services/{serviceId}/feedback
 	 		"code":"d7ecf885",
      			"system":"https://example.com/cds-hooks/override-reason-system"
 		},
-		"userComment" : "clinician entered comment"
+		"userComment" : "A comment entered by the clinician."
 	},
          "outcomeTimestamp": "2020-12-11T00:00:00Z"
       }]
