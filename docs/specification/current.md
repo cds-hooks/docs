@@ -20,7 +20,7 @@ All data exchanged through the RESTful APIs MUST be sent and received as [JSON](
 
 If a JSON attribute is defined with an optionality of OPTIONAL, but does not have a value, implementers MUST omit it. For instance, OPTIONAL JSON string and array attributes should be omitted rather than having a null or empty value. 
 
-Unless otherwise specified, JSON attributes SHALL NOT be null or empty. If a JSON attribute is defined with an optionality of OPTIONAL, but does not have a value, implementers MUST omit it. For instance, OPTIONAL JSON string and array attributes should be omitted rather than having a null or empty value. Similarly, JSON objects SHALL NOT be empty.
+Unless otherwise specified, JSON attribute values SHALL NOT be null or empty:  `null`, `""`, `[]`, or `{}` are prohibited. If a JSON attribute is defined with an optionality of OPTIONAL, but does not have a value, implementers SHALL omit it. For instance, OPTIONAL JSON attributes are omitted if no value is available.
 
 Unless otherwise specified, JSON string or URL (Uniform Resource Locator) attributes that have an optionality of REQUIRED MAY NOT have empty values (those without any characters or just whitespace characters).
 
