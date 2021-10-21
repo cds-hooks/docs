@@ -46,7 +46,7 @@ Decision support is then returned to the CDS Client in the form of [_cards_](#cd
 ## Discovery
 A CDS Service is discoverable via a stable endpoint by CDS Clients. The discovery endpoint includes information such as a description of the CDS Service, when it should be invoked, and any data that is requested to be prefetched.
 
-A CDS Service provider exposes its Discovery endpoint at"
+A CDS Service provider exposes its Discovery endpoint at:
 
 ```shell
 {baseURL}/cds-services
