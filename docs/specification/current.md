@@ -226,7 +226,7 @@ Regardless of how the CDS Client satisfies the prefetch templates (if at all), t
 
 > Note that this means that CDS services will receive only the information they have requested and are authorized to receive. Prefetch data for other services registered to the same hook MUST NOT be provided. In other words, services SHALL only receive the data they requested in their prefetch.
 
-The resulting response is passed along to the CDS Service using the `prefetch` parameter (see [below](#example-prefetch-templates) and MUST be submitted at once using the prefetch parameter (e.g., ” no "next page" links allowed)”. 
+The resulting response is passed along to the CDS Service using the `prefetch` parameter (see [below](#example-prefetch-templates) and MUST be submitted at once using the prefetch parameter (e.g., no "next page" links allowed). 
 
 > Note that the reason prefetch results are not allowed to include next page links is that if the prefetched data contains just a single page of data, the CDS Service has no means to retrieve the subsequent pages of data. Consider, for example, a CDS Hooks implementation that does not expose a FHIR server.
 
