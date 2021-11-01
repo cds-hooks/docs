@@ -125,7 +125,7 @@ Field | Optionality | Type | Description
 <nobr>`hookInstance`</nobr> | REQUIRED | *string* | A universally unique identifier (UUID) for this particular hook call (see more information below).
 `fhirServer` | OPTIONAL | *URL* | The base URL of the CDS Client's [FHIR](https://www.hl7.org/fhir/) server. If fhirAuthorization is provided, this field is REQUIRED.  The scheme should be `https`
 `fhirAuthorization` | OPTIONAL | *object* | A structure holding an [OAuth 2.0][OAuth 2.0] bearer access token granting the CDS Service access to FHIR resources, along with supplemental information relating to the token. See the [FHIR Resource Access](#fhir-resource-access) section for more information.
-`context` | REQUIRED | *object* | Hook-specific contextual data that the CDS service will need.<br />For example, with the `patient-view` hook this will include the FHIR identifier of the [Patient](https://www.hl7.org/fhir/patient.html) being viewed.  For details, see the Hooks specification page.
+`context` | REQUIRED | *object* | Hook-specific contextual data that the CDS service will need.<br />For example, with the `patient-view` hook this will include the FHIR id of the [Patient](https://www.hl7.org/fhir/patient.html) being viewed.  For details, see the Hooks specification page.
 `prefetch` | OPTIONAL | *object* | The FHIR data that was prefetched by the CDS Client (see more information below).
 
 #### hookInstance
@@ -282,7 +282,7 @@ To reduce the implementation burden on CDS Clients that support CDS Services, th
 
 #### Example prefetch token
 
-Often a prefetch template builds on the contextual data associated with the hook. For example, a particular CDS Service might recommend guidance based on a patient's conditions when the chart is opened. The FHIR query to retrieve these conditions might be `Condition?patient=123`. In order to express this as a prefetch template, the CDS Service must express the FHIR identifier of the patient as a token so that the CDS Client can replace the token with the appropriate value. When context fields are used as tokens, their token name MUST be `context.name-of-the-field`. For example, given a context like:
+Often a prefetch template builds on the contextual data associated with the hook. For example, a particular CDS Service might recommend guidance based on a patient's conditions when the chart is opened. The FHIR query to retrieve these conditions might be `Condition?patient=123`. In order to express this as a prefetch template, the CDS Service must express the FHIR id of the patient as a token so that the CDS Client can replace the token with the appropriate value. When context fields are used as tokens, their token name MUST be `context.name-of-the-field`. For example, given a context like:
 
 ```json
 "context" : {
@@ -1008,7 +1008,7 @@ For example, consider a simple `patient-view` hook that is invoked whenever the 
 }
 ```
 
-Prefetch data, on the other hand, is defined by CDS Services as a way to allow the CDS Client to provide the data that a CDS Service needs as part of the initial request to the service. When the context data relates to a FHIR resource, it is important not to conflate context and prefetch. For instance, in the hook described above for opening a patient's chart, the hook includes the id of the patient whose chart is being opened, not the full patient FHIR resource. In this case, the FHIR identifier of the patient is appropriate as CDS Services may not be interested in details about the patient resource but instead other data related to this patient. Or, a CDS Service may only need the full patient resource in certain scenarios. Therefore, including the full patient resource in context would be unnecessary. For CDS Services that want the full patient resource, they can request it to be prefetched or fetch it as needed from the FHIR server using a prefetch template in their discovery response, such as:
+Prefetch data, on the other hand, is defined by CDS Services as a way to allow the CDS Client to provide the data that a CDS Service needs as part of the initial request to the service. When the context data relates to a FHIR resource, it is important not to conflate context and prefetch. For instance, in the hook described above for opening a patient's chart, the hook includes the id of the patient whose chart is being opened, not the full patient FHIR resource. In this case, the FHIR id of the patient is appropriate as CDS Services may not be interested in details about the patient resource but instead other data related to this patient. Or, a CDS Service may only need the full patient resource in certain scenarios. Therefore, including the full patient resource in context would be unnecessary. For CDS Services that want the full patient resource, they can request it to be prefetched or fetch it as needed from the FHIR server using a prefetch template in their discovery response, such as:
 
 ```json
 "prefetch": {
