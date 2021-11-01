@@ -486,7 +486,7 @@ Field | Optionality | Type | Description
 `summary` | REQUIRED | *string* | One-sentence, <140-character summary message for display to the user inside of this card.
 `detail` | OPTIONAL | *string* | Optional detailed information to display; if provided MUST be represented in [(GitHub Flavored) Markdown](https://github.github.com/gfm/). (For non-urgent cards, the CDS Client MAY hide these details until the user clicks a link like "view more details...").
 `indicator` | REQUIRED | *string* | Urgency/importance of what this card conveys. Allowed values, in order of increasing urgency, are: `info`, `warning`, `critical`. The CDS Client MAY use this field to help make UI display decisions such as sort order or coloring.
-`source` | REQUIRED | *object* | Grouping structure for the **Source** of the information displayed on this card. The source should be the primary source of guidance for the decision support the card represents.
+`source` | REQUIRED | *object* | Grouping structure for the **[Source](#source)** of the information displayed on this card. The source should be the primary source of guidance for the decision support the card represents.
 <nobr>`suggestions`</nobr> | OPTIONAL | *array* of **[Suggestions](#suggestion)** | Allows a service to suggest a set of changes in the context of the current activity (e.g.  changing the dose of a medication currently being prescribed, for the `order-sign` activity). If suggestions are present, `selectionBehavior` MUST also be provided.
 `selectionBehavior` | OPTIONAL | *string* | Describes the intended selection behavior of the suggestions in the card. Allowed values are: `at-most-one`, indicating that the user may choose none or at most one of the suggestions;`any`, indicating that the end user may choose any number of suggestions including none of them and all of them. CDS Clients that do not understand the value MUST treat the card as an error.
 `overrideReasons` | OPTIONAL | *array* of **[Coding](#coding)** | Override reasons can be selected by the end user when overriding a card without taking the suggested recommendations. The CDS service MAY return a list of override reasons to the CDS client. The CDS client SHOULD present these reasons to the clinician when they dismiss a card. A CDS client MAY augment the override reasons presented to the user with its own reasons.
@@ -583,7 +583,7 @@ The following example illustrates a delete action:
 
 #### Reasons for rejecting a card
 
-**overrideReasons** is an array of **Coding** that captures a codified set of reasons an end user may select from as the rejection reason when rejecting the advice presented in the card. When using the coding object representing a reason, implementations are required to only respect the *code* property. However, they may consume other properties for a better end user experience, such as presenting a human readable text in the *display* property instead of the *code* itself to the end user.
+**overrideReasons** is an array of **[Coding](#coding)** that captures a codified set of reasons an end user may select from as the rejection reason when rejecting the advice presented in the card. When using the coding object representing a reason, implementations are required to only respect the *code* property. However, they may consume other properties for a better end user experience, such as presenting a human readable text in the *display* property instead of the *code* itself to the end user.
 
 This specification does not prescribe a standard set of override reasons; implementers are encouraged to submit suggestions for standardization.
 
@@ -614,7 +614,7 @@ Field | Optionality | Type | Description
 
 
 ### System Action
-A `systemAction` is the same **Action** which may be returned in a suggestion, but is instead returned alongside the array of cards. A `systemAction` is not presented to the user within a card, but rather may be auto-applied without user intervention.
+A `systemAction` is the same **[Action](#action)** which may be returned in a suggestion, but is instead returned alongside the array of cards. A `systemAction` is not presented to the user within a card, but rather may be auto-applied without user intervention.
 
 ```json
 {
@@ -693,7 +693,7 @@ Field | Optionality | Type | Description
 `card` | REQUIRED | *string* | The `card.uuid` from the CDS Hooks response. Uniquely identifies the card.
 `outcome` | REQUIRED | *string* | A value of `accepted` or `overridden`.
 `acceptedSuggestions` | CONDITIONAL | *array* | An array of json objects identifying one or more of the user's **AcceptedSuggestion**s. Required for `accepted` outcomes.
-`overrideReason` | OPTIONAL | **[OverrideReason](#overridereason)** | A json object capturing the override reason as a **Coding** as well as any comments entered by the user.
+`overrideReason` | OPTIONAL | **[OverrideReason](#overridereason)** | A json object capturing the override reason as a **[Coding](#coding)** as well as any comments entered by the user.
 `outcomeTimestamp` | REQUIRED | *string* | ISO timestamp in UTC when action was taken on card.
 
 ### Suggestion accepted
