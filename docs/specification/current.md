@@ -583,7 +583,7 @@ The following example illustrates a delete action:
 
 #### Reasons for rejecting a card
 
-**overrideReasons** is an array of **Coding** that captures a codified set of reasons an end user may select from as the rejection reason when rejecting the advice presented in the card. When using the coding object representing a reason, implementations are required to only respect the *code* property. However, they may consume other properties for a better end user experience, such as presenting a human readable text in the *display* property instead of the *code* itself to the end user.
+**overrideReasons** is an array of **Coding** that captures a codified set of reasons an end user may select from as the rejection reason when rejecting the advice presented in the card. When using the coding object to represent a reason, CDS Services MUST provide a human readable text in the *display* property and CDS Clients MAY incorporate it into their user interface.
 
 This specification does not prescribe a standard set of override reasons; implementers are encouraged to submit suggestions for standardization.
 
@@ -983,7 +983,7 @@ Field | Optionality | Type | Description
 ----- | ----- | ----- | --------
 `code` | REQUIRED | *string* | The code for what is being represented
 `system` | REQUIRED | *string* | A codesystem for this `code`.
-`display` | OPTIONAL | *string* | A short, human-readable label to display.
+`display` | CONDITIONAL | *string* | A short, human-readable label to display. REQUIRED for [Override Reasons](#overridereason), OPTIONAL for [Topic](#topic).
 
 ## Hooks
 
