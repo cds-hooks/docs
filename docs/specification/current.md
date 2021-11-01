@@ -982,7 +982,7 @@ The **Coding** data type captures the concept of a code. A code is understood on
 Field | Optionality | Type | Description
 ----- | ----- | ----- | --------
 `code` | REQUIRED | *string* | The code for what is being represented
-`system` | OPTIONAL | *string* | A codesystem for this `code`.
+`system` | REQUIRED | *string* | A codesystem for this `code`.
 `display` | OPTIONAL | *string* | A short, human-readable label to display.
 
 ## Hooks
