@@ -178,11 +178,11 @@ curl
 
 Each CDS Service will require specific FHIR resources in order to compute the recommendations the CDS Client requests. If real-world performance were no issue, an CDS Client could launch a CDS Service passing only context data (such as the current user and patient ids), and the CDS Service could then request authorization for FHIR resources as they were needed, and then retrieve the resources from the CDS Client's FHIR server.  Given that CDS Services SHOULD respond quickly (on the order of 500 ms.), this specification defines a process to allow a CDS Service to request and obtain FHIR resources efficiently.
 
-Two optional methods are provided.  First, FHIR resources MAY be obtained by passing "prefetched" data from the CDS Client to the CDS Service in the service call.  FHIR resources requested in the CDS Service description are passed as key-value pairs, with each key matching a key described in the CDS Service description, and each value being a FHIR resource. Note that in the case of searches, this resource may be a [`searchset`](http://hl7.org/fhir/bundle.html#searchset) Bundle. If data are to be prefetched, the CDS Service registers a set of "prefetch templates" with the CDS Client, as described in the [Prefetch Template](#prefetch-template) section below.
+Two optional methods are provided.  First, FHIR resources MAY be obtained by passing "prefetched" data from the CDS Client to the CDS Service in the service call.  FHIR resources requested in the [CDS Service discovery response](#response) are passed as key-value pairs, with each key matching a key described in the discovery response, and each value being a FHIR resource. Note that in the case of searches, this resource may be a [`searchset`](http://hl7.org/fhir/bundle.html#searchset) Bundle. If data are to be prefetched, the CDS Service registers a set of "prefetch templates" with the CDS Client, as described in the [Prefetch Template](#prefetch-template) section below.
 
 The second method enables the CDS Service to retrieve FHIR resources for itself, but to do so more efficiently than if it were required to request and obtain its own authorization.  If the CDS Client decides to have the CDS Service fetch its own FHIR resources, the CDS Client obtains and passes directly to the CDS Service a bearer token issued for the CDS Service's use in executing FHIR API calls against the CDS Client's FHIR server to obtain the required resources.  Some CDS Clients MAY pass prefetched data, along with a bearer token for the CDS Service to use if additional resources are required.  Each CDS Client SHOULD decide which approach, or combination, is preferred, based on performance considerations and assessment of attendant security and safety risks. For more detail, see the [FHIR Resource Access](#fhir-resource-access) section below.
 
-Similarly, each CDS Client will decide what FHIR resources to authorize and to prefetch, based on the CDS Service description's "prefetch" request and on the provider's assessment of the "minimum necessary."  The CDS Client provider and the CDS Service provider will negotiate the set of FHIR resources to be provided, and how these data will be provided, as part of their service agreement.
+Similarly, each CDS Client will decide what FHIR resources to authorize and to prefetch, based on the CDS Service discovery response's "prefetch" request and on the provider's assessment of the "minimum necessary."  The CDS Client provider and the CDS Service provider will negotiate the set of FHIR resources to be provided, and how these data will be provided, as part of their service agreement.
 
 ### Prefetch Template
 
@@ -194,7 +194,7 @@ Observation?patient={{context.patientId}}&code=4548-4&_count=1&sort:desc=date
 
 To allow for prefetch templates that are dependent on the workflow context, prefetch templates may include references to context using [_prefetch tokens_](#prefetch-tokens). In the above example, `{{context.patientId}}` is a prefetch token.
 
-The `prefetch` field of a CDS Service description defines the set of prefetch templates for that service, providing a _prefetch key_ for each one that is used to identify the prefetch data in the CDS request. For example:
+The `prefetch` field of a CDS Service discovery response defines the set of prefetch templates for that service, providing a _prefetch key_ for each one that is used to identify the prefetch data in the CDS request. For example:
 
 ```json
 {
