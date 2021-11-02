@@ -845,7 +845,7 @@ CDS Services SHOULD maintain an allowlist of the `iss` and `jku` fields to only 
 
 Per [rfc7519](https://tools.ietf.org/html/rfc7519#section-4.1.3), the `aud` value is either a string or an array of strings. For CDS Hooks, this value MUST be the URL of the CDS Service endpoint being invoked. For example, consider a CDS Service available at a base URL of `https://cds.example.org`. When the CDS Client invokes the CDS Service discovery endpoint, the aud value is either `"https://cds.example.org/cds-services"` or `["https://cds.example.org/cds-services"]`. Similarly, when the CDS Client invokes a particular CDS Service (say, `some-service`), the aud value is either `"https://cds.example.org/cds-services/some-service"` or `["https://cds.example.org/cds-services/some-service"]`.
 
-The CDS Client MUST make its public key, expressed as a JSON Web Key (JWK) in a JWK Set, as defined by [rfc7517](https://tools.ietf.org/html/rfc7517). The `kid` value from the JWT header allows a CDS Service to identify the correct JWK in the JWK Set that can be used to verify the signature.
+The CDS Client MUST make its public key, expressed as a JSON Web Key (JWK), available in a JWK Set, as defined by [rfc7517](https://tools.ietf.org/html/rfc7517). The `kid` value from the JWT header allows a CDS Service to identify the correct JWK in the JWK Set that can be used to verify the signature.
 
 The CDS Client MAY make its JWK Set available via a URL identified by the `jku` header field, as defined by [rfc7515 4.1.2](https://tools.ietf.org/html/rfc7515#section-4.1.2). If the `jku` header field is ommitted, the CDS Client and CDS Service SHALL communicate the JWK Set out-of-band.
 
