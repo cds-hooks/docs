@@ -729,7 +729,7 @@ If either the card or the suggestion has no `uuid`, the CDS client does not send
 
 ### Card ignored
 
-If the end-user doesn't interact with the CDS Service's card at all, the card is *ignored*. In this case, the CDS Client does not inform the CDS Service of the rejected guidance. Even with a `card.uuid`, a `suggestion.uuid`, and an available feedback service, the service is not informed.
+If the end-user doesn't interact with the CDS Service's card at all, the card is *ignored*. In this case, the CDS Client does not inform the CDS Service of the rejected guidance. Even with a `card.uuid`, a `suggestion.uuid`, and an available feedback service, the service is not informed (in part, because it may later be acted upon).
 
 ### Overridden guidance
 
