@@ -403,7 +403,7 @@ Note that the missing `user` key indicates that either the CDS Client has decide
 
 ### FHIR Resource Access
 
-If the CDS Client provides both `fhirServer` and `fhirAuthorization` request parameters, the CDS Service MAY use the FHIR server to obtain any FHIR resources it requires beyond those provided by the CDS Client as prefetched data. This is similar to the approach used by SMART on FHIR wherein the SMART app requests and ultimately obtains an access token from the CDS Client's Authorization server using the SMART launch workflow, as described in [SMART App Launch Implementation Guide](http://hl7.org/fhir/smart-app-launch/1.0.0/).
+If the CDS Client provides both `fhirServer` and `fhirAuthorization` request parameters, the CDS Service MAY use the FHIR server to obtain any FHIR resources for which it's authorized, beyond those provided by the CDS Client as prefetched data. This is similar to the approach used by SMART on FHIR wherein the SMART app requests and ultimately obtains an access token from the CDS Client's Authorization server using the SMART launch workflow, as described in [SMART App Launch Implementation Guide](http://hl7.org/fhir/smart-app-launch/1.0.0/).
 
 Like SMART on FHIR, CDS Hooks requires that clients present a valid access token to the FHIR server with each API call. Thus, a CDS Service MUST be able to obtain an access token before communicating with the CDS Client's FHIR resource server. While CDS Hooks shares the underlying technical framework and standards as SMART on FHIR, the CDS Hooks workflow MUST accommodate the automated, low-latency delivery of an access token to the CDS service.
 
