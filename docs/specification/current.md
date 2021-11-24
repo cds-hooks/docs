@@ -351,7 +351,7 @@ Only the `encounterId` field in this example is eligible to be a prefetch token 
     "patient": "Patient/{{context.patientId}}",
     "hemoglobin-a1c": "Observation?patient={{context.patientId}}&code=4548-4&_count=1&sort:desc=date",
     "diabetes-type2": "Condition?patient={{context.patientId}}&code=44054006&category=problem-list-item&status=active",
-    "user": "{{userPractitionerRoleId}}"
+    "user": "PractitionerRole?_id={{userPractitionerRoleId}}"
   }
 }
 ```
