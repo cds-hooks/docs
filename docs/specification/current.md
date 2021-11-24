@@ -362,7 +362,8 @@ Only the `encounterId` field in this example is eligible to be a prefetch token 
   "prefetch": {
     "patient": "Patient/{{context.patientId}}",
     "hemoglobin-a1c": "Observation?patient={{context.patientId}}&code=4548-4&_count=1&sort:desc=date",
-    "user": "{{context.userId}}"
+    "diabetes-type2": "Condition?patient={{context.patientId}}&code=44054006&category=problem-list-item&status=active",
+    "user": "PractitionerRole?_id={{userPractitionerRoleId}}"
   }
 }
 ```
@@ -374,6 +375,7 @@ goal is to know, at call time:
 | --- | ----------- |
 | `patient` | Patient demographics. |
 | `hemoglobin-a1c` | Most recent Hemoglobin A1c reading for this patient. |
+| `diabetes-type2` | If the patient has an active condition of diabetes mellitus on their problem list. |
 | `user` | Information on the current user.
 
 #### Example prefetch data
@@ -407,7 +409,8 @@ goal is to know, at call time:
           }
         }
       ]
-    }
+    },
+    "user": "123"
   }
 }
 ```
@@ -415,7 +418,7 @@ goal is to know, at call time:
 The CDS Hooks request is augmented to include two prefetch values, where the dictionary
 keys match the request keys (`patient` and `hemoglobin-a1c` in this case).
 
-Note that the missing `user` key indicates that either the CDS Client has decided not to satisfy this particular prefetch template or it was not able to retrieve this prefetched data. The CDS Service is responsible for retrieving the FHIR resource representing the user from the FHIR server (if required).
+Note that the missing `diabetes-type2` key indicates that either the CDS Client has decided not to satisfy this particular prefetch template or it was not able to retrieve this prefetched data. The CDS Service is responsible for retrieving the FHIR resource representing the user from the FHIR server (if required).
 
 ### FHIR Resource Access
 
