@@ -723,7 +723,13 @@ Upon receiving a card, a user may accept its suggestions, ignore it entirely, or
 
 Typically, an end user may only accept (a suggestion), or override a card once; however, a card once ignored could later be acted upon. CDS Hooks does not specify the UI behavior of CDS Clients, including the persistence of cards. CDS Clients should faithfully report each of these distinct end-user interactions as feedback.
 
-Each **Feedback** is described by the following attributes.
+A CDS Client provides feedback by POSTing a JSON document. The feedback endpoint can be constructed from the CDS Service endpoint and a path segment of "feedback" 
+as {baseUrl}/cds-services/{service.id}/feedback. The request to the feedback endpoint SHALL be an object containing an array.
+Field | Description
+----- | ------
+`feedback` | *array* of **Feedback**
+
+Each **Feedback** SHALL described by the following attributes.
 
 Field | Optionality | Type | Description
 ----- | ----- | ----- | --------
