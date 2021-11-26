@@ -66,6 +66,8 @@ Field | Description
 ----- | ---------
 `services` | *array*. An array of **CDS Services**.
 
+If your CDS server hosts no CDS Services, the discovery endpoint should return a 200 HTTP response with an empty array of services.
+
 Each CDS Service SHALL be described by the following attributes.
 
 Field | Optionality | Type | Description
