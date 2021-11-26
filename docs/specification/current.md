@@ -66,6 +66,8 @@ Field | Description
 ----- | ---------
 `services` | *array*. An array of **CDS Services**.
 
+If your CDS server hosts no CDS Services, the discovery endpoint should return a 200 HTTP response with an empty array of services.
+
 Each CDS Service SHALL be described by the following attributes.
 
 Field | Optionality | Type | Description
@@ -129,7 +131,7 @@ Field | Optionality | Type | Description
 ----- | ----- | ----- | --------
 `hook` | REQUIRED | *string* | The hook that triggered this CDS Service call. See [Hooks](#hooks).
 <nobr>`hookInstance`</nobr> | REQUIRED | *string* | A universally unique identifier (UUID) for this particular hook call (see more information below).
-`fhirServer` | OPTIONAL | *URL* | The base URL of the CDS Client's [FHIR](https://www.hl7.org/fhir/) server. If fhirAuthorization is provided, this field is REQUIRED.  The scheme should be `https`
+`fhirServer` | OPTIONAL | *URL* | The base URL of the CDS Client's [FHIR](https://www.hl7.org/fhir/) server. If fhirAuthorization is provided, this field is REQUIRED.  The scheme MUST be `https` when production data is exchanged.
 `fhirAuthorization` | OPTIONAL | *object* | A structure holding an [OAuth 2.0][OAuth 2.0] bearer access token granting the CDS Service access to FHIR resources, along with supplemental information relating to the token. See the [FHIR Resource Access](#fhir-resource-access) section for more information.
 `context` | REQUIRED | *object* | Hook-specific contextual data that the CDS service will need.<br />For example, with the `patient-view` hook this will include the FHIR identifier of the [Patient](https://www.hl7.org/fhir/patient.html) being viewed.  For details, see the Hooks specification page.
 `prefetch` | OPTIONAL | *object* | The FHIR data that was prefetched by the CDS Client (see more information below).
@@ -218,7 +220,7 @@ A CDS Client MAY choose to honor some or all of the desired prefetch templates, 
 - The CDS Client MAY compute an efficient set of prefetch templates from multiple CDS Services, thereby reducing the number of calls to a minimum
 - The CDS Client MAY satisfy some of the desired prefetched templates via some internal service or even its own FHIR server.
 
-The CDS Client SHALL deny access to the requested resource if it is outside the user's authorized scope.
+The CDS Client denies access to the requested resource if it is outside the user's authorized scope.
 
 As part of preparing the request, a CDS Client processes each prefetch template it intends to satisfy by replacing the prefetch tokens in the prefetch template to construct a relative FHIR request URL. This specification is not prescriptive about how this request is actually processed. The relative URL may be appended to the base URL for the CDS Client's FHIR server and directly invoked, or the CDS Client may use internal infrastructure to satisfy the request in the same way that invoking against the FHIR server would.
 
@@ -362,7 +364,8 @@ Only the `encounterId` field in this example is eligible to be a prefetch token 
   "prefetch": {
     "patient": "Patient/{{context.patientId}}",
     "hemoglobin-a1c": "Observation?patient={{context.patientId}}&code=4548-4&_count=1&sort:desc=date",
-    "user": "{{context.userId}}"
+    "diabetes-type2": "Condition?patient={{context.patientId}}&code=44054006&category=problem-list-item&status=active",
+    "user": "PractitionerRole?_id={{userPractitionerRoleId}}"
   }
 }
 ```
@@ -374,6 +377,7 @@ goal is to know, at call time:
 | --- | ----------- |
 | `patient` | Patient demographics. |
 | `hemoglobin-a1c` | Most recent Hemoglobin A1c reading for this patient. |
+| `diabetes-type2` | If the patient has an active condition of diabetes mellitus on their problem list. |
 | `user` | Information on the current user.
 
 #### Example prefetch data
@@ -407,7 +411,8 @@ goal is to know, at call time:
           }
         }
       ]
-    }
+    },
+    "user": "123"
   }
 }
 ```
@@ -415,7 +420,7 @@ goal is to know, at call time:
 The CDS Hooks request is augmented to include two prefetch values, where the dictionary
 keys match the request keys (`patient` and `hemoglobin-a1c` in this case).
 
-Note that the missing `user` key indicates that either the CDS Client has decided not to satisfy this particular prefetch template or it was not able to retrieve this prefetched data. The CDS Service is responsible for retrieving the FHIR resource representing the user from the FHIR server (if required).
+Note that the missing `diabetes-type2` key indicates that either the CDS Client has decided not to satisfy this particular prefetch template or it was not able to retrieve this prefetched data. The CDS Service is responsible for retrieving the FHIR resource representing the user from the FHIR server (if required).
 
 ### FHIR Resource Access
 
@@ -692,7 +697,19 @@ A `systemAction` is the same **Action** which may be returned in a suggestion, b
       "indicator": "warning",
       "source": {
         "label": "Static CDS Service Example"
-      }
+      },
+      "overrideReasons": [
+        {
+          "code": "reason-code-provided-by-service",
+          "system": "http://example.org/cds-services/fhir/CodeSystem/override-reasons",
+          "display": "Patient refused"
+        },
+        {
+          "code": "12354",
+          "system": "http://example.org/cds-services/fhir/CodeSystem/override-reasons",
+          "display": "Contraindicated"
+        }
+      ]
     }
   ]
 }
@@ -700,7 +717,7 @@ A `systemAction` is the same **Action** which may be returned in a suggestion, b
 
 ## Feedback
 
-Once a CDS Hooks service responds to a hook by returning a card, the service has no further interaction with the CDS Client. The acceptance of a suggestion or rejection of a card is valuable information to enable a service to improve its behavior towards the goal of the end-user having a positive and meaningful experience with the CDS. A feedback endpoint enables suggestion tracking & analytics.
+Once a CDS Hooks service responds to a hook by returning a card, the service has no further interaction with the CDS client. The acceptance of a suggestion or rejection of a card is valuable information to enable a service to improve its behavior towards the goal of the end-user having a positive and meaningful experience with the CDS. A feedback endpoint enables suggestion tracking & analytics. A CDS Service MAY support a feedback endpoint; a CDS Client SHOULD be capable of sending feedback.
 
 Upon receiving a card, a user may accept its suggestions, ignore it entirely, or dismiss it with or without an override reason. Note that while one or more suggestions can be accepted, an entire card is either ignored or overridden.
 
@@ -730,6 +747,7 @@ Field | Optionality | Type | Description
 ----- | ----- | ----- | --------
 `id` | REQUIRED | *string* | The `card.suggestion.uuid` from the CDS Hooks response. Uniquely identifies the suggestion that was accepted.
 
+#### Example suggestion accepted 
 ```json
 POST {baseUrl}/cds-services/{serviceId}/feedback
 
@@ -759,6 +777,7 @@ If the end-user doesn't interact with the CDS Service's card at all, the card is
 
 A CDS Client may enable the end user to override guidance without providing an explicit reason for doing so. The CDS Client can inform the service when a card was dismissed by specifying an outcome of `overridden` without providing an `overrideReason`. This may occur, for example, when the end user viewed the card and dismissed it without providing a reason why.
 
+#### Example overridden guidance without overrideReason
 
 ```json
 POST {baseUrl}/cds-services/{serviceId}/feedback
@@ -785,24 +804,26 @@ Field | Optionality | Type | Description
 `reason` | CONDITIONAL |**Coding** | The Coding object representing the override reason selected by the end user. Required if user selected an override reason from the list of reasons provided in the Card (instead of only leaving a userComment).
 `userComment` | OPTIONAL | *string* | The CDS Client may enable the clinician to further explain why the card was rejected with free text. That user comment may be communicated to the CDS Service as a `userComment`.
 
+#### Example overridden guidance with overrideReason
+
 ```json
 POST {baseUrl}/cds-services/{serviceId}/feedback
 
 {
-  "feedback": [
-    {
-      "card": "9368d37b-283f-44a0-93ea-547cebab93ed",
-      "outcome": "overridden",
-      "overrideReason": {
-        "reason": {
-          "code": "d7ecf885",
-          "system": "https://example.com/cds-hooks/override-reason-system"
-        },
-        "userComment": "clinician entered comment"
-      },
-      "outcomeTimestamp": "2020-12-11T00:00:00Z"
-    }
-  ]
+   "feedback":[
+      {
+         "card":"9368d37b-283f-44a0-93ea-547cebab93ed",
+         "outcome":"overridden",
+         "overrideReason":{
+            "reason":{
+               "code":"d7ecf885",
+               "system":"https://example.com/cds-hooks/override-reason-system"
+            },
+            "userComment":"A comment entered by the clinician."
+         },
+         "outcomeTimestamp":"2020-12-11T00:00:00Z"
+      }
+   ]
 }
 ```
 
@@ -825,11 +846,11 @@ CDS Hooks defines a security model that addresses these risks by assuring that t
 
 Prior to enabling CDS Clients to request decision support from any CDS Service, the CDS Client vendor and/or provider organization is expected to perform due diligence on the CDS Service provider.  Each CDS Client vendor/provider is individually responsible for determining the suitability, safety and integrity of the CDS Services it uses, based on the organization's own risk-management strategy.  Each CDS Client vendor/provider SHOULD maintain an "allow list" (and/or "deny list") of the CDS Services it has vetted, and the Card links that have been deemed safe to display from within the CDS Client context. Each provider organization is expected to work with its CDS Client vendor to choose what CDS Services to allow and to negotiate the conditions under which the CDS Services MAY be called.
 
-Once a CDS Service provider is selected, the CDS Client vendor/provider negotiates the terms under which service will be provided.  This negotiation includes agreement on patient data elements that will be prefetched and provided to the CDS Service, data elements that will be made available through an access token passed by the CDS Client, and steps the CDS Service MUST take to protect patient data and access tokens.  The CDS Service can be registered with the CDS Client's authorization server, in part to define the FHIR resources that the CDS Service has authorization to access. These business arrangements are documented in the service agreement.
+Once a CDS Service provider is selected, the CDS Client vendor/provider negotiates the terms under which service will be provided.  This negotiation includes agreement on patient data elements that will be prefetched and provided to the CDS Service, the CDS Services used and the hooks that will trigger them, data elements that will be made available through an access token passed by the CDS Client, and steps the CDS Service MUST take to protect patient data and access tokens.  The CDS Service can be registered with the the CDS Client's authorization server, in part to define the FHIR resources that the CDS Service has authorization to access. These business arrangements are documented in the service agreement.
 
 Every interaction between an CDS Client and a CDS Service is initiated by the CDS Client sending a service request to a CDS Service endpoint protected using the [Transport Layer Security protocol](https://tools.ietf.org/html/rfc5246). Through the TLS protocol the identity of the CDS Service is authenticated, and an encrypted transmission channel is established between the CDS Client and the CDS Service. Both the Discovery endpoint and individual CDS Service endpoints are TLS secured.
 
-The authorization server is responsible for enforcing restrictions on the CDS Services that MAY be called and the scope of the FHIR resources that MAY be prefetched or retrieved from the FHIR server.  If a CDS Client is satisfying prefetch requests from a CDS Service or sends a non-null `fhirAuthorization` object to a CDS Service so that it can call the FHIR server, the CDS Service MUST be pre-registered with the authorization server protecting access to the FHIR server.  Pre-registration includes registering a  client identifier, and agreeing upon the scope of FHIR access that is minimally necessary to provide the clinical decision support required. This specification does not address how the CDS Client, authorization server, and CDS Service perform this pre-registration.
+The authorization server is responsible for enforcing restrictions on the CDS Services that MAY be called and the scope of the FHIR resources that MAY be prefetched or retrieved from the FHIR server. In either case, the CDS Client SHALL deny access to a requested resource if it is outside the user's authorized scope. If a CDS Client is satisfying prefetch requests from a CDS Service or sends a non-null `fhirAuthorization` object to a CDS Service so that it can call the FHIR server, the CDS Service MUST be pre-registered with the authorization server protecting access to the FHIR server.  Pre-registration includes registering a client identifier, and agreeing upon the scope of FHIR access that is minimally necessary to provide the clinical decision support required. This specification does not address how the CDS Client, authorization server, and CDS Service perform this pre-registration.
 
 ### Trusting CDS Clients
 
@@ -870,7 +891,7 @@ CDS Services SHOULD maintain an allowlist of the `iss` and `jku` fields to only 
 
 Per [rfc7519](https://tools.ietf.org/html/rfc7519#section-4.1.3), the `aud` value is either a string or an array of strings. For CDS Hooks, this value MUST be the URL of the CDS Service endpoint being invoked. For example, consider a CDS Service available at a base URL of `https://cds.example.org`. When the CDS Client invokes the CDS Service discovery endpoint, the aud value is either `"https://cds.example.org/cds-services"` or `["https://cds.example.org/cds-services"]`. Similarly, when the CDS Client invokes a particular CDS Service (say, `some-service`), the aud value is either `"https://cds.example.org/cds-services/some-service"` or `["https://cds.example.org/cds-services/some-service"]`.
 
-The CDS Client MUST make its public key, expressed as a JSON Web Key (JWK) in a JWK Set, as defined by [rfc7517](https://tools.ietf.org/html/rfc7517). The `kid` value from the JWT header allows a CDS Service to identify the correct JWK in the JWK Set that can be used to verify the signature.
+The CDS Client MUST make its public key, expressed as a JSON Web Key (JWK), available in a JWK Set, as defined by [rfc7517](https://tools.ietf.org/html/rfc7517). The `kid` value from the JWT header allows a CDS Service to identify the correct JWK in the JWK Set that can be used to verify the signature.
 
 The CDS Client MAY make its JWK Set available via a URL identified by the `jku` header field, as defined by [rfc7515 4.1.2](https://tools.ietf.org/html/rfc7515#section-4.1.2). If the `jku` header field is ommitted, the CDS Client and CDS Service SHALL communicate the JWK Set out-of-band.
 
