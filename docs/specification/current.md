@@ -810,20 +810,20 @@ Field | Optionality | Type | Description
 POST {baseUrl}/cds-services/{serviceId}/feedback
 
 {
-  "feedback": [
-    {
-      "card": "9368d37b-283f-44a0-93ea-547cebab93ed",
-      "outcome": "overridden",
-      "overrideReason": {
-        "reason": {
-          "code": "d7ecf885",
-          "system": "https://example.com/cds-hooks/override-reason-system"
-        },
-        "userComment": "clinician entered comment"
-      },
-      "outcomeTimestamp": "2020-12-11T00:00:00Z"
-    }
-  ]
+   "feedback":[
+      {
+         "card":"9368d37b-283f-44a0-93ea-547cebab93ed",
+         "outcome":"overridden",
+         "overrideReason":{
+            "reason":{
+               "code":"d7ecf885",
+               "system":"https://example.com/cds-hooks/override-reason-system"
+            },
+            "userComment":"A comment entered by the clinician."
+         },
+         "outcomeTimestamp":"2020-12-11T00:00:00Z"
+      }
+   ]
 }
 ```
 
