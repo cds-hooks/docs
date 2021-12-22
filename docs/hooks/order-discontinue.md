@@ -1,7 +1,7 @@
 `order-discontinue`
 
 !!! info
-    This page defines a workflow [hook](../../specification/current/#hooks) for the purpose of providing clinical decision support using CDS Hooks. This is a <mark>**build | snapshot | ballot | release**</mark> at the level of <mark>**[Draft](http://hl7.org/fhir/versions.html#std-processs)**</mark>
+    This page defines a workflow [hook](../../specification/current/#hooks) for the purpose of providing clinical decision support using CDS Hooks. This is a build at the level of [Draft](http://hl7.org/fhir/versions.html#std-processs).
 
 | Metadata | Value
 | ---- | ----
