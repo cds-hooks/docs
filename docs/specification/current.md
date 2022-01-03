@@ -159,7 +159,7 @@ curl
     "access_token": "some-opaque-fhir-access-token",
     "token_type": "Bearer",
     "expires_in": 300,
-    "scope": "patient/Patient.read patient/Observation.read",
+    "scope": "user/Patient.read user/Observation.read",
     "subject": "cds-service4"
   },
   "context": {
@@ -442,8 +442,9 @@ Field | Optionality | Type | Description
 `expires_in`   | REQUIRED | *integer* | The lifetime in seconds of the access token.
 `scope`        | REQUIRED | *string* | The scopes the access token grants the CDS Service.
 `subject` | REQUIRED | *string* | The [OAuth 2.0][OAuth 2.0] client identifier of the CDS Service, as registered with the CDS Client's authorization server.
+'patient` | CONDITIONAL | *string* | If the granted SMART scopes include patient scopes (i.e. "patient/"), the access token is restricted to a specific patient. This field identies the FHIR id of that patient.
 
-The scopes granted to the CDS Service via the `scope` field are defined by the [SMART on FHIR specification](http://hl7.org/fhir/smart-app-launch/1.0.0/scopes-and-launch-context/).
+The scopes granted to the CDS Service via the `scope` field are defined by the [SMART on FHIR specification](http://hl7.org/fhir/smart-app-launch/1.0.0/scopes-and-launch-context/). 
 
 The `expires_in` value is established by the authorization server and SHOULD BE very short lived, as the access token MUST be treated as a transient value by the CDS Service. CDS Clients MAY revoke an issued access token upon the completion of the CDS Hooks request/response to limit the validity period of the token. 
 
@@ -455,7 +456,7 @@ Below is an example `fhirAuthorization` parameter:
     "access_token": "some-opaque-fhir-access-token",
     "token_type": "Bearer",
     "expires_in": 300,
-    "scope": "patient/Patient.read patient/Observation.read",
+    "scope": "user/Patient.read user/Observation.read",
     "subject": "cds-service4"
   }
 }
