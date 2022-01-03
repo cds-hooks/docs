@@ -765,7 +765,7 @@ POST {baseUrl}/cds-services/{serviceId}/feedback
           "id": "e56e1945-20b3-4393-8503-a1a20fd73152"
         }
       ],
-      "outcomeTimestamp": "2020-12-11T00:00:00Z"
+      "outcomeTimestamp": "2021-12-11T10:05:31Z"
     }
   ]
 }
