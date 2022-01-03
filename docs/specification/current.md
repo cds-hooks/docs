@@ -1033,7 +1033,7 @@ Field | Optionality | Type | Description
 ----- | ----- | ----- | --------
 `code` | REQUIRED | *string* | The code for what is being represented
 `system` | REQUIRED | *string* | A codesystem for this `code`.
-`display` | CONDITIONAL | *string* | A short, human-readable label to display. REQUIRED for [Override Reasons](#overridereason), OPTIONAL for [Topic](#topic).
+`display` | CONDITIONAL | *string* | A short, human-readable label to display. REQUIRED for [Override Reasons](#overridereason) provided by the CDS Service, OPTIONAL for [Topic](#topic).
 
 ## Hooks
 
