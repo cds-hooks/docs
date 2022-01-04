@@ -11,7 +11,7 @@
 
 ## Workflow
 
-The `order-discontinue` fires when a signed order is discontinued by a clinician (including orders for medications, procedures, labs and other orders).
+The `order-discontinue` fires when a signed order is manually discontinued by a clinician (including orders for medications, procedures, labs and other orders). Note that this hook does not fire when an order expires "naturally", for example at a predictable time, such as a a medication prescription's refills completing.
 
 ## Context
 CDS Services should consider retreiving or prefetch'ing the `toBeDiscontinued` order, and should focus decisions support on the discontinuation of this order.
