@@ -508,7 +508,7 @@ Field | Optionality | Type | Description
 `source` | REQUIRED | *object* | Grouping structure for the **[Source](#source)** of the information displayed on this card. The source should be the primary source of guidance for the decision support the card represents.
 <nobr>`suggestions`</nobr> | OPTIONAL | *array* of **[Suggestions](#suggestion)** | Allows a service to suggest a set of changes in the context of the current activity (e.g.  changing the dose of a medication currently being prescribed, for the `order-sign` activity). If suggestions are present, `selectionBehavior` MUST also be provided.
 `selectionBehavior` | CONDITIONAL | *string* | Describes the intended selection behavior of the suggestions in the card. Allowed values are: `at-most-one`, indicating that the user may choose none or at most one of the suggestions;`any`, indicating that the end user may choose any number of suggestions including none of them and all of them. CDS Clients that do not understand the value MUST treat the card as an error.
-`overrideReasons` | OPTIONAL | *array* of **Coding** | Override reasons can be selected by the end user when overriding a card without taking the suggested recommendations. The CDS service MAY return a list of override reasons to the CDS client. The CDS Client SHOULD present these reasons to the clinician when they dismiss a card. A CDS Client MAY augment the override reasons presented to the user with its own reasons.
+`overrideReasons` | OPTIONAL | *array* of **Coding** | Override reasons can be selected by the end user when overriding a card without taking the suggested recommendations. The CDS service MAY return a list of override reasons to the CDS client. If override reasons are present, the CDS Service MUST populate a `display` value for each reason's [Coding](#coding). The CDS Client SHOULD present these reasons to the clinician when they dismiss a card. A CDS Client MAY augment the override reasons presented to the user with its own reasons.
 `links` | OPTIONAL | *array* of **[Links](#link)** | Allows a service to suggest a link to an app that the user might want to run for additional information or to help guide a decision.
 
 #### Source
@@ -602,7 +602,7 @@ The following example illustrates a delete action:
 
 #### Reasons for rejecting a card
 
-**overrideReasons** is an array of **[Coding](#coding)** that captures a codified set of reasons an end user may select from as the rejection reason when rejecting the advice presented in the card. When using the coding object representing a reason, implementations are required to only respect the *code* property. However, they may consume other properties for a better end user experience, such as presenting a human readable text in the *display* property instead of the *code* itself to the end user.
+**overrideReasons** is an array of **[Coding](#coding)** that captures a codified set of reasons an end user may select from as the rejection reason when rejecting the advice presented in the card. When using the coding object to represent a reason, CDS Services MUST provide a human readable text in the *display* property and CDS Clients MAY incorporate it into their user interface.
 
 This specification does not prescribe a standard set of override reasons; implementers are encouraged to submit suggestions for standardization.
 
@@ -1032,8 +1032,8 @@ The **Coding** data type captures the concept of a code. A code is understood on
 Field | Optionality | Type | Description
 ----- | ----- | ----- | --------
 `code` | REQUIRED | *string* | The code for what is being represented
-`system` | OPTIONAL | *string* | A codesystem for this `code`.
-`display` | OPTIONAL | *string* | A short, human-readable label to display.
+`system` | REQUIRED | *string* | A codesystem for this `code`.
+`display` | CONDITIONAL | *string* | A short, human-readable label to display. REQUIRED for [Override Reasons](#overridereason) provided by the CDS Service, OPTIONAL for [Topic](#topic).
 
 ## Hooks
 
