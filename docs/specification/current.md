@@ -903,7 +903,7 @@ The CDS Client MAY make its JWK Set available via a URL identified by the `jku` 
 
 The cryptographic signing algorithm of JWT is indicated in the `alg` header field. [JSON Web Algorithms (rfc7518)](https://tools.ietf.org/html/rfc7518) defines several cryptographic algorithms for use in signing JWTs and should be referenced by CDS Hooks implementers.
 
-JWTs SHALL NOT be signed used the `none` algorithm, referred to in rfc7518 as unsecured JSON Web Signatures, as the lack of a cryptographic signature does not provide any integrity protection. Such JWTs could not be used by a CDS Service to identity the CDS Client preventing an establishment of trust.
+JWTs SHALL NOT be signed using the `none` algorithm, referred to in rfc7518 as unsecured JSON Web Signatures, as the lack of a cryptographic signature does not provide any integrity protection. Such JWTs could not be used by a CDS Service to identity the CDS Client preventing an establishment of trust.
 
 JWTs SHALL NOT be signed using any symmetric algorithm as these algorithms require the CDS Client and CDS Service to share a private key in order to verify the signature. For example, all HMAC based algorithms rely upon a shared private key and thus SHALL NOT be used to sign a JWT.
 
