@@ -228,7 +228,7 @@ Regardless of how the CDS Client satisfies the prefetch templates (if at all), t
 
 The resulting response is passed along to the CDS Service using the `prefetch` parameter (see [below](#example-prefetch-templates) and MUST be submitted at once using the prefetch parameter (e.g., no "next page" links allowed). 
 
-> Note that the reason prefetch results are not allowed to include next page links is that if the prefetched data contains just a single page of data, the CDS Service has no means to retrieve the subsequent pages of data. Consider, for example, a CDS Hooks implementation that does not expose a FHIR server.
+> Note that the reason prefetch results are not allowed to include next page links is that if the prefetched data contains only the first page of a multi-page search result, the CDS Service has no means to retrieve the subsequent pages of data. Consider, for example, a CDS Hooks implementation that does not expose a FHIR server.
 
  The CDS Client MUST NOT include any prefetch template key that it chooses not to satisfy. Similarly, if the CDS Client encounters an error while prefetching any data, the prefetch template key MUST NOT be included in the request to the CDS Service. If the CDS Client has no data to populate a template prefetch key, the prefetch template key MUST have a value of __null__. Note that the __null__ result is used rather than a bundle with zero entries to account for the possibility that the prefetch url is a single-resource request.
 
