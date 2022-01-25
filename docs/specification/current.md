@@ -976,7 +976,7 @@ Authorization: Bearer eyJhbGciOiJFUzM4NCIsInR5cCI6IkpXVCIsImtpZCI6ImV4YW1wbGUta2
 
 ### Cross-Origin Resource Sharing
 
-[Cross-origin resource sharing (CORS)](https://www.w3.org/TR/cors/) is a W3C standard mechanism that uses additional HTTP headers to enable a web browser to gain permission to access resources from an Internet domain different from that which the browser is currently accessing.  CORS is a client-side security mechanism with well-documented security risks.
+[Cross-origin resource sharing (CORS)](https://www.w3.org/TR/cors/) is a [World Wide Web Consortium (W3C)](https://www.w3.org/Consortium/) standard mechanism that uses additional HTTP headers to enable a web browser to gain permission to access resources from an Internet domain different from that which the browser is currently accessing.  CORS is a client-side security mechanism with well-documented security risks.
 
 CDS Services and browser-based CDS Clients will require CORS support. A secure implementation guide for CORS is outside of the scope of this CDS Hooks specification. Organizations planning to implement CDS Hooks with CORS support are referred to the Cross-Origin Resource Sharing section of the [OWASP HTML5 Security Cheat Sheet]( https://cheatsheetseries.owasp.org/cheatsheets/HTML5_Security_Cheat_Sheet.html#cross-origin-resource-sharing).
 
