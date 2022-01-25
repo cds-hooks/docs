@@ -735,7 +735,9 @@ Field | Optionality | Type | Description
 `outcome` | REQUIRED | *string* | A value of `accepted` or `overridden`.
 `acceptedSuggestions` | CONDITIONAL | *array* | An array of json objects identifying one or more of the user's **AcceptedSuggestion**s. Required for `accepted` outcomes.
 `overrideReason` | OPTIONAL | **[OverrideReason](#overridereason)** | A json object capturing the override reason as a **[Coding](#coding)** as well as any comments entered by the user.
-`outcomeTimestamp` | REQUIRED | *string* | ISO timestamp in UTC when action was taken on card.
+`outcomeTimestamp` | REQUIRED | *string* | [ISO8601](https://en.wikipedia.org/wiki/ISO_8601) representation of the date and time in Coordinated Universal Time (UTC) when action was taken on the card, as profiled in [section 5.6 of RFC3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6). e.g. 1985-04-12T23:20:50.52Z
+
+
 
 ### Suggestion accepted
 
