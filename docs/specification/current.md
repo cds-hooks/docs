@@ -739,7 +739,7 @@ Field | Optionality | Type | Description
 
 ### Suggestion accepted
 
-The CDS Client can inform the service when one or more suggestions were accepted by POSTing a simple json object. The CDS Client authenticates to the CDS service as described in [Trusting CDS Clients](#trusting-cds-clients).
+The CDS Client can inform the service when one or more suggestions were accepted by POSTing a simple JSON object. The CDS Client authenticates to the CDS service as described in [Trusting CDS Clients](#trusting-cds-clients).
 
 Upon the user accepting a suggestion (perhaps when she clicks a displayed label (e.g., button) from a "suggestion" card), the CDS Client informs the service by posting the card and suggestion `uuid`s to the CDS Service's feedback endpoint with an outcome of `accepted`.
 
