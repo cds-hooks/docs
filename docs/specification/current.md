@@ -107,7 +107,7 @@ curl "https://example.com/cds-services"
     {
       "hook": "order-select",
       "title": "Order Echo CDS Service",
-      "description": "An example of a CDS Service that simply echos the order(s) being placed",
+      "description": "An example of a CDS Service that simply echoes the order(s) being placed",
       "id": "order-echo",
       "prefetch": {
         "patient": "Patient/{{context.patientId}}",
