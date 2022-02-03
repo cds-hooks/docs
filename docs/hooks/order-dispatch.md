@@ -1,4 +1,4 @@
-# <mark>`order-dispatch`</mark>
+# `order-dispatch`
 
 | Metadata | Value
 | ---- | ----
@@ -21,13 +21,17 @@ Decision support that may be relevant for this hook might include information re
 Field | Optionality | Prefetch Token | Type | Description
 ----- | -------- | ---- | ---- | ----
 `patientId` | REQUIRED | Yes | *string* |  The FHIR `Patient.id` of the current patient in context
-`task` | REQUIRED | No | *object* | DSTU2/STU3/R4 - Task instance with code of 'fulfill'
+`order` | REQUIRED | Yes | *string* |  The FHIR local reference for the Request resource for which fulfillment is sought  E.g. `MedicationRequest/123`
+`performer` | REQUIRED | Yes | *string* |  The FHIR local reference for the Practitioner, PractitionerRole, Organization, CareTeam, etc. who is being asked to execute the order
+`task` | OPTIONAL | No | *object* | DSTU2/STU3/R4 - Task instance that provides a full description of the fulfillment request - including the timing and any constraints on fulfillment
 
 ### Examples
 
 ```json
 "context":{
   "patientId" : "1288992",
+  "order" : "MedicationRequest/medrx002",
+  "performer" : "Organization/some-pharmacy",
   "task" : {
     "resourceType" : "Task",
     "status" : "draft",
