@@ -192,7 +192,7 @@ Similarly, each CDS Client will decide what FHIR resources to authorize and to p
 
 ### Prefetch Template
 
-A _prefetch template_ is a FHIR [`read`](http://hl7.org/fhir/http.html#read) or [`search`](http://hl7.org/fhir/http.html#search) request that describes relevant data needed by the CDS Service. For example, the following is a prefetch template for hemoglobin A1c observations:
+A _prefetch template_ is a FHIR [`read`](http://hl7.org/fhir/http.html#read), collection of FHIR [`read`](http://hl7.org/fhir/http.html#read) calls, or a [`search`](http://hl7.org/fhir/http.html#search) request that describes relevant data needed by the CDS Service. For example, the following is a prefetch template for hemoglobin A1c observations:
 
 ```
 Observation?patient={{context.patientId}}&code=4548-4&_count=1&sort:desc=date
@@ -220,7 +220,7 @@ A CDS Client MAY choose to honor some or all of the desired prefetch templates, 
 
 The CDS Client SHALL deny access to the requested resource if the user in context is not authorized to access the resource.
 
-As part of preparing the request, a CDS Client processes each prefetch template it intends to satisfy by replacing the prefetch tokens in the prefetch template to construct a relative FHIR request URL. This specification is not prescriptive about how this request is actually processed. The relative URL may be appended to the base URL for the CDS Client's FHIR server and directly invoked, or the CDS Client may use internal infrastructure to satisfy the request in the same way that invoking against the FHIR server would.
+As part of preparing the request, a CDS Client processes each prefetch template it intends to satisfy by replacing the prefetch tokens in the prefetch template and manipulating the results to construct RESTful call. This specification is not prescriptive about how this request is actually processed. The content may be executed as a direct GET or POST against the CDS Client's FHIR server and directly invoked, or the CDS Client may use internal infrastructure to satisfy the request in the same way that invoking against the FHIR server would.
 
 Regardless of how the CDS Client satisfies the prefetch templates (if at all), the prefetched data given to the CDS Service MUST be equivalent to the data the CDS Service would receive if it were making its own call to the CDS Client's FHIR server using the parameterized prefetch template.
 
@@ -230,7 +230,7 @@ The resulting response is passed along to the CDS Service using the `prefetch` 
 
 > Note that the reason prefetch results are not allowed to include next page links is that if the prefetched data contains only the first page of a multi-page search result, the CDS Service has no means to retrieve the subsequent pages of data. Consider, for example, a CDS Hooks implementation that does not expose a FHIR server.
 
- The CDS Client MUST NOT include any prefetch template key that it chooses not to satisfy. Similarly, if the CDS Client encounters an error while prefetching any data, the prefetch template key MUST NOT be included in the request to the CDS Service. If the CDS Client has no data to populate a template prefetch key, the prefetch template key MUST have a value of __null__. Note that the __null__ result is used rather than a bundle with zero entries to account for the possibility that the prefetch url is a single-resource request.
+The CDS Client MUST NOT include any prefetch template key that it chooses not to satisfy. Similarly, if the CDS Client encounters an error while prefetching any data, the prefetch template key MUST NOT be included in the request to the CDS Service. If the CDS Client has no data to populate a template prefetch key, the prefetch template key MUST have a value of __null__. Note that the __null__ result is used rather than a bundle with zero entries to account for the possibility that the prefetch url is a single-resource request.
 
 It is the CDS Service's responsibility to check prefetched data against its template to determine what requests were satisfied (if any) and to programmatically retrieve any additional necessary data. If the CDS Service is unable to obtain required data because it cannot access the FHIR server and the request did not contain the necessary prefetch keys, the service SHALL respond with an HTTP 412 Precondition Failed status code.
 
@@ -240,45 +240,66 @@ A prefetch token is a placeholder in a prefetch template that is *_replaced by i
 
 Prefetch tokens MUST be delimited by `{{` and `}}`, and MUST contain only the qualified path to a hook context field *_or one of the following user identifiers: `userPractitionerId`, 'userPractitioneRoleId', `userPatientId`, or `userRelatedPersonId`_*.
 
-Individual hooks specify which of their `context` fields can be used as prefetch tokens. Only root-level fields with a primitive value within the `context` object are eligible to be used as prefetch tokens. For example, `{{context.medication.id}}` is not a valid prefetch token because it attempts to access the `id` field of the `medication` field.
+Individual hooks specify which of their `context` fields can be used as prefetch tokens. Prefetch templates must start with one of these context elements and can then navigate to information available within the context element using [simple FHIRPath](https://hl7.org/fhir/fhirpath.html#simple).  For example, 
 
-##### Prefetch tokens identifying the user
-A prefetch template enables a CDS Service to learn more about the current user through a FHIR read, like so:
+There are two styles of prefetch expressions - read and search.  How the expressions are formatted and how the data is expected to come back varies for each.
+
+##### read prefetch
+
+A prefetch is determined to be a read if, after resolving the prefetch token, the result is a string with the form `[resource name]/{{[token]}}`.  For example:
 ```
 {
   "prefetch": {
-    "user": "{{context.userId}}"
-  }
-}
-```
-or though a FHIR search:
-```
-{
-  "prefetch": {
-    "user": "PractitionerRole?_id={{userPractitionerRoleId}}&_include=PractitionerRole:practitioner"
+    "patient": "Patient/{{context.patient}}",
+    "user": "{{context.user}}"
   }
 }
 ```
 
-A prefetch template may include any of the following prefetch tokens:
+`{{context.patient}}` resolves to a simple id.  `{{context.user}}` resolves to a resource type and simple id separated by a '/'.  In both cases, the result of resolving the prefetch template is a single string that matches a relative URL to a single resource instance.  That relative URL could be appended to the CDS Client's server base URL to form the URL for a valid read.
 
+The result of a 'read' prefetch (if data is returned and not __null__) will be the JSON form of the referenced resource.
 
-Token | Description
----|---
-`{{userPractitionerId}}` | FHIR id of the Practitioner resource corresponding to the current user. 
-`{{userPractitionerRoleId}}`|FHIR id of the PractitionerRole resource corresponding to the current user. 
-`{{userPatientId}}`|FHIR id of the Patient resource corresponding to the current user. 
-`{{userRelatedPersonId}}`|FHIR id of the RelatedPerson resource corresponding to the current user. 
+For read, the prefetch token FHIRPath is limited to *only* the name of the context element - no further navigation within the context element is permitted.  For example, `{{context.draftOrders.id}}` is not a valid prefetch token for a read because it attempts to access the id field of the medication field.  If expanding the prefetch token does not result in a simple Resource/id string, the prefetch is in error and the prefetch cannot be returned.
 
+##### search prefetch
+The cue that a prefetch is a search is that it starts with a resource name followed by a '?'.  Search prefetches can be more complex than reads - and not all CDS clients will support all potential forms of search.  Additional considerations include:
 
-No single FHIR resource represents a user, rather Practitioner and PractitionerRole may be jointly used to represent a provider, and Patient or RelatedPerson are used to represent a patient or their proxy. Hook definitions typically define a `context.userId` field and corresponding prefetch token.
+1. Prefetch templates can drill deeper into the context, navigating to child elements.  For example `{{context.draftOrders.id}}` or event `{{context.draftOrders.ofType(MedicationRequest).medicationReference.reference}}` would be valid tokens.
+2. Prefetch templates can resolve to an empty collection.  If the template resolves to no elements, the prefetch result will be __null__, regardless of where within the search expression the prefetch token falls.
+3. Prefetch templates can resolve to a collection of more than one element.  If this occurs, the collection is returned as single comma-delimited concatenated string.  E.g. `{{context.draftOrders.ofType(MedicationRequest).medicationReference.reference}}` might resolve to `Medication/123,http%3a//someserver.com/Medication/456,Medication/789`
+4. Prefetch templates can resolve to complex objects.  This is handled as follows:
+* If a collection element is a simple type, the value is returned and any extensions or 'id' elements are ignored.  If no value is specified for the element, the element is ignored
+* If a collection element is a Coding or Identifier, the element is converted to [token](http://hl7.org/fhir/search.html#token) syntax with code/value followed by '|' followed by system.
+5. Content expanded from a prefetch token may require HTTP escaping to ensure a valid URL fragment
+6. When dealing with prefetch tokens that resolve to relative references, in some cases, the search needs the resolved token to be an id or collection of ids rather than references. In this circumstance, the FHIRPath can be followed with ":" and the name of the resource whose references should be filtered.  Only relative references for the specified resource type are returned.  For example `{{context.draftOrders.ofType(MedicationRequest).requester.reference:Practitioner}}` would resolve to the a list of ids who are requesters that are also Practitioners.  For legacy reasons, this can also be done with the userId element by inserting the resource name into the context name.  E.g. `{{context.userPatientRoleId}}`, `{{context.userPractionerId}}`, `{{context.userPractitionerRoleId}}`, and `{{context.userRelatedPersonId}}`.
 
+Examples of search prefetches include:
+```
+{
+  "prefetch": {
+    "patient": "Patient?_id={{context.patient}}&_include=Patient.general-practitioner",
+    "bloodPressures": "Observation?patient={{context.patient}}&code=85354-9|http%xx/loinc.org&_sort=-date&_count=10",
+    "observationDef": "ObservationDefinition?code={{context.draftOrdersServiceRequest.code.coding}}",
+    "prescriberPr": "Practitioner?_id={{context.draftOrders.ofType(MedicationRequest).requester.reference:Practitioner}}",
+    "userPR": "PractitionerRole?_id={{userPractitionerRoleId}}&_include=PractitionerRole:practitioner"
+  }
+}
+```
 
-#### Prefetch query restrictions
+* The 'patient' prefetch is similar to the Patient read example, but takes advantage of search to 'include' related resources.
+* The 'bloodPressures' example shows retrieving resources associated with the context patient but not otherwise related to context
+* The 'observationDef' prefetch shows the filtering based on a deep path, complex object, and by something other than id
+* The 'presciberPR' prefetch shows converting relative references to a subset of ids.
+* The 'userPR' prefetch shows the ability to filter to a subset of ids using the special legacy 'userId' naming mechanism
+
+Note:
+* Authors SHOULD NOT create prefetches that presume availability of context information not expected to be available in persisted form.  For example `MedicationRequest?_id={{context.draftOrders.id}}` would be problematic because the the draft orders aren't expected to have been persisted yet (though they might be on some clients).
+
+###### Prefetch query restrictions
 
 To reduce the implementation burden on CDS Clients that support CDS Services, this specification RECOMMENDS that prefetch queries only use a subset of the full functionality available in the FHIR specification. When using this subset, valid prefetch templates MUST only make use of:
 
-* _instance_ level [read](https://www.hl7.org/fhir/http.html#read) interactions (for resources with known ids such as `Patient`, `Practitioner`, or `Encounter`)
 * _type_ level [search](https://www.hl7.org/fhir/http.html#search) interactions; e.g. `patient={{context.patientId}}`
 * Resource references (e.g. `patient={{context.patientId}}`)
 * _token_ search parameters using equality (e.g. `code=4548-4`) and optionally the `:in` modifier (no other modifiers for token parameters)
