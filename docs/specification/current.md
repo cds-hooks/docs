@@ -52,7 +52,7 @@ A CDS Service provider exposes its Discovery endpoint at:
 ```
 ### HTTP Request
 
-The discovery endpoint SHALL always be available at `{baseUrl}/cds-services`. For example, if the `baseUrl` is https://example.com, the CDS Client MAY invoke:
+The discovery endpoint SHALL always be available at `{baseUrl}/cds-services`. For example, if the `baseUrl` is https://example.com, the CDS Client can retrieve the list of CDS Services by invoking:
 
 `GET https://example.com/cds-services`
 
@@ -796,7 +796,8 @@ POST {baseUrl}/cds-services/{serviceId}/feedback
       "outcomeTimestamp": "2020-12-11T00:00:00Z"
     }
   ]
-}```
+}
+```
 
 ### Explicit reject with override reasons
 
