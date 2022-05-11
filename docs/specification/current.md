@@ -468,7 +468,7 @@ For successful responses, CDS Services SHALL respond with a 200 HTTP response wi
 Each card contains decision support from the CDS Service. Cards are intended for display to an end user. The data format of a card defines a very minimal set of required attributes with several more optional attributes to suit a variety of use cases, such as: narrative informational decision support, actionable suggestions to modify data, and links to SMART apps.
 
 
-> Note that because the CDS client may be invoking multiple services from the same hook, there may be multiple responses related to the same information. This specification does not address these scenarios specifically; both CDS Services and CDS Clients should consider the implications of multiple CDS Services in their integrations.
+> Note that because the CDS client may be invoking multiple services from the same hook, there may be multiple responses related to the same information. This specification does not address these scenarios specifically; both CDS Services and CDS Clients should consider the implications of multiple CDS Services in their integrations and are invited to consider [card attributes](#card-attributes) when determining prioritization and presentation options.
 
 ### HTTP Status Codes
 
@@ -768,7 +768,7 @@ POST {baseUrl}/cds-services/{serviceId}/feedback
           "id": "e56e1945-20b3-4393-8503-a1a20fd73152"
         }
       ],
-      "outcomeTimestamp": "2020-12-11T00:00:00Z"
+      "outcomeTimestamp": "2021-12-11T10:05:31Z"
     }
   ]
 }
