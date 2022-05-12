@@ -123,7 +123,9 @@ curl "https://example.com/cds-services"
 
 ### HTTP Request
 
-A CDS Client SHALL call a CDS Service by `POST`ing a JSON document to the service as described in this section. The CDS Service endpoint can be constructed from the CDS Service base URL and an individual service id as `{baseUrl}/cds-services/{service.id}`. The request SHALL include a JSON `POST` body with the following input fields:
+A CDS Client SHALL call a CDS Service by `POST`ing a JSON document to the service as described in this section. The CDS Service endpoint can be constructed from the CDS Service base URL and an individual service id as `{baseUrl}/cds-services/{service.id}`. CDS Clients may add additional requirements for the triggering of a hook, based upon the user, workflow, CDS Service or other reasons (e.g. if the service is provided by a payer, the patient has active coverage with that payer). See Trusting CDS Services](#trusting-cds-services) for additional considerations.
+
+The request SHALL include a JSON `POST` body with the following input fields:
 
 Field | Optionality | Type | Description
 ----- | ----- | ----- | --------
