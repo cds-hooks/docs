@@ -75,6 +75,8 @@ Field | Optionality | Type | Description
 <nobr>`description`</nobr>| REQUIRED | *string* | The description of this service.
 `id` | REQUIRED | *string* | The {id} portion of the URL to this service which is available at<br />`{baseUrl}/cds-services/{id}`
 `prefetch` | OPTIONAL | *object* | An object containing key/value pairs of FHIR queries that this service is requesting that the CDS Client prefetch and provide on each service call. The key is a *string* that describes the type of data being requested and the value is a *string* representing the FHIR query.<br />See [Prefetch Template](#prefetch-template).
+`usageRequirements`| OPTIONAL | *string* | Human-friendly description of any preconditions for the use of this CDS Service.
+
 
 ### HTTP Status Codes
 
@@ -113,6 +115,13 @@ curl "https://example.com/cds-services"
         "patient": "Patient/{{context.patientId}}",
         "medications": "MedicationRequest?patient={{context.patientId}}"
       }
+    },
+    {
+      "hook": "order-sign",
+      "title": "Pharmacogenomics CDS Service",
+      "description": "An example of a more advanced, precision medicine CDS Service",
+      "id": "pgx-on-order-sign",
+      "usageRequirements": "Note: Functionality of this CDS Service is degraded without access to a FHIR Restful API as part of cds recommendation generation."
     }
   ]
 }
