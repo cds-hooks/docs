@@ -31,6 +31,10 @@ Only endpoints on the allowlist can be invoked. This ensures that CDS Clients in
 - Be very short-lived.
 - Provide the minimum necessary access for the CDS Service. This includes both SMART scopes as well as the patient(s)/data that can be accessed.
 
+**Audit CDS Service's access to data***
+
+Regardless of the use of prefetch or more typical FHIR RESTful APIs, CDS Clients should audit and report on data access. 
+
 ### CDS Services
 
 #### JWT
