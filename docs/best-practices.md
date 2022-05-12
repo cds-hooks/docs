@@ -19,9 +19,9 @@ The CDS Hooks security model leverages several existing RFCs. These should be re
 
 Implementers of CDS Clients should:
 
-**Maintain a whitelist of CDS Service endpoints that may be invoked.**
+**Maintain a allowlist of CDS Service endpoints that may be invoked.**
 
-Only endpoints on the whitelist can be invoked. This ensures that CDS Clients invoke only trusted CDS Services. This is especially important since CDS Clients may send an authorization token that allows the CDS Service temporary access to the FHIR server.
+Only endpoints on the allowlist can be invoked. This ensures that CDS Clients invoke only trusted CDS Services. This is especially important since CDS Clients may send an authorization token that allows the CDS Service temporary access to the FHIR server.
 
 **Issue secure FHIR access tokens.**
 
@@ -37,16 +37,16 @@ Only endpoints on the whitelist can be invoked. This ensures that CDS Clients in
 
 Upon being invoked by a CDS Client, the CDS Service should first process the given JWT to determine whether to process the given request. In processing the JWT, CDS Services should:
 
-1. Ensure that the `iss` value exists in the CDS Service's whitelist of trusted CDS Clients.
+1. Ensure that the `iss` value exists in the CDS Service's allowlist of trusted CDS Clients.
 2. Ensure that the `aud` value matches the CDS Service endpoint currently processing the request.
 3. Ensure that the `exp` value is not before the current date/time.
-4. Ensure that the `tenant` value exists in the CDS Service's whitelist of trusted tenants (may not be applicable to all CDS Services).
+4. Ensure that the `tenant` value exists in the CDS Service's allowlist of trusted tenants (may not be applicable to all CDS Services).
 5. Ensure that the JWT signature matches the public key on record with the CDS Service. See additional notes below.
 6. Ensure that the `jti` value doesn't exist in the short-term storage of JWTs previously processed by this CDS Service.
 
 Once the JWT has been deemed to be valid, the `jti` value should be stored in the short-term storage of processed JWTs. Values in this storage only need to be kept for the maximum duration of all JWTs processed by this CDS Service. If the CDS Clients are adhering to best practices, this should be no more than an hour.
 
-Verifying the JWT signature is a critical step in establishing trust of the caller of the CDS Service. As part of the whitelist of trusted CDS Clients, information on the public key(s) used by the CDS Client should also be stored. In some cases, this public key may be shared out-of-band. In other cases, the public key may be available at a remote endpoint and cycled on a regular basis. It is this latter case in which CDS Services should maintain their own rotating cache of public keys for the CDS Client.
+Verifying the JWT signature is a critical step in establishing trust of the caller of the CDS Service. As part of the allowlist of trusted CDS Clients, information on the public key(s) used by the CDS Client should also be stored. In some cases, this public key may be shared out-of-band. In other cases, the public key may be available at a remote endpoint and cycled on a regular basis. It is this latter case in which CDS Services should maintain their own rotating cache of public keys for the CDS Client.
 
 CDS Services should never store, share, or log JWTs to minimize the risk of theft and replay attacks. Information within the JWT (for instance, `iss`, `tenant`, `jti`) can be logged safely and is especially useful for analytics.
 
