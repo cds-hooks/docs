@@ -76,7 +76,7 @@ Field | Optionality | Type | Description
 `id` | REQUIRED | *string* | The {id} portion of the URL to this service which is available at<br />`{baseUrl}/cds-services/{id}`
 `prefetch` | OPTIONAL | *object* | An object containing key/value pairs of FHIR queries that this service is requesting that the CDS Client prefetch and provide on each service call. The key is a *string* that describes the type of data being requested and the value is a *string* representing the FHIR query.<br />See [Prefetch Template](#prefetch-template).
 
-Note that CDS server can host multiple entries of CDS service with the same `id` for different `hook`s. This allows a service to update its advice based on changes in context as is discussed in [*update stale guidance*](#update-stale-guidance).
+Note that a CDS server can host multiple entries of CDS service with the same `id` for different `hook`s. This allows a service to update its advice based on changes in context as is discussed in [*update stale guidance*](#update-stale-guidance).
 
 ### HTTP Status Codes
 
