@@ -75,6 +75,8 @@ Field | Optionality | Type | Description
 <nobr>`description`</nobr>| REQUIRED | *string* | The description of this service.
 `id` | REQUIRED | *string* | The {id} portion of the URL to this service which is available at<br />`{baseUrl}/cds-services/{id}`
 `prefetch` | OPTIONAL | *object* | An object containing key/value pairs of FHIR queries that this service is requesting that the CDS Client prefetch and provide on each service call. The key is a *string* that describes the type of data being requested and the value is a *string* representing the FHIR query.<br />See [Prefetch Template](#prefetch-template).
+`usageRequirements`| OPTIONAL | *string* | Human-friendly description of any preconditions for the use of this CDS Service.
+
 
 ### HTTP Status Codes
 
@@ -113,6 +115,13 @@ curl "https://example.com/cds-services"
         "patient": "Patient/{{context.patientId}}",
         "medications": "MedicationRequest?patient={{context.patientId}}"
       }
+    },
+    {
+      "hook": "order-sign",
+      "title": "Pharmacogenomics CDS Service",
+      "description": "An example of a more advanced, precision medicine CDS Service",
+      "id": "pgx-on-order-sign",
+      "usageRequirements": "Note: Functionality of this CDS Service is degraded without access to a FHIR Restful API as part of cds recommendation generation."
     }
   ]
 }
@@ -123,7 +132,9 @@ curl "https://example.com/cds-services"
 
 ### HTTP Request
 
-A CDS Client SHALL call a CDS Service by `POST`ing a JSON document to the service as described in this section. The CDS Service endpoint can be constructed from the CDS Service base URL and an individual service id as `{baseUrl}/cds-services/{service.id}`. The request SHALL include a JSON `POST` body with the following input fields:
+A CDS Client SHALL call a CDS Service by `POST`ing a JSON document to the service as described in this section. The CDS Service endpoint can be constructed from the CDS Service base URL and an individual service id as `{baseUrl}/cds-services/{service.id}`. CDS Clients may add additional requirements for the triggering of a hook, based upon the user, workflow, CDS Service or other reasons (e.g. if the service is provided by a payer, the patient has active coverage with that payer). See Trusting CDS Services](#trusting-cds-services) for additional considerations.
+
+The request SHALL include a JSON `POST` body with the following input fields:
 
 Field | Optionality | Type | Description
 ----- | ----- | ----- | --------
@@ -159,7 +170,7 @@ curl
     "access_token": "some-opaque-fhir-access-token",
     "token_type": "Bearer",
     "expires_in": 300,
-    "scope": "patient/Patient.read patient/Observation.read",
+    "scope": "user/Patient.read user/Observation.read",
     "subject": "cds-service4"
   },
   "context": {
@@ -186,7 +197,9 @@ Each CDS Service will require specific FHIR resources in order to compute the re
 
 Two optional methods are provided.  First, FHIR resources MAY be obtained by passing "prefetched" data from the CDS Client to the CDS Service in the service call.  FHIR resources requested in the [CDS Service discovery response](#response) are passed as key-value pairs, with each key matching a key described in the discovery response, and each value being a FHIR resource. Note that in the case of searches, this resource may be a [`searchset`](http://hl7.org/fhir/bundle.html#searchset) Bundle. If data are to be prefetched, the CDS Service registers a set of "prefetch templates" with the CDS Client, as described in the [Prefetch Template](#prefetch-template) section below.
 
-The second method enables the CDS Service to retrieve FHIR resources for itself, without the need to request and obtain its own authorization.  If the CDS Client decides to have the CDS Service fetch its own FHIR resources, the CDS Client obtains and passes directly to the CDS Service a bearer token issued for the CDS Service's use in executing FHIR API calls against the CDS Client's FHIR server to obtain the required resources.  Some CDS Clients MAY pass prefetched data, along with a bearer token for the CDS Service to use if additional resources are required.  Each CDS Client SHOULD decide which approach, or combination, is preferred, based on performance considerations and assessment of attendant security and safety risks. For more detail, see the [FHIR Resource Access](#fhir-resource-access) section below.
+The second method enables the CDS Service to retrieve FHIR resources for itself, without the need to request and obtain its own authorization.  If the CDS Client decides to have the CDS Service fetch its own FHIR resources, the CDS Client obtains and passes directly to the CDS Service a bearer token issued for the CDS Service's use in executing FHIR API calls against the CDS Client's FHIR server to obtain the required resources.  Some CDS Clients MAY pass prefetched data, along with a bearer token for the CDS Service to use if additional resources are required.  
+
+Each CDS Client SHOULD decide which approach, or combination, is preferred, based on performance considerations and assessment of attendant security and safety risks. CDS Services should be capable of accessing FHIR resources via either prefetch or from the CDS Client's FHIR server.  For more detail, see the [FHIR Resource Access](#fhir-resource-access) section below.
 
 Similarly, each CDS Client will decide what FHIR resources to authorize and to prefetch, based on the CDS Service discovery response's "prefetch" request and on the provider's assessment of the "minimum necessary."  The CDS Client provider and the CDS Service provider will negotiate the set of FHIR resources to be provided, and how these data will be provided, as part of their service agreement.
 
@@ -218,7 +231,7 @@ A CDS Client MAY choose to honor some or all of the desired prefetch templates, 
 - The CDS Client MAY compute an efficient set of prefetch templates from multiple CDS Services, thereby reducing the number of calls to a minimum
 - The CDS Client MAY satisfy some of the desired prefetched templates via some internal service or even its own FHIR server.
 
-The CDS Client SHALL deny access to the requested resource if the user in context is not authorized to access the resource.
+The CDS Client SHALL only provide access to the requested resource if it is within the user's authorized scope.
 
 As part of preparing the request, a CDS Client processes each prefetch template it intends to satisfy by replacing the prefetch tokens in the prefetch template to construct a relative FHIR request URL. This specification is not prescriptive about how this request is actually processed. The relative URL may be appended to the base URL for the CDS Client's FHIR server and directly invoked, or the CDS Client may use internal infrastructure to satisfy the request in the same way that invoking against the FHIR server would.
 
@@ -226,11 +239,11 @@ Regardless of how the CDS Client satisfies the prefetch templates (if at all), t
 
 > Note that this means that CDS services will receive only the information they have requested and are authorized to receive. Prefetch data for other services registered to the same hook MUST NOT be provided. In other words, services SHALL only receive the data they requested in their prefetch.
 
-The resulting response is passed along to the CDS Service using the `prefetch` parameter (see [below](#example-prefetch-templates) and MUST be submitted at once using the prefetch parameter (e.g., no "next page" links allowed). 
+The resulting response is passed along to the CDS Service using the `prefetch` parameter (see [below](#example-prefetch-templates). 
 
-> Note that the reason prefetch results are not allowed to include next page links is that if the prefetched data contains only the first page of a multi-page search result, the CDS Service has no means to retrieve the subsequent pages of data. Consider, for example, a CDS Hooks implementation that does not expose a FHIR server.
+> Note that a CDS Client MAY paginate prefetch results. The intent of allowing pagination is to ensure that prefetch queries that may be too large for a single payload can still be retrieved by the service. The decision to paginate and the size of pages is entirely at the CDS Client's discretion. CDS Clients are encouraged to only use pagination when absolutely necessary, keeping performance and user experience in mind.
 
- The CDS Client MUST NOT include any prefetch template key that it chooses not to satisfy. Similarly, if the CDS Client encounters an error while prefetching any data, the prefetch template key MUST NOT be included in the request to the CDS Service. If the CDS Client has no data to populate a template prefetch key, the prefetch template key MUST have a value of __null__. Note that the __null__ result is used rather than a bundle with zero entries to account for the possibility that the prefetch url is a single-resource request.
+The CDS Client MUST NOT send any prefetch template key that it chooses not to satisfy. If the CDS Client encounters errors prefetching the requested data, OperationOutcome(s) SHOULD be used to communicate those errors to prevent the CDS Service from incurring an unneeded follow-up query. CDS Clients MUST omit the prefetch key if relevant details cannot be provided (e.g. intermittent connectivity issues). CDS Services SHOULD check any prefetched data for the existence of OperationOutcomes. If the CDS Client has no data to populate a template prefetch key, the prefetch template key MUST have a value of __null__. Note that the __null__ result is used rather than a bundle with zero entries to account for the possibility that the prefetch url is a single-resource request.
 
 It is the CDS Service's responsibility to check prefetched data against its template to determine what requests were satisfied (if any) and to programmatically retrieve any additional necessary data. If the CDS Service is unable to obtain required data because it cannot access the FHIR server and the request did not contain the necessary prefetch keys, the service SHALL respond with an HTTP 412 Precondition Failed status code.
 
@@ -442,10 +455,11 @@ Field | Optionality | Type | Description
 `expires_in`   | REQUIRED | *integer* | The lifetime in seconds of the access token.
 `scope`        | REQUIRED | *string* | The scopes the access token grants the CDS Service.
 `subject` | REQUIRED | *string* | The [OAuth 2.0][OAuth 2.0] client identifier of the CDS Service, as registered with the CDS Client's authorization server.
+'patient` | CONDITIONAL | *string* | If the granted SMART scopes include patient scopes (i.e. "patient/"), the access token is restricted to a specific patient. This field SHOULD be populated to identify the FHIR id of that patient.
 
-The scopes granted to the CDS Service via the `scope` field are defined by the [SMART on FHIR specification](http://hl7.org/fhir/smart-app-launch/1.0.0/scopes-and-launch-context/).
+The scopes granted to the CDS Service via the `scope` field are defined by the [SMART on FHIR specification](http://hl7.org/fhir/smart-app-launch/1.0.0/scopes-and-launch-context/). 
 
-The `expires_in` value is established by the authorization server and SHOULD BE very short lived, as the access token MUST be treated as a transient value by the CDS Service. CDS Clients MAY revoke an issued access token upon the completion of the CDS Hooks request/response to limit the validity period of the token. 
+The `expires_in` value is established by the authorization server and SHOULD BE very short lived, as the access token MUST be treated as a transient value by the CDS Service. CDS Clients SHOULD revoke an issued access token upon the completion of the CDS Hooks request/response to limit the validity period of the token. 
 
 Below is an example `fhirAuthorization` parameter:
 
@@ -455,7 +469,7 @@ Below is an example `fhirAuthorization` parameter:
     "access_token": "some-opaque-fhir-access-token",
     "token_type": "Bearer",
     "expires_in": 300,
-    "scope": "patient/Patient.read patient/Observation.read",
+    "scope": "user/Patient.read user/Observation.read",
     "subject": "cds-service4"
   }
 }
@@ -468,7 +482,7 @@ For successful responses, CDS Services SHALL respond with a 200 HTTP response wi
 Each card contains decision support from the CDS Service. Cards are intended for display to an end user. The data format of a card defines a very minimal set of required attributes with several more optional attributes to suit a variety of use cases, such as: narrative informational decision support, actionable suggestions to modify data, and links to SMART apps.
 
 
-> Note that because the CDS client may be invoking multiple services from the same hook, there may be multiple responses related to the same information. This specification does not address these scenarios specifically; both CDS Services and CDS Clients should consider the implications of multiple CDS Services in their integrations.
+> Note that because the CDS client may be invoking multiple services from the same hook, there may be multiple responses related to the same information. This specification does not address these scenarios specifically; both CDS Services and CDS Clients should consider the implications of multiple CDS Services in their integrations and are invited to consider [card attributes](#card-attributes) when determining prioritization and presentation options.
 
 ### HTTP Status Codes
 
@@ -770,7 +784,7 @@ POST {baseUrl}/cds-services/{serviceId}/feedback
           "id": "e56e1945-20b3-4393-8503-a1a20fd73152"
         }
       ],
-      "outcomeTimestamp": "2020-12-11T00:00:00Z"
+      "outcomeTimestamp": "2021-12-11T10:05:31Z"
     }
   ]
 }
@@ -798,7 +812,8 @@ POST {baseUrl}/cds-services/{serviceId}/feedback
       "outcomeTimestamp": "2020-12-11T00:00:00Z"
     }
   ]
-}```
+}
+```
 
 ### Explicit reject with override reasons
 
@@ -849,7 +864,7 @@ Security and safety risks associated with the CDS Hooks API include:
 5.	The risk that a CDS Hooks browser-based deployment could be victimized by a Cross-Origin Resource Sharing (CORS) attack.
 6.	The risk that a CDS Service could return a decision based on outdated patient data, resulting in a safety risk to the patient.
 
-CDS Hooks defines a security model that addresses these risks by assuring that the identities of both the CDS Service and the CDS Client are authenticated to each other; by protecting confidential information and privileged authorizations shared between a CDS Client and a CDS Service; by recommending means of assuring data freshness; and by incorporating business mechanisms through which trust is established and maintained between a CDS Client and a CDS Service.
+CDS Hooks defines a security model that addresses these risks by assuring that the identities of both the CDS Service and the CDS Client are authenticated to each other; by protecting confidential information and privileged authorizations shared between a CDS Client and a CDS Service; by recommending means of assuring data freshness; and by incorporating business mechanisms through which trust is established and maintained between a CDS Client and a CDS Service. As with any access to protected patient information, systems should ensure that they have appropriate authorization and audit mechanisms in place to support transparency of use of the data. For more information, refer to [Security Best Practices](https://cds-hooks.org/best-practices/#security).
 
 ### Trusting CDS Services
 
@@ -859,16 +874,16 @@ Once a CDS Service provider is selected, the CDS Client vendor/provider negotiat
 
 Every interaction between a CDS Client and a CDS Service is initiated by the CDS Client sending a service request to a CDS Service endpoint protected using the [Transport Layer Security protocol](https://tools.ietf.org/html/rfc5246). Through the TLS protocol the identity of the CDS Service is authenticated, and an encrypted transmission channel is established between the CDS Client and the CDS Service. Both the Discovery endpoint and individual CDS Service endpoints are TLS secured.
 
-The authorization server is responsible for enforcing restrictions on the CDS Services that MAY be called and the scope of the FHIR resources that MAY be prefetched or retrieved from the FHIR server. In either case, the CDS Client SHALL deny access to a requested resource if it is outside the user's authorized scope. If a CDS Client is satisfying prefetch requests from a CDS Service or sends a non-null `fhirAuthorization` object to a CDS Service so that it can call the FHIR server, the CDS Service MUST be pre-registered with the authorization server protecting access to the FHIR server.  Pre-registration includes registering a client identifier, and agreeing upon the scope of FHIR access that is minimally necessary to provide the clinical decision support required. This specification does not address how the CDS Client, authorization server, and CDS Service perform this pre-registration.
+The FHIR server, using information provided by the authorization server, is responsible for enforcing restrictions on the information available to the CDS Service. Regardless if FHIR resources are prefetched or retrieved from the FHIR server, the CDS Client SHALL deny access to a requested resource if it is outside the user's authorized scope. If a CDS Client is satisfying prefetch requests from a CDS Service or sends a non-null `fhirAuthorization` object to a CDS Service so that it can call the FHIR server, the CDS Service MUST be pre-registered with the authorization server protecting access to the FHIR server.  Pre-registration includes registering a client identifier, and agreeing upon the scope of FHIR access that is minimally necessary to provide the clinical decision support required. This specification does not address how the CDS Client, authorization server, and CDS Service perform this pre-registration.
 
 ### Trusting CDS Clients
 
 The service agreement negotiated between the CDS Client vendor/provider and the CDS Service provider will include obligations the CDS Client vendor/provider commits to the CDS Service provider. Some agreements MAY include the use of mutual TLS, in which both ends of the channel are authenticated.
 
-However, mutual TLS is impractical for many organizations. In the absence of mutual TLS, only the CDS Service endpoint will be authenticated because the CDS Client initiates the TLS channel set-up.  To enable the CDS Service to authenticate the identity of the CDS Client, CDS Hooks uses digitally signed [JSON web tokens (JWT)](https://jwt.io/) ([rfc7519](https://tools.ietf.org/html/rfc7519)).
+However, mutual TLS is impractical for many organizations. In the absence of mutual TLS, only the CDS Service endpoint will be authenticated because the CDS Client initiates the TLS channel set-up.  To enable the CDS Service to authenticate the identity of the CDS Client, CDS Hooks uses digitally signed [JSON web tokens (JWT)](https://jwt.io/) ([rfc7519](https://tools.ietf.org/html/rfc7519)). CDS Services SHOULD require authentication if invoking the service poses any risk of exposing sensitive data to the caller.
 
 
-Each time a CDS Client transmits a request to a CDS Service, the request MUST include an `Authorization` header presenting the JWT as a “Bearer” token:
+Each time a CDS Client transmits a request to a CDS Service which requires authentication, the request MUST include an `Authorization` header presenting the JWT as a “Bearer” token:
 ```
 Authorization:  Bearer {{JWT}}
 ```
@@ -985,7 +1000,9 @@ CDS Services and browser-based CDS Clients will require CORS support. A secure i
 
 ## Extensions
 
-The specification is not prescriptive about support for extensions. However, to support extensions, the specification reserves the name `extension` and will never define an element with that name, allowing implementations to use it to provide custom behavior and information. The value of an extension element MUST be a pre-coordinated JSON object. The intention here is that anything that has broad ranging value across the community enough to be a standardized extension has broad ranging value enough to be a first class citizen rather than an extension in CDS Hooks.
+The specification is not prescriptive about support for extensions. However, to support extensions, the specification reserves the name `extension` and will never define an element with that name, allowing implementations to use it to provide custom behavior and information. The value of an extension element MUST be a pre-coordinated JSON object. Extension structures SHOULD use a strategy for naming that ensures global uniqueness, such as reverse-domain-name notation, as in the examples below. The intention here is that anything that has broad ranging value across the community enough to be a standardized extension has broad ranging value enough to be a first class citizen rather than an extension in CDS Hooks.
+
+> STU Note: We seek implementer feedback on whether the recommendation to use namespace-based unique naming in the extension specification should be made mandatory or that we consider adding a mandatory field to extensions that indicates the source/type of the extension (as is done with FHIR).
 
 For example, an extension on a request could look like this:
 
@@ -1018,7 +1035,7 @@ As another example, an extension defined on the discovery response could look li
       },
       "description": "clinical decision support for patient view",
       "extension": {
-        "example-client-conformance": "http://hooks.example.org/fhir/102/Conformance/patientview"
+        "com.example.clientConformance": "http://hooks.example.org/fhir/102/Conformance/patientview"
       }
     }
   ]
@@ -1063,7 +1080,7 @@ For example, consider a simple `patient-view` hook that is invoked whenever the 
 }
 ```
 
-Prefetch data, on the other hand, is defined by CDS Services as a way to allow the CDS Client to provide the data that a CDS Service needs as part of the initial request to the service. When the context data relates to a FHIR resource, it is important not to conflate context and prefetch. For instance, in the hook described above for opening a patient's chart, the hook includes the id of the patient whose chart is being opened, not the full patient FHIR resource. In this case, the FHIR id of the patient is appropriate as CDS Services may not be interested in details about the patient resource but instead other data related to this patient. Or, a CDS Service may only need the full patient resource in certain scenarios. Therefore, including the full patient resource in context would be unnecessary. For CDS Services that want the full patient resource, they can request it to be prefetched or fetch it as needed from the FHIR server using a prefetch template in their discovery response, such as:
+Prefetch data, on the other hand, is defined by CDS Services as a way to allow the CDS Client to provide the data that a CDS Service needs as part of the initial request to the service. When the context data relates to a FHIR resource, it is important not to conflate context and prefetch. For instance, in the hook described above for opening a patient's chart, the hook includes the id of the patient whose chart is being opened, not the full patient FHIR resource. In this case, the FHIR id of the patient is appropriate as CDS Services may not be interested in details about the patient resource but instead other data related to this patient. Or, a CDS Service may only need the full patient resource in certain scenarios. Therefore, including the full patient resource in context would be unnecessary. For CDS Services that have authorized access to the full patient resource, they can request it to be prefetched or fetch it as needed from the FHIR server using a prefetch template in their discovery response, such as:
 
 ```json
 "prefetch": {
