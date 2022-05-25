@@ -986,7 +986,9 @@ CDS Services and browser-based CDS Clients will require CORS support. A secure i
 
 ## Extensions
 
-The specification is not prescriptive about support for extensions. However, to support extensions, the specification reserves the name `extension` and will never define an element with that name, allowing implementations to use it to provide custom behavior and information. The value of an extension element MUST be a pre-coordinated JSON object. The intention here is that anything that has broad ranging value across the community enough to be a standardized extension has broad ranging value enough to be a first class citizen rather than an extension in CDS Hooks.
+The specification is not prescriptive about support for extensions. However, to support extensions, the specification reserves the name `extension` and will never define an element with that name, allowing implementations to use it to provide custom behavior and information. The value of an extension element MUST be a pre-coordinated JSON object. Extension structures SHOULD use a strategy for naming that ensures global uniqueness, such as reverse-domain-name notation, as in the examples below. The intention here is that anything that has broad ranging value across the community enough to be a standardized extension has broad ranging value enough to be a first class citizen rather than an extension in CDS Hooks.
+
+> STU Note: We seek implementer feedback on whether the recommendation to use namespace-based unique naming in the extension specification should be made mandatory or that we consider adding a mandatory field to extensions that indicates the source/type of the extension (as is done with FHIR).
 
 For example, an extension on a request could look like this:
 
@@ -1019,7 +1021,7 @@ As another example, an extension defined on the discovery response could look li
       },
       "description": "clinical decision support for patient view",
       "extension": {
-        "example-client-conformance": "http://hooks.example.org/fhir/102/Conformance/patientview"
+        "com.example.clientConformance": "http://hooks.example.org/fhir/102/Conformance/patientview"
       }
     }
   ]
