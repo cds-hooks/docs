@@ -220,7 +220,7 @@ A CDS Client MAY choose to honor some or all of the desired prefetch templates, 
 - The CDS Client MAY compute an efficient set of prefetch templates from multiple CDS Services, thereby reducing the number of calls to a minimum
 - The CDS Client MAY satisfy some of the desired prefetched templates via some internal service or even its own FHIR server.
 
-The CDS Client SHALL deny access to the requested resource if the user in context is not authorized to access the resource.
+The CDS Client SHALL only provide access to the requested resource if it is within the user's authorized scope.
 
 As part of preparing the request, a CDS Client processes each prefetch template it intends to satisfy by replacing the prefetch tokens in the prefetch template to construct a relative FHIR request URL. This specification is not prescriptive about how this request is actually processed. The relative URL may be appended to the base URL for the CDS Client's FHIR server and directly invoked, or the CDS Client may use internal infrastructure to satisfy the request in the same way that invoking against the FHIR server would.
 
@@ -232,7 +232,7 @@ The resulting response is passed along to the CDS Service using the `prefetch` 
 
 > Note that the reason prefetch results are not allowed to include next page links is that if the prefetched data contains only the first page of a multi-page search result, the CDS Service has no means to retrieve the subsequent pages of data. Consider, for example, a CDS Hooks implementation that does not expose a FHIR server.
 
- The CDS Client MUST NOT include any prefetch template key that it chooses not to satisfy. Similarly, if the CDS Client encounters an error while prefetching any data, the prefetch template key MUST NOT be included in the request to the CDS Service. If the CDS Client has no data to populate a template prefetch key, the prefetch template key MUST have a value of __null__. Note that the __null__ result is used rather than a bundle with zero entries to account for the possibility that the prefetch url is a single-resource request.
+The CDS Client MUST NOT send any prefetch template key that it chooses not to satisfy. If the CDS Client encounters errors prefetching the requested data, OperationOutcome(s) SHOULD be used to communicate those errors to prevent the CDS Service from incurring an unneeded follow-up query. CDS Clients MUST omit the prefetch key if relevant details cannot be provided (e.g. intermittent connectivity issues). CDS Services SHOULD check any prefetched data for the existence of OperationOutcomes. If the CDS Client has no data to populate a template prefetch key, the prefetch template key MUST have a value of __null__. Note that the __null__ result is used rather than a bundle with zero entries to account for the possibility that the prefetch url is a single-resource request.
 
 It is the CDS Service's responsibility to check prefetched data against its template to determine what requests were satisfied (if any) and to programmatically retrieve any additional necessary data. If the CDS Service is unable to obtain required data because it cannot access the FHIR server and the request did not contain the necessary prefetch keys, the service SHALL respond with an HTTP 412 Precondition Failed status code.
 
@@ -447,7 +447,7 @@ Field | Optionality | Type | Description
 
 The scopes granted to the CDS Service via the `scope` field are defined by the [SMART on FHIR specification](http://hl7.org/fhir/smart-app-launch/1.0.0/scopes-and-launch-context/).
 
-The `expires_in` value is established by the authorization server and SHOULD BE very short lived, as the access token MUST be treated as a transient value by the CDS Service. CDS Clients MAY revoke an issued access token upon the completion of the CDS Hooks request/response to limit the validity period of the token. 
+The `expires_in` value is established by the authorization server and SHOULD BE very short lived, as the access token MUST be treated as a transient value by the CDS Service. CDS Clients SHOULD revoke an issued access token upon the completion of the CDS Hooks request/response to limit the validity period of the token. 
 
 Below is an example `fhirAuthorization` parameter:
 
@@ -850,7 +850,7 @@ Security and safety risks associated with the CDS Hooks API include:
 5.	The risk that a CDS Hooks browser-based deployment could be victimized by a Cross-Origin Resource Sharing (CORS) attack.
 6.	The risk that a CDS Service could return a decision based on outdated patient data, resulting in a safety risk to the patient.
 
-CDS Hooks defines a security model that addresses these risks by assuring that the identities of both the CDS Service and the CDS Client are authenticated to each other; by protecting confidential information and privileged authorizations shared between a CDS Client and a CDS Service; by recommending means of assuring data freshness; and by incorporating business mechanisms through which trust is established and maintained between a CDS Client and a CDS Service.
+CDS Hooks defines a security model that addresses these risks by assuring that the identities of both the CDS Service and the CDS Client are authenticated to each other; by protecting confidential information and privileged authorizations shared between a CDS Client and a CDS Service; by recommending means of assuring data freshness; and by incorporating business mechanisms through which trust is established and maintained between a CDS Client and a CDS Service. As with any access to protected patient information, systems should ensure that they have appropriate authorization and audit mechanisms in place to support transparency of use of the data. For more information, refer to [Security Best Practices](https://cds-hooks.org/best-practices/#security).
 
 ### Trusting CDS Services
 
@@ -986,7 +986,9 @@ CDS Services and browser-based CDS Clients will require CORS support. A secure i
 
 ## Extensions
 
-The specification is not prescriptive about support for extensions. However, to support extensions, the specification reserves the name `extension` and will never define an element with that name, allowing implementations to use it to provide custom behavior and information. The value of an extension element MUST be a pre-coordinated JSON object. The intention here is that anything that has broad ranging value across the community enough to be a standardized extension has broad ranging value enough to be a first class citizen rather than an extension in CDS Hooks.
+The specification is not prescriptive about support for extensions. However, to support extensions, the specification reserves the name `extension` and will never define an element with that name, allowing implementations to use it to provide custom behavior and information. The value of an extension element MUST be a pre-coordinated JSON object. Extension structures SHOULD use a strategy for naming that ensures global uniqueness, such as reverse-domain-name notation, as in the examples below. The intention here is that anything that has broad ranging value across the community enough to be a standardized extension has broad ranging value enough to be a first class citizen rather than an extension in CDS Hooks.
+
+> STU Note: We seek implementer feedback on whether the recommendation to use namespace-based unique naming in the extension specification should be made mandatory or that we consider adding a mandatory field to extensions that indicates the source/type of the extension (as is done with FHIR).
 
 For example, an extension on a request could look like this:
 
@@ -1019,7 +1021,7 @@ As another example, an extension defined on the discovery response could look li
       },
       "description": "clinical decision support for patient view",
       "extension": {
-        "example-client-conformance": "http://hooks.example.org/fhir/102/Conformance/patientview"
+        "com.example.clientConformance": "http://hooks.example.org/fhir/102/Conformance/patientview"
       }
     }
   ]
