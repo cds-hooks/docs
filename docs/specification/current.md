@@ -78,6 +78,8 @@ Field | Optionality | Type | Description
 `usageRequirements`| OPTIONAL | *string* | Human-friendly description of any preconditions for the use of this CDS Service.
 
 
+Note that a CDS server can host multiple entries of CDS service with the same `id` for different `hook`s. This allows a service to update its advice based on changes in context as is discussed in [*update stale guidance*](#update-stale-guidance).
+
 ### HTTP Status Codes
 
 Code | Description
@@ -510,6 +512,8 @@ If your CDS Service has no decision support for the user, your service should re
 }
 ```
 
+Clients SHOULD remove `cards` returned by previous invocations of a `hook` to a service with the same `id` when a new `hook` is triggered (see [*update stale guidance*](#update-stale-guidance)).
+
 ### Card Attributes
 
 Each **Card** is described by the following attributes.
@@ -564,7 +568,6 @@ Field | Optionality | Type | Description
 `uuid` | OPTIONAL | *string* | Unique identifier, used for auditing and logging suggestions.
 `isRecommended` | OPTIONAL | *boolean* | When there are multiple suggestions, allows a service to indicate that a specific suggestion is recommended from all the available suggestions on the card. CDS Hooks clients may choose to influence their UI based on this value, such as pre-selecting, or highlighting recommended suggestions. Multiple suggestions MAY be recommended, if `card.selectionBehavior` is `any`.
 `actions` | OPTIONAL | *array* of **[Actions](#action)** | Array of objects, each defining a suggested action. Within a suggestion, all actions are logically AND'd together, such that a user selecting a suggestion selects all of the actions within it. When a suggestion contains multiple actions, the actions SHOULD be processed as per FHIR's rules for processing [transactions](https://hl7.org/fhir/http.html#trules) with the CDS Client's `fhirServer` as the base url for the inferred full URL of the transaction bundle entries. (Specifically, deletes happen first, then creates, then updates).
-
 
 ##### Action
 
@@ -996,6 +999,16 @@ Authorization: Bearer eyJhbGciOiJFUzM4NCIsInR5cCI6IkpXVCIsImtpZCI6ImV4YW1wbGUta2
 [Cross-origin resource sharing (CORS)](https://www.w3.org/TR/cors/) is a [World Wide Web Consortium (W3C)](https://www.w3.org/Consortium/) standard mechanism that uses additional HTTP headers to enable a web browser to gain permission to access resources from an Internet domain different from that which the browser is currently accessing.  CORS is a client-side security mechanism with well-documented security risks.
 
 CDS Services and browser-based CDS Clients will require CORS support. A secure implementation guide for CORS is outside of the scope of this CDS Hooks specification. Organizations planning to implement CDS Hooks with CORS support are referred to the Cross-Origin Resource Sharing section of the [OWASP HTML5 Security Cheat Sheet]( https://cheatsheetseries.owasp.org/cheatsheets/HTML5_Security_Cheat_Sheet.html#cross-origin-resource-sharing).
+
+### Update stale guidance
+
+In the case that CDS Hooks cards are persisted, clients should take care to ensure that stale guidance does not negatively impact patient care.
+
+Services can update their guidance by returning a new set of `cards` when the service is invoked based on a different `hook`. Services indicate this intend by providing multiple CDS Services with the same `id` in [discovery](#discovery). Clients are recommended to remove `cards` returned by a previous invocation with the new `cards`. 
+
+*STU NOTE: We are seeking implementer feedback on how best to balance the needs of performance for implementations with the critical patient safety issues raised by the potential for stale guidance.*
+
+Note that CDS Services will need to negotiate with CDS Clients to ensure that hooks that are required to ensure patient safety are supported by the CDS Client.
 
 ## Extensions
 
