@@ -12,15 +12,16 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 ### Use of JSON 
 
-All data exchanged through production RESTful APIs MUST be sent and received as [JSON](https://tools.ietf.org/html/rfc8259) (JavaScript Object Notation) structures, and are transmitted over HTTPS. See [Security and Safety](#security-and-safety) section.
+All data exchanged through production RESTful APIs MUST be sent and received as [JSON](https://tools.ietf.org/html/rfc8259) (JavaScript Object Notation) structures and are transmitted over HTTPS. See [Security and Safety](#security-and-safety) section.
 
-#### Null and empty JSON elements
+**Null and empty JSON elements**
+
 * JSON elements SHALL NOT be null, unless otherwise specified.
-* JSON elements SHALL NOT be empty, unless otherwise specified (e.g. to indicate [no guidance with an empty array of cards](#http-response)) in the CDS Hooks response).
+* JSON elements SHALL NOT be empty, unless otherwise specified (e.g. to indicate [no guidance with an empty array of cards](#http-response) in the CDS Hooks response).
 
-If a JSON attribute is defined with an optionality of OPTIONAL, but does not have a value, implementers MUST omit it. For instance, OPTIONAL JSON string and array attributes should be omitted rather than having a null or empty value. 
+If a JSON attribute is defined as OPTIONAL, and does not have a value, implementers MUST omit it. For instance, OPTIONAL JSON string and array attributes must be omitted rather than having a null or empty value. 
 
-Unless otherwise specified, JSON attribute values SHALL NOT be null or empty:  `null`, `""`, `[]`, or `{}` are prohibited. If a JSON attribute is defined with an optionality of OPTIONAL, but does not have a value, implementers SHALL omit it. For instance, OPTIONAL JSON attributes are omitted if no value is available.
+Unless otherwise specified, JSON attribute values SHALL NOT be null or empty, so `null`, `""`, `[]`, or `{}` are prohibited. If a JSON attribute is defined with as OPTIONAL, and does not have a value, implementers SHALL omit it.
 
 ## CDS Hooks Anatomy
 
@@ -31,28 +32,28 @@ decision support from within a clinician's workflow. The API supports:
 * Launching a web page to provide additional information to the user
 * Launching a user-facing SMART app when CDS requires additional interaction
 
-The basic components of CDS Hooks are:
+The main concepts of the specification are Services, CDS Clients, and Cards.
 
 ### CDS Services
-In CDS Hooks, a _CDS Service_ is a service that provides recommendations and guidance through RESTful APIs as described by this specification. The primary APIs are [Discovery](#discovery), which allows a CDS Developer to publish the types of CDS Services it provides, the [Service](#calling-a-cds-service) endpoint that CDS Clients use to request decision support, and the [Feedback](#feedback) service through which services learn the outcomes of their recommendations and guidance.
+A _CDS Service_ is a service that provides recommendations and guidance through the RESTful APIs described by this specification. The primary APIs are [Discovery](#discovery), which allows a CDS Developer to publish the types of CDS Services it provides. The [Service](#calling-a-cds-service) API that CDS Clients use to request decision support. The  [Feedback](#feedback) API through which services learn the outcomes of their recommendations and guidance.
 
 ### CDS Clients
-A _CDS Client_ is an electronic health record, or other clinical information system that consumes decision support by calling CDS Services at specific points in the application's workflow called [_hooks_](#hooks). Each hook defines the _hook context_, contextual information available within the CDS Client and specific to the workflow and provided as part of the request. Each service advertises which hooks it supports and what [_prefetch data_](#providing-fhir-resources-to-a-cds-service) (information needed by the CDS Service to determine what decision support should be presented) it requires. In addition, CDS Clients may provide an authorization and FHIR resource server as part of the request to enable services to request additional information.
+A _CDS Client_ is an Electronic Health Record (EHR), or other clinical information system that uses decision support by calling CDS Services at specific points in the application's workflow called [_hooks_](#hooks). Each hook defines the _hook context_ (contextual information available within the CDS Client and specific to the workflow) that is provided as part of the request. Each service advertises which hooks it supports and what [_prefetch data_](#providing-fhir-resources-to-a-cds-service) (information needed by the CDS Service to determine what decision support should be presented) it requires. In addition, CDS Clients typically provide the FHIR resource server location and associated authorization information as part of the request to enable services to request additional information.
 
 ### Cards
-Decision support is then returned to the CDS Client in the form of [_cards_](#cds-service-response), which the CDS Client MAY display to the end-user as part of their workflow. Cards may be informational, or they may provide suggestions that the user may accept or reject, or they may provide a [link](#link) to additional information or even launch a SMART app when additional user interaction is required.
+Decision support is then returned to the CDS Client in the form of [_cards_](#cds-service-response), which the CDS Client MAY display to the end-user as part of their workflow. Cards may be informational, or they may provide suggestions that the user may accept or reject they may provide a [link](#link) to additional information or even launch a SMART app when additional user interaction is required.
 
 ## Discovery
 A CDS Service is discoverable via a stable endpoint by CDS Clients. The discovery endpoint includes information such as a description of the CDS Service, when it should be invoked, and any data that is requested to be prefetched.
 
-A CDS Service provider exposes its Discovery endpoint at:
+A CDS Service provider exposes its discovery endpoint at:
 
 ```shell
 {baseURL}/cds-services
 ```
 ### HTTP Request
 
-The discovery endpoint SHALL always be available at `{baseUrl}/cds-services`. For example, if the `baseUrl` is https://example.com, the CDS Client can retrieve the list of CDS Services by invoking:
+The Discovery endpoint SHALL always be available at `{baseUrl}/cds-services`. For example, if the `baseUrl` is https://example.com, the CDS Client can retrieve the list of CDS Services by invoking:
 
 `GET https://example.com/cds-services`
 
@@ -74,11 +75,11 @@ Field | Optionality | Type | Description
 `title`| RECOMMENDED | *string* | The human-friendly name of this service.
 <nobr>`description`</nobr>| REQUIRED | *string* | The description of this service.
 `id` | REQUIRED | *string* | The {id} portion of the URL to this service which is available at<br />`{baseUrl}/cds-services/{id}`
-`prefetch` | OPTIONAL | *object* | An object containing key/value pairs of FHIR queries that this service is requesting that the CDS Client prefetch and provide on each service call. The key is a *string* that describes the type of data being requested and the value is a *string* representing the FHIR query.<br />See [Prefetch Template](#prefetch-template).
+`prefetch` | OPTIONAL | *object* | An object containing key/value pairs of FHIR queries that this service is requesting the CDS Client to perform and provide on each service call. The key is a *string* that describes the type of data being requested and the value is a *string* representing the FHIR query.<br />See [Prefetch Template](#prefetch-template).
 `usageRequirements`| OPTIONAL | *string* | Human-friendly description of any preconditions for the use of this CDS Service.
 
 
-Note that a CDS server can host multiple entries of CDS service with the same `id` for different `hook`s. This allows a service to update its advice based on changes in context as is discussed in [*update stale guidance*](#update-stale-guidance).
+Note that a CDS server can host multiple entries of CDS service with the same `id` for different `hook`s. This allows a service to update its advice based on changes in workflow as discussed in [*update stale guidance*](#update-stale-guidance).
 
 ### HTTP Status Codes
 
@@ -123,7 +124,7 @@ curl "https://example.com/cds-services"
       "title": "Pharmacogenomics CDS Service",
       "description": "An example of a more advanced, precision medicine CDS Service",
       "id": "pgx-on-order-sign",
-      "usageRequirements": "Note: Functionality of this CDS Service is degraded without access to a FHIR Restful API as part of cds recommendation generation."
+      "usageRequirements": "Note: functionality of this CDS Service is degraded without access to a FHIR Restful API as part of CDS recommendation generation."
     }
   ]
 }
@@ -134,7 +135,7 @@ curl "https://example.com/cds-services"
 
 ### HTTP Request
 
-A CDS Client SHALL call a CDS Service by `POST`ing a JSON document to the service as described in this section. The CDS Service endpoint can be constructed from the CDS Service base URL and an individual service id as `{baseUrl}/cds-services/{service.id}`. CDS Clients may add additional requirements for the triggering of a hook, based upon the user, workflow, CDS Service or other reasons (e.g. if the service is provided by a payer, the patient has active coverage with that payer). See Trusting CDS Services](#trusting-cds-services) for additional considerations.
+A CDS Client SHALL call a CDS Service by `POST`ing a JSON document to the service as described in this section. The CDS Service endpoint can be constructed from the CDS Service base URL and an individual service id as `{baseUrl}/cds-services/{service.id}`. CDS Clients may add additional requirements for the triggering of a hook, based upon the user, workflow, CDS Service or other reasons (e.g. if the service is provided by a payer, the patient has active coverage with that payer). See [Trusting CDS Services](#trusting-cds-services) for additional considerations.
 
 The request SHALL include a JSON `POST` body with the following input fields:
 
