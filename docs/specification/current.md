@@ -143,7 +143,7 @@ Field | Optionality | Type | Description
 ----- | ----- | ----- | --------
 `hook` | REQUIRED | *string* | The hook that triggered this CDS Service call. See [Hooks](#hooks).
 <nobr>`hookInstance`</nobr> | REQUIRED | *string* | A universally unique identifier (UUID) for this particular hook call (see more information below).
-`fhirServer` | OPTIONAL | *URL* | The base URL of the CDS Client's [FHIR](https://www.hl7.org/fhir/) server. If fhirAuthorization is provided, this field is REQUIRED.  The scheme MUST be `https` when production data is exchanged.
+`fhirServer` | CONDITIONAL | *URL* | The base URL of the CDS Client's [FHIR](https://www.hl7.org/fhir/) server. If fhirAuthorization is provided, this field is REQUIRED.  The scheme MUST be `https` when production data is exchanged.
 `fhirAuthorization` | OPTIONAL | *object* | A structure holding an [OAuth 2.0][OAuth 2.0] bearer access token granting the CDS Service access to FHIR resources, along with supplemental information relating to the token. See the [FHIR Resource Access](#fhir-resource-access) section for more information.
 `context` | REQUIRED | *object* | Hook-specific contextual data that the CDS service will need.<br />For example, with the `patient-view` hook this will include the FHIR id of the [Patient](https://www.hl7.org/fhir/patient.html) being viewed.  For details, see the Hooks specific specification page (example: [patient-view](../../hooks/patient-view)).
 `prefetch` | OPTIONAL | *object* | The FHIR data that was prefetched by the CDS Client (see more information below).
@@ -196,13 +196,13 @@ curl
 
 ## Providing FHIR Resources to a CDS Service
 
-Each CDS Service will require specific FHIR resources in order to compute the recommendations the CDS Client requests. If real-world performance were no issue, a CDS Client could launch a CDS Service passing only context data (such as the current user and patient ids), and the CDS Service could obtain authorization to access the CDS Client's FHIR API, retrieving any resources required via FHIR read or search interactions. Given that CDS Services SHOULD respond quickly (on the order of 500 ms.), this specification defines a process to allow a CDS Service to request and obtain FHIR resources efficiently.
+CDS Services require specific FHIR resources in order to compute the recommendations the CDS Client requests. If real-world performance were no issue, a CDS Client could launch a CDS Service passing only context data (such as the current user and patient ids), and the CDS Service could obtain authorization to access the CDS Client's FHIR API, retrieving any resources required via FHIR read or search interactions. Given that CDS Services SHOULD respond quickly (on the order of 500 ms.), this specification defines  mechanisms that allow a CDS Service to request and obtain FHIR resources more efficiently.
 
-Two optional methods are provided.  First, FHIR resources MAY be obtained by passing "prefetched" data from the CDS Client to the CDS Service in the service call.  FHIR resources requested in the [CDS Service discovery response](#response) are passed as key-value pairs, with each key matching a key described in the discovery response, and each value being a FHIR resource. Note that in the case of searches, this resource may be a [`searchset`](http://hl7.org/fhir/bundle.html#searchset) Bundle. If data are to be prefetched, the CDS Service registers a set of "prefetch templates" with the CDS Client, as described in the [Prefetch Template](#prefetch-template) section below.
+Two optional methods are provided.  In the furst method, FHIR resources MAY be obtained by passing "prefetched" data from the CDS Client to the CDS Service in the service call. If data is to be prefetched, the CDS Service registers a set of "prefetch templates" with the CDS Client, as described in the [Prefetch Template](#prefetch-template) section below. These "prefetch templates" are defined in the [CDS Service discovery response](#response). The FHIR resources are passed as key-value pairs, with each key matching a key described in the discovery response, and each value being a FHIR resource. Note that in the case of searches, this resource may be a [`searchset`](http://hl7.org/fhir/bundle.html#searchset) Bundle.
 
 The second method enables the CDS Service to retrieve FHIR resources for itself, without the need to request and obtain its own authorization.  If the CDS Client decides to have the CDS Service fetch its own FHIR resources, the CDS Client obtains and passes directly to the CDS Service a bearer token issued for the CDS Service's use in executing FHIR API calls against the CDS Client's FHIR server to obtain the required resources.  Some CDS Clients MAY pass prefetched data, along with a bearer token for the CDS Service to use if additional resources are required.  
 
-Each CDS Client SHOULD decide which approach, or combination, is preferred, based on performance considerations and assessment of attendant security and safety risks. CDS Services should be capable of accessing FHIR resources via either prefetch or from the CDS Client's FHIR server.  For more detail, see the [FHIR Resource Access](#fhir-resource-access) section below.
+Each CDS Client SHOULD decide which approach, or combination, is preferred, based on performance considerations and assessment of relevant security and safety risks. CDS Services should be capable of accessing FHIR resources via either prefetch or from the CDS Client's FHIR server.  For more detail, see the [FHIR Resource Access](#fhir-resource-access) section below.
 
 Similarly, each CDS Client will decide what FHIR resources to authorize and to prefetch, based on the CDS Service discovery response's "prefetch" request and on the provider's assessment of the "minimum necessary."  The CDS Client provider and the CDS Service provider will negotiate the set of FHIR resources to be provided, and how these data will be provided, as part of their service agreement.
 
@@ -228,13 +228,13 @@ The `prefetch` field of a CDS Service discovery response defines the set of pref
 
 In this `prefetch`, `hemoglobin-a1c` is the prefetch key for this prefetch template. For a complete worked example, see [below](#example-prefetch-templates).
 
-A CDS Client MAY choose to honor some or all of the desired prefetch templates, and is free to choose the most appropriate source for these data. For example:
+A CDS Client MAY choose to honor zero, some, or all of the desired prefetch templates, and is free to choose the most appropriate source for these data. For example:
 
 - The CDS Client MAY have some of the desired prefetched data already in memory, thereby removing the need for any network call
 - The CDS Client MAY compute an efficient set of prefetch templates from multiple CDS Services, thereby reducing the number of calls to a minimum
 - The CDS Client MAY satisfy some of the desired prefetched templates via some internal service or even its own FHIR server.
 
-The CDS Client SHALL only provide access to the requested resource if it is within the user's authorized scope.
+The CDS Client SHALL only provide access to resources that are within the user's authorized scope.
 
 As part of preparing the request, a CDS Client processes each prefetch template it intends to satisfy by replacing the prefetch tokens in the prefetch template to construct a relative FHIR request URL. This specification is not prescriptive about how this request is actually processed. The relative URL may be appended to the base URL for the CDS Client's FHIR server and directly invoked, or the CDS Client may use internal infrastructure to satisfy the request in the same way that invoking against the FHIR server would.
 
@@ -254,7 +254,7 @@ It is the CDS Service's responsibility to check prefetched data against its temp
 
 A prefetch token is a placeholder in a prefetch template that is *_replaced by information from the hook's context_* to construct the FHIR URL used to request the prefetch data.
 
-Prefetch tokens MUST be delimited by `{{` and `}}`, and MUST contain only the qualified path to a hook context field *_or one of the following user identifiers: `userPractitionerId`, 'userPractitioneRoleId', `userPatientId`, or `userRelatedPersonId`_*.
+Prefetch tokens MUST be delimited by `{{` and `}}`, and MUST contain only the qualified path to a hook context field *_or one of the following user identifiers: `userPractitionerId`, `userPractitionerRoleId`, `userPatientId`, or `userRelatedPersonId`_*.
 
 Individual hooks specify which of their `context` fields can be used as prefetch tokens. Only root-level fields with a primitive value within the `context` object are eligible to be used as prefetch tokens. For example, `{{context.medication.id}}` is not a valid prefetch token because it attempts to access the `id` field of the `medication` field.
 
