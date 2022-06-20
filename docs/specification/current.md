@@ -19,7 +19,7 @@ All data exchanged through production RESTful APIs MUST be sent and received as 
 * JSON elements SHALL NOT be null, unless otherwise specified.
 * JSON elements SHALL NOT be empty, unless otherwise specified (e.g. to indicate [no guidance with an empty array of cards](#http-response) in the CDS Hooks response).
 
-If a JSON attribute is defined as OPTIONAL, and does not have a value, implementers MUST omit it. For instance, OPTIONAL JSON string and array attributes must be omitted rather than having a null or empty value. 
+If a JSON attribute is defined as OPTIONAL, and does not have a value, implementers MUST omit it. For instance, OPTIONAL JSON string and array attributes are omitted rather than having a null or empty value. 
 
 Unless otherwise specified, JSON attribute values SHALL NOT be null or empty, so `null`, `""`, `[]`, or `{}` are prohibited. If a JSON attribute is defined with as OPTIONAL, and does not have a value, implementers SHALL omit it.
 
