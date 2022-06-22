@@ -317,54 +317,64 @@ The token name would be `{{context.patientId}}`. Again using our above condition
 
 Only the first level fields in context may be considered for tokens. 
 
-For example, given the following context that contains amongst other things, a Patient FHIR resource:
+For example, given the following context that contains amongst other things, a MedicationRequest FHIR resource:
 
 ```json
 {
   "context": {
     "encounterId": "456",
-    "patient": {
-      "resourceType": "Patient",
-      "id": "123",
-      "active": true,
-      "name": [
-        {
-          "use": "official",
-          "family": "Watts",
-          "given": [
-            "Wade"
-          ]
+    "draftOrders": {
+      "resourceType": "Bundle",
+      "entry": [ {
+          "resource": {
+            "resourceType": "MedicationRequest",
+            "id": "123",
+            "status": "draft",
+            "intent": "order",
+            "medicationCodeableConcept": {
+              "coding": [   {
+                  "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+                  "code": "617993",
+                  "display": "Amoxicillin 120 MG/ML / clavulanate potassium 8.58 MG/ML Oral Suspension"
+                }]},
+            "subject": {
+              "reference": "Patient/1288992"
+            }
+          }
         }
-      ],
-      "gender": "male",
-      "birthDate": "2024-08-12"
+      ]
     }
   }
 }
 ```
 
-Only the `encounterId` field in this example is eligible to be a prefetch token as it is a first level field and the datatype (string) can be placed into the FHIR query. The Patient.id value in the context is not eligible to be a prefetch token because it is not a first level field. If the hook creator intends for the Patient.id value to be available as a prefetch token, it must be made available as a first level field. Using the aforementioned example, we simply add a new `patientId` field:
+Only the `encounterId` field in this example is eligible to be a prefetch token as it is a first level field and the datatype (string) can be placed into the FHIR query. The MedicationRequest.id value in the context is not eligible to be a prefetch token because it is not a first level field. If the hook creator intends for the MedicationRequest.id value to be available as a prefetch token, it must be made available as a first level field. Using the aforementioned example, we simply add a new `medicationRequestId` field:
 
 ```json
 {
   "context": {
-    "patientId": "123",
+    "medicationRequestId": "123",
     "encounterId": "456",
-    "patient": {
-      "resourceType": "Patient",
-      "id": "123",
-      "active": true,
-      "name": [
-        {
-          "use": "official",
-          "family": "Watts",
-          "given": [
-            "Wade"
-          ]
+    "draftOrders": {
+      "resourceType": "Bundle",
+      "entry": [ {
+          "resource": {
+            "resourceType": "MedicationRequest",
+            "id": "123",
+            "status": "draft",
+            "intent": "order",
+            "medicationCodeableConcept": {
+              "coding": [   {
+                  "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+                  "code": "617993",
+                  "display": "Amoxicillin 120 MG/ML / clavulanate potassium 8.58 MG/ML Oral Suspension"
+                }]},
+            "subject": {
+              "reference": "Patient/1288992"
+            }
+          }
         }
-      ],
-      "gender": "male",
-      "birthDate": "2024-08-12"
+      ]
     }
   }
 }
