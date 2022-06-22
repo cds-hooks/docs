@@ -15,8 +15,8 @@ decision support from within a clinician's workflow. The API supports:
 User activity inside the clinician's workflow triggers **CDS hooks** in real-time.  For example:
 
 * `patient-view` when opening a new patient record
-* `medication-prescribe` on authoring a new prescription
-* `order-review` on viewing pending orders for approval
+* `order-select` on authoring a new prescription
+* `order-sign` on viewing pending orders for approval
 
 When a triggering activity occurs, the CDS Client notifies each CDS service registered for the activity. These services must then provide near-real-time feedback about the triggering event. Each service gets basic details about the clinical workflow 
 context (via the `context` parameter of the hook) plus whatever
