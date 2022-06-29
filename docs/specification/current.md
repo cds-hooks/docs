@@ -1093,7 +1093,7 @@ For example, consider a simple `patient-view` hook that is invoked whenever the 
 ```
 
 Prefetch data, on the other hand, is defined by CDS Services as a way to allow the CDS Client to provide the data that a CDS Service needs as part of the initial request to the service. When the context data relates to a FHIR resource, it is important not to conflate context and prefetch. For instance, in the hook described above for opening a patient's chart, the hook context includes the id of the patient whose chart is being opened, not the full patient FHIR resource. In this case, the FHIR id of the patient is appropriate as the CDS Services may not be interested in details from the patient resource but instead other data related to this patient. Therefore, including the full patient resource in context would be unnecessary.
-Alternatively, a CDS Service may need the full patient resource in certain scenarios, in which case they can request it to be prefetched or fetch it as needed from the FHIR server using a prefetch template in their discovery response, such as:
+Alternatively, a CDS Service may need the full patient resource in certain scenarios, in which case they can fetch it as needed from the FHIR server or request it to be prefetched using a prefetch template in their discovery response, such as:
 
 ```json
 "prefetch": {
