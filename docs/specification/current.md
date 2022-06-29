@@ -318,54 +318,64 @@ The token name would be `{{context.patientId}}`. Again using our above condition
 
 Only the first level fields in context may be considered for tokens. 
 
-For example, given the following context that contains amongst other things, a Patient FHIR resource:
+For example, given the following context that contains amongst other things, a MedicationRequest FHIR resource:
 
 ```json
 {
   "context": {
     "encounterId": "456",
-    "patient": {
-      "resourceType": "Patient",
-      "id": "123",
-      "active": true,
-      "name": [
-        {
-          "use": "official",
-          "family": "Watts",
-          "given": [
-            "Wade"
-          ]
+    "draftOrders": {
+      "resourceType": "Bundle",
+      "entry": [ {
+          "resource": {
+            "resourceType": "MedicationRequest",
+            "id": "123",
+            "status": "draft",
+            "intent": "order",
+            "medicationCodeableConcept": {
+              "coding": [   {
+                  "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+                  "code": "617993",
+                  "display": "Amoxicillin 120 MG/ML / clavulanate potassium 8.58 MG/ML Oral Suspension"
+                }]},
+            "subject": {
+              "reference": "Patient/1288992"
+            }
+          }
         }
-      ],
-      "gender": "male",
-      "birthDate": "2024-08-12"
+      ]
     }
   }
 }
 ```
 
-Only the `encounterId` field in this example is eligible to be a prefetch token as it is a first level field and the datatype (string) can be placed into the FHIR query. The Patient.id value in the context is not eligible to be a prefetch token because it is not a first level field. If the hook creator intends for the Patient.id value to be available as a prefetch token, it must be made available as a first level field. Using the aforementioned example, we simply add a new `patientId` field:
+Only the `encounterId` field in this example is eligible to be a prefetch token as it is a first level field and the datatype (string) can be placed into the FHIR query. The MedicationRequest.id value in the context is not eligible to be a prefetch token because it is not a first level field. If the hook creator intends for the MedicationRequest.id value to be available as a prefetch token, it must be made available as a first level field. Using the aforementioned example, we simply add a new `medicationRequestId` field:
 
 ```json
 {
   "context": {
-    "patientId": "123",
+    "medicationRequestId": "123",
     "encounterId": "456",
-    "patient": {
-      "resourceType": "Patient",
-      "id": "123",
-      "active": true,
-      "name": [
-        {
-          "use": "official",
-          "family": "Watts",
-          "given": [
-            "Wade"
-          ]
+    "draftOrders": {
+      "resourceType": "Bundle",
+      "entry": [ {
+          "resource": {
+            "resourceType": "MedicationRequest",
+            "id": "123",
+            "status": "draft",
+            "intent": "order",
+            "medicationCodeableConcept": {
+              "coding": [   {
+                  "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+                  "code": "617993",
+                  "display": "Amoxicillin 120 MG/ML / clavulanate potassium 8.58 MG/ML Oral Suspension"
+                }]},
+            "subject": {
+              "reference": "Patient/1288992"
+            }
+          }
         }
-      ],
-      "gender": "male",
-      "birthDate": "2024-08-12"
+      ]
     }
   }
 }
@@ -566,7 +576,7 @@ Field | Optionality | Type | Description
 `label` | REQUIRED | *string* | Human-readable label to display for this suggestion (e.g. the CDS Client might render this as the text on a button tied to this suggestion).
 `uuid` | OPTIONAL | *string* | Unique identifier, used for auditing and logging suggestions.
 `isRecommended` | OPTIONAL | *boolean* | When there are multiple suggestions, allows a service to indicate that a specific suggestion is recommended from all the available suggestions on the card. CDS Hooks clients may choose to influence their UI based on this value, such as pre-selecting, or highlighting recommended suggestions. Multiple suggestions MAY be recommended, if `card.selectionBehavior` is `any`.
-`actions` | OPTIONAL | *array* of **[Actions](#action)** | Array of objects, each defining a suggested action. Within a suggestion, all actions are logically AND'd together, such that a user selecting a suggestion selects all of the actions within it.
+`actions` | OPTIONAL | *array* of **[Actions](#action)** | Array of objects, each defining a suggested action. Within a suggestion, all actions are logically AND'd together, such that a user selecting a suggestion selects all of the actions within it. When a suggestion contains multiple actions, the actions SHOULD be processed as per FHIR's rules for processing [transactions](https://hl7.org/fhir/http.html#trules) with the CDS Client's `fhirServer` as the base url for the inferred full URL of the transaction bundle entries. (Specifically, deletes happen first, then creates, then updates).
 
 ##### Action
 
