@@ -742,6 +742,34 @@ A `systemAction` is the same **[Action](#action)** which may be returned in a su
 }
 ```
 
+
+> Example response using `no-guidance-but-app-launch`
+
+```json
+{
+  "no-guidance-but-app-launch": true,
+  "cards": [
+    {
+      "uuid": "4e0a3a1e-3283-4575-ab82-028d55fe2719",
+      "summary": "Example Link Card",
+      "detail": "Click the link to launch github.",
+      "source": {
+        "label": "Static CDS Service Example",
+        "url": "https://example.com",
+        "icon": "https://example.com/img/icon-100px.png"
+      },
+      "links": [
+        {
+          "label": "Github",
+          "url": "https://github.com",
+          "type": "absolute"
+        }
+      ]
+    }
+  ]
+}
+```
+
 ## Feedback
 
 Once a CDS Hooks Service responds to a hook by returning a card, the service has no further interaction with the CDS Client. The acceptance of a suggestion or rejection of a card is valuable information to enable a service to improve its behavior towards the goal of the end-user having a positive and meaningful experience with the CDS. A feedback endpoint enables suggestion tracking & analytics. A CDS Service MAY support a feedback endpoint; a CDS Client SHOULD be capable of sending feedback.
