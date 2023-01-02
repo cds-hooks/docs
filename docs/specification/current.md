@@ -512,6 +512,7 @@ Field | Optionality | Type | Description
 ----- | ----- | ----- | --------
 `cards` | REQUIRED | *array* of **[Cards](#card-attributes)** | An array of **Cards**. Cards can provide a combination of information (for reading), suggested actions (to be applied if a user selects them), and links (to launch an app if the user selects them).  The CDS Client decides how to display cards, but this specification recommends displaying suggestions using buttons, and links using underlined text.
 `systemActions` | OPTIONAL | *array* of **[Actions](#action)** |  An array of **Actions** that the CDS Service proposes to auto-apply. Each action follows the schema of a [card-based `suggestion.action`](#action). The CDS Client decides whether to auto-apply actions.
+`no-guidance-but-app-launch` | OPTIONAL | *boolean* | A boolean informing the CDS Client that the only meaingful decision support contained in this Response is a single card with a single link. A CDS Service MUST NOT set this field to true if the card also returns a suggestion, or any other guidance intended to be seen by the user. This field serves as a hint to the CDS Client, that it could immediately launch the app from the link, without manual user interaction and without displaying the card.  The CDS Client's user interface needs may override the possibility of an automated launch.
 
 If your CDS Service has no decision support for the user, your service should return a 200 HTTP response with an empty array of cards, for example:
 
