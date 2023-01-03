@@ -512,7 +512,6 @@ Field | Optionality | Type | Description
 ----- | ----- | ----- | --------
 `cards` | REQUIRED | *array* of **[Cards](#card-attributes)** | An array of **Cards**. Cards can provide a combination of information (for reading), suggested actions (to be applied if a user selects them), and links (to launch an app if the user selects them).  The CDS Client decides how to display cards, but this specification recommends displaying suggestions using buttons, and links using underlined text.
 `systemActions` | OPTIONAL | *array* of **[Actions](#action)** |  An array of **Actions** that the CDS Service proposes to auto-apply. Each action follows the schema of a [card-based `suggestion.action`](#action). The CDS Client decides whether to auto-apply actions.
-`no-guidance-but-app-launch` | OPTIONAL | *boolean* | A boolean informing the CDS Client that the only meaingful decision support contained in this Response is a single card with a single link. A CDS Service MUST NOT set this field to true if the card also returns a suggestion, or any other guidance intended to be seen by the user. This field serves as a hint to the CDS Client, that it could immediately launch the app from the link, without manual user interaction and without displaying the card.  The CDS Client's user interface needs may override the possibility of an automated launch.
 
 If your CDS Service has no decision support for the user, your service should return a 200 HTTP response with an empty array of cards, for example:
 
@@ -662,7 +661,7 @@ Field | Optionality | Type | Description
 `url` | REQUIRED | *URL* | URL to load (via `GET`, in a browser context) when a user clicks on this link. Note that this MAY be a "deep link" with context embedded in path segments, query parameters, or a hash.
 `type` | REQUIRED | *string* | The type of the given URL. There are two possible values for this field. A type of `absolute` indicates that the URL is absolute and should be treated as-is. A type of `smart` indicates that the URL is a SMART app launch URL and the CDS Client should ensure the SMART app launch URL is populated with the appropriate SMART launch parameters.
 `appContext` | OPTIONAL | *string* |  An optional field that allows the CDS Service to share information from the CDS card with a subsequently launched SMART app. The `appContext` field should only be valued if the link type is `smart` and is not valid for `absolute` links. The `appContext` field and value will be sent to the SMART app as part of the [OAuth 2.0][OAuth 2.0] access token response, alongside the other [SMART launch parameters](http://hl7.org/fhir/smart-app-launch/1.0.0/scopes-and-launch-context/#launch-context-arrives-with-your-access_token) when the SMART app is launched. Note that `appContext` could be escaped JSON, base64 encoded XML, or even a simple string, so long as the SMART app can recognize it. CDS Client support for `appContext` requires additional coordination with the authorization server that is not described or specified in CDS Hooks nor SMART.
-
+`try-auto-launch` | OPTIONAL | *boolean* |  This field serves as a hint to the CDS Client suggesting to immediately launch the link, without displaying the card and therefore without manual user interaction. The CDS Client ultimately determines if a link can be automatically launched, taking into consideration user interface needs, workflow considerations, or even absence of support for this feature. Note that CDS Hooks responses containing links with `try-auto-launch` equal true may not be shown to the user. It's the CDS Service's responsibiltty to ensure that any decision support that exists in card(s) is shown via the launched app.  Sufficiently advanced CDS Clients may support auto-launching multiple links or multiple cards. Implementer guidance is requested to determine if the specification should preclude these advanced scenarios. 
 
 ### System Action
 A `systemAction` is the same **[Action](#action)** which may be returned in a suggestion, but is instead returned alongside the array of cards. A `systemAction` is not presented to the user within a card, but rather may be auto-applied without user intervention.
@@ -743,26 +742,26 @@ A `systemAction` is the same **[Action](#action)** which may be returned in a su
 ```
 
 
-> Example response using `no-guidance-but-app-launch`
+> Example response using `try-auto-launch`
 
 ```json
 {
-  "no-guidance-but-app-launch": true,
   "cards": [
     {
       "uuid": "4e0a3a1e-3283-4575-ab82-028d55fe2719",
-      "summary": "Example Link Card",
-      "detail": "Click the link to launch github.",
+      "summary": "Lung cancer screening shared decision making",
+      "detail": "Patient is a current smoker with a 20 pack/year history. Consider advising patient to complete lung cancer screening. The Lung Cancer Screening Shared Decision Making App (LCSSDM) has been proven to increase patient followthrough for screening.",
       "source": {
-        "label": "Static CDS Service Example",
-        "url": "https://example.com",
+        "label": "Lung Cancer Screening Shared Decision Making App",
+        "url": "https://example.com/LCS",
         "icon": "https://example.com/img/icon-100px.png"
       },
       "links": [
         {
           "label": "Github",
           "url": "https://github.com",
-          "type": "absolute"
+          "type": "absolute",
+          "try-auto-launch": true
         }
       ]
     }
