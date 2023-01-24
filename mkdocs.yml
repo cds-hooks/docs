@@ -26,6 +26,7 @@ nav:
     - 'appointment-book 1' : 'hooks/appointment-book.md'
     - 'encounter-start 1' : 'hooks/encounter-start.md'
     - 'encounter-discharge 1' : 'hooks/encounter-discharge.md'
+    - 'questionnaire-inprogress 0' : 'hooks/questionnaire-inprogress.md'
 - Quick Start: 'quickstart.md'
 - Cheat Sheet: 'cheat-sheet/Cheat Sheet - Sept 2019.pdf'
 - Best Practices: 'best-practices.md'
