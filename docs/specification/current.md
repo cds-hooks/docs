@@ -665,9 +665,9 @@ Field | Optionality | Type | Description
 
 ##### Considerations for `autolaunchable` and user experience
 
-The intent of this optional feature is to improve individual user experience by removing the otherwise unnecessary click of a link by the user. Appropriate support of this feature includes guardrails from both the CDS Service developer and the CDS Client, as well as additional local control by the organization using the service. 
+The intent of this optional feature is to improve individual user experience by removing the otherwise unnecessary click of a link by the user. Appropriate support of this feature includes guardrails from both the CDS Service developer and the CDS Client, as well as additional local control by the organization using the service.
 
-The CDS Client ultimately determines if a link can be automatically launched, taking into consideration user interface needs, workflow considerations, or even absence of support for this optional feature. If a CDS Hooks response contains guidance in addition to an autolaunchable link, it's the CDS Service's responsibility to ensure that any decision support that exists in the CDS Hooks response's card(s) is communicated via the launched app. 
+The CDS Client ultimately determines if a link can be automatically launched, taking into consideration user interface needs, workflow considerations, or even absence of support for this optional feature. If a CDS Hooks response contains guidance in addition to an autolaunchable link, it's the CDS Service's responsibility to ensure that any decision support that exists in the CDS Hooks response's card(s) is communicated via the launched app.
 
 ### System Action
 A `systemAction` is the same **[Action](#action)** which may be returned in a suggestion, but is instead returned alongside the array of cards. A `systemAction` is not presented to the user within a card, but rather may be auto-applied without user intervention.
