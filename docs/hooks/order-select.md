@@ -4,7 +4,7 @@
 | ---- | ----
 | specificationVersion | 1.0
 | hookVersion | 1.0
-| Hook maturity | [1 - Submitted](../../specification/1.0/#hook-maturity-model)
+| Hook maturity | [4 - Documented](../../specification/current/#hook-maturity-model)
 
 ## Workflow
 
