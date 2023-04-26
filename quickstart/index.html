@@ -1,0 +1,1055 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1, mkdocs-material-4.6.3">
+    
+    
+      
+        <title>Quick Start - CDS Hooks</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/application.adb8469c.css">
+      
+      
+    
+    
+      <script src="../assets/javascripts/modernizr.86422ebf.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../assets/fonts/material-icons.css">
+    
+    
+    
+      
+    
+    
+  </head>
+  
+    <body dir="ltr">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#quick-start" tabindex="0" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href=".." title="CDS Hooks" aria-label="CDS Hooks" class="md-header-nav__button md-logo">
+          
+            <img alt="logo" src="../images/logo-square.png" width="24" height="24">
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              CDS Hooks
+            </span>
+            <span class="md-header-nav__topic">
+              
+                Quick Start
+              
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" aria-label="search" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/cds-hooks/docs" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main" role="main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href=".." title="CDS Hooks" class="md-nav__button md-logo">
+      
+        <img alt="logo" src="../images/logo-square.png" width="48" height="48">
+      
+    </a>
+    CDS Hooks
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/cds-hooks/docs" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Specification
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        Specification
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../specification/current/" title="Current (draft)" class="md-nav__link">
+      Current (draft)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="https://cds-hooks.hl7.org/1.0/" title="1.0 (external link)" class="md-nav__link">
+      1.0 (external link)
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      Hooks
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        Hooks
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../hooks/template/" title="new-hook-template" class="md-nav__link">
+      new-hook-template
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../hooks/patient-view/" title="patient-view 5" class="md-nav__link">
+      patient-view 5
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../hooks/medication-prescribe/" title="medication-prescribe 🚫" class="md-nav__link">
+      medication-prescribe 🚫
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../hooks/order-dispatch/" title="order-dispatch 0" class="md-nav__link">
+      order-dispatch 0
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../hooks/order-review/" title="order-review 🚫" class="md-nav__link">
+      order-review 🚫
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../hooks/order-select/" title="order-select 4" class="md-nav__link">
+      order-select 4
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../hooks/order-sign/" title="order-sign 5" class="md-nav__link">
+      order-sign 5
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../hooks/appointment-book/" title="appointment-book 3" class="md-nav__link">
+      appointment-book 3
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../hooks/encounter-start/" title="encounter-start 1" class="md-nav__link">
+      encounter-start 1
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../hooks/encounter-discharge/" title="encounter-discharge 3" class="md-nav__link">
+      encounter-discharge 3
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Quick Start
+      </label>
+    
+    <a href="./" title="Quick Start" class="md-nav__link md-nav__link--active">
+      Quick Start
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#building-a-cds-service" class="md-nav__link">
+    Building a CDS Service
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#endpoint-for-discovery" class="md-nav__link">
+    Endpoint for discovery
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#develop-a-service" class="md-nav__link">
+    Develop a service
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-a-smart-app" class="md-nav__link">
+    Create a SMART App
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#test-service-with-a-sandbox" class="md-nav__link">
+    Test service with a sandbox
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#integrating-cds-services-into-a-cds-client" class="md-nav__link">
+    Integrating CDS Services into a CDS Client
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#call-discovery-endpoint" class="md-nav__link">
+    Call discovery endpoint
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#invoke-service-on-patient-view-hook" class="md-nav__link">
+    Invoke service on patient-view hook
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#support-fhir-resource-on-cds-requests-context-or-pre-fetch" class="md-nav__link">
+    Support FHIR resource on CDS requests (context or pre-fetch)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expose-non-secured-fhir-server-for-testing" class="md-nav__link">
+    Expose non-secured FHIR server for testing
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#render-card" class="md-nav__link">
+    Render card
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#launch-smart-app" class="md-nav__link">
+    Launch SMART app
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#test-with-external-cds-service" class="md-nav__link">
+    Test with external CDS Service
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../cheat-sheet/Cheat%20Sheet%20-%20Sept%202019.pdf" title="Cheat Sheet" class="md-nav__link">
+      Cheat Sheet
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../best-practices/" title="Best Practices" class="md-nav__link">
+      Best Practices
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../examples/" title="Examples" class="md-nav__link">
+      Examples
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../community/" title="Community" class="md-nav__link">
+      Community
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../logo-use/" title="Logo Use" class="md-nav__link">
+      Logo Use
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#building-a-cds-service" class="md-nav__link">
+    Building a CDS Service
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#endpoint-for-discovery" class="md-nav__link">
+    Endpoint for discovery
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#develop-a-service" class="md-nav__link">
+    Develop a service
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-a-smart-app" class="md-nav__link">
+    Create a SMART App
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#test-service-with-a-sandbox" class="md-nav__link">
+    Test service with a sandbox
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#integrating-cds-services-into-a-cds-client" class="md-nav__link">
+    Integrating CDS Services into a CDS Client
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#call-discovery-endpoint" class="md-nav__link">
+    Call discovery endpoint
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#invoke-service-on-patient-view-hook" class="md-nav__link">
+    Invoke service on patient-view hook
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#support-fhir-resource-on-cds-requests-context-or-pre-fetch" class="md-nav__link">
+    Support FHIR resource on CDS requests (context or pre-fetch)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expose-non-secured-fhir-server-for-testing" class="md-nav__link">
+    Expose non-secured FHIR server for testing
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#render-card" class="md-nav__link">
+    Render card
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#launch-smart-app" class="md-nav__link">
+    Launch SMART app
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#test-with-external-cds-service" class="md-nav__link">
+    Test with external CDS Service
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="quick-start">Quick Start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h1>
+<p>This quick start tutorial defines each of the actors and provides details for implementing the <code>patient-view</code> hook. </p>
+<p>A CDS Hooks scenario typically includes two main actors: an CDS Client and a CDS Service, where the CDS Client may be an EHR, CPOE or other clinical workflow system. Below is an example interaction for the <code>patient-view</code> hook.</p>
+<p><img alt="patient-view Hook Overview" src="../images/patient-view-hook-launch_spec.png" /></p>
+<h2 id="building-a-cds-service">Building a CDS Service<a class="headerlink" href="#building-a-cds-service" title="Permanent link">&para;</a></h2>
+<p>A CDS Service is an external service that responds to CDS Client requests through cards. A card can optionally link to a SMART app. There are several steps to setting up a CDS Service: </p>
+<ol>
+<li>Create an endpoint for discovery</li>
+<li>Develop a service</li>
+<li>Test the service with the <a href="http://sandbox.cds-hooks.org/">sandbox</a></li>
+<li>If applicable, create a SMART app (or <a href="https://apps.smarthealthit.org/apps/pricing/open-source">borrow one</a>)</li>
+<li>Test the service (and, if applicable, SMART app) with an CDS Client</li>
+</ol>
+<p>This tutorial recommends implementing the CDS Hooks <a href="specification/1.0/#security-and-safety">security model</a> after successful open access testing.</p>
+<h3 id="endpoint-for-discovery">Endpoint for discovery<a class="headerlink" href="#endpoint-for-discovery" title="Permanent link">&para;</a></h3>
+<p>The CDS Service must provide a stable endpoint for the CDS Client to discover the available services. A system must expose their services at <code>{baseUrl}/cds-services</code>. A service endpoint that supports the <code>patient-view</code> hook may return:</p>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;services&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;hook&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;patient-view&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Static CDS Service Example&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;An example of a CDS Service that returns a card with SMART app recommendations.&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;static-patient-view&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;prefetch&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;patientToGreet&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Patient/{{context.patientId}}&quot;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+
+
+<p>The attributes available to describe a CDS Services is documented in the <a href="specification/1.0/#discovery">CDS Hooks specification</a>.</p>
+<h3 id="develop-a-service">Develop a service<a class="headerlink" href="#develop-a-service" title="Permanent link">&para;</a></h3>
+<p>With a stable open end point available it's time to complete development of a service. A CDS Service could provide <strong>information</strong>, a <strong>suggestion</strong>, or a <strong>SMART app</strong> link. The focus of the Argonaut CDS Hooks effort is a <code>patient-view</code> hook launching a SMART app so this guide will focus on the SMART app link.</p>
+<p>A CDS <code>patient-view</code> hook could return the following card:</p>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;cards&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;summary&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SMART App Success Card&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;indicator&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;success&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;detail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;This is an example SMART App success card.&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;source&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;label&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Static CDS Service Example&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://example.com&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;links&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;label&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SMART Example App&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://smart.example.com/launch&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;smart&quot;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="w"> </span><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+
+
+<h3 id="create-a-smart-app">Create a SMART App<a class="headerlink" href="#create-a-smart-app" title="Permanent link">&para;</a></h3>
+<p>You may already have created a SMART app prior to this step, but just in case this is a reminder. The SMART app is launched from the link returned in your service. If you want to borrow a SMART app, check out the <a href="https://apps.smarthealthit.org/apps/pricing/open-source">app gallery</a>.</p>
+<h3 id="test-service-with-a-sandbox">Test service with a sandbox<a class="headerlink" href="#test-service-with-a-sandbox" title="Permanent link">&para;</a></h3>
+<p>The CDS Hooks community provides a publicly available <a href="http://sandbox.cds-hooks.org/">sandbox</a> to test your service. </p>
+<p>Select the configure hooks:<br>
+<img alt="Demo Configuration" src="../images/demo-configure-hooks.png" /></p>
+<p>Delete the existing hooks, and then do a quick add with a reference to your CDS Service:<br>
+<img alt="Patient View Hooks Launch from Sandbox" src="../images/demo-quick-add.png" /></p>
+<p>After testing with the sandbox, you are ready to connect with an CDS Client.</p>
+<h2 id="integrating-cds-services-into-a-cds-client">Integrating CDS Services into a CDS Client<a class="headerlink" href="#integrating-cds-services-into-a-cds-client" title="Permanent link">&para;</a></h2>
+<p>Build out following sections:</p>
+<ol>
+<li>Call discovery endpoint </li>
+<li>Invoke service on patient-view </li>
+<li>Support FHIR resource on CDS requests (context or pre-fetch)</li>
+<li>Expose non-secured FHIR server for testing</li>
+<li>Render card</li>
+<li>Launch SMART app </li>
+<li>Test with external CDS Service</li>
+</ol>
+<p>This tutorial recommends implementing the CDS Hooks <a href="specification/1.0/#security-and-safety">security model</a> after successful open access testing.</p>
+<h3 id="call-discovery-endpoint">Call discovery endpoint<a class="headerlink" href="#call-discovery-endpoint" title="Permanent link">&para;</a></h3>
+<p>The CDS discovery endpoint provides the list of services a CDS provider supports, and the hooks a service should be invoked on. A CDS Client may configure their system to support a set of hooks at a certain location in their users work flow, or build a dynamic capability to interact with a CDS Service provider within a work flow. For the best end-user experience, this guide recommends a business analyst configure which hooks a CDS Client will support. </p>
+<p>Below is an example work flow where a business analyst accesses this list of available services by calling </p>
+<p><code>GET https://example.com/cds-services</code> </p>
+<p>and then configures them in the system. </p>
+<p><img alt="business analyst configuration" src="../images/analyst-configuration-spec.png" /></p>
+<p>This image captures a business analyst reviewing services from one CDS provider. A business analyst may review services from multiple providers and configure appropriate services per user profiles.</p>
+<h3 id="invoke-service-on-patient-view-hook">Invoke service on patient-view hook<a class="headerlink" href="#invoke-service-on-patient-view-hook" title="Permanent link">&para;</a></h3>
+<p>The <code>patient-view</code> hook is invoked when a patient chart is opened. It's one of the most basic since the logic doesn't have any prior workflow dependencies. The service called on the <code>patient-view</code> hook could be dependent on patient characteristics, for example: sex, problems in problems list, active medications, etc. The current version of the CDS Hooks specification allows the CDS Client to decide which characteristics to consider. </p>
+<h3 id="support-fhir-resource-on-cds-requests-context-or-pre-fetch">Support FHIR resource on CDS requests (context or pre-fetch)<a class="headerlink" href="#support-fhir-resource-on-cds-requests-context-or-pre-fetch" title="Permanent link">&para;</a></h3>
+<p>Often a CDS Service will require additional information from the CDS Client to perform the decision support logic, or determine the appropriate SMART app to return. Prefetch provides the CDS Client the capability to pass a resource when invoking a service. For example, with a patient resource included a service could do a geography search for potential environmental risk factors. Below is an example request invoked on patient-view with a patient included: </p>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
+<span class="w">   </span><span class="nt">&quot;hookInstance&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;23f1a303-991f-4118-86c5-11d99a39222e&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;fhirServer&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://fhir.example.org&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;hook&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;patient-view&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;context&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">     </span><span class="nt">&quot;patientId&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1288992&quot;</span><span class="p">,</span>
+<span class="w">     </span><span class="nt">&quot;userId&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Practitioner/example&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">   </span><span class="nt">&quot;prefetch&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;patientToGreet&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;resourceType&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Patient&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;gender&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;male&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;birthDate&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1925-12-23&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1288992&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;active&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">   </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+
+
+<p>In some cases, additional information beyond what is included in the prefetch may be required. The CDS Service can request additional information using the FHIR REST APIs:</p>
+<p><code>GET [base]/AllergyIntolerance?patient=[id]</code></p>
+<p>It is recommended FHIR servers implement, and CDS Services follow, locale specific implementation guides. In the US, the recommended implementation guides to follow are the <a href="http://www.fhir.org/guides/argonaut/r2/">Argonaut Data Query Guide (DSTU2)</a> and <a href="http://hl7.org/fhir/us/core/index.html">HL7 US Core (STU3 and R4)</a>. Each profile page within these implementation guides includes queries FHIR servers are required to support. </p>
+<h3 id="expose-non-secured-fhir-server-for-testing">Expose non-secured FHIR server for testing<a class="headerlink" href="#expose-non-secured-fhir-server-for-testing" title="Permanent link">&para;</a></h3>
+<p>A non-secured FHIR server is important to support testing with a CDS Service. When the CDS Client moves a hook to production the system is expected to follow the guidelines in the <a href="specification/1.0/#security-and-safety">security</a> requirements.</p>
+<h3 id="render-card">Render card<a class="headerlink" href="#render-card" title="Permanent link">&para;</a></h3>
+<p>The CDS Service will provide a response in the form a of a 'card'. Your CDS Client needs to be able to display the card.</p>
+<p>Example card JSON: </p>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;summary&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Bilirubin: Based on the age of this patient consider overlaying bilirubin [Mass/volume] results over a time-based risk chart&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;indicator&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;info&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;detail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;The focus of this app is to reduce the incidence of severe hyperbilirubinemia and bilirubin encephalopathy while minimizing the risks of unintended harm such as maternal anxiety, decreased breastfeeding, and unnecessary costs or treatment.&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;source&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;label&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Intermountain&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;links&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;label&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Bilirubin SMART app&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://example.com/launch&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;smart&quot;</span>
+<span class="w">   </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+
+
+<p>Example card rendered: <img alt="Card with SMART App link" src="../images/Bilirubin_SMART_App_Card.png" /></p>
+<h3 id="launch-smart-app">Launch SMART app<a class="headerlink" href="#launch-smart-app" title="Permanent link">&para;</a></h3>
+<p>For some CDS Services the end step will just display the card. For the patient-view hook discussed here, we are focused on launching a SMART app. The CDS Hooks guide places no additional constraints for launching a SMART app beyond those from <a href="http://hl7.org/fhir/smart-app-launch/1.0.0/">SMART on FHIR</a>.</p>
+<h2 id="test-with-external-cds-service">Test with external CDS Service<a class="headerlink" href="#test-with-external-cds-service" title="Permanent link">&para;</a></h2>
+<p>No development is complete without testing with a CDS Service provider. Find a member in the <a href="community">community</a> and test away. </p>
+                
+                  
+                
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../hooks/encounter-discharge/" title="encounter-discharge 3" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                encounter-discharge 3
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../cheat-sheet/Cheat%20Sheet%20-%20Sept%202019.pdf" title="Cheat Sheet" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Cheat Sheet
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            © 2018 HL7 & Boston Children's Hospital.<p /> <a rel="license" href="https://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://licensebuttons.net/l/by/4.0/80x15.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+          </div>
+        
+        powered by
+        <a href="https://www.mkdocs.org" target="_blank" rel="noopener">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs</a>
+      </div>
+      
+  <div class="md-footer-social">
+    <link rel="stylesheet" href="../assets/fonts/font-awesome.css">
+    
+      <a href="https://github.com/cds-hooks" target="_blank" rel="noopener" title="github" class="md-footer-social__link fa fa-github"></a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/application.c33a9706.js"></script>
+      
+      <script>app.initialize({version:"1.1",url:{base:".."}})</script>
+      
+    
+  </body>
+</html>
