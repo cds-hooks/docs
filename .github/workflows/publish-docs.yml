@@ -3,6 +3,8 @@ name: Publish docs
 on:
   push:
     branches: [ master ]
+  pull_request:
+    types: [opened, synchronize] # This will trigger the workflow only when a PR is opened or updated with new commits
 
 jobs:
   build:
@@ -24,6 +26,7 @@ jobs:
       run: mkdocs build --verbose --clean --strict
 
     - name: Deploy
+      if: github.event_name == 'push' && github.ref == 'refs/heads/master'
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
