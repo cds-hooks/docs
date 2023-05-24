@@ -185,7 +185,8 @@ This example is taken from the [Opioid Prescribing Support Implementation Guide]
       ]
     }
   }
-}```
+}
+```
 
 > CDS Service Response
 
