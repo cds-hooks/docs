@@ -8,7 +8,7 @@
 ## Workflow
 
 The `problem-list-item-create` hook fires when when a clinician adds one or more new problem to a patient's problem list. 
-This hook may fire with one or more newly added, active conditions or draft conditions of category `problem-list-item` that are not yet finalized. 
+This hook may fire with one or more newly added conditions of category `problem-list-item` that are not yet finalized. 
 The context of the hook includes these new conditions.
 
 ## Context
