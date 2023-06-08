@@ -42,10 +42,8 @@ The current committers on the project are:
 
 - [Brett Marquard](https://github.com/brettmarquard)
 - [Bryn Rhodes](https://github.com/brynrhodes)
-- [Dennis Patterson](https://github.com/dennispatterson)
 - [Isaac Vetter](https://github.com/isaacvetter)
 - [Josh Mandel](https://github.com/jmandel)
-- [Kevin Shekleton](https://github.com/kpshek)
 - [Vadim Peretokin](https://github.com/vadi2)
 
 
@@ -61,7 +59,6 @@ The current PMC members are:
 - [Bryn Rhodes](https://github.com/brynrhodes)
 - [Isaac Vetter](https://github.com/isaacvetter)
 - [Josh Mandel](https://github.com/jmandel)
-- [Dennis Patterson](https://github.com/dennispatterson)
 
 Emeritus PMC members are:
 - [Kevin Shekleton](https://github.com/kpshek)
