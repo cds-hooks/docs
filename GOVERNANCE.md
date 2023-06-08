@@ -46,7 +46,6 @@ The current committers on the project are:
 - [Josh Mandel](https://github.com/jmandel)
 - [Vadim Peretokin](https://github.com/vadi2)
 
-
 ### Project Management Committee
 
 Members of the PMC are committers who are also responsible for governing the CDS Hooks project. The PMC has primary responsibility for development of the CDS Hooks community. This includes evangelism, organizing Connectathons, and other forms of community building. The PMC also reports progress to the community and defines target feature sets for releases. Emeritus PMC members are recognized for their significant contributions to CDS Hooks and are not able to cast votes. Emeritus PMC members may be reinstated at any time upon a unanimous PMC vote. 
