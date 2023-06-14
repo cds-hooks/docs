@@ -7,18 +7,18 @@
 
 ## Workflow
 
-The `problem-list-item-create` hook fires when when a clinician adds one or more new problem to a patient's problem list. 
-This hook may fire with one or more newly added conditions of category `problem-list-item` that are not yet finalized. 
-The context of the hook includes these new conditions.
+The `problem-list-item-create` hook fires once a clinician has added one or more new problems to a patient's problem list. 
+This hook may fire with one or more newly added conditions of category `problem-list-item` that are newly finalized. 
+The context of the hook includes these new conditions. Note that this hook occurs once the new problem(s) is finalized; thereby enabling the CDS Service to recommend actions related to the problem in lieu of suggesting modifications to the newly created problem. 
 
 ## Context
 
 Field | Optionality | Prefetch Token | Type | Description
 ----- | -------- | ---- | ---- | ----
-`userId` | REQUIRED | Yes | *string* | The id of the current user.<br />For this hook, the user is expected to be of type [Practitioner](https://www.hl7.org/fhir/practitioner.html).<br />For example, `Practitioner/123`
+`userId` | REQUIRED | Yes | *string* | The id of the current user.<br />For this hook, the user is expected to be of type [Practitioner](https://www.hl7.org/fhir/practitioner.html) or [PractitionerRole](https://www.hl7.org/fhir/practitioner.html).<br />For example, PractitionerRole/123 or Practitioner/abc.
 `patientId` | REQUIRED | Yes | *string* |  The FHIR `Patient.id` of the current patient in context
 `encounterId` | OPTIONAL | Yes | *string* |  The FHIR `Encounter.id` of the current encounter in context
-`conditions` | REQUIRED | No | *object* | STU3 - FHIR Bundle of Conditions where `category` is `problem-list-item`<br/> R4 - FHIR Bundle of Conditions where `category` is `problem-list-item`
+`conditions` | REQUIRED | No | *object* | DSTU2 - FHIR Bundle of Conditions where `category` is `problem-list-item`<br/> STU3 - FHIR Bundle of Conditions where `category` is `problem-list-item`<br/> R4 - FHIR Bundle of Conditions where `category` is `problem-list-item`
 
 ### Example (R4)
 
