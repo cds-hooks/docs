@@ -13,18 +13,30 @@ extra:
 nav:
 - Overview: 'index.md'
 - Specification:
-    - '1.0': 'specification/1.0.md'
+    - Current (draft): 'specification/current.md'
+    - '2.0 (external link)': https://cds-hooks.hl7.org/2.0/    
+    - '1.0 (external link)': https://cds-hooks.hl7.org/1.0/
 - Hooks:
     - 'new-hook-template' : 'hooks/template.md'
-    - allergyintolerance-create : 'hooks/allergyintolerance-create.md'
-    - 'patient-view' : 'hooks/patient-view.md'
-    - 'medication-prescribe' : 'hooks/medication-prescribe.md'
-    - 'order-review' : 'hooks/order-review.md'
+    - 'allergyintolerance-create 1': 'hooks/allergyintolerance-create.md'
+    - 'patient-view 5' : 'hooks/patient-view.md'
+    - 'medication-prescribe 🚫' : 'hooks/medication-prescribe.md'
+    - 'order-dispatch 0' : 'hooks/order-dispatch.md'
+    - 'order-review 🚫' : 'hooks/order-review.md'
+    - 'order-select 4' : 'hooks/order-select.md'
+    - 'order-sign 5' : 'hooks/order-sign.md'
+    - 'appointment-book 3' : 'hooks/appointment-book.md'
+    - 'encounter-start 1' : 'hooks/encounter-start.md'
+    - 'encounter-discharge 3' : 'hooks/encounter-discharge.md'
 - Quick Start: 'quickstart.md'
+- Cheat Sheet: 'cheat-sheet/Cheat Sheet - Sept 2019.pdf'
+- Best Practices: 'best-practices.md'
 - Examples: 'examples.md'
 - Community: 'community.md'
+- Logo Use: 'logo-use.md'
 
 repo_url: 'https://github.com/cds-hooks/docs'
+edit_uri: ''
 
 markdown_extensions:
   - admonition
@@ -34,4 +46,4 @@ markdown_extensions:
   - toc:
       permalink: true
 
-copyright: © 2018 HL7 & Boston Children's Hospital.<p /> <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+copyright: © 2018 HL7 & Boston Children's Hospital.<p /> <a rel="license" href="https://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://licensebuttons.net/l/by/4.0/80x15.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
