@@ -1,3 +1,0 @@
-R5=Y
-R4=Y
-igVersion=2.0.0

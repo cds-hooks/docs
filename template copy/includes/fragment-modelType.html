@@ -1,9 +1,0 @@
-{% if site.data.structuredefinitions[include.id].type == 'Extension' %}
-  {% assign modelType = 'Extension' %}
-{% elsif site.data.structuredefinitions[include.id].kind == 'logical' %}
-  {% assign modelType = 'Logical Model' %}
-{% elsif site.data.structuredefinitions[include.id].kind == 'resource' %}
-  {% assign modelType = 'Resource Profile' %}
-{% else %}
-  {% assign modelType = 'Data Type Profile' %}
-{% endif %}
