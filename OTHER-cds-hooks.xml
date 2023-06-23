@@ -4,8 +4,6 @@
 <artifactPageExtension value="-definitions"/>
 <artifactPageExtension value="-examples"/>
 <artifactPageExtension value="-mappings"/>
-<artifact id="StructureDefinition/MyPatient" key="StructureDefinition-MyPatient" name="MyPatient"/>
-<artifact id="Patient/PatientExample" key="Patient-PatientExample" name="PatientExample"/>
 <page key="NA" name="(NA)"/>
 <page key="many" name="(many)"/>
 <page key="artifacts" name="Artifacts Summary"/>
