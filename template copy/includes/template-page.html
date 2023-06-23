@@ -1,0 +1,19 @@
+{% include fragment-pagebegin.html %}
+<style type="text/css">
+h2:before{color:silver;counter-increment:section;content:var(--heading-prefix) " ";}
+h3:before{color:silver;counter-increment:sub-section;content:var(--heading-prefix) "." counter(sub-section) " ";}
+h4:before{color:silver;counter-increment:composite;content:var(--heading-prefix) "." counter(sub-section) "." counter(composite) " ";}
+h5:before{color:silver;counter-increment:detail;content:var(--heading-prefix) "." counter(sub-section) "." counter(composite) "." counter(detail) " ";}
+h6:before{color:silver;counter-increment:more-detail;content:var(--heading-prefix) "." counter(sub-section) "." counter(composite) "." counter(detail) "." counter(more-detail)" ";}
+</style>
+<div class="col-12">
+  <!--ReleaseHeader--><p id="publish-box">Publish Box goes here</p><!--EndReleaseHeader-->
+  <h2>{{site.data.pages[page.path].title | escape_once}}</h2>
+  {% if page.path == 'index.html' %}
+  {% include fragment-igTable.html %}
+  {% endif %}
+  {% include fragment-pageTable.html %}
+  {% assign path = page.path | split: '.html' %}
+  {% include {{path}}.xml %}
+</div>
+{% include fragment-pageend.html %}

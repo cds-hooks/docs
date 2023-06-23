@@ -1,0 +1,38 @@
+---
+---
+<!-- get modelType -->
+{% include fragment-modelType.html id='{{[id]}}' %}
+
+{% include fragment-pagebegin.html %}
+<div style="counter-reset: section 6" class="col-12">
+  <!--ReleaseHeader--><p id="publish-box">Publish Box goes here</p><!--EndReleaseHeader-->
+  {% include fragment-profile-navtabs.html type='{{[type]}}' id='{{[id]}}' active='testing' %}
+
+  <a name="root"> </a>
+  <h2 id="root">{{modelType}}: {{[title]}} - Testing</h2>
+{% include fragment-simpletable.html %}
+
+{% assign basepath = page.path | replace: '-testing.html', '.html' %}
+{% if site.data.pages[basepath].testscripts.size > 0 %}
+  <p>TestScripts for the {{[id]}} Profile.</p>
+  <table style="grid">
+    <tbody>
+      {% for testscript in site.data.pages[basepath].testscripts %}
+        <tr>
+          <td>
+            <a href="{{testscript.url}}">{{testscript.title | escape_once}}</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+  <p><b>No TestScripts are currently available for the {{id}} Profile.</b></p>
+{% endif %}
+
+<!-- insert notes if present -->
+{% include fragment-notes.html type='{{[type]}}' id='{{[id]}}' %}
+
+</div>
+{% assign includetabscripts = 'true' %}
+{% include fragment-pageend.html %}

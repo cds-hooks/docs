@@ -1,0 +1,358 @@
+{
+  "targets" : {
+    "onLoad" : "onLoad",
+    "onGenerate" : "onGenerate"
+  },
+  "template-parameters" : [
+    "copyrightyear",
+    "excludelogbinaryformat",
+    "excludejson",
+    "excludemap",
+    "excludettl",
+    "excludexml",
+    "fmm-definition",
+    "globals-in-artifacts",
+    "releaselabel",
+    "shownav",
+    "jira-code"
+  ],
+  "_extraTemplates-documentation" : "This array of objects identifies additional templates available for generation for different resource types",
+  "extraTemplates" : [
+    {
+      "name" : "mappings",
+      "description" : "Mappings"
+    },
+    {
+      "name" : "testing",
+      "description" : "Testing"
+    },
+    {
+      "name" : "examples",
+      "description" : "Examples",
+      "isExamples" : true
+    },
+    {
+      "name" : "format",
+      "description" : "FMT Representation"
+    },
+    {
+      "name" : "profile-history",
+      "description" : "Profile Change History",
+      "isHistory" : true
+    },
+    {
+      "name" : "change-history",
+      "description" : "Resource Change History",
+      "isHistory" : true
+    }
+  ],
+  "_formats-documentation" : "Lists the formats in the order format-specific pages should be generated.  (Note that suppressed formats won't appear, even if listed here.)",
+  "formats" : ["xml", "json", "ttl"],
+  "_pre-process-documentation" : "This array of objects indicates data being converted from existing files using scripts to support dependency checking when performing continuous builds",
+  "pre-process" : [
+    {
+      "folder" : "input/includes",
+      "relativePath" : "_includes"
+    },
+    {
+      "folder" : "fsh-generated/includes",
+      "relativePath" : "_includes"
+    },
+    {
+      "folder" : "input/data",
+      "relativePath" : "_data"
+    },
+    {
+      "folder" : "input/resourcedocs",
+      "relativePath" : "_data"
+    },
+    {
+      "folder" : "input/intro-notes",
+      "relativePath" : "_includes",
+      "transform" : "template/scripts/processPages.xslt"
+    },
+    {
+      "folder" : "input/pagecontent",
+      "relativePath" : "_includes",
+      "transform" : "template/scripts/processPages.xslt"
+    },
+    {
+      "folder" : "input/pages",
+      "relativePath" : "_includes",
+      "transform" : "template/scripts/processPages.xslt"
+    }
+  ],
+  "defaults" : {
+    "_documentation" : "this object contains the default publishing policy for different types. Anything not mentioned defaults to true",
+    "Any" : {
+      "java" : false,
+      "template-base" : "template/layouts/layout-instance-base.html",
+      "template-format" : "template/layouts/layout-instance-format.html",
+      "base" : "{{[type]}}-{{[id]}}.html",
+      "format" : "{{[type]}}-{{[id]}}.{{[fmt]}}.html",
+      "list-types" : "CodeSystem|ValueSet|NamingSystem",
+      "template-change-history" : "template/layouts/layout-changehistory.html",
+      "change-history" : "{{[type]}}-{{[id]}}.change.history.html"
+    },
+    "example" : {
+      "java" : false,
+      "template-base" : "template/layouts/layout-instance-base.html",
+      "template-format" : "template/layouts/layout-instance-format.html",
+      "base" : "{{[type]}}-{{[id]}}.html",
+      "format" : "{{[type]}}-{{[id]}}.{{[fmt]}}.html",
+      "template-change-history" : "template/layouts/layout-changehistory.html",
+      "change-history" : "{{[type]}}-{{[id]}}.change.history.html"
+    },
+    "ImplementationGuide" : {
+      "template-base" : "",
+      "template-format" : "",
+      "template-change-history" : ""
+    },
+    "StructureDefinition:extension" : {
+      "template-base" : "template/layouts/layout-ext.html",
+      "template-defns" : "template/layouts/layout-profile-definitions.html",
+      "template-mappings" : "template/layouts/layout-profile-mappings.html",
+      "template-testing" : "template/layouts/layout-profile-testing.html",
+      "template-examples" : "",
+      "template-profile-history" : "template/layouts/layout-profile-history.html",
+      "template-format" : "template/layouts/layout-profile-format.html",
+      "base" : "{{[type]}}-{{[id]}}.html",
+      "defns" : "{{[type]}}-{{[id]}}-definitions.html",
+      "mappings" : "{{[type]}}-{{[id]}}-mappings.html",
+      "testing" : "{{[type]}}-{{[id]}}-testing.html",
+      "examples" : "{{[type]}}-{{[id]}}-examples.html",
+      "format" : "{{[type]}}-{{[id]}}.profile.{{[fmt]}}.html",
+      "profile-history" : "{{[type]}}-{{[id]}}.profile.history.html",
+      "template-change-history" : ""
+    },
+    "StructureDefinition" : {
+      "template-base" : "template/layouts/layout-profile.html",
+      "template-defns" : "template/layouts/layout-profile-definitions.html",
+      "template-mappings" : "template/layouts/layout-profile-mappings.html",
+      "template-testing" : "template/layouts/layout-profile-testing.html",
+      "template-examples" : "template/layouts/layout-profile-examples.html",
+      "template-profile-history" : "template/layouts/layout-profile-history.html",
+      "template-format" : "template/layouts/layout-profile-format.html",
+      "base" : "{{[type]}}-{{[id]}}.html",
+      "defns" : "{{[type]}}-{{[id]}}-definitions.html",
+      "mappings" : "{{[type]}}-{{[id]}}-mappings.html",
+      "testing" : "{{[type]}}-{{[id]}}-testing.html",
+      "examples" : "{{[type]}}-{{[id]}}-examples.html",
+      "format" : "{{[type]}}-{{[id]}}.profile.{{[fmt]}}.html",
+      "profile-history" : "{{[type]}}-{{[id]}}.profile.history.html",
+      "template-change-history" : "",
+      "_comment" : "this template-change-history is here to undo the definition in the Any settings"
+    },
+    "CodeSystem" : {
+      "template-base" : "template/layouts/layout-codesystem.html",
+      "template-format" : "template/layouts/layout-instance-format.html",
+      "template-testing" : "template/layouts/layout-canonical-testing.html",
+      "template-change-history" : "template/layouts/layout-changehistory.html",
+      "base" : "{{[type]}}-{{[id]}}.html",
+      "format" : "{{[type]}}-{{[id]}}.{{[fmt]}}.html",
+      "testing" : "{{[type]}}-{{[id]}}-testing.html",
+      "change-history" : "{{[type]}}-{{[id]}}.change.history.html"
+    },
+    "ValueSet" : {
+      "template-base" : "template/layouts/layout-valueset.html",
+      "template-format" : "template/layouts/layout-instance-format.html",
+      "template-testing" : "template/layouts/layout-canonical-testing.html",
+      "template-change-history" : "template/layouts/layout-changehistory.html",
+      "base" : "{{[type]}}-{{[id]}}.html",
+      "format" : "{{[type]}}-{{[id]}}.{{[fmt]}}.html",
+      "testing" : "{{[type]}}-{{[id]}}-testing.html",
+      "change-history" : "{{[type]}}-{{[id]}}.change.history.html"
+    },
+    "ActivityDefinition" : {
+      "template-base" : "template/layouts/layout-canonical.html",
+      "template-format" : "template/layouts/layout-instance-format.html",
+      "template-testing" : "template/layouts/layout-canonical-testing.html",
+      "template-change-history" : "template/layouts/layout-changehistory.html",
+      "base" : "{{[type]}}-{{[id]}}.html",
+      "format" : "{{[type]}}-{{[id]}}.{{[fmt]}}.html",
+      "testing" : "{{[type]}}-{{[id]}}-testing.html",
+      "change-history" : "{{[type]}}-{{[id]}}.change.history.html"
+    },
+    "ActorDefinition" : {
+      "template-base" : "template/layouts/layout-canonical.html",
+      "template-format" : "template/layouts/layout-instance-format.html",
+      "template-testing" : "template/layouts/layout-canonical-testing.html",
+      "template-change-history" : "template/layouts/layout-changehistory.html",
+      "base" : "{{[type]}}-{{[id]}}.html",
+      "format" : "{{[type]}}-{{[id]}}.{{[fmt]}}.html",
+      "testing" : "{{[type]}}-{{[id]}}-testing.html",
+      "change-history" : "{{[type]}}-{{[id]}}.change.history.html"
+    },
+    "CapabilityStatement" : {
+      "template-base" : "template/layouts/layout-canonical.html",
+      "template-format" : "template/layouts/layout-instance-format.html",
+      "template-testing" : "template/layouts/layout-canonical-testing.html",
+      "template-change-history" : "template/layouts/layout-changehistory.html",
+      "base" : "{{[type]}}-{{[id]}}.html",
+      "format" : "{{[type]}}-{{[id]}}.{{[fmt]}}.html",
+      "testing" : "{{[type]}}-{{[id]}}-testing.html",
+      "change-history" : "{{[type]}}-{{[id]}}.change.history.html"
+    },
+    "ConceptMap" : {
+      "template-base" : "template/layouts/layout-canonical.html",
+      "template-format" : "template/layouts/layout-instance-format.html",
+      "template-testing" : "template/layouts/layout-canonical-testing.html",
+      "template-change-history" : "template/layouts/layout-changehistory.html",
+      "base" : "{{[type]}}-{{[id]}}.html",
+      "format" : "{{[type]}}-{{[id]}}.{{[fmt]}}.html",
+      "testing" : "{{[type]}}-{{[id]}}-testing.html",
+      "change-history" : "{{[type]}}-{{[id]}}.change.history.html"
+    },
+    "EventDefinition" : {
+      "template-base" : "template/layouts/layout-canonical.html",
+      "template-format" : "template/layouts/layout-instance-format.html",
+      "template-testing" : "template/layouts/layout-canonical-testing.html",
+      "template-change-history" : "template/layouts/layout-changehistory.html",
+      "base" : "{{[type]}}-{{[id]}}.html",
+      "format" : "{{[type]}}-{{[id]}}.{{[fmt]}}.html",
+      "testing" : "{{[type]}}-{{[id]}}-testing.html",
+      "change-history" : "{{[type]}}-{{[id]}}.change.history.html"
+    },
+    "GraphDefinition" : {
+      "template-base" : "template/layouts/layout-canonical.html",
+      "template-format" : "template/layouts/layout-instance-format.html",
+      "template-testing" : "template/layouts/layout-canonical-testing.html",
+      "template-change-history" : "template/layouts/layout-changehistory.html",
+      "base" : "{{[type]}}-{{[id]}}.html",
+      "format" : "{{[type]}}-{{[id]}}.{{[fmt]}}.html",
+      "testing" : "{{[type]}}-{{[id]}}-testing.html",
+      "change-history" : "{{[type]}}-{{[id]}}.change.history.html"
+    },
+    "Library" : {
+      "template-base" : "template/layouts/layout-canonical.html",
+      "template-format" : "template/layouts/layout-instance-format.html",
+      "template-testing" : "template/layouts/layout-canonical-testing.html",
+      "template-change-history" : "template/layouts/layout-changehistory.html",
+      "base" : "{{[type]}}-{{[id]}}.html",
+      "format" : "{{[type]}}-{{[id]}}.{{[fmt]}}.html",
+      "testing" : "{{[type]}}-{{[id]}}-testing.html",
+      "change-history" : "{{[type]}}-{{[id]}}.change.history.html"
+    },
+    "Measure" : {
+      "template-base" : "template/layouts/layout-canonical.html",
+      "template-format" : "template/layouts/layout-instance-format.html",
+      "template-testing" : "template/layouts/layout-canonical-testing.html",
+      "template-change-history" : "template/layouts/layout-changehistory.html",
+      "base" : "{{[type]}}-{{[id]}}.html",
+      "format" : "{{[type]}}-{{[id]}}.{{[fmt]}}.html",
+      "testing" : "{{[type]}}-{{[id]}}-testing.html",
+      "change-history" : "{{[type]}}-{{[id]}}.change.history.html"
+    },
+    "MeasureDefinition" : {
+      "template-base" : "template/layouts/layout-canonical.html",
+      "template-format" : "template/layouts/layout-instance-format.html",
+      "template-testing" : "template/layouts/layout-canonical-testing.html",
+      "template-change-history" : "template/layouts/layout-changehistory.html",
+      "base" : "{{[type]}}-{{[id]}}.html",
+      "format" : "{{[type]}}-{{[id]}}.{{[fmt]}}.html",
+      "testing" : "{{[type]}}-{{[id]}}-testing.html",
+      "change-history" : "{{[type]}}-{{[id]}}.change.history.html"
+    },
+    "MessageDefinition" : {
+      "template-base" : "template/layouts/layout-canonical.html",
+      "template-format" : "template/layouts/layout-instance-format.html",
+      "template-testing" : "template/layouts/layout-canonical-testing.html",
+      "template-change-history" : "template/layouts/layout-changehistory.html",
+      "base" : "{{[type]}}-{{[id]}}.html",
+      "format" : "{{[type]}}-{{[id]}}.{{[fmt]}}.html",
+      "testing" : "{{[type]}}-{{[id]}}-testing.html",
+      "change-history" : "{{[type]}}-{{[id]}}.change.history.html"
+    },
+    "NamingSystem" : {
+      "template-base" : "template/layouts/layout-canonical.html",
+      "template-format" : "template/layouts/layout-instance-format.html",
+      "template-testing" : "template/layouts/layout-canonical-testing.html",
+      "template-change-history" : "template/layouts/layout-changehistory.html",
+      "base" : "{{[type]}}-{{[id]}}.html",
+      "format" : "{{[type]}}-{{[id]}}.{{[fmt]}}.html",
+      "testing" : "{{[type]}}-{{[id]}}-testing.html",
+      "change-history" : "{{[type]}}-{{[id]}}.change.history.html"
+    },
+    "OperationDefinition" : {
+      "template-base" : "template/layouts/layout-canonical.html",
+      "template-format" : "template/layouts/layout-instance-format.html",
+      "template-testing" : "template/layouts/layout-canonical-testing.html",
+      "template-change-history" : "template/layouts/layout-changehistory.html",
+      "base" : "{{[type]}}-{{[id]}}.html",
+      "format" : "{{[type]}}-{{[id]}}.{{[fmt]}}.html",
+      "testing" : "{{[type]}}-{{[id]}}-testing.html",
+      "change-history" : "{{[type]}}-{{[id]}}.change.history.html"
+    },
+    "PlanDefinition" : {
+      "template-base" : "template/layouts/layout-canonical.html",
+      "template-format" : "template/layouts/layout-instance-format.html",
+      "template-testing" : "template/layouts/layout-canonical-testing.html",
+      "template-change-history" : "template/layouts/layout-changehistory.html",
+      "base" : "{{[type]}}-{{[id]}}.html",
+      "format" : "{{[type]}}-{{[id]}}.{{[fmt]}}.html",
+      "testing" : "{{[type]}}-{{[id]}}-testing.html",
+      "change-history" : "{{[type]}}-{{[id]}}.change.history.html"
+    },
+    "Questionnaire" : {
+      "template-base" : "template/layouts/layout-canonical.html",
+      "template-format" : "template/layouts/layout-instance-format.html",
+      "template-testing" : "template/layouts/layout-canonical-testing.html",
+      "template-change-history" : "template/layouts/layout-changehistory.html",
+      "base" : "{{[type]}}-{{[id]}}.html",
+      "format" : "{{[type]}}-{{[id]}}.{{[fmt]}}.html",
+      "testing" : "{{[type]}}-{{[id]}}-testing.html",
+      "change-history" : "{{[type]}}-{{[id]}}.change.history.html"
+    },
+    "Requirements" : {
+      "template-base" : "template/layouts/layout-canonical.html",
+      "template-format" : "template/layouts/layout-instance-format.html",
+      "template-testing" : "template/layouts/layout-canonical-testing.html",
+      "template-change-history" : "template/layouts/layout-changehistory.html",
+      "base" : "{{[type]}}-{{[id]}}.html",
+      "format" : "{{[type]}}-{{[id]}}.{{[fmt]}}.html",
+      "testing" : "{{[type]}}-{{[id]}}-testing.html",
+      "change-history" : "{{[type]}}-{{[id]}}.change.history.html"
+    },
+    "SearchParameter" : {
+      "template-base" : "template/layouts/layout-canonical.html",
+      "template-format" : "template/layouts/layout-instance-format.html",
+      "template-testing" : "template/layouts/layout-canonical-testing.html",
+      "template-change-history" : "template/layouts/layout-changehistory.html",
+      "base" : "{{[type]}}-{{[id]}}.html",
+      "format" : "{{[type]}}-{{[id]}}.{{[fmt]}}.html",
+      "testing" : "{{[type]}}-{{[id]}}-testing.html",
+      "change-history" : "{{[type]}}-{{[id]}}.change.history.html"
+    },
+    "StructureMap" : {
+      "template-base" : "template/layouts/layout-canonical.html",
+      "template-format" : "template/layouts/layout-instance-format.html",
+      "template-testing" : "template/layouts/layout-canonical-testing.html",
+      "template-change-history" : "template/layouts/layout-changehistory.html",
+      "base" : "{{[type]}}-{{[id]}}.html",
+      "format" : "{{[type]}}-{{[id]}}.{{[fmt]}}.html",
+      "testing" : "{{[type]}}-{{[id]}}-testing.html",
+      "change-history" : "{{[type]}}-{{[id]}}.change.history.html"
+    },
+    "TerminologyCapabilities" : {
+      "template-base" : "template/layouts/layout-canonical.html",
+      "template-format" : "template/layouts/layout-instance-format.html",
+      "template-testing" : "template/layouts/layout-canonical-testing.html",
+      "template-change-history" : "template/layouts/layout-changehistory.html",
+      "base" : "{{[type]}}-{{[id]}}.html",
+      "format" : "{{[type]}}-{{[id]}}.{{[fmt]}}.html",
+      "testing" : "{{[type]}}-{{[id]}}-testing.html",
+      "change-history" : "{{[type]}}-{{[id]}}.change.history.html"
+    },
+    "TestScript" : {
+      "template-base" : "template/layouts/layout-canonical.html",
+      "template-format" : "template/layouts/layout-instance-format.html",
+      "template-testing" : "template/layouts/layout-canonical-testing.html",
+      "template-change-history" : "template/layouts/layout-changehistory.html",
+      "base" : "{{[type]}}-{{[id]}}.html",
+      "format" : "{{[type]}}-{{[id]}}.{{[fmt]}}.html",
+      "testing" : "{{[type]}}-{{[id]}}-testing.html",
+      "change-history" : "{{[type]}}-{{[id]}}.change.history.html"
+    }
+  },
+  "script" : "scripts/ant-hl7.xml"
+}

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML>
+<html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
+    <title>{{site.data.fhir.igId | upcase}}\{{site.data.pages[page.path].title | escape_once}} - FHIR v{{site.data.fhir.version}}</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="author" content="http://hl7.org/fhir"/>
+
+    <link href="{{site.data.info.assets}}fhir.css" rel="stylesheet"/>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{{site.data.info.assets}}assets/css/bootstrap-fhir.css" rel="stylesheet"/>
+
+    <!-- Project extras -->
+    <link href="{{site.data.info.assets}}assets/css/project.css" rel="stylesheet"/>
+    <link href="{{site.data.info.assets}}assets/css/pygments-manni.css" rel="stylesheet"/>
+    <link href="{{site.data.info.assets}}assets/css/jquery-ui.css" rel="stylesheet"/>
+  	<link href="{{site.data.info.assets}}assets/css/prism.css" rel="stylesheet" />
+    {% include fragment-css.html %}
+
+    <script type="text/javascript" src="fhir-table-scripts.js"> </script>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="assets/js/html5shiv.js"></script>
+    <script src="assets/js/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Favicons -->
+    <link rel="fhir-logo" sizes="144x144" href="{{site.data.info.assets}}assets/ico/icon-fhir-144.png"/>
+    <link rel="fhir-logo" sizes="114x114" href="{{site.data.info.assets}}assets/ico/icon-fhir-114.png"/>
+    <link rel="fhir-logo" sizes="72x72" href="{{site.data.info.assets}}assets/ico/icon-fhir-72.png"/>
+    <link rel="fhir-logo" href="{{site.data.info.assets}}assets/ico/icon-fhir-57.png"/>
+    <link rel="shortcut icon" href="{{site.data.info.assets}}assets/ico/favicon.png"/>
+  </head>
+  <body onload="document.body.style.opacity='1'">
+{% assign label = {{site.data.pages[page.path].label}} | split: '.0' %}
+	  <script src="{{site.data.info.assets}}assets/js/prism.js"></script>
+
+    <style type="text/css">h2{--heading-prefix:"{{site.data.info.headingOffset}}{{label}}"}
+    h3,h4,h5,h6{--heading-prefix:"{{site.data.info.headingOffset}}{{site.data.pages[page.path].label}}"}</style>
+    <div id="segment-header" class="segment">  <!-- segment-header -->
+      <div class="container">  <!-- container -->
+        {% include fragment-header.html %}
+{% if site.data.info.releaselabel != '' %}
+{% assign status = site.data.info.releaselabel %}
+{% else %}
+{% assign status = site.data.fhir.ig.status %}
+{% endif %}
+        <div id="ig-status">
+          <p><span style="font-size:12pt;font-weight:bold">{{site.data.fhir.ig.title | escape_once}}</span>
+            <br/>
+            <span style="display:inline-block;">{{site.data.fhir.ig.version}} - {{status}}
+{% assign igId = site.data.fhir.ig.id | prepend: "ImplementationGuide/" %}
+{% for jurisdiction in site.data.resources[igId].jurisdictions %}
+{% if jurisdiction.flag %}
+  <img alt="{{jurisdiction.name}} flag" src="assets/images/{{jurisdiction.flag}}.svg" height="16" title="{{jurisdiction.name}}"/>
+{% elsif jurisdiction.code %}
+  <span title="{{jurisdiction.name}}">{{jurisdiction.code}}</span>
+{% else %}
+  {{jurisdiction.name}}
+{% endif %}
+{% endfor %}
+            </span>
+          </p>
+        </div>
+      </div> <!-- /container -->
+    </div>  <!-- /segment-header -->
+
+    <div id="segment-navbar" class="segment">  <!-- segment-navbar -->
+      <div id="stripe"> </div>
+      <div class="container">  <!-- container -->
+        <!-- HEADER CONTENT -->
+
+        <nav class="navbar navbar-inverse">
+          <!--status-bar-->
+          <div class="container">
+            <button data-target=".navbar-inverse-collapse" class="navbar-toggle" data-toggle="collapse" type="button">
+              <span class="icon-bar"> </span>
+              <span class="icon-bar"> </span>
+              <span class="icon-bar"> </span>
+            </button>
+            <a class="navbar-brand hidden" href="{{site.data.fhir.path}}index.html">FHIR</a>
+            <div class="nav-collapse collapse navbar-inverse-collapse">
+              {% include menu.xml %}
+            </div>  <!-- /.nav-collapse -->
+          </div>  <!-- /.container -->
+        </nav>  <!-- /.navbar -->
+      <!-- /HEADER CONTENT -->
+      </div>  <!-- /container -->
+    </div>  <!-- /segment-navbar -->
+    <!--status-bar-->
+{% assign shownav = site.data.info.shownav | downcase | slice: 0 %}
+    <div id="segment-breadcrumb" class="segment">  <!-- segment-breadcrumb -->
+      <div class="container">  <!-- container -->
+        <ul class="breadcrumb">
+          {{site.data.pages[page.path].breadcrumb}}
+{% if shownav == 'y' %}
+          <span style="float:right;">
+{% if site.data.pages[page.path].previous %}
+            <a href="{{site.data.pages[page.path].previous}}">&lt;prev</a> | 
+{% endif %}
+            <a href="#bottom">bottom</a>
+{% if site.data.pages[page.path].next %}
+          | <a href="{{site.data.pages[page.path].next}}">next&gt;</a>
+{% endif %}
+          </span>
+{% endif %}
+        </ul>
+      </div>  <!-- /container -->
+    </div>  <!-- /segment-breadcrumb -->
+
+    <a name="top"> </a>
+    <div id="segment-content" class="segment">  <!-- segment-content -->
+      <div class="container">  <!-- container -->
+        <div class="row">
+          <div class="inner-wrapper">

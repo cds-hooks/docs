@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="ProcessIg">
+  <property name="folder.input" value="input"/>
+  <target name="onLoad.findSpreadsheets">
+    <!-- Look in all input folders that might contain spreadsheets and capture the list of spreadsheet XML files as a property -->
+    <fileset id="spreadsheet.contents.id" dir="${ig.root}">
+      <include name="${folder.input}/examples/*spreadsheet.xml"/>
+      <include name="${folder.input}/extensions/*spreadsheet.xml"/>
+      <include name="${folder.input}/models/*spreadsheet.xml"/>
+      <include name="${folder.input}/profiles/*spreadsheet.xml"/>
+      <include name="${folder.input}/resources/*spreadsheet.xml"/>
+      <include name="${folder.input}/structures/*spreadsheet.xml"/>
+      <include name="${folder.input}/vocabulary/*spreadsheet.xml"/>
+    </fileset>
+    <property name="prop.spreadsheet.contents" refid="spreadsheet.contents.id"/>
+  </target>
+  <target name="onLoad.updateIg" depends="onLoad.findSpreadsheets">
+    <!-- Supplement the IG file with various standard configuration files, as well as with a list of any found spreadsheets (if they're not already enumerated) -->
+    <xslt in="${onLoad.ig.source}xml" out="${onLoad.ig.dest}xml" style="${ig.scripts}/onLoad.xslt">
+      <param name="spreadsheetList" expression="${prop.spreadsheet.contents}"/>
+    </xslt>
+  </target>
+  <extension-point name="onLoad.extend" depends="onLoad.updateIg"/>
+  <target name="onLoad" depends="onLoad.extend">
+    <concat destfile="${ig.template}/onLoad-validation.json" encoding="UTF-8" outputencoding="UTF-8">
+      <header>{"resourceType":"OperationOutcome","issue":[&#x0a;
+      </header>
+      <footer>]}&#x0a;
+      </footer>
+      <filterchain>
+        <tailfilter lines="-1" skip="1"/>
+      </filterchain>
+      <fileset dir="${ig.template}" includes="onLoad-validation*.json"/>
+    </concat>
+  </target>
+  <macrodef name="getSchemas">
+    <attribute name="version"/>
+    <attribute name="url"/>
+    <sequential>
+      <mkdir dir="${dir.schemas}/@{version}"/>
+      <get src="@{url}fhir-single.xsd" dest="${dir.schemas}/@{version}" usetimestamp="true" ignoreerrors="true"/>
+      <get src="@{url}fhir-xhtml.xsd" dest="${dir.schemas}/@{version}" usetimestamp="true" ignoreerrors="true"/>
+      <get src="@{url}xml.xsd" dest="${dir.schemas}/@{version}" usetimestamp="true" ignoreerrors="true"/>
+      <get src="@{url}xmldsig-core-schema.xsd" dest="${dir.schemas}/@{version}" usetimestamp="true" ignoreerrors="true"/>
+    </sequential>
+  </macrodef>
+  <target name="onGenerate.checkVersions">
+    <xslt in="${onGenerate.ig.source}xml" out="${ig.template}/versions.txt" style="${ig.scripts}/onGenerate.getVersions.xslt"/>
+    <loadproperties srcfile="${ig.template}/versions.txt"/>
+    <condition property="dir.schemas" value="${ig.root}/../schemas" else="${ig.root}/input-cache/schemas">
+      <available file="${ig.root}/../schemas" type="dir"/>
+    </condition>
+    <mkdir dir="${dir.schemas}"/>
+  </target>
+  <target name="onGenerate.data">
+    <xslt in="${onGenerate.ig.source}xml" out="${ig.temp}/_data/artifacts.json" style="${ig.scripts}/onGenerate.data.xslt"/>
+  </target>
+  <target name="onGenerate.r5-schemas" depends="onGenerate.checkVersions" if="R5">
+    <getSchemas version="R5" url="http://build.fhir.org/"/>
+  </target>
+  <target name="onGenerate.r4-schemas" depends="onGenerate.checkVersions" if="R4">
+    <getSchemas version="R4" url="http://hl7.org/fhir/R4/"/>
+  </target>
+  <target name="onGenerate.r3-schemas" depends="onGenerate.checkVersions" if="R3">
+    <getSchemas version="R3" url="http://hl7.org/fhir/STU3/"/>
+  </target>
+  <target name="onGenerate.r2b-schemas" depends="onGenerate.checkVersions" if="R2B">
+    <getSchemas version="R2B" url="http://hl7.org/fhir/2016May/"/>
+  </target>
+  <target name="onGenerate.r2-schemas" depends="onGenerate.checkVersions" if="R2">
+    <getSchemas version="R2" url="http://hl7.org/fhir/DSTU2/"/>
+  </target>
+  <target name="onGenerate.schemas" depends="onGenerate.r5-schemas,onGenerate.r4-schemas,onGenerate.r3-schemas,onGenerate.r2b-schemas,onGenerate.r2-schemas"/>
+  <target name="onGenerate.setup">
+    <property name="dir.input" value="${ig.root}/${folder.input}"/>
+    <property name="dir.temp.includes" value="${ig.temp}/_includes" relative="yes"/>
+    <property name="dir.template.includes" value="${ig.template}/includes" relative="yes"/>
+    <loadfile property="groupings" srcFile="${ig.scripts}/groupings.txt" encoding="UTF-8"/>
+  </target>
+  <target name="check-plantumlfiles">
+    <condition property="ig.plantumlfiles.exist">
+      <and>
+        <available type="dir" file="${basedir}/${folder.input}/images-source"/>
+        <resourcecount when="greater" count="0">
+          <fileset file="${basedir}/${folder.input}/images-source/*.plantuml"/>
+        </resourcecount>
+      </and>
+    </condition>
+    <condition property="template.plantumlfiles.exist">
+      <and>
+        <available type="dir" file="${ig.template}/images-source"/>
+        <resourcecount when="greater" count="0">
+          <fileset file="${ig.template}/images-source/*.plantuml"/>
+        </resourcecount>
+      </and>
+    </condition>
+  </target>
+  <target name="onGenerate.plantUml.ig" depends="check-plantumlfiles" if="ig.plantumlfiles.exist">
+    <java jar="${ig.scripts}/plantuml.jar" fork="true" failonerror="true">
+      <jvmarg line="-Dfile.encoding=UTF-8"/>
+      <arg line="-nometadata -tsvg -o &quot;${basedir}/${dir.temp.includes}&quot; &quot;${basedir}/${folder.input}/images-source/*.plantuml&quot;"/>
+    </java>
+  </target>
+  <target name="onGenerate.plantUml.template" depends="check-plantumlfiles" if="template.plantumlfiles.exist">
+    <java jar="${ig.scripts}/plantuml.jar" fork="true" failonerror="true">
+      <jvmarg line="-Dfile.encoding=UTF-8"/>
+      <arg line="-nometadata -tsvg -o &quot;${basedir}/${dir.temp.includes}&quot; &quot;${ig.template}/images-source/*.plantuml&quot;"/>
+    </java>
+  </target>
+  <target name="onGenerate.plantUml" depends="onGenerate.plantUml.ig,onGenerate.plantUml.template"/>
+  <target name="onGenerate.infoFile" depends="onGenerate.setup">
+    <xslt in="${onGenerate.ig.source}xml" out="${ig.temp}/_data/info.json" style="${ig.scripts}/onGenerate.genJson.xslt"/>
+  </target>
+  <target name="onGenerate.processIg">
+    <xslt in="${onGenerate.ig.source}xml" out="${onGenerate.ig.source}1.xml" style="${ig.scripts}/onGenerate.group.xslt"/>
+    <replace file="${onGenerate.ig.source}1.xml" token="&lt;!--TEMPLATE_GROUPS_HERE--&gt;" value="${groupings}"/>
+    <xslt in="${onGenerate.ig.source}1.xml" out="${onGenerate.ig.dest}xml" style="${ig.scripts}/onGenerate.final.xslt"/>
+  </target>
+  <target name="onGenerate.processIncludes" depends="onGenerate.setup">
+    <copy todir="${dir.temp.includes}">
+      <fileset dir="${dir.template.includes}" includes="*"/>
+    </copy>
+  </target>
+  <target name="onGenerate.igQa" depends="onGenerate.processIg">
+    <xslt in="${onGenerate.ig.dest}xml" out="${ig.template}/ongenerate-validation-igqa.json" style="${ig.scripts}/onGenerate.qa.xslt"/>
+  </target>
+  <target name="onGenerate.artifactList" depends="onGenerate.checkVersions,onGenerate.igQa,onGenerate.setup">
+    <xslt in="${onGenerate.ig.dest}xml" out="${dir.temp.includes}/artifacts.xml" style="${ig.scripts}/createArtifactSummary.xslt">
+      <param name="globals" expression="${globals}"/>
+    </xslt>
+    <fileset id="onGenerate.artifacts.id" dir="${ig.root}">
+      <include name="${dir.temp.includes}/artifacts.xml"/>
+      <include name="${dir.temp.includes}/*.svg"/>
+    </fileset>
+    <property name="onGenerate.artifacts.files" refid="onGenerate.artifacts.id"/>
+    <property name="onGenerate.files" value="${onGenerate.artifacts.files}"/>
+  </target>
+  <extension-point name="onGenerate.extend" depends="onGenerate.schemas,onGenerate.data,onGenerate.infoFile,onGenerate.processIncludes,onGenerate.artifactList,onGenerate.plantUml, onGenerate.copyDataFiles"/>
+  <target name="onGenerate" depends="onGenerate.extend">
+<!--    <resources id="onGenerate.files.id">
+      <fileset refid="onGenerate.artifacts.id"/>
+    </resources>
+    <property name="onGenerate.files" refid="onGenerate.files.id"/>-->
+    <echo file="${ig.template}/onGenerate-validation.json" message="{&quot;resourceType&quot;:&quot;OperationOutcome&quot;,&quot;issue&quot;:[&#x0a;"/>
+    <concat destfile="${ig.template}/onGenerate-validation.json" encoding="UTF-8" outputencoding="UTF-8" append="yes">
+      <fileset dir="${ig.template}" includes="ongenerate-validation*.json" />
+      <filterchain>
+        <tailfilter lines="-1" skip="0"/>
+<!--        <tailfilter lines="-1" skip="1"/>-->
+      </filterchain>
+    </concat>
+    <echo file="${ig.template}/onGenerate-validation.json" message="]}&#x0a;" append="yes"/>
+    <replace file="${ig.template}/onGenerate-validation.json" token=",]}" value="]}"/>
+  </target>
+  <scriptdef name="appendArtifacts" language="javascript" description="Adds additional values to the to the onGenerate.files list">
+    <attribute name="files"/>
+    self.project.setProperty("onGenerate.files", self.project.getProperty("onGenerate.files").concat(";").concat(attributes.get("files")));
+  </scriptdef>
+
+  <target name="onGenerate.copyDataFiles">
+  <!-- Jekyll data files from IG (input/data) or from template -->
+    <copy todir="${ig.temp}/_data" failonerror="false">
+      <fileset dir="${ig.template}/data"/>
+    </copy>
+  <!-- input/data already works, no need to add (commenting out in case we need to revisit due to conflicts and overlaps ) -->
+  <!--
+         <copy todir="${ig.temp}/_data" failonerror="false">
+      <fileset dir="${dir.input}/data"/>
+    </copy>
+  -->  
+  </target>
+
+</project>

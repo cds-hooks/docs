@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<specification xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ciUrl="" defaultVersion="current" defaultWorkgroup="cds" url="https://cds-hooks.hl7.org">
+<version code="current" url=""/>
+<artifactPageExtension value="-definitions"/>
+<artifactPageExtension value="-examples"/>
+<artifactPageExtension value="-mappings"/>
+<artifact id="StructureDefinition/MyPatient" key="StructureDefinition-MyPatient" name="MyPatient"/>
+<artifact id="Patient/PatientExample" key="Patient-PatientExample" name="PatientExample"/>
+<page key="NA" name="(NA)"/>
+<page key="many" name="(many)"/>
+<page key="artifacts" name="Artifacts Summary"/>
+<page key="extensions-datatypes" name="Extensions Datatypes"/>
+<page key="index" name="Home"/>
+<page key="hooks" name="Hooks"/>
+<page key="security" name="Security"/>
+<page key="services" name="Services"/>
+<page key="toc" name="Table of Contents"/>
+</specification>

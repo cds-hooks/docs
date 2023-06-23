@@ -1,0 +1,38 @@
+---
+---
+{% include fragment-pagebegin.html %}
+<div class="col-12">
+  <!--ReleaseHeader--><p id="publish-box">Publish Box goes here</p><!--EndReleaseHeader-->
+  {% include fragment-base-navtabs.html type='{{[type]}}' id='{{[id]}}' active='testing' %}
+  <a name="root"> </a>
+  <h2 id="root">{{[type]}}: {{site.data.pages[page.path].title | escape_once}}
+{% if site.data.resources[resource_].experimental == true %}(Experimental){% endif %}
+  </h2>
+
+{% include fragment-simpletable.html %}
+
+{% assign basepath = page.path | replace: '-testing.html', '.html' %}
+{% if site.data.pages[basepath].testscripts.size > 0 %}
+  <p>TestScripts for the {{[id]}} {{[type]}}.</p>
+  <table style="grid">
+    <tbody>
+      {% for testscript in site.data.pages[basepath].testscripts %}
+        <tr>
+          <td>
+            <a href="{{testscript.url}}">{{testscript.title | escape_once}}</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+  <p><b>No TestScripts are currently available for the {{id}} {{[type]}}.</b></p>
+{% endif %}
+
+<!-- insert notes if present -->
+{% include fragment-notes.html type='{{[type]}}' id='{{[id]}}' %}
+
+{%include {{[type]}}-{{[id]}}-history.xhtml%}
+
+</div>
+{% include fragment-pageend.html %}

@@ -1,0 +1,2 @@
+jiraSpecFile:OTHER-cds-hooks
+packagelisturl:https://cds-hooks.hl7.org/package-list.json

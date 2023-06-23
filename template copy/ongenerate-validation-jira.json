@@ -1,0 +1,2 @@
+
+{"severity":"error","code":"informational","details":{"text":"There is no jira specification file defined with the expected name of OTHER-cds-hooks in the xml folder of the  https://github.com/HL7/Jira-Spec-Artifacts project.  This must exist before ballot or publication."}}
