@@ -1,0 +1,2 @@
+# empty .gitignore to keep a fsh folder around
+# solves https://github.com/HL7/fhir-ig-publisher/issues/187
