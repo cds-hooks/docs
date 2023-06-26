@@ -14,6 +14,11 @@ The context contains all order details, such as dose, quantity, route, etc,
 although the order has not yet been signed and therefore still exists in a draft status. 
 Use this hook when your service requires all order details, and the clinician will accept recommended changes.
 
+This hook can also be used when an order or set of orders is being 're-signed' after revision (e.g. change
+to status, extending dates, or other changes allowed to signed orders within the system's workflow).  In this
+case, the orders would typically have a status other than 'draft'.  In some cases, the hook might fire with a
+mixture of new and revised orderes.
+
 This hook is intended to replace (deprecate) the `medication-prescribe` and `order-review` hooks. 
 
 ## Context
@@ -23,7 +28,7 @@ Field | Optionality | Prefetch Token | Type | Description
 `userId` | REQUIRED | Yes | *string* | The id of the current user.<br />For this hook, the user is expected to be of type [Practitioner](https://www.hl7.org/fhir/practitioner.html) or [PractitionerRole](https://www.hl7.org/fhir/practitionerrole.html).<br />For example, `PractitionerRole/123` or `Practitioner/abc`.
 `patientId` | REQUIRED | Yes | *string* |  The FHIR `Patient.id` of the current patient in context
 `encounterId` | OPTIONAL | Yes | *string* |  The FHIR `Encounter.id` of the current encounter in context
-`draftOrders` | REQUIRED | No | *object* | DSTU2 - FHIR Bundle of MedicationOrder, DiagnosticOrder, DeviceUseRequest, ReferralRequest, ProcedureRequest, NutritionOrder, VisionPrescription with _draft_ status <br/> STU3 - FHIR Bundle of MedicationRequest, ReferralRequest, ProcedureRequest, NutritionOrder, VisionPrescription with _draft_ status <br/> R4 - FHIR Bundle of DeviceRequest, MedicationRequest, NutritionOrder, ServiceRequest, VisionPrescription with _draft_ status
+`draftOrders` | REQUIRED | No | *object* | DSTU2 - FHIR Bundle of MedicationOrder, DiagnosticOrder, DeviceUseRequest, ReferralRequest, ProcedureRequest, NutritionOrder, VisionPrescription with _draft_ status <br/> STU3 - FHIR Bundle of MedicationRequest, ReferralRequest, ProcedureRequest, NutritionOrder, VisionPrescription with _draft_ status <br/> R4 - FHIR Bundle of DeviceRequest, MedicationRequest, NutritionOrder, ServiceRequest, VisionPrescription (typically with _draft_ status)
 
 
 
@@ -543,3 +548,4 @@ Version | Description
 ---- | ----
 1.0 | Initial Release
 1.0.1 | Add DeviceRequest to list of order resources for R4.
+1.1.0 | Updated hook to all for use in order-revision situations
