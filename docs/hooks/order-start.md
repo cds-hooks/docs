@@ -1,7 +1,6 @@
 `order-start`
 
-!!! info
-    This page defines a workflow [hook](../../specification/current/#hooks) for the purpose of providing clinical decision support using CDS Hooks. This is a build at the level of [Draft](http://hl7.org/fhir/versions.html#std-processs).
+This page defines a workflow [hook](../../specification/current/#hooks) for the purpose of providing clinical decision support using CDS Hooks. This is a build at the level of [Draft](http://hl7.org/fhir/versions.html#std-processs).
 
 | Metadata | Value
 | ---- | ----
@@ -18,18 +17,18 @@ CDS Services should consider including the patient's current active problems, cu
 
 Field | Optionality | Prefetch Token | Type | Description
 ----- | -------- | ---- | ---- | ----
-`userId` | REQUIRED | Yes | *string* | The id of the current user.<br />For this hook, the user is expected to be of type [Practitioner](https://www.hl7.org/fhir/practitioner.html) or [PractitionerRole](https://www.hl7.org/fhir/practitionerrole.html).<br />For example, `PractitionerRole/123` or `Practitioner/abc`.
+`userId` | REQUIRED | Yes | *string* | The id of the current user.<br />For this hook, the user is expected to be of type [Practitioner](https://www.hl7.org/fhir/practitioner.html) or [PractitionerRole](https://www.hl7.org/fhir/practitionerrole.html).<br>For example, `PractitionerRole/123` or `Practitioner/abc`.
 `patientId` | REQUIRED | Yes | *string* |  The FHIR `Patient.id` of the current patient in context
 `encounterId` | REQUIRED | Yes | *string* |  The FHIR `Encounter.id` of the current encounter in context
-`activeProblems` | OPTIONAL | No| *object* | FHIR Bundle with the patient's current active problems.  <br/ > DSTU2 - FHIR Bundle of Condition. <br/ > STU3 - FHIR Bundle of Condition. <br/ > R4 - FHIR Bundle of Condition. <br/ > R5 - FHIR Bundle of Condition.
-`activeMedications` | OPTIONAL | No| *object* | FHIR Bundle with the patient's current active medications.  <br/ > DSTU2 - FHIR Bundle of MedicationStatement. <br/ > STU3 - FHIR Bundle of MedicationStatement. <br/ > R4 - FHIR Bundle of MedicationRequest. <br/ > R5 - FHIR Bundle of MedicationRequest.
-`labResults` | OPTIONAL | No| *object* | FHIR Bundle with the patient's most recent lab results.  <br/ > DSTU2 - FHIR Bundle of Observation. <br/ > STU3 - FHIR Bundle of Observation. <br/ > R4 - FHIR Bundle of Observation. <br/ > R5 - FHIR Bundle of Observation.
-`patientAllergyIntolerances` | OPTIONAL | No| *object* | FHIR Bundle with the patient's active allergies and intolerances.  <br/ > DSTU2 - FHIR Bundle of AllergyIntolerance. <br/ > STU3 - FHIR Bundle of AllergyIntolerance. <br/ > R4 - FHIR Bundle of AllergyIntolerance. <br/> R5 - FHIR Bundle of AllergyIntolerance.
+`activeProblems` | OPTIONAL | Yes | *object* | FHIR Bundle with the patient's current active problems.  <br> DSTU2 - FHIR Bundle of Condition. <br> STU3 - FHIR Bundle of Condition. <br> R4 - FHIR Bundle of Condition. <br> R5 - FHIR Bundle of Condition.
+`activeMedications` | OPTIONAL | Yes | *object* | FHIR Bundle with the patient's current active medications.  <br> DSTU2 - FHIR Bundle of MedicationStatement. <br> STU3 - FHIR Bundle of MedicationStatement. <br> R4 - FHIR Bundle of MedicationRequest. <br> R5 - FHIR Bundle of MedicationRequest.
+`labResults` | OPTIONAL | Yes | *object* | FHIR Bundle with the patient's most recent lab results.  <br> DSTU2 - FHIR Bundle of Observation. <br> STU3 - FHIR Bundle of Observation. <br> R4 - FHIR Bundle of Observation. <br> R5 - FHIR Bundle of Observation.
+`patientAllergyIntolerances` | OPTIONAL | Yes | *object* | FHIR Bundle with the patient's active allergies and intolerances.  <br> DSTU2 - FHIR Bundle of AllergyIntolerance. <br> STU3 - FHIR Bundle of AllergyIntolerance. <br> R4 - FHIR Bundle of AllergyIntolerance. <br> R5 - FHIR Bundle of AllergyIntolerance.
  
 
 ## Examples
 
-### Example (R4)
+### Example
 
 ```json
 {
