@@ -62,11 +62,12 @@ publisher:
 # http://build.fhir.org/codesystem-guide-parameter-code.html
 # For parameters defined by the FHIR Tools IG see:
 # http://build.fhir.org/ig/FHIR/fhir-tools-ig/branches/master/CodeSystem-ig-parameters.html
-#
-# parameters:
-#   excludettl: true
-#   validation: [allow-any-extensions, no-broken-links]
-#
+
+parameters:
+  excludettl: true
+#  validation: [allow-any-extensions, no-broken-links]
+  shownav: true
+
 # ╭────────────────────────────────────────────menu.xml────────────────────────────────────────────╮
 # │ The menu property will be used to generate the input/menu.xml file. The menu is represented    │
 # │ as a simple structure where the YAML key is the menu item name and the value is the URL.       │
