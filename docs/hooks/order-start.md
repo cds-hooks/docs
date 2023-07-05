@@ -12,9 +12,10 @@ This page defines a workflow [hook](../../specification/current/#hooks) for the 
 
 The `order-start` hook fires when the clinician has reached the point in the workflow where they are ready to begin adding new orders (including orders for medications, procedures, labs and other orders) for the patient. This point in the workflow will usually occur during the encounter when the clinician has completed the examination and assessment, but before they have searched for or selected a given order. 
 
+## Context
+
 Post-order alert/change has been determined a major cause of alert fatigue and is cited specifically in studies on physician burnout. The purpose of the hook is to allow guidance services to make order recommendations to the clinician at the point where sufficient clinical data for the patient has been collected but before any orders have been selected.
 
-## Context
 Field | Optionality | Prefetch Token | Type | Description
 ----- | -------- | ---- | ---- | ----
 `userId` | REQUIRED | Yes | *string* | The id of the current user.<br />For this hook, the user is expected to be of type [Practitioner](https://www.hl7.org/fhir/practitioner.html) or [PractitionerRole](https://www.hl7.org/fhir/practitionerrole.html).<br>For example, `PractitionerRole/123` or `Practitioner/abc`.
@@ -22,7 +23,7 @@ Field | Optionality | Prefetch Token | Type | Description
 `encounterId` | REQUIRED | No | *string* |  The FHIR `Encounter.id` of the current encounter in context
 
 ## Prefetch
-CDS clients should consider including the patient's current active problems, current medication list, lab results, and allergy/intolerance information as prefetch data. Given that these items will necessarily vary, they should all be considered as optional values.
+CDS clients should consider including the patient's current active problems, current medication list, lab results, allergy/intolerance and patient goal information as prefetch data. Given that these items will necessarily vary, they should all be considered as optional values.
 
 Field | Type | Description
 ----- | ---- | ----
@@ -36,7 +37,7 @@ Field | Type | Description
 
 ## Examples
 
-### Example (context)
+### Example (R4) (context)
 
 ```json
 {
@@ -47,7 +48,7 @@ Field | Type | Description
          }
 }
 ```
-## Example (prefetch)
+## Example (R4) (prefetch)
 ```json
 {
    "prefetch": {
