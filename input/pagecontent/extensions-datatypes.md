@@ -57,5 +57,5 @@ Field | Optionality | Type | Description
 ----- | ----- | ----- | --------
 `code` | REQUIRED | *string* | The code for what is being represented
 `system` | REQUIRED | *string* | The codesystem for this `code`.
-`display` | CONDITIONAL | *string* | A short, human-readable label to display. REQUIRED for [Override Reasons](#overridereason) provided by the CDS Service, OPTIONAL for [Topic](#topic).
+`display` | CONDITIONAL | *string* | A short, human-readable label to display. REQUIRED for [Override Reasons](services.html#overridereason) provided by the CDS Service, OPTIONAL for [Topic](#services.html#source).
 {:.grid}
