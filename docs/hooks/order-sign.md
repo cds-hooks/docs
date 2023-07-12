@@ -17,7 +17,7 @@ Use this hook when your service requires all order details, and the clinician wi
 This hook can also be used when an order or set of orders is being 're-signed' after revision (e.g. change
 to status, extending dates, or other changes allowed to signed orders within the system's workflow).  In this
 case, the orders would typically have a status other than 'draft'.  In some cases, the hook might fire with a
-mixture of new and revised orderes.
+mixture of new and revised orders.
 
 This hook is intended to replace (deprecate) the `medication-prescribe` and `order-review` hooks. 
 
