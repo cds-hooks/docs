@@ -30,7 +30,7 @@ Alternatively, a CDS Service may need the full patient resource in certain scena
 }
 ```
 
-See the section on [prefetch tokens](#prefetch-tokens) for more information on how contextual information can be used to parameterize prefetch templates.
+See the section on [prefetch tokens](services.html#prefetch-tokens) for more information on how contextual information can be used to parameterize prefetch templates.
 
 Consider another hook for when a new patient is being registered. In this case, it would likely be appropriate for the context to contain the full FHIR resource for the patient being registered as the patient may not be yet recorded in the CDS Client (and thus not available from the FHIR server) and CDS Services using this hook would predominantly be interested in the details of the patient being registered.
 
