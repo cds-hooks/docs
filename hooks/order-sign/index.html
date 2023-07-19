@@ -705,6 +705,10 @@ This hook is among the last workflow events before an order is promoted out of a
 The context contains all order details, such as dose, quantity, route, etc, 
 although the order has not yet been signed and therefore still exists in a draft status. 
 Use this hook when your service requires all order details, and the clinician will accept recommended changes.</p>
+<p>This hook can also be used when an order or set of orders is being 're-signed' after revision (e.g. change
+to status, extending dates, or other changes allowed to signed orders within the system's workflow).  In this
+case, the orders would typically have a status other than 'draft'.  In some cases, the hook might fire with a
+mixture of new and revised orders.</p>
 <p>This hook is intended to replace (deprecate) the <code>medication-prescribe</code> and <code>order-review</code> hooks. </p>
 <h2 id="context">Context<a class="headerlink" href="#context" title="Permanent link">&para;</a></h2>
 <table>
@@ -744,7 +748,7 @@ Use this hook when your service requires all order details, and the clinician wi
 <td>REQUIRED</td>
 <td>No</td>
 <td><em>object</em></td>
-<td>DSTU2 - FHIR Bundle of MedicationOrder, DiagnosticOrder, DeviceUseRequest, ReferralRequest, ProcedureRequest, NutritionOrder, VisionPrescription with <em>draft</em> status <br/> STU3 - FHIR Bundle of MedicationRequest, ReferralRequest, ProcedureRequest, NutritionOrder, VisionPrescription with <em>draft</em> status <br/> R4 - FHIR Bundle of DeviceRequest, MedicationRequest, NutritionOrder, ServiceRequest, VisionPrescription with <em>draft</em> status</td>
+<td>DSTU2 - FHIR Bundle of MedicationOrder, DiagnosticOrder, DeviceUseRequest, ReferralRequest, ProcedureRequest, NutritionOrder, VisionPrescription (typically with <em>draft</em> status) <br/> STU3 - FHIR Bundle of MedicationRequest, ReferralRequest, ProcedureRequest, NutritionOrder, VisionPrescription (typically with <em>draft</em> status) <br/> R4 - FHIR Bundle of DeviceRequest, MedicationRequest, NutritionOrder, ServiceRequest, VisionPrescription (typically with <em>draft</em> status)</td>
 </tr>
 </tbody>
 </table>
@@ -1760,6 +1764,10 @@ Use this hook when your service requires all order details, and the clinician wi
 <tr>
 <td>1.0.1</td>
 <td>Add DeviceRequest to list of order resources for R4.</td>
+</tr>
+<tr>
+<td>1.1.0</td>
+<td>Updated hook to all for use in order-revision situations</td>
 </tr>
 </tbody>
 </table>
