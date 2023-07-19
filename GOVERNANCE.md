@@ -2,8 +2,8 @@
 
 - [Overview](#overview)
 - [Roles](#roles)
-   - [Project Management Committee](#project-management-committee)
    - [Committers](#committers)
+   - [Project Management Committee](#project-management-committee)
    - [PMC Chair](#pmc-chair)
    - [Contributors](#contributors)
    - [Implementers](#implementers)
