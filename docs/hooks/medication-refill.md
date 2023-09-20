@@ -9,18 +9,20 @@
 
 The `medication-refill` hook fires when a medication refill is requested for an existing prescription of a specific medication. A refill request may be made as part of an encounter or out-of-band through a pharmacy. There may not be either an encounter or user in context when the refill request is received.  A CDS service may use this hook to deliver medication refill protocol guidance to a clinician.
 
+This hook does not fire for an initial prescription (see order-sign).
+
 ## Context
 
-The set of medications proposed or in progress of being prescribed. All FHIR resources in this context MUST be based on the same FHIR version. All FHIR resources in the medications object MUST have a status of _draft_.
+The set of medications in the process of being refilled. All FHIR resources in this context MUST be based on the same FHIR version. All FHIR resources in the medications object MUST have a status of _draft_.
 
 Field | Optionality | Prefetch Token | Type | Description
 ----- | -------- | ---- | ---- | ----
 `userId` | OPTIONAL | Yes | *string* | The id of the current user.<br />For this hook, the user is expected to be of type [Practitioner](https://www.hl7.org/fhir/practitioner.html).<br />For example, `Practitioner/123`
 `patientId` | REQUIRED | Yes | *string* |  The FHIR `Patient.id` of the current patient in context
 `encounterId` | OPTIONAL | Yes | *string* |  The FHIR `Encounter.id` of the current encounter in context
-`medications` | REQUIRED | No | *object* | DSTU2 - FHIR Bundle of _draft_ MedicationOrder resources <br/> STU3 - FHIR Bundle of _draft_ MedicationRequest resources
+`medications` | REQUIRED | No | *object* | R4 - FHIR Bundle of _draft_ MedicationRequest resources
 
-### Example (STU3)
+### Example (R4)
 
 ```json
 {
@@ -35,17 +37,11 @@ Field | Optionality | Prefetch Token | Type | Description
                "resource":{
                   "resourceType":"MedicationRequest",
                   "id":"smart-MedicationRequest-104",
-                  "status":"draft",
-                  "intent":"order",
-                  "medicationCodeableConcept":{
-                     "coding":[
-                        {
-                           "system":"http://www.nlm.nih.gov/research/umls/rxnorm",
-                           "code":"211307",
-                           "display":"Azithromycin 20 MG/ML Oral Suspension [Zithromax]"
-                        }
-                     ],
-                     "text":"Azithromycin 20 MG/ML Oral Suspension [Zithromax]"
+                  "status":"active",
+                  "intent":"proposal",
+                  "medicationReference": {
+                     "reference": "Medication/eFnx9hyX.YTNJ407PR9g4zpiT8lXCElOXkldLgGDYrAU-fszvYmrUZlYzRfJl-qKj3",
+                     "display": "oxybutynin (DITROPAN XL) CR tablet"
                   },
                   "subject":{
                      "reference":"Patient/1288992"
