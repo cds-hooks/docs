@@ -10,9 +10,9 @@
 {
   "hookInstance": "d1577c69-dfbe-44ad-ba6d-3e05e953b2ea",
   "fhirServer": "http://fhir.example.com",
-  "hook": "medication-prescribe",
-  "user": "Practitioner/example",
+  "hook": "order-sign",
   "context": {
+    "userId": "Practitioner/example",
     "medications": [
       {
         "resourceType": "MedicationOrder",
@@ -134,93 +134,119 @@ This example is taken from the [Opioid Prescribing Support Implementation Guide]
 
 > CDS Service Request
 
-> This example illustrates the use of the CDS Hooks `order-review` hook to implement Radiology Appropriateness scoring.
+> This example illustrates the use of the CDS Hooks `order-select` hook to implement Radiology Appropriateness scoring.
 
 ```json
 {
+  "hook": "order-select",
   "hookInstance": "d1577c69-dfbe-44ad-ba6d-3e05e953b2ea",
-  "fhirServer": "http://fhir.example.com",
-  "hook": "order-review",
-  "user": "Practitioner/example",
+  "fhirServer": "http://hooks.smarthealthit.org:9080",
   "context": {
-    "orders": [
-      {
-        "resourceType": "ProcedureRequest",
-        "id": "procedure-request-1",
-        "status": "draft",
-        "intent": "proposal",
-        "priority": "routine",
-        "code": {
-          "coding": [{
-            "system": "http://www.ama-assn.org/go/cpt",
-            "code": "70450",
-            "display": "CT, head, wo iv contrast"
-          }]
-        },
-        "subject": {
-          "reference": "Patient/example"
-        },
-        "requester": {
-          "agent": {
-            "reference": "Practitioner/exampmle"
+    "userId": "Practitioner/123",
+    "patientId": "MRI-59879846",
+    "encounterId": "89284",
+    "selections": [
+      "ServiceRequest/example-MRI-59879846"
+    ],
+    "draftOrders": {
+      "resourceType": "Bundle",
+      "entry": [
+        {
+          "resource": {
+            "resourceType": "ServiceRequest",
+            "id": "example-MRI-59879846",
+            "status": "draft",
+            "intent": "plan",
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "36801-9"
+                }
+              ],
+              "text": "MRA Knee Vessels Right"
+            },
+            "subject": {
+              "reference": "Patient/MRI-59879846"
+            },
+            "reasonCode": [
+              {
+                "coding": [
+                  {
+                    "system": "http://hl7.org/fhir/sid/icd-10",
+                    "code": "S83.511",
+                    "display": "Sprain of anterior cruciate ligament of right knee"
+                  }
+                ]
+              }
+            ]
           }
         }
-      }
-    ],
-    "patientId": "1288992"
+      ]
+    }
   }
 }
 ```
 
 > CDS Service Response
 
-> The appropriateness score is communicated via an update of the procedure request that adds an extension element to indicate the appropriateness rating.
+> The appropriateness score is communicated via a `systemAction` of the ServiceRequest that adds an extension element to indicate the appropriateness rating. See the [CDS Hooks for PAMA Argonaut specification](https://github.com/argonautproject/cds-hooks-for-pama/blob/master/docs/index.md) for more.
 
 ```json
 {
-  "cards": [
-    {
-      "summary": "Usually appropriate",
-      "indicator": "info",
-      "detail": "The requested procedure is usually appropriate for the given indications.",
-      "suggestions": [
-        {
-          "label": "The appropriateness score for this procedure given these indications is 9, usually appropriate.",
-          "actions": [{
-            "type": "update",
-            "description": "Update the order to record the appropriateness score.",
-            "resource": {
-              "resourceType": "ProcedureRequest",
-              "id": "procedure-request-1",
-              "extension": [
-                {
-                  "url": "http://hl7.org/fhir/us/qicore/StructureDefinition/procedurerequest-appropriatenessScore",
-                  "valueDecimal": "9"
-                }
-              ],
-              "status": "draft",
-              "intent": "proposal",
-              "priority": "routine",
-              "code": {
-                "coding": [{
-                  "system": "http://www.ama-assn.org/go/cpt",
-                  "code": "70450",
-                  "display": "CT, head, wo iv contrast"
-                }]
-              },
-              "subject": {
-                "reference": "Patient/example"
-              },
-              "requester": {
-                "agent": {
-                  "reference": "Practitioner/exampmle"
-                }
-              }
-            }
-          }]
-        }
-      ]
-    }
-  ]
+   "cards":[
+      
+   ],
+   "systemActions":[
+      {
+         "type":"update",
+         "resource":{
+            "resourceType":"ServiceRequest",
+            "id":"example-MRI-59879846",
+            "extension":[
+               {
+                  "url":"http://fhir.org/argonaut/Extension/pama-rating",
+                  "valueCodeableConcept":{
+                     "coding":[
+                        {
+                           "system":"http://fhir.org/argonaut/CodeSystem/pama-rating",
+                           "code":"appropriate"
+                        }
+                     ]
+                  }
+               },
+               {
+                  "url":"http://fhir.org/argonaut/Extension/pama-rating-consult-id",
+                  "valueUri":"urn:uuid:55f3b7fc-9955-420e-a460-ff284b2956e6"
+               }
+            ],
+            "status":"draft",
+            "intent":"plan",
+            "code":{
+               "coding":[
+                  {
+                     "system":"http://loinc.org",
+                     "code":"36801-9"
+                  }
+               ],
+               "text":"MRA Knee Vessels Right"
+            },
+            "subject":{
+               "reference":"Patient/MRI-59879846"
+            },
+            "reasonCode":[
+               {
+                  "coding":[
+                     {
+                        "system":"http://hl7.org/fhir/sid/icd-10",
+                        "code":"S83.511",
+                        "display":"Sprain of anterior cruciate ligament of right knee"
+                     }
+                  ]
+               }
+            ]
+         }
+      }
+   ]
 }
 ```
