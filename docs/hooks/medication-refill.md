@@ -7,7 +7,7 @@
 
 ## Workflow
 
-The `medication-refill` hook fires when a medication refill is requested for an existing prescription of a specific medication. A refill request may be made as part of an encounter or out-of-band through a pharmacy. There may not be either an encounter or user in context when the refill request is received.  A CDS service may use this hook to deliver medication refill protocol guidance to a clinician.
+The `medication-refill` hook fires when a medication refill is requested for an existing prescription of a specific medication. A refill request may be made as part of an encounter or out-of-band through a pharmacy. Since a prescription refill is requested outside of the prescriber's workflow (by the patient or pharmacy), there often is not a user in context. There may not be either an encounter or user in context when the refill request is received.  A CDS service may use this hook to deliver medication refill protocol guidance to a clinician.
 
 This hook does not fire for an initial prescription (see order-sign).
 
@@ -17,9 +17,9 @@ The set of medications in the process of being refilled. All FHIR resources in t
 
 Field | Optionality | Prefetch Token | Type | Description
 ----- | -------- | ---- | ---- | ----
-`userId` | OPTIONAL | Yes | *string* | The id of the current user.<br />For this hook, the user is expected to be of type [Practitioner](https://www.hl7.org/fhir/practitioner.html).<br />For example, `Practitioner/123`
+`userId` | OPTIONAL | Yes | *string* | The id of the current user entering the refill request within the CPOE. <br />For this hook, the user is expected to be of type [Practitioner](https://www.hl7.org/fhir/practitioner.html).<br />For example, `Practitioner/123`
 `patientId` | REQUIRED | Yes | *string* |  The FHIR `Patient.id` of the current patient in context
-`encounterId` | OPTIONAL | Yes | *string* |  The FHIR `Encounter.id` of the current encounter in context
+`encounterId` | OPTIONAL | Yes | *string* |  The FHIR `Encounter.id` of the encounter associated with the refill of the prescription. 
 `medications` | REQUIRED | No | *object* | R4 - FHIR Bundle of _draft_ MedicationRequest resources
 
 ### Example (R4)
