@@ -7,9 +7,9 @@
 
 ## Workflow
 
-The `medication-refill` hook fires when a medication refill is requested for an existing prescription of a specific medication. A refill request may be made as part of an encounter or out-of-band through a pharmacy. Since a prescription refill is requested outside of the prescriber's workflow (by the patient or pharmacy), there often is not a user in context. There may not be either an encounter or user in context when the refill request is received.  A CDS service may use this hook to deliver medication refill protocol guidance to a clinician.
+The `medication-refill` hook fires when a medication refill request for an existing prescription of a specific medication is received. A refill request may be made as part of an encounter or out-of-band through a pharmacy or patient portal. Since a prescription refill is requested outside of the prescriber's workflow, there often is not a user in context. Similarly, the encounter may be an auto-generated refill encounter or there may not be an encounter in context when the refill request is received.  A CDS service may use this hook to deliver medication refill protocol guidance to a clinician. Given the asynchronous workflow of refill requests, the guidance returned by the service may be viewed immediately, or not.
 
-This hook does not fire for an initial prescription (see order-sign).
+This hook does not fire for an initial prescription (see order-sign). "Re-prescribing" or replacing a previously active prescription with a new perscription for the same medication may not fire the medication-refill.
 
 ## Context
 
@@ -17,10 +17,10 @@ The set of medications in the process of being refilled. All FHIR resources in t
 
 Field | Optionality | Prefetch Token | Type | Description
 ----- | -------- | ---- | ---- | ----
-`userId` | OPTIONAL | Yes | *string* | The id of the current user entering the refill request within the CPOE. <br />For this hook, the user is expected to be of type [Practitioner](https://www.hl7.org/fhir/practitioner.html).<br />For example, `Practitioner/123`
+`userId` | OPTIONAL | Yes | *string* | In the case when this field is empty, consider the FHIR resource's requestor and recorder elements. <br />The id of the current user entering the refill request within the CPOE. For this hook, the user is expected to be of type Practitioner or PractitionerRole. For example, PractitionerRole/123 or Practitioner/abc.
 `patientId` | REQUIRED | Yes | *string* |  The FHIR `Patient.id` of the current patient in context
 `encounterId` | OPTIONAL | Yes | *string* |  The FHIR `Encounter.id` of the encounter associated with the refill of the prescription. 
-`medications` | REQUIRED | No | *object* | R4 - FHIR Bundle of _draft_ MedicationRequest resources
+`medications` | REQUIRED | No | *object* | R4 - FHIR Bundle of _draft_, _order_ MedicationRequest resources
 
 ### Example (R4)
 
@@ -37,8 +37,8 @@ Field | Optionality | Prefetch Token | Type | Description
                "resource":{
                   "resourceType":"MedicationRequest",
                   "id":"smart-MedicationRequest-104",
-                  "status":"active",
-                  "intent":"proposal",
+                  "status":"draft",
+                  "intent":"order",
                   "medicationReference": {
                      "reference": "Medication/eFnx9hyX.YTNJ407PR9g4zpiT8lXCElOXkldLgGDYrAU-fszvYmrUZlYzRfJl-qKj3",
                      "display": "oxybutynin (DITROPAN XL) CR tablet"
