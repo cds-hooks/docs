@@ -2,7 +2,7 @@
 
 | Metadata | Value
 | ---- | ----
-| specificationVersion | 1.0
+| specificationVersion | 2.0
 | hookVersion | 0.1.0
 
 ## Workflow
