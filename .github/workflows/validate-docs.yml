@@ -1,0 +1,42 @@
+name: Validate docs
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    types: [opened, synchronize] # This will trigger the workflow only when a PR is opened or updated with new commits
+
+jobs:
+  sushi:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Sushi
+        run: sudo npm install -g fsh-sushi
+
+      - name: Validate with Sushi
+        run: sushi .
+
+  ig-publisher:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Jekyll
+        run: sudo gem install jekyll
+
+      - name: Install Sushi
+        run: sudo npm install -g fsh-sushi
+
+      - name: Install IG publisher
+        run: |
+          chmod +x ./_updatePublisher.sh
+          ./_updatePublisher.sh -y
+
+      - name: Validate IG
+        run: |
+          chmod +x ./_genonce.sh
+          ./_genonce.sh
