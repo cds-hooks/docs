@@ -14,6 +14,17 @@ Note: This is distinct from the `patient-view` hook which occurs any time the pa
 
 The intention is that the cards from any invoked CDS Services are available at the time when decisions are being made about what actions are going to occur during this encounter.  For example, identifying that the patient is due for certain diagnostic tests or interventions, identifying additional information that should be collected to comply with protocols associated with clinical studies the patient is enrolled in, identifying any documentation or other requirements associated with patient insurance, etc.
 
+## Looking for Feedback
+
+Hey implementers, we want to hear from you!
+
+- What's the greatest opportunity for delivering remote CDS at the start of an encounter?
+- For which users should this hook fire?
+When in a hospitalization workflow, an ambulatory workflow, does an encounter start?
+- How many and what types of encounters are there in a single hospitalization, a single ambulatory visit?
+- Is there value in an encounter start hook pairing with an (typically inpatient) encounter discharge hook? 
+- Please explain your encounter workflow.
+
 ## Context
 
 Field | Optionality | Prefetch Token | Type | Description
