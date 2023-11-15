@@ -1,5 +1,11 @@
 # `appointment-book`
 
+!!! info "Looking for Feedback"
+    **Hey implementers, we want to hear from you!**<br/>
+    - What obstacles are there to limiting this hook to firing only when the appointment is  confirmed or finalized as booked? <br/>
+    - For which users should this hook fire?<br/>
+    - Many appointments are scheduled directly into the EHR by the patient, without provider staff involvement ...
+
 | Metadata | Value
 | ---- | ----
 | specificationVersion | 1.0
@@ -9,14 +15,6 @@
 ## Workflow
 
 This hook is invoked when the user is scheduling one or more future encounters/visits for the patient.  For example, the `appointment-book` hook may be triggered for an appointment with the appointment creator, a clinician within the same organization as the appointment creator or even for an appointment outside the creator's organization.  It may be invoked at the start and end of the booking process and/or any time between those two points.  This hook enables CDS Services to intervene in the decision of when future appointments should be scheduled, where they should be scheduled, what services should be booked, to identify actions that need to occur prior to scheduled appointments, etc.  
-
-## Looking for Feedback
-
-Hey implementers, we want to hear from you!
-
-- What obstacles are there to limiting this hook to firing only when the appointment is  confirmed or finalized as booked? 
-- For which users should this hook fire?
-- Many appointments are scheduled directly into the EHR by the patient, without provider staff involvement ...
 
 ## Context
 
