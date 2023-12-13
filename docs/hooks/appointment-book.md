@@ -127,7 +127,7 @@ Field | Optionality | Prefetch Token | Type | Description
   "userId" : "PractitionerRole/A2340113",
   "patientId" : "1288992",
   "encounterId" : "456",
-  "appointment" : [
+  "appointments" : [
     {
       "resourceType": "Appointment",
       "id": "example",

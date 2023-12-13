@@ -27,7 +27,7 @@ nav:
     - 'appointment-book 3' : 'hooks/appointment-book.md'
     - 'encounter-start 1' : 'hooks/encounter-start.md'
     - 'encounter-discharge 3' : 'hooks/encounter-discharge.md'
-    - 'medication-refill 0' : 'hooks/medication-refill.md'
+    - 'medication-refill 1' : 'hooks/medication-refill.md'
 - Quick Start: 'quickstart.md'
 - Cheat Sheet: 'cheat-sheet/Cheat Sheet - Sept 2019.pdf'
 - Best Practices: 'best-practices.md'
