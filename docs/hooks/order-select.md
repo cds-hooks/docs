@@ -8,19 +8,20 @@
 
 ## Workflow
 
-The `order-select` hook fires when a clinician selects one or more orders to place for a patient, (including orders for medications, procedures, labs and other orders). If supported by the CDS Client, this hook may also be invoked each time the clinician selects a detail regarding the order.
-This hook is among the first workflow events for an order entering a draft status. 
-The context of this hook may include defaulted order details 
-as it first occurs immediately upon the clinician selecting the order from the order catalogue of the CPOE, or upon her manual selection of order details (e.g. dose, quantity, route, etc). CDS services should expect some of the order information to not yet be specified. 
-Additionally, the context may include previously selected orders that are not yet signed from the same ordering session. 
-The `order-select` hook occurs after the clinician selects the order and before signing. 
+The order-select hook occurs after the clinician selects the order and before signing.
 
-This hook is intended to replace (deprecate) the `medication-prescribe` hook. 
+This hook occurs when a clinician initially selects one or more new orders from a list of potential orders for a specific patient (including orders for medications, procedures, labs and other orders). The newly selected order defines that medication, procedure, lab, etc, but may or may not define the additional details necessary to finalize the order.
+
+`order-select` is among the first workflow events for an order entering a draft status. The context of this hook may include defaulted order details upon the clinician selecting the order from the order catalogue of the CPOE, or upon her manual selection of order details (e.g. dose, quantity, route, etc). CDS services should expect some of the order information to not yet be specified. Additionally, the context may include previously selected orders that are not yet signed from the same ordering session. 
+
+This hook is intended to replace (deprecate) the medication-prescribe hook.
 
 ## Context
 
-Decision support should focus on the 'selected' orders - those that are newly selected or actively being authored.  The non-selected orders are included in the context to provide context and to allow decision support to take into account other pending actions that might not yet be stored in the system (and therefore not queryable).
-The context of this hook distinguishes between the list of unsigned orders from the clinician's ordering session, and the one or more orders just added to this list. The `selections` field contains a list of ids of these newly selected orders; the `draftOrders` Bundle contains an entry for all unsigned orders from this session, including newly selected orders.
+Decision support should focus on the 'selected' orders - those that are newly selected or actively being authored. The non-selected orders are included in the context to provide context and to allow decision support to take into account other pending actions that might not yet be stored in the system (and therefore not queryable).
+The context of this hook distinguishes between the list of unsigned orders from the clinician's ordering session, and the one or more orders just added to this list. The `selections` field contains a list of ids of these newly selected orders; the draftOrders Bundle contains an entry for all unsigned orders from this session, including newly selected orders.
+
+The selected order(s) may or may not define the additional details necessary to finalize the order (such as route, dose, etc). Note that at the point of the related order-sign hook, all order details are known. 
 
 Field | Optionality | Prefetch Token | Type | Description
 ----- | -------- | ---- | ---- | ----
