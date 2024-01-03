@@ -10,7 +10,7 @@
 | ---- | ----
 | specificationVersion | 1.0
 | hookVersion | 1.0
-| hookMaturity | [3 - Considered](../../specification/current/#hook-maturity-model)
+| hookMaturity | [1 - Submitted](../../specification/current/#hook-maturity-model)
 
 ## Workflow
 
