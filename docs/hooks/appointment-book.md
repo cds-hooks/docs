@@ -1,5 +1,11 @@
 # `appointment-book`
 
+!!! info "Looking for Feedback"
+    **Hey implementers, we want to hear from you!**<br/>
+    - What obstacles are there to limiting this hook to firing only when the appointment is  confirmed or finalized as booked? <br/>
+    - For which users should this hook fire?<br/>
+    - Many appointments are scheduled directly into the EHR by the patient, without provider staff involvement ...
+
 | Metadata | Value
 | ---- | ----
 | specificationVersion | 1.0
