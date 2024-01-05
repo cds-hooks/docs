@@ -716,7 +716,7 @@
 This hook is among the last workflow events before an order is promoted out of a draft status. 
 The context contains all order details, such as dose, quantity, route, etc, 
 although the order has not yet been signed and therefore still exists in a draft status. 
-Use this hook when your service requires all order details, and the clinician will accept recommended changes.</p>
+Use this hook when your service requires all order details.</p>
 <p>This hook can also be used when an order or set of orders is being 're-signed' after revision (e.g. change
 to status, extending dates, or other changes allowed to signed orders within the system's workflow).  In this
 case, the orders would typically have a status other than 'draft'.  In some cases, the hook might fire with a
