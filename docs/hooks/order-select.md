@@ -17,6 +17,9 @@ The `order-select` hook occurs after the clinician selects the order and before 
 
 This hook is intended to replace (deprecate) the `medication-prescribe` hook. 
 
+![CDS Hooks Overview](images/orderingflow.svg)
+
+
 ## Context
 
 Decision support should focus on the 'selected' orders - those that are newly selected or actively being authored.  The non-selected orders are included in the context to provide context and to allow decision support to take into account other pending actions that might not yet be stored in the system (and therefore not queryable).
