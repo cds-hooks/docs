@@ -37,8 +37,8 @@ Field | Optionality | Prefetch Token | Type | Description
     "intent" : "order",
     "code" : {
       "coding" : [{
-        "system" : "",
-        "code" : ""
+        "system" : "http://hl7.org/fhir/CodeSystem/task-code",
+        "code" : "fulfill"
       }]
     },
     "focus" : {
