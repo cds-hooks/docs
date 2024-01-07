@@ -14,7 +14,7 @@ A CDS Service is an external service that responds to CDS Client requests throug
 4. If applicable, create a SMART app (or [borrow one](https://apps.smarthealthit.org/apps/pricing/open-source))
 5. Test the service (and, if applicable, SMART app) with an CDS Client
 
-This tutorial recommends implementing the CDS Hooks [security model](specification/1.0/#security-and-safety) after successful open access testing.
+This tutorial recommends implementing the CDS Hooks [security model](https://cds-hooks.hl7.org/1.0/#security-and-safety) after successful open access testing.
 
 ### Endpoint for discovery
 The CDS Service must provide a stable endpoint for the CDS Client to discover the available services. A system must expose their services at `{baseUrl}/cds-services`. A service endpoint that supports the `patient-view` hook may return:
@@ -35,7 +35,7 @@ The CDS Service must provide a stable endpoint for the CDS Client to discover th
 }
 ```
 
-The attributes available to describe a CDS Services is documented in the [CDS Hooks specification](specification/1.0/#discovery).
+The attributes available to describe a CDS Services is documented in the [CDS Hooks specification](https://cds-hooks.hl7.org/1.0/#discovery).
  
 ### Develop a service
 With a stable open end point available it's time to complete development of a service. A CDS Service could provide **information**, a **suggestion**, or a **SMART app** link. The focus of the Argonaut CDS Hooks effort is a `patient-view` hook launching a SMART app so this guide will focus on the SMART app link.
@@ -91,7 +91,7 @@ Build out following sections:
 6. Launch SMART app 
 7. Test with external CDS Service
 
-This tutorial recommends implementing the CDS Hooks [security model](specification/1.0/#security-and-safety) after successful open access testing.
+This tutorial recommends implementing the CDS Hooks [security model](https://cds-hooks.hl7.org/1.0/#security-and-safety) after successful open access testing.
 
 ### Call discovery endpoint 
 The CDS discovery endpoint provides the list of services a CDS provider supports, and the hooks a service should be invoked on. A CDS Client may configure their system to support a set of hooks at a certain location in their users work flow, or build a dynamic capability to interact with a CDS Service provider within a work flow. For the best end-user experience, this guide recommends a business analyst configure which hooks a CDS Client will support. 
@@ -141,7 +141,7 @@ In some cases, additional information beyond what is included in the prefetch ma
 It is recommended FHIR servers implement, and CDS Services follow, locale specific implementation guides. In the US, the recommended implementation guides to follow are the [Argonaut Data Query Guide (DSTU2)](http://www.fhir.org/guides/argonaut/r2/) and [HL7 US Core (STU3 and R4)](http://hl7.org/fhir/us/core/index.html). Each profile page within these implementation guides includes queries FHIR servers are required to support. 
 
 ### Expose non-secured FHIR server for testing
-A non-secured FHIR server is important to support testing with a CDS Service. When the CDS Client moves a hook to production the system is expected to follow the guidelines in the [security](specification/1.0/#security-and-safety) requirements.
+A non-secured FHIR server is important to support testing with a CDS Service. When the CDS Client moves a hook to production the system is expected to follow the guidelines in the [security](https://cds-hooks.hl7.org/1.0/#security-and-safety) requirements.
 
 ### Render card
 The CDS Service will provide a response in the form a of a 'card'. Your CDS Client needs to be able to display the card.
@@ -176,4 +176,4 @@ For some CDS Services the end step will just display the card. For the patient-v
 
 ## Test with external CDS Service
 
-No development is complete without testing with a CDS Service provider. Find a member in the [community](community) and test away. 
+No development is complete without testing with a CDS Service provider. Find a member in the [community](/community) and test away. 
