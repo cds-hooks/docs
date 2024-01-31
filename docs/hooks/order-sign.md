@@ -21,6 +21,9 @@ mixture of new and revised orders.
 
 This hook is intended to replace (deprecate) the `medication-prescribe` and `order-review` hooks. 
 
+![CDS Hooks Overview](../../images/orderingflow.png)
+
+
 ## Context
 
 Field | Optionality | Prefetch Token | Type | Description
