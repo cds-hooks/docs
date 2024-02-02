@@ -8,14 +8,13 @@
 
 ## Workflow
 
-The `order-select` hook fires when a clinician selects one or more orders to place for a patient, (including orders for medications, procedures, labs and other orders). If supported by the CDS Client, this hook may also be invoked each time the clinician selects a detail regarding the order.
-This hook is among the first workflow events for an order entering a draft status. 
-The context of this hook may include defaulted order details 
-as it first occurs immediately upon the clinician selecting the order from the order catalogue of the CPOE, or upon her manual selection of order details (e.g. dose, quantity, route, etc). CDS services should expect some of the order information to not yet be specified. 
-Additionally, the context may include previously selected orders that are not yet signed from the same ordering session. 
-The `order-select` hook occurs after the clinician selects the order and before signing. 
+The order-select hook occurs after the clinician selects the order and before signing.
 
-This hook is intended to replace (deprecate) the `medication-prescribe` hook. 
+This hook occurs when a clinician initially selects one or more new orders from a list of potential orders for a specific patient (including orders for medications, procedures, labs and other orders). The newly selected order defines that medication, procedure, lab, etc, but may or may not define the additional details necessary to finalize the order.
+
+`order-select` is among the first workflow events for an order entering a draft status. The context of this hook may include defaulted order details upon the clinician selecting the order from the order catalogue of the CPOE, or upon her manual selection of order details (e.g. dose, quantity, route, etc). CDS services should expect some of the order information to not yet be specified. Additionally, the context may include previously selected orders that are not yet signed from the same ordering session. 
+
+This hook is intended to replace (deprecate) the medication-prescribe hook.
 
 ![CDS Hooks Overview](../../images/orderingflow.png)
 
