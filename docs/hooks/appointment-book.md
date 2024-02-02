@@ -1,10 +1,16 @@
 # `appointment-book`
 
+!!! info "Looking for Feedback"
+    **Hey implementers, we want to hear from you!**<br/>
+    - What obstacles are there to limiting this hook to firing only when the appointment is  confirmed or finalized as booked? <br/>
+    - For which users should this hook fire?<br/>
+    - Many appointments are scheduled directly into the EHR by the patient, without provider staff involvement ...
+
 | Metadata | Value
 | ---- | ----
 | specificationVersion | 1.0
 | hookVersion | 1.0
-| hookMaturity | [3 - Considered](../../specification/current/#hook-maturity-model)
+| hookMaturity | [1 - Submitted](../../specification/current/#hook-maturity-model)
 
 ## Workflow
 
@@ -127,7 +133,7 @@ Field | Optionality | Prefetch Token | Type | Description
   "userId" : "PractitionerRole/A2340113",
   "patientId" : "1288992",
   "encounterId" : "456",
-  "appointment" : [
+  "appointments" : [
     {
       "resourceType": "Appointment",
       "id": "example",

@@ -1,5 +1,14 @@
 # `encounter-start`
 
+!!! info "Looking for Feedback"
+    **Hey implementers, we want to hear from you!**<br/>
+    - What's the greatest opportunity for delivering remote CDS at the start of an encounter?<br/>
+    - For which users should this hook fire?<br/>
+    - When in a hospitalization workflow, an ambulatory workflow, does an encounter start?<br/>
+    - How many and what types of encounters are there in a single hospitalization, a single ambulatory visit?<br/>
+    - Is there value in an encounter start hook pairing with an (typically inpatient) encounter discharge hook?<br/> 
+    - Please explain your encounter workflow.<br/>
+
 | Metadata | Value
 | ---- | ----
 | specificationVersion | 1.0

@@ -1,0 +1,116 @@
+<svg class="railroad-diagram" width="840" height="152" viewBox="0 0 840 152">
+    <g transform="translate(.5 .5)">
+        <g>
+            <path d="M20 51v20m10 -20v20m-10 -10h20"></path>
+        </g>
+        <path d="M40 61h10"></path>
+        <g class="non-terminal ">
+            <path d="M50 61h0"></path>
+            <path d="M142 61h0"></path>
+            <rect x="50" y="50" width="92" height="22"></rect>
+            <text x="96" y="65">Open CPOE</text>
+        </g>
+        <path d="M142 61h10"></path>
+        <path d="M152 61h10"></path>
+        <g>
+            <path d="M162 61h0"></path>
+            <path d="M417 61h0"></path>
+            <rect x="162" y="42" width="255" height="68" rx="10" ry="10" class="group-box"></rect>
+            <g>
+                <path d="M162 61h41.5"></path>
+                <path d="M375.5 61h41.5"></path>
+                <path d="M203.5 61h20"></path>
+                <g class="non-terminal ">
+                    <path d="M223.5 61h0"></path>
+                    <path d="M355.5 61h0"></path>
+                    <rect x="223.5" y="50" width="132" height="22"></rect>
+                    <text x="289.5" y="65">Select product</text>
+                </g>
+                <path d="M355.5 61h20"></path>
+                <path d="M203.5 61a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path>
+                <g class="terminal ">
+                    <path d="M223.5 91h8"></path>
+                    <path d="M347.5 91h8"></path>
+                    <rect x="231.5" y="80" width="116" height="22" rx="10" ry="10"></rect>
+                    <text x="289.5" y="95">order-select</text>
+                </g>
+                <path d="M355.5 91a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path>
+            </g>
+            <g class="comment ">
+                <path d="M162 34h0"></path>
+                <path d="M417 34h0"></path>
+                <text x="289.5" y="39" class="comment">order-select fires at the beginning</text>
+            </g>
+        </g>
+        <path d="M417 61h10"></path>
+        <g>
+            <path d="M427 61h0"></path>
+            <path d="M623 61h0"></path>
+            <path d="M427 61a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path>
+            <g class="non-terminal ">
+                <path d="M447 31h20"></path>
+                <path d="M583 31h20"></path>
+                <rect x="467" y="20" width="116" height="22"></rect>
+                <text x="525" y="35">Select route</text>
+            </g>
+            <path d="M603 31a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path>
+            <path d="M427 61h20"></path>
+            <g class="non-terminal ">
+                <path d="M447 61h4"></path>
+                <path d="M599 61h4"></path>
+                <rect x="451" y="50" width="148" height="22"></rect>
+                <text x="525" y="65">Select frequency</text>
+            </g>
+            <path d="M603 61h20"></path>
+            <path d="M427 61a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path>
+            <g class="non-terminal ">
+                <path d="M447 91h8"></path>
+                <path d="M595 91h8"></path>
+                <rect x="455" y="80" width="140" height="22"></rect>
+                <text x="525" y="95">Select duration</text>
+            </g>
+            <path d="M603 91a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path>
+            <path d="M427 61a10 10 0 0 1 10 10v40a10 10 0 0 0 10 10"></path>
+            <g class="non-terminal ">
+                <path d="M447 121h0"></path>
+                <path d="M603 121h0"></path>
+                <rect x="447" y="110" width="156" height="22"></rect>
+                <text x="525" y="125">Link Order &#38; misc</text>
+            </g>
+            <path d="M603 121a10 10 0 0 0 10 -10v-40a10 10 0 0 1 10 -10"></path>
+        </g>
+        <path d="M623 61h10"></path>
+        <g>
+            <path d="M633 61h0"></path>
+            <path d="M790 61h0"></path>
+            <rect x="633" y="42" width="157" height="68" rx="10" ry="10" class="group-box"></rect>
+            <g>
+                <path d="M633 61h8.5"></path>
+                <path d="M781.5 61h8.5"></path>
+                <path d="M641.5 61h20"></path>
+                <g class="non-terminal ">
+                    <path d="M661.5 61h0"></path>
+                    <path d="M761.5 61h0"></path>
+                    <rect x="661.5" y="50" width="100" height="22"></rect>
+                    <text x="711.5" y="65">Sign order</text>
+                </g>
+                <path d="M761.5 61h20"></path>
+                <path d="M641.5 61a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path>
+                <g class="terminal ">
+                    <path d="M661.5 91h0"></path>
+                    <path d="M761.5 91h0"></path>
+                    <rect x="661.5" y="80" width="100" height="22" rx="10" ry="10"></rect>
+                    <text x="711.5" y="95">order-sign</text>
+                </g>
+                <path d="M761.5 91a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path>
+            </g>
+            <g class="comment ">
+                <path d="M633 34h0"></path>
+                <path d="M790 34h0"></path>
+                <text x="711.5" y="39" class="comment">order-sign at the end</text>
+            </g>
+        </g>
+        <path d="M790 61h10"></path>
+        <path d="M 800 61 h 20 m -10 -10 v 20 m 10 -20 v 20"></path>
+    </g>
+</svg>
