@@ -28,6 +28,7 @@ nav:
     - 'encounter-start 1' : 'hooks/encounter-start.md'
     - 'encounter-discharge 1' : 'hooks/encounter-discharge.md'
     - 'medication-refill 1' : 'hooks/medication-refill.md'
+    - 'problem-list-item-create 1' : 'hooks/problem-list-item-create.md'
 - Quick Start: 'quickstart.md'
 - Cheat Sheet: 'cheat-sheet/Cheat Sheet - Sept 2019.pdf'
 - Best Practices: 'best-practices.md'
