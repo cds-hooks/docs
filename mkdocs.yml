@@ -27,7 +27,7 @@ nav:
     - 'appointment-book 3' : 'hooks/appointment-book.md'
     - 'encounter-start 1' : 'hooks/encounter-start.md'
     - 'encounter-discharge 3' : 'hooks/encounter-discharge.md'
-    - 'problem-list-item-create 1' : 'hooks/problem-create.md'
+    - 'problem-list-item-create 1' : 'hooks/problem-list-item-create.md'
 - Quick Start: 'quickstart.md'
 - Cheat Sheet: 'cheat-sheet/Cheat Sheet - Sept 2019.pdf'
 - Best Practices: 'best-practices.md'
