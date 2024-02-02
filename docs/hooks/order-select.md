@@ -16,12 +16,12 @@ This hook occurs when a clinician initially selects one or more new orders from 
 
 This hook is intended to replace (deprecate) the medication-prescribe hook.
 
+![Ordering Flow Diagram](../images/orderingflow.png)
+
 ## Context
 
-Decision support should focus on the 'selected' orders - those that are newly selected or actively being authored. The non-selected orders are included in the context to provide context and to allow decision support to take into account other pending actions that might not yet be stored in the system (and therefore not queryable).
-The context of this hook distinguishes between the list of unsigned orders from the clinician's ordering session, and the one or more orders just added to this list. The `selections` field contains a list of ids of these newly selected orders; the draftOrders Bundle contains an entry for all unsigned orders from this session, including newly selected orders.
-
-The selected order(s) may or may not define the additional details necessary to finalize the order (such as route, dose, etc). Note that at the point of the related order-sign hook, all order details are known. 
+Decision support should focus on the 'selected' orders - those that are newly selected or currently being authored.  The non-selected orders are included in the context to provide context and to allow decision support to take into account other pending actions that might not yet be stored in the system (and therefore not queryable).
+The context of this hook distinguishes between the list of unsigned orders from the clinician's ordering session, and the one or more orders just added to this list. The `selections` field contains a list of ids of these newly selected orders; the `draftOrders` Bundle contains an entry for all unsigned orders from this session, including newly selected orders.
 
 Field | Optionality | Prefetch Token | Type | Description
 ----- | -------- | ---- | ---- | ----
@@ -29,9 +29,14 @@ Field | Optionality | Prefetch Token | Type | Description
 `patientId` | REQUIRED | Yes | *string* |  The FHIR `Patient.id` of the current patient in context
 `encounterId` | OPTIONAL | Yes | *string* |  The FHIR `Encounter.id` of the current encounter in context
 `selections` | REQUIRED | No| *array* | The FHIR id of the newly selected order(s).<br />The `selections` field references FHIR resources in the `draftOrders` Bundle. For example, `MedicationRequest/103`.
-`draftOrders` | REQUIRED | No | *object* | DSTU2 - FHIR Bundle of MedicationOrder, DiagnosticOrder, DeviceUseRequest, ReferralRequest, ProcedureRequest, NutritionOrder, VisionPrescription with _draft_ status <br/> STU3 - FHIR Bundle of MedicationRequest, ReferralRequest, ProcedureRequest, NutritionOrder, VisionPrescription with _draft_ status <br/> R4 - FHIR Bundle of DeviceRequest, MedicationRequest, NutritionOrder, ServiceRequest, VisionPrescription with _draft_ status
+`draftOrders` | REQUIRED | No | *object* | A Bundle of FHIR request resources with a draft status, representing orders that aren't yet signed from the current ordering session. 
 
+### A Note Concerning FHIR Versions
 
+CDS Hooks is designed to be agnostic of FHIR version. For example, all versions of FHIR can represent in-progress orders but over time, the specific resource name and some of the important elements have changed.  Below are some of the mosty commonly used FHIR resources for representing an order in CDS Hooks. This list is intentionally not comprehensive. 
+* DSTU2 - FHIR Bundle of MedicationOrder, ProcedureRequest
+* STU3 - FHIR Bundle of MedicationRequest, ProcedureRequest
+* R4 - FHIR Bundle of MedicationRequest, ServiceRequest
 
 ## Examples
 

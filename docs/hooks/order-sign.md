@@ -21,6 +21,8 @@ mixture of new and revised orders.
 
 This hook is intended to replace (deprecate) the `medication-prescribe` and `order-review` hooks. 
 
+![Ordering Flow Diagram](../images/orderingflow.png)
+
 ## Context
 
 Field | Optionality | Prefetch Token | Type | Description
@@ -28,9 +30,14 @@ Field | Optionality | Prefetch Token | Type | Description
 `userId` | REQUIRED | Yes | *string* | The id of the current user.<br />For this hook, the user is expected to be of type [Practitioner](https://www.hl7.org/fhir/practitioner.html) or [PractitionerRole](https://www.hl7.org/fhir/practitionerrole.html).<br />For example, `PractitionerRole/123` or `Practitioner/abc`.
 `patientId` | REQUIRED | Yes | *string* |  The FHIR `Patient.id` of the current patient in context
 `encounterId` | OPTIONAL | Yes | *string* |  The FHIR `Encounter.id` of the current encounter in context
-`draftOrders` | REQUIRED | No | *object* | DSTU2 - FHIR Bundle of MedicationOrder, DiagnosticOrder, DeviceUseRequest, ReferralRequest, ProcedureRequest, NutritionOrder, VisionPrescription (typically with _draft_ status) <br/> STU3 - FHIR Bundle of MedicationRequest, ReferralRequest, ProcedureRequest, NutritionOrder, VisionPrescription (typically with _draft_ status) <br/> R4 - FHIR Bundle of DeviceRequest, MedicationRequest, NutritionOrder, ServiceRequest, VisionPrescription (typically with _draft_ status)
+`draftOrders` | REQUIRED | No | *object* | A Bundle of FHIR request resources with a draft status, representing orders that aren't yet signed from the current ordering session. 
 
+### A Note Concerning FHIR Versions
 
+CDS Hooks is designed to be agnostic of FHIR version. For example, all versions of FHIR can represent in-progress orders but over time, the specific resource name and some of the important elements have changed.  Below are some of the mosty commonly used FHIR resources for representing an order in CDS Hooks. This list is intentionally not comprehensive. 
+* DSTU2 - FHIR Bundle of MedicationOrder, ProcedureRequest
+* STU3 - FHIR Bundle of MedicationRequest, ProcedureRequest
+* R4 - FHIR Bundle of MedicationRequest, ServiceRequest
 
 ## Examples
 
