@@ -36,7 +36,7 @@
     
     
       
-        <title>medication-refill 1 - CDS Hooks</title>
+        <title>problem-list-item-create 1 - CDS Hooks</title>
       
     
     
@@ -77,7 +77,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#medication-refill" tabindex="0" class="md-skip">
+      <a href="#problem-list-item-create" tabindex="0" class="md-skip">
         Skip to content
       </a>
     
@@ -103,7 +103,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                medication-refill 1
+                problem-list-item-create 1
               
             </span>
           
@@ -425,6 +425,18 @@
           
           
 
+
+  <li class="md-nav__item">
+    <a href="../medication-refill/" title="medication-refill 1" class="md-nav__link">
+      medication-refill 1
+    </a>
+  </li>
+
+        
+          
+          
+          
+
   
 
 
@@ -436,11 +448,11 @@
     
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
-        medication-refill 1
+        problem-list-item-create 1
       </label>
     
-    <a href="./" title="medication-refill 1" class="md-nav__link md-nav__link--active">
-      medication-refill 1
+    <a href="./" title="problem-list-item-create 1" class="md-nav__link md-nav__link--active">
+      problem-list-item-create 1
     </a>
     
       
@@ -476,6 +488,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#example-stu3" class="md-nav__link">
+    Example (STU3)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#example-dstu2" class="md-nav__link">
     Example (DSTU2)
   </a>
@@ -502,18 +521,6 @@
   
 </nav>
     
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../problem-list-item-create/" title="problem-list-item-create 1" class="md-nav__link">
-      problem-list-item-create 1
-    </a>
   </li>
 
         
@@ -637,6 +644,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#example-stu3" class="md-nav__link">
+    Example (STU3)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#example-dstu2" class="md-nav__link">
     Example (DSTU2)
   </a>
@@ -672,7 +686,7 @@
               
                 
                 
-                <h1 id="medication-refill"><code>medication-refill</code><a class="headerlink" href="#medication-refill" title="Permanent link">&para;</a></h1>
+                <h1 id="problem-list-item-create"><code>problem-list-item-create</code><a class="headerlink" href="#problem-list-item-create" title="Permanent link">&para;</a></h1>
 <table>
 <thead>
 <tr>
@@ -683,7 +697,7 @@
 <tbody>
 <tr>
 <td>specificationVersion</td>
-<td>2.0</td>
+<td>1.0</td>
 </tr>
 <tr>
 <td>hookVersion</td>
@@ -696,10 +710,10 @@
 </tbody>
 </table>
 <h2 id="workflow">Workflow<a class="headerlink" href="#workflow" title="Permanent link">&para;</a></h2>
-<p>The <code>medication-refill</code> hook fires when a medication refill request for an existing prescription of a specific medication is received. A refill request may be made as part of an encounter or out-of-band through a pharmacy or patient portal. Since a prescription refill is requested outside of the prescriber's workflow, there often is not a user in context. Similarly, the encounter may be an auto-generated refill encounter or there may not be an encounter in context when the refill request is received.  A CDS service may use this hook to deliver medication refill protocol guidance to a clinician. Given the asynchronous workflow of refill requests, the guidance returned by the service may be viewed immediately, or not.</p>
-<p>This hook does not fire for an initial prescription (see order-sign). "Re-prescribing" or replacing a previously active prescription with a new perscription for the same medication does not fire the medication-refill.</p>
+<p>The <code>problem-list-item-create</code> hook fires once a clinician has added one or more new problems to a patient's problem list. 
+This hook may fire with one or more newly added conditions of category <code>problem-list-item</code> that are newly finalized. 
+The context of the hook includes these new conditions. Note that this hook occurs once the new problem(s) is finalized; thereby enabling the CDS Service to recommend actions related to the problem in lieu of suggesting modifications to the newly created problem. </p>
 <h2 id="context">Context<a class="headerlink" href="#context" title="Permanent link">&para;</a></h2>
-<p>The set of medications in the process of being refilled. All FHIR resources in this context MUST be based on the same FHIR version. All FHIR resources in the medications object MUST have a status of <em>draft</em>.</p>
 <table>
 <thead>
 <tr>
@@ -713,10 +727,10 @@
 <tbody>
 <tr>
 <td><code>userId</code></td>
-<td>OPTIONAL</td>
+<td>REQUIRED</td>
 <td>Yes</td>
 <td><em>string</em></td>
-<td>In the case when this field is empty, consider the FHIR resource's requestor and recorder elements. <br />The id of the current user entering the refill request within the CPOE. For this hook, the user is expected to be of type Practitioner or PractitionerRole. For example, PractitionerRole/123 or Practitioner/abc.</td>
+<td>The id of the current user.<br />For this hook, the user is expected to be of type <a href="https://www.hl7.org/fhir/practitioner.html">Practitioner</a> or <a href="https://www.hl7.org/fhir/practitioner.html">PractitionerRole</a>.<br />For example, PractitionerRole/123 or Practitioner/abc.</td>
 </tr>
 <tr>
 <td><code>patientId</code></td>
@@ -730,14 +744,14 @@
 <td>OPTIONAL</td>
 <td>Yes</td>
 <td><em>string</em></td>
-<td>The FHIR <code>Encounter.id</code> of the encounter associated with the refill of the prescription.</td>
+<td>The FHIR <code>Encounter.id</code> of the current encounter in context</td>
 </tr>
 <tr>
-<td><code>medications</code></td>
+<td><code>conditions</code></td>
 <td>REQUIRED</td>
 <td>No</td>
 <td><em>object</em></td>
-<td>R4 - FHIR Bundle of <em>draft</em>, <em>order</em> MedicationRequest resources</td>
+<td>DSTU2 - FHIR Bundle of Conditions where <code>category</code> is <code>problem-list-item</code><br/> STU3 - FHIR Bundle of Conditions where <code>category</code> is <code>problem-list-item</code><br/> R4 - FHIR Bundle of Conditions where <code>category</code> is <code>problem-list-item</code></td>
 </tr>
 </tbody>
 </table>
@@ -791,76 +805,125 @@
 <span class="normal">47</span>
 <span class="normal">48</span>
 <span class="normal">49</span>
-<span class="normal">50</span>
-<span class="normal">51</span>
-<span class="normal">52</span>
-<span class="normal">53</span>
-<span class="normal">54</span>
-<span class="normal">55</span>
-<span class="normal">56</span>
-<span class="normal">57</span>
-<span class="normal">58</span>
-<span class="normal">59</span>
-<span class="normal">60</span>
-<span class="normal">61</span>
-<span class="normal">62</span>
-<span class="normal">63</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
+<span class="normal">50</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;context&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;userId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Practitioner/123&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;patientId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1288992&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;encounterId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;89284&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;conditions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;resourceType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Bundle&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;entry&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;resource&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;resourceType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Condition&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;3a14127f&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;category&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;problem-list-item&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;clinicalStatus&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nt">&quot;coding&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                  </span><span class="nt">&quot;system&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://terminology.hl7.org/CodeSystem/condition-clinical&quot;</span><span class="p">,</span>
+<span class="w">                  </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;active&quot;</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">              </span><span class="p">]</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="nt">&quot;verificationStatus&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nt">&quot;coding&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                  </span><span class="nt">&quot;system&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://terminology.hl7.org/CodeSystem/condition-ver-status&quot;</span><span class="p">,</span>
+<span class="w">                  </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;confirmed&quot;</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">              </span><span class="p">]</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nt">&quot;coding&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                  </span><span class="nt">&quot;system&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://snomed.info/sct&quot;</span><span class="p">,</span>
+<span class="w">                  </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;16114001&quot;</span><span class="p">,</span>
+<span class="w">                  </span><span class="nt">&quot;display&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Fracture of ankle&quot;</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">              </span><span class="p">],</span>
+<span class="w">              </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Fracture of ankle&quot;</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="nt">&quot;subject&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nt">&quot;reference&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Patient/1288992&quot;</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="nt">&quot;onsetDateTime&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2018-10-15T04:13:17-04:00&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;assertedDate&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2018-11-15&quot;</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+
+
+<h3 id="example-stu3">Example (STU3)<a class="headerlink" href="#example-stu3" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
 <span class="w">   </span><span class="nt">&quot;context&quot;</span><span class="p">:{</span>
 <span class="w">      </span><span class="nt">&quot;userId&quot;</span><span class="p">:</span><span class="s2">&quot;Practitioner/123&quot;</span><span class="p">,</span>
 <span class="w">      </span><span class="nt">&quot;patientId&quot;</span><span class="p">:</span><span class="s2">&quot;1288992&quot;</span><span class="p">,</span>
 <span class="w">      </span><span class="nt">&quot;encounterId&quot;</span><span class="p">:</span><span class="s2">&quot;89284&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;medications&quot;</span><span class="p">:{</span>
+<span class="w">      </span><span class="nt">&quot;conditions&quot;</span><span class="p">:{</span>
 <span class="w">         </span><span class="nt">&quot;resourceType&quot;</span><span class="p">:</span><span class="s2">&quot;Bundle&quot;</span><span class="p">,</span>
 <span class="w">         </span><span class="nt">&quot;entry&quot;</span><span class="p">:[</span>
 <span class="w">            </span><span class="p">{</span>
 <span class="w">               </span><span class="nt">&quot;resource&quot;</span><span class="p">:{</span>
-<span class="w">                  </span><span class="nt">&quot;resourceType&quot;</span><span class="p">:</span><span class="s2">&quot;MedicationRequest&quot;</span><span class="p">,</span>
-<span class="w">                  </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="s2">&quot;smart-MedicationRequest-104&quot;</span><span class="p">,</span>
-<span class="w">                  </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="s2">&quot;draft&quot;</span><span class="p">,</span>
-<span class="w">                  </span><span class="nt">&quot;intent&quot;</span><span class="p">:</span><span class="s2">&quot;order&quot;</span><span class="p">,</span>
-<span class="w">                  </span><span class="nt">&quot;medicationReference&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                     </span><span class="nt">&quot;reference&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Medication/eFnx9hyX.YTNJ407PR9g4zpiT8lXCElOXkldLgGDYrAU-fszvYmrUZlYzRfJl-qKj3&quot;</span><span class="p">,</span>
-<span class="w">                     </span><span class="nt">&quot;display&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;oxybutynin (DITROPAN XL) CR tablet&quot;</span>
+<span class="w">                  </span><span class="nt">&quot;resourceType&quot;</span><span class="p">:</span><span class="s2">&quot;Condition&quot;</span><span class="p">,</span>
+<span class="w">                  </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="s2">&quot;3a14127f&quot;</span><span class="p">,</span>
+<span class="w">                  </span><span class="nt">&quot;category&quot;</span><span class="p">:</span><span class="s2">&quot;problem-list-item&quot;</span><span class="p">,</span><span class="w">                 </span>
+<span class="w">                  </span><span class="nt">&quot;clinicalStatus&quot;</span><span class="p">:</span><span class="s2">&quot;active&quot;</span><span class="p">,</span>
+<span class="w">                  </span><span class="nt">&quot;verificationStatus&quot;</span><span class="p">:</span><span class="s2">&quot;confirmed&quot;</span><span class="p">,</span>
+<span class="w">                  </span><span class="nt">&quot;code&quot;</span><span class="p">:{</span>
+<span class="w">                     </span><span class="nt">&quot;coding&quot;</span><span class="p">:[</span>
+<span class="w">                        </span><span class="p">{</span>
+<span class="w">                           </span><span class="nt">&quot;system&quot;</span><span class="p">:</span><span class="s2">&quot;http://snomed.info/sct&quot;</span><span class="p">,</span>
+<span class="w">                           </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="s2">&quot;16114001&quot;</span><span class="p">,</span>
+<span class="w">                           </span><span class="nt">&quot;display&quot;</span><span class="p">:</span><span class="s2">&quot;Fracture of ankle&quot;</span>
+<span class="w">                        </span><span class="p">}</span>
+<span class="w">                     </span><span class="p">],</span>
+<span class="w">                     </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="s2">&quot;Fracture of ankle&quot;</span>
 <span class="w">                  </span><span class="p">},</span>
 <span class="w">                  </span><span class="nt">&quot;subject&quot;</span><span class="p">:{</span>
 <span class="w">                     </span><span class="nt">&quot;reference&quot;</span><span class="p">:</span><span class="s2">&quot;Patient/1288992&quot;</span>
 <span class="w">                  </span><span class="p">},</span>
-<span class="w">                  </span><span class="nt">&quot;dosageInstruction&quot;</span><span class="p">:[</span>
-<span class="w">                     </span><span class="p">{</span>
-<span class="w">                        </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="s2">&quot;15 mL daily x 3 days&quot;</span><span class="p">,</span>
-<span class="w">                        </span><span class="nt">&quot;timing&quot;</span><span class="p">:{</span>
-<span class="w">                           </span><span class="nt">&quot;repeat&quot;</span><span class="p">:{</span>
-<span class="w">                              </span><span class="nt">&quot;boundsPeriod&quot;</span><span class="p">:{</span>
-<span class="w">                                 </span><span class="nt">&quot;start&quot;</span><span class="p">:</span><span class="s2">&quot;2005-01-18&quot;</span>
-<span class="w">                              </span><span class="p">},</span>
-<span class="w">                              </span><span class="nt">&quot;frequency&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
-<span class="w">                              </span><span class="nt">&quot;period&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
-<span class="w">                              </span><span class="nt">&quot;periodUnit&quot;</span><span class="p">:</span><span class="s2">&quot;d&quot;</span>
-<span class="w">                           </span><span class="p">}</span>
-<span class="w">                        </span><span class="p">},</span>
-<span class="w">                        </span><span class="nt">&quot;doseQuantity&quot;</span><span class="p">:{</span>
-<span class="w">                           </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="mi">15</span><span class="p">,</span>
-<span class="w">                           </span><span class="nt">&quot;unit&quot;</span><span class="p">:</span><span class="s2">&quot;mL&quot;</span><span class="p">,</span>
-<span class="w">                           </span><span class="nt">&quot;system&quot;</span><span class="p">:</span><span class="s2">&quot;http://unitsofmeasure.org&quot;</span><span class="p">,</span>
-<span class="w">                           </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="s2">&quot;mL&quot;</span>
-<span class="w">                        </span><span class="p">}</span>
-<span class="w">                     </span><span class="p">}</span>
-<span class="w">                  </span><span class="p">],</span>
-<span class="w">                  </span><span class="nt">&quot;dispenseRequest&quot;</span><span class="p">:{</span>
-<span class="w">                     </span><span class="nt">&quot;numberOfRepeatsAllowed&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
-<span class="w">                     </span><span class="nt">&quot;quantity&quot;</span><span class="p">:{</span>
-<span class="w">                        </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
-<span class="w">                        </span><span class="nt">&quot;unit&quot;</span><span class="p">:</span><span class="s2">&quot;mL&quot;</span><span class="p">,</span>
-<span class="w">                        </span><span class="nt">&quot;system&quot;</span><span class="p">:</span><span class="s2">&quot;http://unitsofmeasure.org&quot;</span><span class="p">,</span>
-<span class="w">                        </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="s2">&quot;mL&quot;</span>
-<span class="w">                     </span><span class="p">},</span>
-<span class="w">                     </span><span class="nt">&quot;expectedSupplyDuration&quot;</span><span class="p">:{</span>
-<span class="w">                        </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span>
-<span class="w">                        </span><span class="nt">&quot;unit&quot;</span><span class="p">:</span><span class="s2">&quot;days&quot;</span><span class="p">,</span>
-<span class="w">                        </span><span class="nt">&quot;system&quot;</span><span class="p">:</span><span class="s2">&quot;http://unitsofmeasure.org&quot;</span><span class="p">,</span>
-<span class="w">                        </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="s2">&quot;d&quot;</span>
-<span class="w">                     </span><span class="p">}</span>
-<span class="w">                  </span><span class="p">}</span>
+<span class="w">                  </span><span class="nt">&quot;onsetDateTime&quot;</span><span class="p">:</span><span class="s2">&quot;2018-10-15T04:13:17-04:00&quot;</span><span class="p">,</span>
+<span class="w">                  </span><span class="nt">&quot;assertedDate&quot;</span><span class="p">:</span><span class="s2">&quot;2018-11-15&quot;</span>
 <span class="w">               </span><span class="p">}</span>
 <span class="w">            </span><span class="p">}</span>
 <span class="w">         </span><span class="p">]</span>
@@ -918,93 +981,53 @@
 <span class="normal">45</span>
 <span class="normal">46</span>
 <span class="normal">47</span>
-<span class="normal">48</span>
-<span class="normal">49</span>
-<span class="normal">50</span>
-<span class="normal">51</span>
-<span class="normal">52</span>
-<span class="normal">53</span>
-<span class="normal">54</span>
-<span class="normal">55</span>
-<span class="normal">56</span>
-<span class="normal">57</span>
-<span class="normal">58</span>
-<span class="normal">59</span>
-<span class="normal">60</span>
-<span class="normal">61</span>
-<span class="normal">62</span>
-<span class="normal">63</span>
-<span class="normal">64</span>
-<span class="normal">65</span>
-<span class="normal">66</span>
-<span class="normal">67</span>
-<span class="normal">68</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
-<span class="w">   </span><span class="nt">&quot;context&quot;</span><span class="p">:{</span>
-<span class="w">      </span><span class="nt">&quot;userId&quot;</span><span class="p">:</span><span class="s2">&quot;Practitioner/123&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;patientId&quot;</span><span class="p">:</span><span class="s2">&quot;1288992&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;encounterId&quot;</span><span class="p">:</span><span class="s2">&quot;89284&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;medications&quot;</span><span class="p">:{</span>
-<span class="w">         </span><span class="nt">&quot;resourceType&quot;</span><span class="p">:</span><span class="s2">&quot;Bundle&quot;</span><span class="p">,</span>
-<span class="w">         </span><span class="nt">&quot;entry&quot;</span><span class="p">:[</span>
-<span class="w">            </span><span class="p">{</span>
-<span class="w">               </span><span class="nt">&quot;resource&quot;</span><span class="p">:{</span>
-<span class="w">                  </span><span class="nt">&quot;resourceType&quot;</span><span class="p">:</span><span class="s2">&quot;MedicationOrder&quot;</span><span class="p">,</span>
-<span class="w">                  </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="s2">&quot;smart-MedicationOrder-104&quot;</span><span class="p">,</span>
-<span class="w">                  </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="s2">&quot;draft&quot;</span><span class="p">,</span>
-<span class="w">                  </span><span class="nt">&quot;patient&quot;</span><span class="p">:{</span>
-<span class="w">                     </span><span class="nt">&quot;reference&quot;</span><span class="p">:</span><span class="s2">&quot;Patient/1288992&quot;</span>
-<span class="w">                  </span><span class="p">},</span>
-<span class="w">                  </span><span class="nt">&quot;medicationCodeableConcept&quot;</span><span class="p">:{</span>
-<span class="w">                     </span><span class="nt">&quot;coding&quot;</span><span class="p">:[</span>
-<span class="w">                        </span><span class="p">{</span>
-<span class="w">                           </span><span class="nt">&quot;system&quot;</span><span class="p">:</span><span class="s2">&quot;http://www.nlm.nih.gov/research/umls/rxnorm&quot;</span><span class="p">,</span>
-<span class="w">                           </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="s2">&quot;211307&quot;</span><span class="p">,</span>
-<span class="w">                           </span><span class="nt">&quot;display&quot;</span><span class="p">:</span><span class="s2">&quot;Azithromycin 20 MG/ML Oral Suspension [Zithromax]&quot;</span>
-<span class="w">                        </span><span class="p">}</span>
-<span class="w">                     </span><span class="p">],</span>
-<span class="w">                     </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="s2">&quot;Azithromycin 20 MG/ML Oral Suspension [Zithromax]&quot;</span>
-<span class="w">                  </span><span class="p">},</span>
-<span class="w">                  </span><span class="nt">&quot;dosageInstruction&quot;</span><span class="p">:[</span>
-<span class="w">                     </span><span class="p">{</span>
-<span class="w">                        </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="s2">&quot;15 mL daily x 3 days&quot;</span><span class="p">,</span>
-<span class="w">                        </span><span class="nt">&quot;timing&quot;</span><span class="p">:{</span>
-<span class="w">                           </span><span class="nt">&quot;repeat&quot;</span><span class="p">:{</span>
-<span class="w">                              </span><span class="nt">&quot;boundsPeriod&quot;</span><span class="p">:{</span>
-<span class="w">                                 </span><span class="nt">&quot;start&quot;</span><span class="p">:</span><span class="s2">&quot;2005-01-18&quot;</span>
-<span class="w">                              </span><span class="p">},</span>
-<span class="w">                              </span><span class="nt">&quot;frequency&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
-<span class="w">                              </span><span class="nt">&quot;period&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
-<span class="w">                              </span><span class="nt">&quot;periodUnits&quot;</span><span class="p">:</span><span class="s2">&quot;d&quot;</span>
-<span class="w">                           </span><span class="p">}</span>
-<span class="w">                        </span><span class="p">},</span>
-<span class="w">                        </span><span class="nt">&quot;doseQuantity&quot;</span><span class="p">:{</span>
-<span class="w">                           </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="mi">15</span><span class="p">,</span>
-<span class="w">                           </span><span class="nt">&quot;unit&quot;</span><span class="p">:</span><span class="s2">&quot;mL&quot;</span><span class="p">,</span>
-<span class="w">                           </span><span class="nt">&quot;system&quot;</span><span class="p">:</span><span class="s2">&quot;http://unitsofmeasure.org&quot;</span><span class="p">,</span>
-<span class="w">                           </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="s2">&quot;mL&quot;</span>
-<span class="w">                        </span><span class="p">}</span>
-<span class="w">                     </span><span class="p">}</span>
-<span class="w">                  </span><span class="p">],</span>
-<span class="w">                  </span><span class="nt">&quot;dispenseRequest&quot;</span><span class="p">:{</span>
-<span class="w">                     </span><span class="nt">&quot;numberOfRepeatsAllowed&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
-<span class="w">                     </span><span class="nt">&quot;quantity&quot;</span><span class="p">:{</span>
-<span class="w">                        </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
-<span class="w">                        </span><span class="nt">&quot;unit&quot;</span><span class="p">:</span><span class="s2">&quot;mL&quot;</span><span class="p">,</span>
-<span class="w">                        </span><span class="nt">&quot;system&quot;</span><span class="p">:</span><span class="s2">&quot;http://unitsofmeasure.org&quot;</span><span class="p">,</span>
-<span class="w">                        </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="s2">&quot;mL&quot;</span>
-<span class="w">                     </span><span class="p">},</span>
-<span class="w">                     </span><span class="nt">&quot;expectedSupplyDuration&quot;</span><span class="p">:{</span>
-<span class="w">                        </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span>
-<span class="w">                        </span><span class="nt">&quot;unit&quot;</span><span class="p">:</span><span class="s2">&quot;days&quot;</span><span class="p">,</span>
-<span class="w">                        </span><span class="nt">&quot;system&quot;</span><span class="p">:</span><span class="s2">&quot;http://unitsofmeasure.org&quot;</span><span class="p">,</span>
-<span class="w">                        </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="s2">&quot;d&quot;</span>
-<span class="w">                     </span><span class="p">}</span>
-<span class="w">                  </span><span class="p">}</span>
-<span class="w">               </span><span class="p">}</span>
-<span class="w">            </span><span class="p">}</span>
-<span class="w">         </span><span class="p">]</span>
-<span class="w">      </span><span class="p">}</span>
-<span class="w">   </span><span class="p">}</span>
+<span class="normal">48</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;context&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;userId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Practitioner/123&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;patientId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1288992&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;encounterId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;89284&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;conditions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;resourceType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Bundle&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;entry&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;resource&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;resourceType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Condition&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;smart-Condition-548&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;category&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Problem&quot;</span><span class="p">,</span>
+<span class="w">              </span><span class="nt">&quot;coding&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                  </span><span class="nt">&quot;system&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://argonautwiki.hl7.org/extension-codes&quot;</span><span class="p">,</span>
+<span class="w">                  </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;problem&quot;</span><span class="p">,</span>
+<span class="w">                  </span><span class="nt">&quot;display&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Problem&quot;</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">              </span><span class="p">]</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;generated&quot;</span><span class="p">,</span>
+<span class="w">              </span><span class="nt">&quot;div&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;div xmlns=\&quot;http://www.w3.org/1999/xhtml\&quot;&gt;Vitamin D deficiency&lt;/div&gt;&quot;</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="nt">&quot;patient&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nt">&quot;reference&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Patient/1288992&quot;</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nt">&quot;coding&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                  </span><span class="nt">&quot;system&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://snomed.info/sct&quot;</span><span class="p">,</span>
+<span class="w">                  </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;34713006&quot;</span><span class="p">,</span>
+<span class="w">                  </span><span class="nt">&quot;display&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Vitamin D deficiency&quot;</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">              </span><span class="p">],</span>
+<span class="w">              </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Vitamin D deficiency&quot;</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="nt">&quot;clinicalStatus&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;active&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;verificationStatus&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;confirmed&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;onsetDateTime&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2018-11-15&quot;</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
 
@@ -1045,7 +1068,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../encounter-discharge/" title="encounter-discharge 1" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../medication-refill/" title="medication-refill 1" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -1054,19 +1077,19 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                encounter-discharge 1
+                medication-refill 1
               </span>
             </div>
           </a>
         
         
-          <a href="../problem-list-item-create/" title="problem-list-item-create 1" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../../quickstart/" title="Quick Start" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                problem-list-item-create 1
+                Quick Start
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
