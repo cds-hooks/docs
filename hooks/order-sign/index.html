@@ -417,6 +417,19 @@
     Context
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-note-concerning-fhir-versions" class="md-nav__link">
+    A Note Concerning FHIR Versions
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -628,6 +641,19 @@
     Context
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-note-concerning-fhir-versions" class="md-nav__link">
+    A Note Concerning FHIR Versions
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -722,6 +748,7 @@ to status, extending dates, or other changes allowed to signed orders within the
 case, the orders would typically have a status other than 'draft'.  In some cases, the hook might fire with a
 mixture of new and revised orders.</p>
 <p>This hook is intended to replace (deprecate) the <code>medication-prescribe</code> and <code>order-review</code> hooks. </p>
+<p><img alt="Ordering Flow Diagram" src="../../images/orderingflow.png" /></p>
 <h2 id="context">Context<a class="headerlink" href="#context" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -760,10 +787,15 @@ mixture of new and revised orders.</p>
 <td>REQUIRED</td>
 <td>No</td>
 <td><em>object</em></td>
-<td>DSTU2 - FHIR Bundle of MedicationOrder, DiagnosticOrder, DeviceUseRequest, ReferralRequest, ProcedureRequest, NutritionOrder, VisionPrescription (typically with <em>draft</em> status) <br/> STU3 - FHIR Bundle of MedicationRequest, ReferralRequest, ProcedureRequest, NutritionOrder, VisionPrescription (typically with <em>draft</em> status) <br/> R4 - FHIR Bundle of DeviceRequest, MedicationRequest, NutritionOrder, ServiceRequest, VisionPrescription (typically with <em>draft</em> status)</td>
+<td>A Bundle of FHIR request resources with a draft status, representing orders that aren't yet signed from the current ordering session.</td>
 </tr>
 </tbody>
 </table>
+<h3 id="a-note-concerning-fhir-versions">A Note Concerning FHIR Versions<a class="headerlink" href="#a-note-concerning-fhir-versions" title="Permanent link">&para;</a></h3>
+<p>CDS Hooks is designed to be agnostic of FHIR version. For example, all versions of FHIR can represent in-progress orders but over time, the specific resource name and some of the important elements have changed.  Below are some of the mosty commonly used FHIR resources for representing an order in CDS Hooks. This list is intentionally not comprehensive. 
+* DSTU2 - FHIR Bundle of MedicationOrder, ProcedureRequest
+* STU3 - FHIR Bundle of MedicationRequest, ProcedureRequest
+* R4 - FHIR Bundle of MedicationRequest, ServiceRequest</p>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
 <h3 id="example-r4">Example (R4)<a class="headerlink" href="#example-r4" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">  1</span>

@@ -405,6 +405,19 @@
     Context
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-note-concerning-fhir-versions" class="md-nav__link">
+    A Note Concerning FHIR Versions
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -628,6 +641,19 @@
     Context
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-note-concerning-fhir-versions" class="md-nav__link">
+    A Note Concerning FHIR Versions
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -716,10 +742,10 @@
 <p>This hook occurs when a clinician initially selects one or more new orders from a list of potential orders for a specific patient (including orders for medications, procedures, labs and other orders). The newly selected order defines that medication, procedure, lab, etc, but may or may not define the additional details necessary to finalize the order.</p>
 <p><code>order-select</code> is among the first workflow events for an order entering a draft status. The context of this hook may include defaulted order details upon the clinician selecting the order from the order catalogue of the CPOE, or upon her manual selection of order details (e.g. dose, quantity, route, etc). CDS services should expect some of the order information to not yet be specified. Additionally, the context may include previously selected orders that are not yet signed from the same ordering session. </p>
 <p>This hook is intended to replace (deprecate) the medication-prescribe hook.</p>
+<p><img alt="Ordering Flow Diagram" src="../../images/orderingflow.png" /></p>
 <h2 id="context">Context<a class="headerlink" href="#context" title="Permanent link">&para;</a></h2>
-<p>Decision support should focus on the 'selected' orders - those that are newly selected or actively being authored. The non-selected orders are included in the context to provide context and to allow decision support to take into account other pending actions that might not yet be stored in the system (and therefore not queryable).
-The context of this hook distinguishes between the list of unsigned orders from the clinician's ordering session, and the one or more orders just added to this list. The <code>selections</code> field contains a list of ids of these newly selected orders; the draftOrders Bundle contains an entry for all unsigned orders from this session, including newly selected orders.</p>
-<p>The selected order(s) may or may not define the additional details necessary to finalize the order (such as route, dose, etc). Note that at the point of the related order-sign hook, all order details are known. </p>
+<p>Decision support should focus on the 'selected' orders - those that are newly selected or currently being authored.  The non-selected orders are included in the context to provide context and to allow decision support to take into account other pending actions that might not yet be stored in the system (and therefore not queryable).
+The context of this hook distinguishes between the list of unsigned orders from the clinician's ordering session, and the one or more orders just added to this list. The <code>selections</code> field contains a list of ids of these newly selected orders; the <code>draftOrders</code> Bundle contains an entry for all unsigned orders from this session, including newly selected orders.</p>
 <table>
 <thead>
 <tr>
@@ -764,10 +790,15 @@ The context of this hook distinguishes between the list of unsigned orders from 
 <td>REQUIRED</td>
 <td>No</td>
 <td><em>object</em></td>
-<td>DSTU2 - FHIR Bundle of MedicationOrder, DiagnosticOrder, DeviceUseRequest, ReferralRequest, ProcedureRequest, NutritionOrder, VisionPrescription with <em>draft</em> status <br/> STU3 - FHIR Bundle of MedicationRequest, ReferralRequest, ProcedureRequest, NutritionOrder, VisionPrescription with <em>draft</em> status <br/> R4 - FHIR Bundle of DeviceRequest, MedicationRequest, NutritionOrder, ServiceRequest, VisionPrescription with <em>draft</em> status</td>
+<td>A Bundle of FHIR request resources with a draft status, representing orders that aren't yet signed from the current ordering session.</td>
 </tr>
 </tbody>
 </table>
+<h3 id="a-note-concerning-fhir-versions">A Note Concerning FHIR Versions<a class="headerlink" href="#a-note-concerning-fhir-versions" title="Permanent link">&para;</a></h3>
+<p>CDS Hooks is designed to be agnostic of FHIR version. For example, all versions of FHIR can represent in-progress orders but over time, the specific resource name and some of the important elements have changed.  Below are some of the mosty commonly used FHIR resources for representing an order in CDS Hooks. This list is intentionally not comprehensive. 
+* DSTU2 - FHIR Bundle of MedicationOrder, ProcedureRequest
+* STU3 - FHIR Bundle of MedicationRequest, ProcedureRequest
+* R4 - FHIR Bundle of MedicationRequest, ServiceRequest</p>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
 <h3 id="example-r4">Example (R4)<a class="headerlink" href="#example-r4" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">  1</span>
