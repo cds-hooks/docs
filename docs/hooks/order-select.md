@@ -16,7 +16,7 @@ This hook occurs when a clinician initially selects one or more new orders from 
 
 This hook is intended to replace (deprecate) the medication-prescribe hook.
 
-![CDS Hooks Overview](../../images/orderingflow.png)
+![Ordering Flow Diagram](../images/orderingflow.png)
 
 ## Context
 
