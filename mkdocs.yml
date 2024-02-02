@@ -18,6 +18,7 @@ nav:
     - '1.0 (external link)': https://cds-hooks.hl7.org/1.0/
 - Hooks:
     - 'new-hook-template' : 'hooks/template.md'
+    - 'allergyintolerance-create 1': 'hooks/allergyintolerance-create.md'
     - 'patient-view 5' : 'hooks/patient-view.md'
     - 'medication-prescribe 🚫' : 'hooks/medication-prescribe.md'
     - 'order-dispatch 0' : 'hooks/order-dispatch.md'
