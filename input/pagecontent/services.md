@@ -58,6 +58,7 @@ Note that a CDS server can host multiple entries of CDS service with the same `i
 Code | Description
 ---- | -----------
 `200 OK` | A successful response.
+`412 Precondition Failed` | The CDS Service is unable to retrieve the necessary FHIR data to execute its decision support, either through a prefetch request or directly calling the FHIR server.
 {:.grid}
 
 CDS Services MAY return other HTTP statuses, specifically 4xx and 5xx HTTP error codes.

@@ -78,10 +78,11 @@ parameters:
 # ╰────────────────────────────────────────────────────────────────────────────────────────────────╯
 menu:
   Home: index.html
-  Service interaction: services.html
+  Service Interaction: services.html
   Security: security.html
-  Extensions and data types: extensions-datatypes.html
+  Extensions and Data Types: extensions-datatypes.html
   Hooks: hooks.html
+  Summary: summary.html
 
 
 # ╭───────────────────────────Less Common Implementation Guide Properties──────────────────────────╮
