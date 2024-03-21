@@ -81,8 +81,8 @@ menu:
   Service Interaction: services.html
   Security: security.html
   Extensions and Data Types: extensions-datatypes.html
+  Hook Definition: hook-definitions.html
   Hooks: hooks.html
-  Summary: summary.html
 
 
 # ╭───────────────────────────Less Common Implementation Guide Properties──────────────────────────╮
