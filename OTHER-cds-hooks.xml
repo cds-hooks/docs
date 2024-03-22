@@ -9,6 +9,7 @@
 <page key="artifacts" name="Artifacts Summary"/>
 <page key="extensions-datatypes" name="Extensions Datatypes"/>
 <page key="index" name="Home"/>
+<page key="hook-definitions" name="Hook Definitions"/>
 <page key="hooks" name="Hooks"/>
 <page key="security" name="Security"/>
 <page key="services" name="Services"/>
