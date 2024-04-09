@@ -172,7 +172,7 @@ Version | Description
 | ---- | ----
 | specificationVersion | 1.0
 | hookVersion | 1.0
-| hookMaturity | [1 - Submitted](../../specification/current/#hook-maturity-model)
+| hookMaturity | [1 - Submitted](hook-definitions/###hook-maturity-model)
 
 #### Workflow
 
@@ -415,7 +415,7 @@ Version | Description
 | ---- | ----
 | specificationVersion | 1.0
 | hookVersion | 1.0
-| hookMaturity | [1 - Submitted](../../specification/current/#hook-maturity-model)
+| hookMaturity | [1 - Submitted](hook-definitions/###hook-maturity-model)
 
 #### Workflow
 
@@ -502,7 +502,7 @@ Version | Description
 | ---- | ----
 | specificationVersion | 2.0
 | hookVersion | 0.1.0
-| hookMaturity | [1 - Submitted](../../specification/current/#hook-maturity-model)
+| hookMaturity | [1 - Submitted](hook-definitions/###hook-maturity-model)
 
 #### Workflow
 
@@ -676,7 +676,7 @@ Version | Description
 | ---- | ----
 | specificationVersion | 2.0
 | hookVersion | 1.1
-| hookMaturity | [0 - Draft](../../specification/current/#hook-maturity-model)
+| hookMaturity | [0 - Draft](hook-definitions/###hook-maturity-model)
 
 #### Workflow
 
@@ -744,7 +744,7 @@ Version | Description
 | ---- | ----
 | specificationVersion | 1.0
 | hookVersion | 1.0
-| Hook maturity | [4 - Documented](../../specification/current/#hook-maturity-model)
+| Hook maturity | [4 - Documented](hook-definitions/###hook-maturity-model)
 
 #### Workflow
 
@@ -756,7 +756,7 @@ This hook occurs when a clinician initially selects one or more new orders from 
 
 This hook is intended to replace (deprecate) the medication-prescribe hook.
 
-![Ordering Flow Diagram](../images/orderingflow.png)
+![Ordering Flow Diagram](input\images\orderingflow.png)
 
 #### Context
 
@@ -1305,7 +1305,7 @@ Version | Description
 | ---- | ----
 | specificationVersion | 1.0
 | hookVersion | 1.0
-| Hook maturity | [5 - Mature](../../specification/current/#hook-maturity-model)
+| Hook maturity | [5 - Mature](hook-definitions/###hook-maturity-model)
 
 #### Workflow
 
@@ -1322,7 +1322,7 @@ mixture of new and revised orders.
 
 This hook is intended to replace (deprecate) the `medication-prescribe` and `order-review` hooks. 
 
-![Ordering Flow Diagram](../images/orderingflow.png)
+![Ordering Flow Diagram](images/orderingflow.png)
 
 #### Context
 
@@ -1861,7 +1861,7 @@ Version | Description
 ### `patient-view`
 
 !!! info
-    This page defines a workflow [hook](../../specification/current/#hooks) for the purpose of providing clinical decision support using CDS Hooks. This is a **build** at the level of **[Trial Use](http://hl7.org/fhir/versions.html#std-processs)**.
+    This page defines a workflow [hook](/hook-defintions/###hooks) for the purpose of providing clinical decision support using CDS Hooks. This is a **build** at the level of **[Trial Use](http://hl7.org/fhir/versions.html#std-processs)**.
 
 | Metadata | Value
 | ---- | ----
@@ -1912,7 +1912,7 @@ Version | Description
 | ---- | ----
 | specificationVersion | 1.0
 | hookVersion | 0.1.0
-| hookMaturity | [1 - Submitted](../../specification/current/#hook-maturity-model)
+| hookMaturity | [1 - Submitted](hook-definitions/###hook-maturity-model)
 
 #### Workflow
 
