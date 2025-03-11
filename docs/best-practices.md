@@ -19,19 +19,19 @@ The CDS Hooks security model leverages several existing RFCs. These should be re
 
 Implementers of CDS Clients should:
 
-**Maintain a allowlist of CDS Service endpoints that may be invoked.**
+**Maintain an allowlist of CDS Service endpoints that may be invoked.**
 
 Only endpoints on the allowlist can be invoked. This ensures that CDS Clients invoke only trusted CDS Services. This is especially important since CDS Clients may send an authorization token that allows the CDS Service temporary access to the FHIR server.
 
 **Issue secure FHIR access tokens.**
 
-*If* a CDS Clients generates access tokens to its FHIR server, the tokens should:
+*If* a CDS Client generates access tokens to its FHIR server, the tokens should:
 
 - Be unique for each CDS Service endpoint.
 - Be very short-lived.
 - Provide the minimum necessary access for the CDS Service. This includes both SMART scopes as well as the patient(s)/data that can be accessed.
 
-**Audit CDS Service's access to data***
+**Audit CDS Service's access to data**
 
 Regardless of the use of prefetch or more typical FHIR RESTful APIs, CDS Clients should audit and report on data access. 
 
