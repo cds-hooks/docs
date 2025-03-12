@@ -225,58 +225,10 @@
       
 
 
-  <li class="md-nav__item md-nav__item--nested">
-    
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
-    
-    <label class="md-nav__link" for="nav-2">
-      Specification
-    </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-2">
-        Specification
-      </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
-          
-          
-          
-
-
   <li class="md-nav__item">
-    <a href="../specification/current/" title="Current (draft)" class="md-nav__link">
-      Current (draft)
+    <a href="https://cds-hooks.hl7.org/" title="Specification (external link)" class="md-nav__link">
+      Specification (external link)
     </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="https://cds-hooks.hl7.org/2.0/" title="2.0 (external link)" class="md-nav__link">
-      2.0 (external link)
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="https://cds-hooks.hl7.org/1.0/" title="1.0 (external link)" class="md-nav__link">
-      1.0 (external link)
-    </a>
-  </li>
-
-        
-      </ul>
-    </nav>
   </li>
 
     
@@ -285,178 +237,10 @@
       
 
 
-  <li class="md-nav__item md-nav__item--nested">
-    
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
-    
-    <label class="md-nav__link" for="nav-3">
-      Hooks
-    </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-3">
-        Hooks
-      </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
-          
-          
-          
-
-
   <li class="md-nav__item">
-    <a href="../hooks/template/" title="new-hook-template" class="md-nav__link">
-      new-hook-template
+    <a href="https://cds-hooks.hl7.org/hooks/" title="Hooks (external link)" class="md-nav__link">
+      Hooks (external link)
     </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../hooks/allergyintolerance-create/" title="allergyintolerance-create 1" class="md-nav__link">
-      allergyintolerance-create 1
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../hooks/patient-view/" title="patient-view 5" class="md-nav__link">
-      patient-view 5
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../hooks/medication-prescribe/" title="medication-prescribe 🚫" class="md-nav__link">
-      medication-prescribe 🚫
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../hooks/order-dispatch/" title="order-dispatch 0" class="md-nav__link">
-      order-dispatch 0
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../hooks/order-review/" title="order-review 🚫" class="md-nav__link">
-      order-review 🚫
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../hooks/order-select/" title="order-select 4" class="md-nav__link">
-      order-select 4
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../hooks/order-sign/" title="order-sign 5" class="md-nav__link">
-      order-sign 5
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../hooks/appointment-book/" title="appointment-book 1" class="md-nav__link">
-      appointment-book 1
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../hooks/encounter-start/" title="encounter-start 1" class="md-nav__link">
-      encounter-start 1
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../hooks/encounter-discharge/" title="encounter-discharge 1" class="md-nav__link">
-      encounter-discharge 1
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../hooks/medication-refill/" title="medication-refill 1" class="md-nav__link">
-      medication-refill 1
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../hooks/problem-list-item-create/" title="problem-list-item-create 1" class="md-nav__link">
-      problem-list-item-create 1
-    </a>
-  </li>
-
-        
-      </ul>
-    </nav>
   </li>
 
     
@@ -708,16 +492,16 @@
 </ul>
 <h3 id="cds-clients">CDS Clients<a class="headerlink" href="#cds-clients" title="Permanent link">&para;</a></h3>
 <p>Implementers of CDS Clients should:</p>
-<p><strong>Maintain a allowlist of CDS Service endpoints that may be invoked.</strong></p>
+<p><strong>Maintain an allowlist of CDS Service endpoints that may be invoked.</strong></p>
 <p>Only endpoints on the allowlist can be invoked. This ensures that CDS Clients invoke only trusted CDS Services. This is especially important since CDS Clients may send an authorization token that allows the CDS Service temporary access to the FHIR server.</p>
 <p><strong>Issue secure FHIR access tokens.</strong></p>
-<p><em>If</em> a CDS Clients generates access tokens to its FHIR server, the tokens should:</p>
+<p><em>If</em> a CDS Client generates access tokens to its FHIR server, the tokens should:</p>
 <ul>
 <li>Be unique for each CDS Service endpoint.</li>
 <li>Be very short-lived.</li>
 <li>Provide the minimum necessary access for the CDS Service. This includes both SMART scopes as well as the patient(s)/data that can be accessed.</li>
 </ul>
-<p><strong>Audit CDS Service's access to data</strong>*</p>
+<p><strong>Audit CDS Service's access to data</strong></p>
 <p>Regardless of the use of prefetch or more typical FHIR RESTful APIs, CDS Clients should audit and report on data access. </p>
 <h3 id="cds-services">CDS Services<a class="headerlink" href="#cds-services" title="Permanent link">&para;</a></h3>
 <h4 id="jwt">JWT<a class="headerlink" href="#jwt" title="Permanent link">&para;</a></h4>
