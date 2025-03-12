@@ -5,6 +5,7 @@ on:
     branches: [ master ]
   pull_request:
     types: [opened, synchronize] # This will trigger the workflow only when a PR is opened or updated with new commits
+  workflow_dispatch:
 
 jobs:
   build:
