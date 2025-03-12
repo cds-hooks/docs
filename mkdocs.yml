@@ -12,24 +12,8 @@ extra:
 
 nav:
 - Overview: 'index.md'
-- Specification:
-    - Current (draft): 'specification/current.md'
-    - '2.0 (external link)': https://cds-hooks.hl7.org/2.0/    
-    - '1.0 (external link)': https://cds-hooks.hl7.org/1.0/
-- Hooks:
-    - 'new-hook-template' : 'hooks/template.md'
-    - 'allergyintolerance-create 1': 'hooks/allergyintolerance-create.md'
-    - 'patient-view 5' : 'hooks/patient-view.md'
-    - 'medication-prescribe 🚫' : 'hooks/medication-prescribe.md'
-    - 'order-dispatch 0' : 'hooks/order-dispatch.md'
-    - 'order-review 🚫' : 'hooks/order-review.md'
-    - 'order-select 4' : 'hooks/order-select.md'
-    - 'order-sign 5' : 'hooks/order-sign.md'
-    - 'appointment-book 1' : 'hooks/appointment-book.md'
-    - 'encounter-start 1' : 'hooks/encounter-start.md'
-    - 'encounter-discharge 1' : 'hooks/encounter-discharge.md'
-    - 'medication-refill 1' : 'hooks/medication-refill.md'
-    - 'problem-list-item-create 1' : 'hooks/problem-list-item-create.md'
+- Specification (external link): https://cds-hooks.hl7.org/
+- Hooks (external link): https://cds-hooks.hl7.org/hooks/
 - Quick Start: 'quickstart.md'
 - Cheat Sheet: 'cheat-sheet/Cheat Sheet - Sept 2019.pdf'
 - Best Practices: 'best-practices.md'
