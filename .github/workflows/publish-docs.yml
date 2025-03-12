@@ -1,0 +1,36 @@
+name: Publish docs
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    types: [opened, synchronize] # This will trigger the workflow only when a PR is opened or updated with new commits
+  workflow_dispatch:
+
+jobs:
+  build:
+
+    runs-on: ubuntu-20.04
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Set up Python 3.6
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.6
+        
+    - name: Setup dependencies
+      run: pip install -r requirements.txt
+        
+    - name: Generate docs
+      run: mkdocs build --verbose --clean --strict
+
+    - name: Deploy
+      if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./site
+        cname: cds-hooks.org
+
