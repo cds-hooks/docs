@@ -246,7 +246,7 @@ There are two styles of prefetch expressions - read and search.  How the express
 
 ##### read prefetch
 
-A prefetch is determined to be a read if, after resolving the prefetch token, the result is a string with the form `[resource name]/{{[token]}}`.  For example:
+A prefetch is determined to be a read if, after resolving the prefetch token, the result is a string with the form `[resource name]/{{[token]}}`.  For example, if a hook like order-sign defines context elements called `patient` that is an id and `user` that is a reference, the prefetch might look like this::
 ```
 {
   "prefetch": {
