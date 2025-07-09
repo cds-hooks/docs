@@ -240,7 +240,7 @@ A prefetch token is a placeholder in a prefetch template that is *_replaced by i
 
 Prefetch tokens MUST be delimited by `{{` and `}}`, and MUST contain only the qualified path to a hook context field *_or one of the following user identifiers: `userPractitionerId`, 'userPractitioneRoleId', `userPatientId`, or `userRelatedPersonId`_*.
 
-Individual hooks specify which of their `context` fields can be used as prefetch tokens. Prefetch templates must start with one of these context elements and can then navigate to information available within the context element using [simple FHIRPath](https://hl7.org/fhir/fhirpath.html#simple).  For example, 
+Individual hooks specify which of their `context` fields can be used as prefetch tokens. Prefetch templates must start with one of these context elements and can then navigate to information available within the context element using [simple FHIRPath](https://hl7.org/fhir/fhirpath.html#simple).
 
 There are two styles of prefetch expressions - read and search.  How the expressions are formatted and how the data is expected to come back varies for each.
 
