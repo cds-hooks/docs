@@ -220,7 +220,7 @@ A CDS Client MAY choose to honor some or all of the desired prefetch templates, 
 
 The CDS Client SHALL deny access to the requested resource if the user in context is not authorized to access the resource.
 
-As part of preparing the request, a CDS Client processes each prefetch template it intends to satisfy by replacing the prefetch tokens in the prefetch template and manipulating the results to construct RESTful call. This specification is not prescriptive about how this request is actually processed. The content may be executed as a direct GET or POST against the CDS Client's FHIR server and directly invoked, or the CDS Client may use internal infrastructure to satisfy the request in the same way that invoking against the FHIR server would.
+As part of preparing the request, a CDS Client processes each prefetch template it intends to satisfy by replacing the prefetch tokens in the prefetch template and manipulating the results to construct RESTful calls. This specification is not prescriptive about how this request is actually processed. The content may be executed as a direct GET or POST against the CDS Client's FHIR server and directly invoked, or the CDS Client may use internal infrastructure to satisfy the request in the same way that invoking against the FHIR server would.
 
 Regardless of how the CDS Client satisfies the prefetch templates (if at all), the prefetched data given to the CDS Service MUST be equivalent to the data the CDS Service would receive if it were making its own call to the CDS Client's FHIR server using the parameterized prefetch template.
 
