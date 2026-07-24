@@ -21,7 +21,7 @@ This hook shall not be used when a report is being amended or to call clinical d
 This hook shall only be used for the status codes of `partial` and `preliminary`.
   
 ![Reporting Flow Diagram](../images/reportingflow.png)
-Figure 1: Proposed CDS Hooks Workflow. The above image shows the workflow order for when these CDS Hooks would be triggered.
+<br>Figure 1: Proposed CDS Hooks Workflow. The above image shows the workflow order for when these CDS Hooks would be triggered.
 
 ## Context
 
