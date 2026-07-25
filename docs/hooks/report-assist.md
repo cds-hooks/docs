@@ -32,7 +32,7 @@ Field | Optionality | Prefetch Token | Type | Description
 `encounterId` | OPTIONAL | Yes | *string* | The FHIR `Encounter.id` of the current encounter in context.
 `reportId` | OPTIONAL | Yes | *string* | The FHIR `DiagnosticReport.id` of the current report.
 `category` | REQUIRED | No | *string* | The FHIR `DiagnosticReport.category` of the study. <br>NOTE: For example, radiology would have the category `RAD`, pathology `PAT`, and laboratory `LAB`.
-`status` | OPTIONAL | No | *string* | The FHIR `DiagnosticReport.status` of the report or report. <br>NOTE: For the category of radiology, the status codes `preliminary` and `partial` are preferred. <br><br>It should be noted that new (additional) status codes of `resident-wetread` and `physician-wetread` (e.g. ED physician) may be useful.
+`status` | OPTIONAL | No | *string* | The FHIR `DiagnosticReport.status` of the report. <br>NOTE: For the category of radiology, the status codes `preliminary` and `partial` are preferred. <br><br>It should be noted that new (additional) status codes of `resident-wetread` and `physician-wetread` (e.g. ED physician) may be useful.
 `procedure` | OPTIONAL | No | *array* | The FHIR `DiagnosticReport.code` of this study, which refers to the procedure name.  <br>NOTE: For example, the procedure code, or set of procedure codes, that correspond to an imaging study are reported as LOINC codes.
 
 ## Examples
