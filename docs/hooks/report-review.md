@@ -30,7 +30,7 @@ Field | Optionality | Prefetch Token | Type | Description
 `encounterId` | OPTIONAL | Yes | *string* | The FHIR `Encounter.id` of the current encounter in context.
 `reportId` | REQUIRED | Yes | *string* | The FHIR `DiagnosticReport.id` of the current report.
 `category` | REQUIRED | No | *string* | The FHIR `DiagnosticReport.category` of the study. <br>NOTE: For example, radiology would have the category `RAD`, pathology `PAT`, and laboratory `LAB`.
-`status` | REQUIRED | No | *string* | The FHIR `DiagnosticReport.status` of the report or report. <br>NOTE: For the category of radiology, the status codes `preliminary`, `final`, and `amended` are preferred. `Preliminary` would occur if the report is being reviewed before the first time it has been signed as a new report. `Final` would occur if a first amendment is being added to a report. `Amended` would occur if more than one amendments have been added to a report.
+`status` | REQUIRED | No | *string* | The FHIR `DiagnosticReport.status` of the report. <br>NOTE: For the category of radiology, the status codes `preliminary`, `final`, and `amended` are preferred. `Preliminary` would occur if the report is being reviewed before the first time it has been signed as a new report. `Final` would occur if a first amendment is being added to a report. `Amended` would occur if more than one amendments have been added to a report.
 `procedure` | OPTIONAL | No | *array* | The FHIR `DiagnosticReport.code` of this study, which refers to the procedure name.  <br>NOTE: For example, the procedure code, or set of procedure codes, that correspond to an imaging study are reported as LOINC codes.
 
 ## Examples
