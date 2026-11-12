@@ -1400,7 +1400,7 @@ decision support from within a clinician's workflow. The API supports:</p>
 </table>
 <p>CDS Services MAY return other HTTP statuses, specifically 4xx and 5xx HTTP error codes.</p>
 <h3 id="discovery-example">Discovery Example<a class="headerlink" href="#discovery-example" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>curl<span class="w"> </span><span class="s2">&quot;https://example.com/cds-services&quot;</span>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>curl<span class="w"> </span><span class="s2">"https://example.com/cds-services"</span>
 </code></pre></div></td></tr></table></div>
 
 <blockquote>
@@ -1436,32 +1436,32 @@ decision support from within a clinician's workflow. The API supports:</p>
 <span class="normal">28</span>
 <span class="normal">29</span>
 <span class="normal">30</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;services&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">  </span><span class="nt">"services"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;hook&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;patient-view&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Static CDS Service Example&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;An example of a CDS Service that returns a static set of cards&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;static-patient-greeter&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;prefetch&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;patientToGreet&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Patient/{{context.patientId}}&quot;</span>
+<span class="w">      </span><span class="nt">"hook"</span><span class="p">:</span><span class="w"> </span><span class="s2">"patient-view"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Static CDS Service Example"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"An example of a CDS Service that returns a static set of cards"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"static-patient-greeter"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"prefetch"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"patientToGreet"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Patient/{{context.patientId}}"</span>
 <span class="w">      </span><span class="p">}</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;hook&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;order-select&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Order Echo CDS Service&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;An example of a CDS Service that simply echoes the order(s) being placed&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;order-echo&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;prefetch&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;patient&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Patient/{{context.patientId}}&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;medications&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;MedicationRequest?patient={{context.patientId}}&quot;</span>
+<span class="w">      </span><span class="nt">"hook"</span><span class="p">:</span><span class="w"> </span><span class="s2">"order-select"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Order Echo CDS Service"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"An example of a CDS Service that simply echoes the order(s) being placed"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"order-echo"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"prefetch"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"patient"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Patient/{{context.patientId}}"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"medications"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MedicationRequest?patient={{context.patientId}}"</span>
 <span class="w">      </span><span class="p">}</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;hook&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;order-sign&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Pharmacogenomics CDS Service&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;An example of a more advanced, precision medicine CDS Service&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pgx-on-order-sign&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;usageRequirements&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Note: functionality of this CDS Service is degraded without access to a FHIR Restful API as part of CDS recommendation generation.&quot;</span>
+<span class="w">      </span><span class="nt">"hook"</span><span class="p">:</span><span class="w"> </span><span class="s2">"order-sign"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pharmacogenomics CDS Service"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"An example of a more advanced, precision medicine CDS Service"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pgx-on-order-sign"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"usageRequirements"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Note: functionality of this CDS Service is degraded without access to a FHIR Restful API as part of CDS recommendation generation."</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">]</span>
 <span class="p">}</span>
@@ -1529,9 +1529,9 @@ decision support from within a clinician's workflow. The API supports:</p>
 <span class="normal">4</span>
 <span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code>curl
   -X POST \
-  -H &#39;Content-type: application/json&#39; \
+  -H 'Content-type: application/json' \
   --data @hook-details-see-example-below
-  &quot;https://example.com/cds-services/static-patient-greeter&quot;
+  "https://example.com/cds-services/static-patient-greeter"
 </code></pre></div></td></tr></table></div>
 
 <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
@@ -1560,28 +1560,28 @@ decision support from within a clinician's workflow. The API supports:</p>
 <span class="normal">24</span>
 <span class="normal">25</span>
 <span class="normal">26</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;hookInstance&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;d1577c69-dfbe-44ad-ba6d-3e05e953b2ea&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;fhirServer&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://hooks.smarthealthit.org:9080&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;hook&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;patient-view&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;fhirAuthorization&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;access_token&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;some-opaque-fhir-access-token&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;token_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Bearer&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;expires_in&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">300</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;scope&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user/Patient.read user/Observation.read&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;subject&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;cds-service4&quot;</span>
+<span class="w">  </span><span class="nt">"hookInstance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"d1577c69-dfbe-44ad-ba6d-3e05e953b2ea"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"fhirServer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://hooks.smarthealthit.org:9080"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"hook"</span><span class="p">:</span><span class="w"> </span><span class="s2">"patient-view"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"fhirAuthorization"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"access_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"some-opaque-fhir-access-token"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"token_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bearer"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"expires_in"</span><span class="p">:</span><span class="w"> </span><span class="mi">300</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"scope"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user/Patient.read user/Observation.read"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"subject"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cds-service4"</span>
 <span class="w">  </span><span class="p">},</span>
-<span class="w">  </span><span class="nt">&quot;context&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;userId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Practitioner/example&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;patientId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1288992&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;encounterId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;89284&quot;</span>
+<span class="w">  </span><span class="nt">"context"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Practitioner/example"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"patientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1288992"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"encounterId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"89284"</span>
 <span class="w">  </span><span class="p">},</span>
-<span class="w">  </span><span class="nt">&quot;prefetch&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;patientToGreet&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;resourceType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Patient&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;gender&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;male&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;birthDate&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1925-12-23&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1288992&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;active&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">  </span><span class="nt">"prefetch"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"patientToGreet"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"resourceType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Patient"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"gender"</span><span class="p">:</span><span class="w"> </span><span class="s2">"male"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"birthDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1925-12-23"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1288992"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"active"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
@@ -1605,8 +1605,8 @@ decision support from within a clinician's workflow. The API supports:</p>
 <span class="normal">3</span>
 <span class="normal">4</span>
 <span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;prefetch&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;hemoglobin-a1c&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Observation?patient={{context.patientId}}&amp;code=4548-4&amp;_count=1&amp;sort:desc=date&quot;</span>
+<span class="w">  </span><span class="nt">"prefetch"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"hemoglobin-a1c"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Observation?patient={{context.patientId}}&amp;code=4548-4&amp;_count=1&amp;sort:desc=date"</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
@@ -1641,8 +1641,8 @@ decision support from within a clinician's workflow. The API supports:</p>
 <span class="normal">3</span>
 <span class="normal">4</span>
 <span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code>{
-  &quot;prefetch&quot;: {
-    &quot;user&quot;: &quot;{{context.userId}}&quot;
+  "prefetch": {
+    "user": "{{context.userId}}"
   }
 }
 </code></pre></div></td></tr></table></div>
@@ -1653,8 +1653,8 @@ decision support from within a clinician's workflow. The API supports:</p>
 <span class="normal">3</span>
 <span class="normal">4</span>
 <span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code>{
-  &quot;prefetch&quot;: {
-    &quot;user&quot;: &quot;PractitionerRole?_id={{userPractitionerRoleId}}&amp;_include=PractitionerRole:practitioner&quot;
+  "prefetch": {
+    "user": "PractitionerRole?_id={{userPractitionerRoleId}}&amp;_include=PractitionerRole:practitioner"
   }
 }
 </code></pre></div></td></tr></table></div>
@@ -1705,8 +1705,8 @@ decision support from within a clinician's workflow. The API supports:</p>
 <span class="normal">3</span>
 <span class="normal">4</span>
 <span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;context&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;patientId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;123&quot;</span>
+<span class="w">  </span><span class="nt">"context"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"patientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123"</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
@@ -1740,24 +1740,24 @@ decision support from within a clinician's workflow. The API supports:</p>
 <span class="normal">24</span>
 <span class="normal">25</span>
 <span class="normal">26</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;context&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;encounterId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;456&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;draftOrders&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;resourceType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Bundle&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;entry&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="p">{</span>
-<span class="w">          </span><span class="nt">&quot;resource&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">&quot;resourceType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;MedicationRequest&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;123&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;draft&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;intent&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;order&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;medicationCodeableConcept&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">              </span><span class="nt">&quot;coding&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">   </span><span class="p">{</span>
-<span class="w">                  </span><span class="nt">&quot;system&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://www.nlm.nih.gov/research/umls/rxnorm&quot;</span><span class="p">,</span>
-<span class="w">                  </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;617993&quot;</span><span class="p">,</span>
-<span class="w">                  </span><span class="nt">&quot;display&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Amoxicillin 120 MG/ML / clavulanate potassium 8.58 MG/ML Oral Suspension&quot;</span>
+<span class="w">  </span><span class="nt">"context"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"encounterId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"456"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"draftOrders"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"resourceType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bundle"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"entry"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">"resource"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">"resourceType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MedicationRequest"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"draft"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"intent"</span><span class="p">:</span><span class="w"> </span><span class="s2">"order"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"medicationCodeableConcept"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nt">"coding"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">   </span><span class="p">{</span>
+<span class="w">                  </span><span class="nt">"system"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://www.nlm.nih.gov/research/umls/rxnorm"</span><span class="p">,</span>
+<span class="w">                  </span><span class="nt">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"617993"</span><span class="p">,</span>
+<span class="w">                  </span><span class="nt">"display"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Amoxicillin 120 MG/ML / clavulanate potassium 8.58 MG/ML Oral Suspension"</span>
 <span class="w">                </span><span class="p">}]},</span>
-<span class="w">            </span><span class="nt">&quot;subject&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">              </span><span class="nt">&quot;reference&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Patient/1288992&quot;</span>
+<span class="w">            </span><span class="nt">"subject"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nt">"reference"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Patient/1288992"</span>
 <span class="w">            </span><span class="p">}</span>
 <span class="w">          </span><span class="p">}</span>
 <span class="w">        </span><span class="p">}</span>
@@ -1795,25 +1795,25 @@ decision support from within a clinician's workflow. The API supports:</p>
 <span class="normal">25</span>
 <span class="normal">26</span>
 <span class="normal">27</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;context&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;medicationRequestId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;123&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;encounterId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;456&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;draftOrders&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;resourceType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Bundle&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;entry&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="p">{</span>
-<span class="w">          </span><span class="nt">&quot;resource&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">&quot;resourceType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;MedicationRequest&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;123&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;draft&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;intent&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;order&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;medicationCodeableConcept&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">              </span><span class="nt">&quot;coding&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">   </span><span class="p">{</span>
-<span class="w">                  </span><span class="nt">&quot;system&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://www.nlm.nih.gov/research/umls/rxnorm&quot;</span><span class="p">,</span>
-<span class="w">                  </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;617993&quot;</span><span class="p">,</span>
-<span class="w">                  </span><span class="nt">&quot;display&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Amoxicillin 120 MG/ML / clavulanate potassium 8.58 MG/ML Oral Suspension&quot;</span>
+<span class="w">  </span><span class="nt">"context"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"medicationRequestId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"encounterId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"456"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"draftOrders"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"resourceType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bundle"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"entry"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">"resource"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">"resourceType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MedicationRequest"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"draft"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"intent"</span><span class="p">:</span><span class="w"> </span><span class="s2">"order"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"medicationCodeableConcept"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nt">"coding"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">   </span><span class="p">{</span>
+<span class="w">                  </span><span class="nt">"system"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://www.nlm.nih.gov/research/umls/rxnorm"</span><span class="p">,</span>
+<span class="w">                  </span><span class="nt">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"617993"</span><span class="p">,</span>
+<span class="w">                  </span><span class="nt">"display"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Amoxicillin 120 MG/ML / clavulanate potassium 8.58 MG/ML Oral Suspension"</span>
 <span class="w">                </span><span class="p">}]},</span>
-<span class="w">            </span><span class="nt">&quot;subject&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">              </span><span class="nt">&quot;reference&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Patient/1288992&quot;</span>
+<span class="w">            </span><span class="nt">"subject"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nt">"reference"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Patient/1288992"</span>
 <span class="w">            </span><span class="p">}</span>
 <span class="w">          </span><span class="p">}</span>
 <span class="w">        </span><span class="p">}</span>
@@ -1832,11 +1832,11 @@ decision support from within a clinician's workflow. The API supports:</p>
 <span class="normal">6</span>
 <span class="normal">7</span>
 <span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;prefetch&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;patient&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Patient/{{context.patientId}}&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;hemoglobin-a1c&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Observation?patient={{context.patientId}}&amp;code=4548-4&amp;_count=1&amp;sort:desc=date&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;diabetes-type2&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Condition?patient={{context.patientId}}&amp;code=44054006&amp;category=problem-list-item&amp;status=active&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;user&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;PractitionerRole?_id={{userPractitionerRoleId}}&quot;</span>
+<span class="w">  </span><span class="nt">"prefetch"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"patient"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Patient/{{context.patientId}}"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"hemoglobin-a1c"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Observation?patient={{context.patientId}}&amp;code=4548-4&amp;_count=1&amp;sort:desc=date"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"diabetes-type2"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Condition?patient={{context.patientId}}&amp;code=44054006&amp;category=problem-list-item&amp;status=active"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"user"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PractitionerRole?_id={{userPractitionerRoleId}}"</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
@@ -1902,35 +1902,35 @@ goal is to know, at call time:</p>
 <span class="normal">30</span>
 <span class="normal">31</span>
 <span class="normal">32</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;prefetch&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;patient&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;resourceType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Patient&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;gender&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;male&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;birthDate&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1974-12-25&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;...&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;snipped for brevity&gt;&quot;</span>
+<span class="w">  </span><span class="nt">"prefetch"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"patient"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"resourceType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Patient"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"gender"</span><span class="p">:</span><span class="w"> </span><span class="s2">"male"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"birthDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1974-12-25"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"..."</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;snipped for brevity&gt;"</span>
 <span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="nt">&quot;hemoglobin-a1c&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;resourceType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Bundle&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;searchset&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;entry&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="nt">"hemoglobin-a1c"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"resourceType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bundle"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"searchset"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"entry"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">        </span><span class="p">{</span>
-<span class="w">          </span><span class="nt">&quot;resource&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">&quot;resourceType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Observation&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">              </span><span class="nt">&quot;coding&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">          </span><span class="nt">"resource"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">"resourceType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Observation"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"code"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nt">"coding"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">                </span><span class="p">{</span>
-<span class="w">                  </span><span class="nt">&quot;system&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://loinc.org&quot;</span><span class="p">,</span>
-<span class="w">                  </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;4548-4&quot;</span><span class="p">,</span>
-<span class="w">                  </span><span class="nt">&quot;display&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Hemoglobin A1c&quot;</span>
+<span class="w">                  </span><span class="nt">"system"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://loinc.org"</span><span class="p">,</span>
+<span class="w">                  </span><span class="nt">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4548-4"</span><span class="p">,</span>
+<span class="w">                  </span><span class="nt">"display"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Hemoglobin A1c"</span>
 <span class="w">                </span><span class="p">}</span>
 <span class="w">              </span><span class="p">]</span>
 <span class="w">            </span><span class="p">},</span>
-<span class="w">            </span><span class="nt">&quot;...&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;snipped for brevity&gt;&quot;</span>
+<span class="w">            </span><span class="nt">"..."</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;snipped for brevity&gt;"</span>
 <span class="w">          </span><span class="p">}</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">      </span><span class="p">]</span>
 <span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="nt">&quot;user&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;123&quot;</span>
+<span class="w">    </span><span class="nt">"user"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123"</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
@@ -2008,12 +2008,12 @@ keys match the request keys (<code>patient</code> and <code>hemoglobin-a1c</code
 <span class="normal">7</span>
 <span class="normal">8</span>
 <span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;fhirAuthorization&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;access_token&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;some-opaque-fhir-access-token&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;token_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Bearer&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;expires_in&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">300</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;scope&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user/Patient.read user/Observation.read&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;subject&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;cds-service4&quot;</span>
+<span class="w">  </span><span class="nt">"fhirAuthorization"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"access_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"some-opaque-fhir-access-token"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"token_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bearer"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"expires_in"</span><span class="p">:</span><span class="w"> </span><span class="mi">300</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"scope"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user/Patient.read user/Observation.read"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"subject"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cds-service4"</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
@@ -2073,7 +2073,7 @@ keys match the request keys (<code>patient</code> and <code>hemoglobin-a1c</code
 <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;cards&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">  </span><span class="nt">"cards"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span>
 <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
 
@@ -2197,14 +2197,14 @@ keys match the request keys (<code>patient</code> and <code>hemoglobin-a1c</code
 <span class="normal">10</span>
 <span class="normal">11</span>
 <span class="normal">12</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;source&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;label&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Zika Virus Management&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://example.com/cdc-zika-virus-mgmt&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;icon&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://example.com/cdc-zika-virus-mgmt/100.png&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;topic&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;system&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://example.org/cds-services/fhir/CodeSystem/topics&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;12345&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;display&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Mosquito born virus&quot;</span>
+<span class="w">  </span><span class="nt">"source"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Zika Virus Management"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.com/cdc-zika-virus-mgmt"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"icon"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.com/cdc-zika-virus-mgmt/100.png"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"topic"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"system"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.org/cds-services/fhir/CodeSystem/topics"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12345"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"display"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mosquito born virus"</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
@@ -2296,12 +2296,12 @@ keys match the request keys (<code>patient</code> and <code>hemoglobin-a1c</code
 <span class="normal">7</span>
 <span class="normal">8</span>
 <span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;create&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Create a prescription for Acetaminophen 250 MG&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;resource&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;resourceType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;MedicationRequest&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;medrx001&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;...&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;snipped for brevity&gt;&quot;</span>
+<span class="w">  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"create"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Create a prescription for Acetaminophen 250 MG"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"resource"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"resourceType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MedicationRequest"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"medrx001"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"..."</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;snipped for brevity&gt;"</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
@@ -2316,12 +2316,12 @@ keys match the request keys (<code>patient</code> and <code>hemoglobin-a1c</code
 <span class="normal">7</span>
 <span class="normal">8</span>
 <span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;update&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Update the order to record the appropriateness score&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;resource&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;resourceType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ServiceRequest&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;procedure-request-1&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;...&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;snipped for brevity&gt;&quot;</span>
+<span class="w">  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"update"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Update the order to record the appropriateness score"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"resource"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"resourceType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ServiceRequest"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"procedure-request-1"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"..."</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;snipped for brevity&gt;"</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
@@ -2332,9 +2332,9 @@ keys match the request keys (<code>patient</code> and <code>hemoglobin-a1c</code
 <span class="normal">3</span>
 <span class="normal">4</span>
 <span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;delete&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Remove the inappropriate order&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;resourceId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ServiceRequest/procedure-request-1&quot;</span>
+<span class="w">  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"delete"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Remove the inappropriate order"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"resourceId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ServiceRequest/procedure-request-1"</span>
 <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
 
@@ -2355,16 +2355,16 @@ keys match the request keys (<code>patient</code> and <code>hemoglobin-a1c</code
 <span class="normal">12</span>
 <span class="normal">13</span>
 <span class="normal">14</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;overrideReasons&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">  </span><span class="nt">"overrideReasons"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;reason-code-provided-by-service&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;system&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://example.org/cds-services/fhir/CodeSystem/override-reasons&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;display&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Patient refused&quot;</span>
+<span class="w">      </span><span class="nt">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"reason-code-provided-by-service"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"system"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.org/cds-services/fhir/CodeSystem/override-reasons"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"display"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Patient refused"</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;12354&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;system&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://example.org/cds-services/fhir/CodeSystem/override-reasons&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;display&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Contraindicated&quot;</span>
+<span class="w">      </span><span class="nt">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12354"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"system"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.org/cds-services/fhir/CodeSystem/override-reasons"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"display"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Contraindicated"</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">]</span>
 <span class="p">}</span>
@@ -2432,14 +2432,14 @@ keys match the request keys (<code>patient</code> and <code>hemoglobin-a1c</code
 <span class="normal">11</span>
 <span class="normal">12</span>
 <span class="normal">13</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;cards&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
-<span class="w">  </span><span class="nt">&quot;systemActions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">  </span><span class="nt">"cards"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">  </span><span class="nt">"systemActions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;update&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;resource&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;resourceType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ServiceRequest&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;example-MRI-59879846&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;...&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;snipped for brevity&quot;</span>
+<span class="w">      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"update"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"resource"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"resourceType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ServiceRequest"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example-MRI-59879846"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"..."</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;snipped for brevity"</span>
 <span class="w">      </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">]</span>
@@ -2502,52 +2502,52 @@ keys match the request keys (<code>patient</code> and <code>hemoglobin-a1c</code
 <span class="normal">50</span>
 <span class="normal">51</span>
 <span class="normal">52</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;cards&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">  </span><span class="nt">"cards"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;uuid&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;4e0a3a1e-3283-4575-ab82-028d55fe2719&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;summary&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Example Card&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;indicator&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;info&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;detail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;This is an example card.&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;source&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;label&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Static CDS Service Example&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://example.com&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;icon&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://example.com/img/icon-100px.png&quot;</span>
+<span class="w">      </span><span class="nt">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4e0a3a1e-3283-4575-ab82-028d55fe2719"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"summary"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Example Card"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"indicator"</span><span class="p">:</span><span class="w"> </span><span class="s2">"info"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"detail"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This is an example card."</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"source"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Static CDS Service Example"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.com"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"icon"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.com/img/icon-100px.png"</span>
 <span class="w">      </span><span class="p">},</span>
-<span class="w">      </span><span class="nt">&quot;links&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="nt">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">        </span><span class="p">{</span>
-<span class="w">          </span><span class="nt">&quot;label&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Google&quot;</span><span class="p">,</span>
-<span class="w">          </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://google.com&quot;</span><span class="p">,</span>
-<span class="w">          </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;absolute&quot;</span>
+<span class="w">          </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Google"</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://google.com"</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"absolute"</span>
 <span class="w">        </span><span class="p">},</span>
 <span class="w">        </span><span class="p">{</span>
-<span class="w">          </span><span class="nt">&quot;label&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Github&quot;</span><span class="p">,</span>
-<span class="w">          </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://github.com&quot;</span><span class="p">,</span>
-<span class="w">          </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;absolute&quot;</span>
+<span class="w">          </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Github"</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://github.com"</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"absolute"</span>
 <span class="w">        </span><span class="p">},</span>
 <span class="w">        </span><span class="p">{</span>
-<span class="w">          </span><span class="nt">&quot;label&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SMART Example App&quot;</span><span class="p">,</span>
-<span class="w">          </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://smart.example.com/launch&quot;</span><span class="p">,</span>
-<span class="w">          </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;smart&quot;</span><span class="p">,</span>
-<span class="w">          </span><span class="nt">&quot;appContext&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;{\&quot;session\&quot;:3456356,\&quot;settings\&quot;:{\&quot;module\&quot;:4235}}&quot;</span>
+<span class="w">          </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SMART Example App"</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://smart.example.com/launch"</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"smart"</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"appContext"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{\"session\":3456356,\"settings\":{\"module\":4235}}"</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">      </span><span class="p">]</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;summary&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Another card&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;indicator&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;warning&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;source&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;label&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Static CDS Service Example&quot;</span>
+<span class="w">      </span><span class="nt">"summary"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Another card"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"indicator"</span><span class="p">:</span><span class="w"> </span><span class="s2">"warning"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"source"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Static CDS Service Example"</span>
 <span class="w">      </span><span class="p">},</span>
-<span class="w">      </span><span class="nt">&quot;overrideReasons&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="nt">"overrideReasons"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">        </span><span class="p">{</span>
-<span class="w">          </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;reason-code-provided-by-service&quot;</span><span class="p">,</span>
-<span class="w">          </span><span class="nt">&quot;system&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://example.org/cds-services/fhir/CodeSystem/override-reasons&quot;</span><span class="p">,</span>
-<span class="w">          </span><span class="nt">&quot;display&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Patient refused&quot;</span>
+<span class="w">          </span><span class="nt">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"reason-code-provided-by-service"</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"system"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.org/cds-services/fhir/CodeSystem/override-reasons"</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"display"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Patient refused"</span>
 <span class="w">        </span><span class="p">},</span>
 <span class="w">        </span><span class="p">{</span>
-<span class="w">          </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;12354&quot;</span><span class="p">,</span>
-<span class="w">          </span><span class="nt">&quot;system&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://example.org/cds-services/fhir/CodeSystem/override-reasons&quot;</span><span class="p">,</span>
-<span class="w">          </span><span class="nt">&quot;display&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Contraindicated&quot;</span>
+<span class="w">          </span><span class="nt">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12354"</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"system"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.org/cds-services/fhir/CodeSystem/override-reasons"</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"display"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Contraindicated"</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">      </span><span class="p">]</span>
 <span class="w">    </span><span class="p">}</span>
@@ -2580,22 +2580,22 @@ keys match the request keys (<code>patient</code> and <code>hemoglobin-a1c</code
 <span class="normal">20</span>
 <span class="normal">21</span>
 <span class="normal">22</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;cards&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">  </span><span class="nt">"cards"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;uuid&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;4e0a3a1e-3283-4575-ab82-028d55fe2719&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;summary&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Lung cancer screening shared decision making&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;detail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Patient is a current smoker with a 20 pack/year history. Consider advising patient to complete lung cancer screening. The Lung Cancer Screening Shared Decision Making App (LCSSDM) has been proven to increase patient followthrough for screening.&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;source&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;label&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Lung Cancer Screening Shared Decision Making App&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://example.com/LCS&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;icon&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://example.com/img/icon-100px.png&quot;</span>
+<span class="w">      </span><span class="nt">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4e0a3a1e-3283-4575-ab82-028d55fe2719"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"summary"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Lung cancer screening shared decision making"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"detail"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Patient is a current smoker with a 20 pack/year history. Consider advising patient to complete lung cancer screening. The Lung Cancer Screening Shared Decision Making App (LCSSDM) has been proven to increase patient followthrough for screening."</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"source"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Lung Cancer Screening Shared Decision Making App"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.com/LCS"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"icon"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.com/img/icon-100px.png"</span>
 <span class="w">      </span><span class="p">},</span>
-<span class="w">      </span><span class="nt">&quot;links&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="nt">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">        </span><span class="p">{</span>
-<span class="w">          </span><span class="nt">&quot;label&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Github&quot;</span><span class="p">,</span>
-<span class="w">          </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://github.com&quot;</span><span class="p">,</span>
-<span class="w">          </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;absolute&quot;</span><span class="p">,</span>
-<span class="w">          </span><span class="nt">&quot;autolaunchable&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">          </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Github"</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://github.com"</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"absolute"</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"autolaunchable"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">      </span><span class="p">]</span>
 <span class="w">    </span><span class="p">}</span>
@@ -2708,16 +2708,16 @@ as {baseUrl}/cds-services/{service.id}/feedback. The request to the feedback end
 <span class="normal">16</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="err">POST</span><span class="w"> </span><span class="p">{</span><span class="err">baseUrl</span><span class="p">}</span><span class="err">/cds</span><span class="mi">-</span><span class="err">services/</span><span class="p">{</span><span class="err">serviceId</span><span class="p">}</span><span class="err">/</span><span class="kc">fee</span><span class="err">dback</span>
 
 <span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;feedback&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">  </span><span class="nt">"feedback"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;card&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;4e0a3a1e-3283-4575-ab82-028d55fe2719&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;outcome&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;accepted&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;acceptedSuggestions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="nt">"card"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4e0a3a1e-3283-4575-ab82-028d55fe2719"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"outcome"</span><span class="p">:</span><span class="w"> </span><span class="s2">"accepted"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"acceptedSuggestions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">        </span><span class="p">{</span>
-<span class="w">          </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;e56e1945-20b3-4393-8503-a1a20fd73152&quot;</span>
+<span class="w">          </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"e56e1945-20b3-4393-8503-a1a20fd73152"</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">      </span><span class="p">],</span>
-<span class="w">      </span><span class="nt">&quot;outcomeTimestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2021-12-11T10:05:31Z&quot;</span>
+<span class="w">      </span><span class="nt">"outcomeTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-12-11T10:05:31Z"</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">]</span>
 <span class="p">}</span>
@@ -2740,11 +2740,11 @@ as {baseUrl}/cds-services/{service.id}/feedback. The request to the feedback end
 <span class="normal"> 9</span>
 <span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="err">POST</span><span class="w"> </span><span class="p">{</span><span class="err">baseUrl</span><span class="p">}</span><span class="err">/cds</span><span class="mi">-</span><span class="err">services/</span><span class="p">{</span><span class="err">serviceId</span><span class="p">}</span><span class="err">/</span><span class="kc">fee</span><span class="err">dback</span>
 <span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;feedback&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">  </span><span class="nt">"feedback"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;card&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;f6b95768-b1c8-40dc-8385-bf3504b82ffb&quot;</span><span class="p">,</span><span class="w"> </span><span class="c1">// uuid from `card.uuid`</span>
-<span class="w">      </span><span class="nt">&quot;outcome&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;overridden&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;outcomeTimestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2020-12-11T00:00:00Z&quot;</span>
+<span class="w">      </span><span class="nt">"card"</span><span class="p">:</span><span class="w"> </span><span class="s2">"f6b95768-b1c8-40dc-8385-bf3504b82ffb"</span><span class="p">,</span><span class="w"> </span><span class="c1">// uuid from `card.uuid`</span>
+<span class="w">      </span><span class="nt">"outcome"</span><span class="p">:</span><span class="w"> </span><span class="s2">"overridden"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"outcomeTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-12-11T00:00:00Z"</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">]</span>
 <span class="p">}</span>
@@ -2799,18 +2799,18 @@ as {baseUrl}/cds-services/{service.id}/feedback. The request to the feedback end
 <span class="normal">18</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="err">POST</span><span class="w"> </span><span class="p">{</span><span class="err">baseUrl</span><span class="p">}</span><span class="err">/cds</span><span class="mi">-</span><span class="err">services/</span><span class="p">{</span><span class="err">serviceId</span><span class="p">}</span><span class="err">/</span><span class="kc">fee</span><span class="err">dback</span>
 
 <span class="p">{</span>
-<span class="w">   </span><span class="nt">&quot;feedback&quot;</span><span class="p">:[</span>
+<span class="w">   </span><span class="nt">"feedback"</span><span class="p">:[</span>
 <span class="w">      </span><span class="p">{</span>
-<span class="w">         </span><span class="nt">&quot;card&quot;</span><span class="p">:</span><span class="s2">&quot;9368d37b-283f-44a0-93ea-547cebab93ed&quot;</span><span class="p">,</span>
-<span class="w">         </span><span class="nt">&quot;outcome&quot;</span><span class="p">:</span><span class="s2">&quot;overridden&quot;</span><span class="p">,</span>
-<span class="w">         </span><span class="nt">&quot;overrideReason&quot;</span><span class="p">:{</span>
-<span class="w">            </span><span class="nt">&quot;reason&quot;</span><span class="p">:{</span>
-<span class="w">               </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="s2">&quot;d7ecf885&quot;</span><span class="p">,</span>
-<span class="w">               </span><span class="nt">&quot;system&quot;</span><span class="p">:</span><span class="s2">&quot;https://example.com/cds-hooks/override-reason-system&quot;</span>
+<span class="w">         </span><span class="nt">"card"</span><span class="p">:</span><span class="s2">"9368d37b-283f-44a0-93ea-547cebab93ed"</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">"outcome"</span><span class="p">:</span><span class="s2">"overridden"</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">"overrideReason"</span><span class="p">:{</span>
+<span class="w">            </span><span class="nt">"reason"</span><span class="p">:{</span>
+<span class="w">               </span><span class="nt">"code"</span><span class="p">:</span><span class="s2">"d7ecf885"</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">"system"</span><span class="p">:</span><span class="s2">"https://example.com/cds-hooks/override-reason-system"</span>
 <span class="w">            </span><span class="p">},</span>
-<span class="w">            </span><span class="nt">&quot;userComment&quot;</span><span class="p">:</span><span class="s2">&quot;A comment entered by the clinician.&quot;</span>
+<span class="w">            </span><span class="nt">"userComment"</span><span class="p">:</span><span class="s2">"A comment entered by the clinician."</span>
 <span class="w">         </span><span class="p">},</span>
-<span class="w">         </span><span class="nt">&quot;outcomeTimestamp&quot;</span><span class="p">:</span><span class="s2">&quot;2020-12-11T00:00:00Z&quot;</span>
+<span class="w">         </span><span class="nt">"outcomeTimestamp"</span><span class="p">:</span><span class="s2">"2020-12-11T00:00:00Z"</span>
 <span class="w">      </span><span class="p">}</span>
 <span class="w">   </span><span class="p">]</span>
 <span class="p">}</span>
@@ -2988,34 +2988,34 @@ as {baseUrl}/cds-services/{service.id}/feedback. The request to the feedback end
 <span class="normal">45</span>
 <span class="normal">46</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">// JSON Web Token Header</span>
 <span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;alg&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ES384&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;typ&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;JWT&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;kid&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;example-kid&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;jku&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://fhir-ehr.example.com/jwk_uri&quot;</span>
+<span class="w">  </span><span class="nt">"alg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ES384"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"typ"</span><span class="p">:</span><span class="w"> </span><span class="s2">"JWT"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"kid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example-kid"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"jku"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://fhir-ehr.example.com/jwk_uri"</span>
 <span class="p">}</span>
 
 <span class="c1">// JSON Web Token Payload</span>
 <span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;iss&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://fhir-ehr.example.com/&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;aud&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://cds.example.org/cds-services/some-service&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;exp&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1422568860</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;iat&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1311280970</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;jti&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ee22b021-e1b7-4611-ba5b-8eec6a33ac1e&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;tenant&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2ddd6c3a-8e9a-44c6-a305-52111ad302a2&quot;</span>
+<span class="w">  </span><span class="nt">"iss"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://fhir-ehr.example.com/"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"aud"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://cds.example.org/cds-services/some-service"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"exp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1422568860</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"iat"</span><span class="p">:</span><span class="w"> </span><span class="mi">1311280970</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"jti"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ee22b021-e1b7-4611-ba5b-8eec6a33ac1e"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"tenant"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2ddd6c3a-8e9a-44c6-a305-52111ad302a2"</span>
 <span class="p">}</span>
 
 <span class="c1">// JSON Web Key Set (public key)</span>
 <span class="c1">// This public key is used by the CDS Service to verify the signature of the JWT</span>
 <span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;keys&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">  </span><span class="nt">"keys"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;kty&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;EC&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;use&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sig&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;crv&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;P-384&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;kid&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;example-kid&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;x&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;46SDH7Znh821wblCBglA61sNE9ZrHYKKt3qRtRTmSXyOI_FIGBLWrWa0GPUkDCEk&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;y&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;XMcRuuoGW7CXjQdy-F5i3FeBE0x9hPLdeFdSoDd3ELmx404tLX0VRRcqzAsPhXcI&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;alg&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ES384&quot;</span>
+<span class="w">      </span><span class="nt">"kty"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EC"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"use"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sig"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"crv"</span><span class="p">:</span><span class="w"> </span><span class="s2">"P-384"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"kid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example-kid"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"x"</span><span class="p">:</span><span class="w"> </span><span class="s2">"46SDH7Znh821wblCBglA61sNE9ZrHYKKt3qRtRTmSXyOI_FIGBLWrWa0GPUkDCEk"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"y"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XMcRuuoGW7CXjQdy-F5i3FeBE0x9hPLdeFdSoDd3ELmx404tLX0VRRcqzAsPhXcI"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"alg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ES384"</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">]</span>
 <span class="p">}</span>
@@ -3023,14 +3023,14 @@ as {baseUrl}/cds-services/{service.id}/feedback. The request to the feedback end
 <span class="c1">// JSON Web Key (private key)</span>
 <span class="c1">// This private key is used by the CDS Client to sign the JWT</span>
 <span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;kty&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;EC&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;d&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SeFXUXda8UomZ8GFUl7HH_Oi15rIbfMcsWj9ecIsDR8kLbqsEz2CGNgwy_IcILxy&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;use&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sig&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;crv&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;P-384&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;kid&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;example-kid&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;x&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;46SDH7Znh821wblCBglA61sNE9ZrHYKKt3qRtRTmSXyOI_FIGBLWrWa0GPUkDCEk&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;y&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;XMcRuuoGW7CXjQdy-F5i3FeBE0x9hPLdeFdSoDd3ELmx404tLX0VRRcqzAsPhXcI&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;alg&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ES384&quot;</span>
+<span class="w">  </span><span class="nt">"kty"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EC"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"d"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SeFXUXda8UomZ8GFUl7HH_Oi15rIbfMcsWj9ecIsDR8kLbqsEz2CGNgwy_IcILxy"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"use"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sig"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"crv"</span><span class="p">:</span><span class="w"> </span><span class="s2">"P-384"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"kid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example-kid"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"x"</span><span class="p">:</span><span class="w"> </span><span class="s2">"46SDH7Znh821wblCBglA61sNE9ZrHYKKt3qRtRTmSXyOI_FIGBLWrWa0GPUkDCEk"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"y"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XMcRuuoGW7CXjQdy-F5i3FeBE0x9hPLdeFdSoDd3ELmx404tLX0VRRcqzAsPhXcI"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"alg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ES384"</span>
 <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
 
@@ -3064,15 +3064,15 @@ as {baseUrl}/cds-services/{service.id}/feedback. The request to the feedback end
 <span class="normal">10</span>
 <span class="normal">11</span>
 <span class="normal">12</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;hookInstance&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;d1577c69-dfbe-44ad-ba6d-3e05e953b2ea&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;fhirServer&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://fhir.example.org:9080&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;hook&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;patient-view&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;context&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;userId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Practitioner/example&quot;</span>
+<span class="w">  </span><span class="nt">"hookInstance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"d1577c69-dfbe-44ad-ba6d-3e05e953b2ea"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"fhirServer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://fhir.example.org:9080"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"hook"</span><span class="p">:</span><span class="w"> </span><span class="s2">"patient-view"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"context"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Practitioner/example"</span>
 <span class="w">  </span><span class="p">},</span>
-<span class="w">  </span><span class="nt">&quot;extension&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;com.example.timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2017-11-27T22:13:25Z&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;com.cds-hooks.sandbox.myextension-practitionerspecialty&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;gastroenterology&quot;</span>
+<span class="w">  </span><span class="nt">"extension"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"com.example.timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-11-27T22:13:25Z"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"com.cds-hooks.sandbox.myextension-practitionerspecialty"</span><span class="p">:</span><span class="w"> </span><span class="s2">"gastroenterology"</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
@@ -3094,17 +3094,17 @@ as {baseUrl}/cds-services/{service.id}/feedback. The request to the feedback end
 <span class="normal">14</span>
 <span class="normal">15</span>
 <span class="normal">16</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;services&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">  </span><span class="nt">"services"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Example CDS Service Discovery&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;hook&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;patient-view&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;patientview&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;prefetch&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;patient&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Patient/{{context.patientId}}&quot;</span>
+<span class="w">      </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Example CDS Service Discovery"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"hook"</span><span class="p">:</span><span class="w"> </span><span class="s2">"patient-view"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"patientview"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"prefetch"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"patient"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Patient/{{context.patientId}}"</span>
 <span class="w">      </span><span class="p">},</span>
-<span class="w">      </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;clinical decision support for patient view&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;extension&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;com.example.clientConformance&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://hooks.example.org/fhir/102/Conformance/patientview&quot;</span>
+<span class="w">      </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"clinical decision support for patient view"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"extension"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"com.example.clientConformance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://hooks.example.org/fhir/102/Conformance/patientview"</span>
 <span class="w">      </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">]</span>
@@ -3156,9 +3156,9 @@ as {baseUrl}/cds-services/{service.id}/feedback. The request to the feedback end
 <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
-<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nt">&quot;context&quot;</span><span class="p">:{</span>
-<span class="w">  </span><span class="nt">&quot;userId&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;PractitionerRole/123&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;patientId&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1288992&quot;</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nt">"context"</span><span class="p">:{</span>
+<span class="w">  </span><span class="nt">"userId"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"PractitionerRole/123"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"patientId"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"1288992"</span>
 <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
 
@@ -3166,8 +3166,8 @@ as {baseUrl}/cds-services/{service.id}/feedback. The request to the feedback end
 Alternatively, a CDS Service may need the full patient resource in certain scenarios, in which case they can fetch it as needed from the FHIR server or request it to be prefetched using a prefetch template in their discovery response, such as:</p>
 <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
 <span class="normal">2</span>
-<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nt">&quot;prefetch&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;patientToGreet&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Patient/{{context.patientId}}&quot;</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nt">"prefetch"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nt">"patientToGreet"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Patient/{{context.patientId}}"</span>
 <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
 
@@ -3255,14 +3255,14 @@ Alternatively, a CDS Service may need the full patient resource in certain scena
 <span class="normal">6</span>
 <span class="normal">7</span>
 <span class="normal">8</span>
-<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nt">&quot;context&quot;</span><span class="p">:{</span>
-<span class="w">  </span><span class="nt">&quot;someField&quot;</span><span class="p">:</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;anotherField&quot;</span><span class="p">:</span><span class="mi">123</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;someObject&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;color&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;red&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nt">"context"</span><span class="p">:{</span>
+<span class="w">  </span><span class="nt">"someField"</span><span class="p">:</span><span class="s2">"foo"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"anotherField"</span><span class="p">:</span><span class="mi">123</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"someObject"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"color"</span><span class="p">:</span><span class="w"> </span><span class="s2">"red"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"version"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span>
 <span class="w">  </span><span class="p">},</span>
-<span class="w">  </span><span class="nt">&quot;moreObjects&quot;</span><span class="p">:[]</span>
+<span class="w">  </span><span class="nt">"moreObjects"</span><span class="p">:[]</span>
 <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
 

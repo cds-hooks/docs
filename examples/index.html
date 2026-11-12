@@ -648,91 +648,91 @@
 <span class="normal">91</span>
 <span class="normal">92</span>
 <span class="normal">93</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;hookInstance&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;d1577c69-dfbe-44ad-ba6d-3e05e953b2ea&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;fhirServer&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://fhir.example.com&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;hook&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;order-sign&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;context&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;userId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Practitioner/example&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;medications&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">  </span><span class="nt">"hookInstance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"d1577c69-dfbe-44ad-ba6d-3e05e953b2ea"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"fhirServer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://fhir.example.com"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"hook"</span><span class="p">:</span><span class="w"> </span><span class="s2">"order-sign"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"context"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Practitioner/example"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"medications"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">      </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;resourceType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;MedicationOrder&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;medrx001&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;dateWritten&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2017-05-05&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;draft&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;patient&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">          </span><span class="nt">&quot;reference&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Patient/example&quot;</span>
+<span class="w">        </span><span class="nt">"resourceType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MedicationOrder"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"medrx001"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"dateWritten"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-05-05"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"draft"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"patient"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">"reference"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Patient/example"</span>
 <span class="w">        </span><span class="p">},</span>
-<span class="w">        </span><span class="nt">&quot;medicationCodeableConcept&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">          </span><span class="nt">&quot;coding&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="nt">"medicationCodeableConcept"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">"coding"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">            </span><span class="p">{</span>
-<span class="w">              </span><span class="nt">&quot;system&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://www.nlm.nih.gov/research/umls/rxnorm&quot;</span><span class="p">,</span>
-<span class="w">              </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;857001&quot;</span><span class="p">,</span>
-<span class="w">              </span><span class="nt">&quot;display&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Acetaminophen 325 MG / Hydrocodone Bitartrate 10 MG Oral Tablet&quot;</span>
+<span class="w">              </span><span class="nt">"system"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://www.nlm.nih.gov/research/umls/rxnorm"</span><span class="p">,</span>
+<span class="w">              </span><span class="nt">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"857001"</span><span class="p">,</span>
+<span class="w">              </span><span class="nt">"display"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Acetaminophen 325 MG / Hydrocodone Bitartrate 10 MG Oral Tablet"</span>
 <span class="w">            </span><span class="p">}</span>
 <span class="w">          </span><span class="p">]</span>
 <span class="w">        </span><span class="p">},</span>
-<span class="w">        </span><span class="nt">&quot;dosageInstruction&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="nt">"dosageInstruction"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">          </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Take 1 tablet Oral every 4 hours as needed&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;timing&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">              </span><span class="nt">&quot;repeat&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="nt">&quot;frequency&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;frequencyMax&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;period&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;unit&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;d&quot;</span>
+<span class="w">            </span><span class="nt">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Take 1 tablet Oral every 4 hours as needed"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"timing"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nt">"repeat"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">"frequency"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"frequencyMax"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"period"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"unit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"d"</span>
 <span class="w">              </span><span class="p">}</span>
 <span class="w">            </span><span class="p">},</span>
-<span class="w">            </span><span class="nt">&quot;asNeededBoolean&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;doseQuantity&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">              </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span>
-<span class="w">              </span><span class="nt">&quot;unit&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;mg&quot;</span><span class="p">,</span>
-<span class="w">              </span><span class="nt">&quot;system&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://unitsofmeasure.org&quot;</span><span class="p">,</span>
-<span class="w">              </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;mg&quot;</span>
+<span class="w">            </span><span class="nt">"asNeededBoolean"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"doseQuantity"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span>
+<span class="w">              </span><span class="nt">"unit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mg"</span><span class="p">,</span>
+<span class="w">              </span><span class="nt">"system"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://unitsofmeasure.org"</span><span class="p">,</span>
+<span class="w">              </span><span class="nt">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mg"</span>
 <span class="w">            </span><span class="p">}</span>
 <span class="w">          </span><span class="p">}</span>
 <span class="w">        </span><span class="p">]</span>
 <span class="w">      </span><span class="p">}</span>
 <span class="w">    </span><span class="p">],</span>
-<span class="w">    </span><span class="nt">&quot;patientId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1288992&quot;</span>
+<span class="w">    </span><span class="nt">"patientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1288992"</span>
 <span class="w">  </span><span class="p">},</span>
-<span class="w">  </span><span class="nt">&quot;prefetch&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;medication&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;response&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;200 OK&quot;</span>
+<span class="w">  </span><span class="nt">"prefetch"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"medication"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"response"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"200 OK"</span>
 <span class="w">      </span><span class="p">},</span>
-<span class="w">      </span><span class="nt">&quot;resource&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;resourceType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;MedicationOrder&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;medrx002&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;dateWritten&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2017-04-25&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;active&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;patient&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">          </span><span class="nt">&quot;reference&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Patient/example&quot;</span>
+<span class="w">      </span><span class="nt">"resource"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"resourceType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MedicationOrder"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"medrx002"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"dateWritten"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-04-25"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"patient"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">"reference"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Patient/example"</span>
 <span class="w">        </span><span class="p">},</span>
-<span class="w">        </span><span class="nt">&quot;medicationCodeableConcept&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">          </span><span class="nt">&quot;coding&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="nt">"medicationCodeableConcept"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">"coding"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">            </span><span class="p">{</span>
-<span class="w">              </span><span class="nt">&quot;system&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://www.nlm.nih.gov/research/umls/rxnorm&quot;</span><span class="p">,</span>
-<span class="w">              </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1049621&quot;</span><span class="p">,</span>
-<span class="w">              </span><span class="nt">&quot;display&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Oxycodone Hydrochloride 5 MG Oral Tablet&quot;</span>
+<span class="w">              </span><span class="nt">"system"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://www.nlm.nih.gov/research/umls/rxnorm"</span><span class="p">,</span>
+<span class="w">              </span><span class="nt">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1049621"</span><span class="p">,</span>
+<span class="w">              </span><span class="nt">"display"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Oxycodone Hydrochloride 5 MG Oral Tablet"</span>
 <span class="w">            </span><span class="p">}</span>
 <span class="w">          </span><span class="p">]</span>
 <span class="w">        </span><span class="p">},</span>
-<span class="w">        </span><span class="nt">&quot;dosageInstruction&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="nt">"dosageInstruction"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">          </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Take 1 tablet by mouth every 4 hours as needed for pain.&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;timing&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">              </span><span class="nt">&quot;repeat&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="nt">&quot;frequency&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;period&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;periodUnits&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;d&quot;</span>
+<span class="w">            </span><span class="nt">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Take 1 tablet by mouth every 4 hours as needed for pain."</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"timing"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nt">"repeat"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">"frequency"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"period"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"periodUnits"</span><span class="p">:</span><span class="w"> </span><span class="s2">"d"</span>
 <span class="w">              </span><span class="p">}</span>
 <span class="w">            </span><span class="p">},</span>
-<span class="w">            </span><span class="nt">&quot;asNeededBoolean&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;doseQuantity&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">              </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span>
-<span class="w">              </span><span class="nt">&quot;unit&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;mg&quot;</span><span class="p">,</span>
-<span class="w">              </span><span class="nt">&quot;system&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://unitsofmeasure.org&quot;</span><span class="p">,</span>
-<span class="w">              </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;mg&quot;</span>
+<span class="w">            </span><span class="nt">"asNeededBoolean"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"doseQuantity"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span>
+<span class="w">              </span><span class="nt">"unit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mg"</span><span class="p">,</span>
+<span class="w">              </span><span class="nt">"system"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://unitsofmeasure.org"</span><span class="p">,</span>
+<span class="w">              </span><span class="nt">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mg"</span>
 <span class="w">            </span><span class="p">}</span>
 <span class="w">          </span><span class="p">}</span>
 <span class="w">        </span><span class="p">]</span>
@@ -765,21 +765,21 @@
 <span class="normal">15</span>
 <span class="normal">16</span>
 <span class="normal">17</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;summary&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;High risk for opioid overdose - taper now&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;indicator&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;warning&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;links&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">  </span><span class="nt">"summary"</span><span class="p">:</span><span class="w"> </span><span class="s2">"High risk for opioid overdose - taper now"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"indicator"</span><span class="p">:</span><span class="w"> </span><span class="s2">"warning"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;label&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;CDC guideline for prescribing opioids for chronic pain&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;absolute&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://guidelines.gov/summaries/summary/50153/cdc-guideline-for-prescribing-opioids-for-chronic-pain---united-states-2016#420&quot;</span>
+<span class="w">      </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CDC guideline for prescribing opioids for chronic pain"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"absolute"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://guidelines.gov/summaries/summary/50153/cdc-guideline-for-prescribing-opioids-for-chronic-pain---united-states-2016#420"</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;label&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;MME Conversion Tables&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;absolute&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://www.cdc.gov/drugoverdose/pdf/calculating_total_daily_dose-a.pdf&quot;</span>
+<span class="w">      </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MME Conversion Tables"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"absolute"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.cdc.gov/drugoverdose/pdf/calculating_total_daily_dose-a.pdf"</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">],</span>
-<span class="w">  </span><span class="nt">&quot;detail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Total morphine milligram equivalent (MME) is 125mg. Taper to less than 50.&quot;</span>
+<span class="w">  </span><span class="nt">"detail"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Total morphine milligram equivalent (MME) is 125mg. Taper to less than 50."</span>
 <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
 
@@ -837,44 +837,44 @@
 <span class="normal">47</span>
 <span class="normal">48</span>
 <span class="normal">49</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;hook&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;order-select&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;hookInstance&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;d1577c69-dfbe-44ad-ba6d-3e05e953b2ea&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;fhirServer&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://hooks.smarthealthit.org:9080&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;context&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;userId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Practitioner/123&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;patientId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;MRI-59879846&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;encounterId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;89284&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;selections&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">      </span><span class="s2">&quot;ServiceRequest/example-MRI-59879846&quot;</span>
+<span class="w">  </span><span class="nt">"hook"</span><span class="p">:</span><span class="w"> </span><span class="s2">"order-select"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"hookInstance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"d1577c69-dfbe-44ad-ba6d-3e05e953b2ea"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"fhirServer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://hooks.smarthealthit.org:9080"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"context"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Practitioner/123"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"patientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MRI-59879846"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"encounterId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"89284"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"selections"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="s2">"ServiceRequest/example-MRI-59879846"</span>
 <span class="w">    </span><span class="p">],</span>
-<span class="w">    </span><span class="nt">&quot;draftOrders&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;resourceType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Bundle&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;entry&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="nt">"draftOrders"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"resourceType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bundle"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"entry"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">        </span><span class="p">{</span>
-<span class="w">          </span><span class="nt">&quot;resource&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">&quot;resourceType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ServiceRequest&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;example-MRI-59879846&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;draft&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;intent&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;plan&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">              </span><span class="nt">&quot;coding&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">          </span><span class="nt">"resource"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">"resourceType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ServiceRequest"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example-MRI-59879846"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"draft"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"intent"</span><span class="p">:</span><span class="w"> </span><span class="s2">"plan"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"code"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nt">"coding"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">                </span><span class="p">{</span>
-<span class="w">                  </span><span class="nt">&quot;system&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://loinc.org&quot;</span><span class="p">,</span>
-<span class="w">                  </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;36801-9&quot;</span>
+<span class="w">                  </span><span class="nt">"system"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://loinc.org"</span><span class="p">,</span>
+<span class="w">                  </span><span class="nt">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"36801-9"</span>
 <span class="w">                </span><span class="p">}</span>
 <span class="w">              </span><span class="p">],</span>
-<span class="w">              </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;MRA Knee Vessels Right&quot;</span>
+<span class="w">              </span><span class="nt">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MRA Knee Vessels Right"</span>
 <span class="w">            </span><span class="p">},</span>
-<span class="w">            </span><span class="nt">&quot;subject&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">              </span><span class="nt">&quot;reference&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Patient/MRI-59879846&quot;</span>
+<span class="w">            </span><span class="nt">"subject"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nt">"reference"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Patient/MRI-59879846"</span>
 <span class="w">            </span><span class="p">},</span>
-<span class="w">            </span><span class="nt">&quot;reasonCode&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="nt">"reasonCode"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">              </span><span class="p">{</span>
-<span class="w">                </span><span class="nt">&quot;coding&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="nt">"coding"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">                  </span><span class="p">{</span>
-<span class="w">                    </span><span class="nt">&quot;system&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://hl7.org/fhir/sid/icd-10&quot;</span><span class="p">,</span>
-<span class="w">                    </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;S83.511&quot;</span><span class="p">,</span>
-<span class="w">                    </span><span class="nt">&quot;display&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Sprain of anterior cruciate ligament of right knee&quot;</span>
+<span class="w">                    </span><span class="nt">"system"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://hl7.org/fhir/sid/icd-10"</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"S83.511"</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">"display"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sprain of anterior cruciate ligament of right knee"</span>
 <span class="w">                  </span><span class="p">}</span>
 <span class="w">                </span><span class="p">]</span>
 <span class="w">              </span><span class="p">}</span>
@@ -947,53 +947,53 @@
 <span class="normal">54</span>
 <span class="normal">55</span>
 <span class="normal">56</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
-<span class="w">   </span><span class="nt">&quot;cards&quot;</span><span class="p">:[</span>
+<span class="w">   </span><span class="nt">"cards"</span><span class="p">:[</span>
 
 <span class="w">   </span><span class="p">],</span>
-<span class="w">   </span><span class="nt">&quot;systemActions&quot;</span><span class="p">:[</span>
+<span class="w">   </span><span class="nt">"systemActions"</span><span class="p">:[</span>
 <span class="w">      </span><span class="p">{</span>
-<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;update&quot;</span><span class="p">,</span>
-<span class="w">         </span><span class="nt">&quot;resource&quot;</span><span class="p">:{</span>
-<span class="w">            </span><span class="nt">&quot;resourceType&quot;</span><span class="p">:</span><span class="s2">&quot;ServiceRequest&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="s2">&quot;example-MRI-59879846&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;extension&quot;</span><span class="p">:[</span>
+<span class="w">         </span><span class="nt">"type"</span><span class="p">:</span><span class="s2">"update"</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">"resource"</span><span class="p">:{</span>
+<span class="w">            </span><span class="nt">"resourceType"</span><span class="p">:</span><span class="s2">"ServiceRequest"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"id"</span><span class="p">:</span><span class="s2">"example-MRI-59879846"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"extension"</span><span class="p">:[</span>
 <span class="w">               </span><span class="p">{</span>
-<span class="w">                  </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="s2">&quot;http://fhir.org/argonaut/Extension/pama-rating&quot;</span><span class="p">,</span>
-<span class="w">                  </span><span class="nt">&quot;valueCodeableConcept&quot;</span><span class="p">:{</span>
-<span class="w">                     </span><span class="nt">&quot;coding&quot;</span><span class="p">:[</span>
+<span class="w">                  </span><span class="nt">"url"</span><span class="p">:</span><span class="s2">"http://fhir.org/argonaut/Extension/pama-rating"</span><span class="p">,</span>
+<span class="w">                  </span><span class="nt">"valueCodeableConcept"</span><span class="p">:{</span>
+<span class="w">                     </span><span class="nt">"coding"</span><span class="p">:[</span>
 <span class="w">                        </span><span class="p">{</span>
-<span class="w">                           </span><span class="nt">&quot;system&quot;</span><span class="p">:</span><span class="s2">&quot;http://fhir.org/argonaut/CodeSystem/pama-rating&quot;</span><span class="p">,</span>
-<span class="w">                           </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="s2">&quot;appropriate&quot;</span>
+<span class="w">                           </span><span class="nt">"system"</span><span class="p">:</span><span class="s2">"http://fhir.org/argonaut/CodeSystem/pama-rating"</span><span class="p">,</span>
+<span class="w">                           </span><span class="nt">"code"</span><span class="p">:</span><span class="s2">"appropriate"</span>
 <span class="w">                        </span><span class="p">}</span>
 <span class="w">                     </span><span class="p">]</span>
 <span class="w">                  </span><span class="p">}</span>
 <span class="w">               </span><span class="p">},</span>
 <span class="w">               </span><span class="p">{</span>
-<span class="w">                  </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="s2">&quot;http://fhir.org/argonaut/Extension/pama-rating-consult-id&quot;</span><span class="p">,</span>
-<span class="w">                  </span><span class="nt">&quot;valueUri&quot;</span><span class="p">:</span><span class="s2">&quot;urn:uuid:55f3b7fc-9955-420e-a460-ff284b2956e6&quot;</span>
+<span class="w">                  </span><span class="nt">"url"</span><span class="p">:</span><span class="s2">"http://fhir.org/argonaut/Extension/pama-rating-consult-id"</span><span class="p">,</span>
+<span class="w">                  </span><span class="nt">"valueUri"</span><span class="p">:</span><span class="s2">"urn:uuid:55f3b7fc-9955-420e-a460-ff284b2956e6"</span>
 <span class="w">               </span><span class="p">}</span>
 <span class="w">            </span><span class="p">],</span>
-<span class="w">            </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="s2">&quot;draft&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;intent&quot;</span><span class="p">:</span><span class="s2">&quot;plan&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;code&quot;</span><span class="p">:{</span>
-<span class="w">               </span><span class="nt">&quot;coding&quot;</span><span class="p">:[</span>
+<span class="w">            </span><span class="nt">"status"</span><span class="p">:</span><span class="s2">"draft"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"intent"</span><span class="p">:</span><span class="s2">"plan"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"code"</span><span class="p">:{</span>
+<span class="w">               </span><span class="nt">"coding"</span><span class="p">:[</span>
 <span class="w">                  </span><span class="p">{</span>
-<span class="w">                     </span><span class="nt">&quot;system&quot;</span><span class="p">:</span><span class="s2">&quot;http://loinc.org&quot;</span><span class="p">,</span>
-<span class="w">                     </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="s2">&quot;36801-9&quot;</span>
+<span class="w">                     </span><span class="nt">"system"</span><span class="p">:</span><span class="s2">"http://loinc.org"</span><span class="p">,</span>
+<span class="w">                     </span><span class="nt">"code"</span><span class="p">:</span><span class="s2">"36801-9"</span>
 <span class="w">                  </span><span class="p">}</span>
 <span class="w">               </span><span class="p">],</span>
-<span class="w">               </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="s2">&quot;MRA Knee Vessels Right&quot;</span>
+<span class="w">               </span><span class="nt">"text"</span><span class="p">:</span><span class="s2">"MRA Knee Vessels Right"</span>
 <span class="w">            </span><span class="p">},</span>
-<span class="w">            </span><span class="nt">&quot;subject&quot;</span><span class="p">:{</span>
-<span class="w">               </span><span class="nt">&quot;reference&quot;</span><span class="p">:</span><span class="s2">&quot;Patient/MRI-59879846&quot;</span>
+<span class="w">            </span><span class="nt">"subject"</span><span class="p">:{</span>
+<span class="w">               </span><span class="nt">"reference"</span><span class="p">:</span><span class="s2">"Patient/MRI-59879846"</span>
 <span class="w">            </span><span class="p">},</span>
-<span class="w">            </span><span class="nt">&quot;reasonCode&quot;</span><span class="p">:[</span>
+<span class="w">            </span><span class="nt">"reasonCode"</span><span class="p">:[</span>
 <span class="w">               </span><span class="p">{</span>
-<span class="w">                  </span><span class="nt">&quot;coding&quot;</span><span class="p">:[</span>
+<span class="w">                  </span><span class="nt">"coding"</span><span class="p">:[</span>
 <span class="w">                     </span><span class="p">{</span>
-<span class="w">                        </span><span class="nt">&quot;system&quot;</span><span class="p">:</span><span class="s2">&quot;http://hl7.org/fhir/sid/icd-10&quot;</span><span class="p">,</span>
-<span class="w">                        </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="s2">&quot;S83.511&quot;</span><span class="p">,</span>
-<span class="w">                        </span><span class="nt">&quot;display&quot;</span><span class="p">:</span><span class="s2">&quot;Sprain of anterior cruciate ligament of right knee&quot;</span>
+<span class="w">                        </span><span class="nt">"system"</span><span class="p">:</span><span class="s2">"http://hl7.org/fhir/sid/icd-10"</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">"code"</span><span class="p">:</span><span class="s2">"S83.511"</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">"display"</span><span class="p">:</span><span class="s2">"Sprain of anterior cruciate ligament of right knee"</span>
 <span class="w">                     </span><span class="p">}</span>
 <span class="w">                  </span><span class="p">]</span>
 <span class="w">               </span><span class="p">}</span>
