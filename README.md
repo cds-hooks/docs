@@ -4,42 +4,13 @@
 
 # CDS Hooks 
 
-[![Build Status](https://api.travis-ci.org/cds-hooks/docs.svg)](https://travis-ci.org/cds-hooks/docs)
-
-CDS Hooks is a vendor agnostic remote decision support standard. This repository serves as both the specification and website for the CDS Hooks project.
-
-## Getting Started
-
-This repository is built using the [MkDocs](http://www.mkdocs.org/) static site generator. In order to run the site locally or build this project, you will need to [install Python 2.7.13+](http://docs.python-guide.org/en/latest/starting/installation/).
-
-1. Clone the repository
-
-```sh
-$ git clone https://github.com/cds-hooks/docs
-```
-
-2. Install the project dependencies
-
-```sh
-$ cd docs
-$ pip install -r requirements.txt
-```
-
-3. Run the site locally
-
-```sh
-$ mkdocs serve
-```
-
-4. Using a browser, go to `http://127.0.0.1:8000/`
-
-Anytime you make a change to the content within the site, your browser should automatically refresh to show your changes in real-time.
+CDS Hooks is a vendor agnostic remote decision support standard. This repository serves as the website for the CDS Hooks project. See the official HL7 published specification: https://cds-hooks.hl7.org/ and source for the spec: https://github.com/HL7/cds-hooks and hook library: https://github.com/HL7/cds-hooks-library.
 
 ## Contributing
 
 We encourage and welcome any contributions to CDS Hooks.
 
-If you want to report an issue or enhancement, please make sure to browse our [existing issues](https://github.com/cds-hooks/docs/issues) before logging new issues.
+If you want to report an issue or enhancement to the specification, please make sure to browse our [existing issues](https://jira.hl7.org/issues/?jql=project%20%3D%20FHIR%20AND%20Specification%20%3D%20%22CDS%20Hooks%20(FHIR)%20%5BFHIR-cds-hooks%5D%22%20order%20by%20issue) before logging new issues.
 
 In support of a healthy and inclusive community, we use and enforce a [code of conduct](./CODE_OF_CONDUCT.md) for all members of our community. Our code of conduct is adapted from the [Contributor Covenant](http://contributor-covenant.org/).
 
